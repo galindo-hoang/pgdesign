@@ -1,0 +1,80 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    /* Puts logo on left, nav on right */
+    align-items: center;
+    /* Vertically aligns items */
+    padding: 15px 150px;
+    /* Adjust padding as needed (top/bottom, left/right) */
+    background-color: #f0f0f000;
+    /* White background, adjust if needed */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Optional: subtle shadow */
+    position: sticky;
+    /* Makes the header sticky at the top */
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    /* Ensures header is above other content */
+}
+
+.logo-container .logo {
+    height: 40px;
+    /* Adjust logo height */
+    /* If using text logo: */
+    /* font-family: 'Montserrat', sans-serif; */
+    /* Use your desired font */
+    /* font-weight: bold; */
+    /* font-size: 1.2em; */
+    /* line-height: 1.2; */
+    /* color: #333; */
+}
+
+.navbar .nav-list {
+    list-style: none;
+    /* Removes bullet points from list */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    /* Arranges nav items horizontally */
+    gap: 30px;
+    /* Space between nav items */
+}
+
+.nav-item .nav-link {
+    text-decoration: none;
+    /* Removes underline from links */
+    color: #333;
+    /* Link color, adjust as needed */
+    font-family: Arial, sans-serif;
+    /* Use your desired font */
+    font-size: 16px;
+    /* Adjust font size */
+    font-weight: 500;
+    /* Adjust font weight */
+    padding: 5px 0;
+    /* Optional: adds a bit of padding for click area */
+    transition: color 0.3s ease;
+    /* Smooth transition for hover effect */
+}
+
+.nav-item .nav-link:hover {
+    color: #007bff;
+    /* Change color on hover, adjust as needed */
+}
+
+/* Media Queries for Responsiveness (Optional but recommended) */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        /* Stack logo and nav vertically on smaller screens */
+        padding: 10px 20px;
+    }
+
+    .navbar .nav-list {
+        flex-direction: column;
+        /* Stack nav items vertically */
+        margin-top: 10px;
+        gap: 10px;
+        text-align: center;
+    } }

@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// src/App.tsx
+import React from "react";
+import Header from "./components/Headerbar/Header";
+import "./App.css"; // General app styles, if any
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      {/* Your other page content */}
+      <main style={{ paddingTop: "80px" }}>
+        {" "}
+        {/* Adjust padding to account for fixed header height */}
+        <h1>Welcome to my app!</h1>
+        <p>This is some content below the header.</p>
+      </main>
     </div>
   );
-}
+};
 
 export default App;
