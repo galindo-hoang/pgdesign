@@ -14,10 +14,11 @@ const WorkProcessSection: React.FC = () => {
       <h2 className="wp-main-headline">QUY TRÌNH LÀM VIỆC</h2>
 
       <div className="wp-tabs">
-        <div className="wp-tab active">
+        <div className="wp-tab">
           <DesignProcessIcon className="wp-tab-icon" />
-          QUY TRÌNH THIẾT KẾ
+          <div className="wp-tab-title">QUY TRÌNH THIẾT KẾ</div>
         </div>
+        <div className="headerDivider"></div>
         <div className="wp-tab">
           <ConstructionProcessIcon className="wp-tab-icon" />
           QUY TRÌNH THI CÔNG

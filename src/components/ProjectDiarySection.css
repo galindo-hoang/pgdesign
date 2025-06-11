@@ -1,0 +1,143 @@
+/* src/components/ProjectDiarySection.css */
+
+.project-diary-section {
+    padding: 80px 20px;
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+    color: #333;
+    text-align: center;
+}
+
+.pd-main-headline {
+    font-size: 2.5em;
+    color: #557256;
+    margin-bottom: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.pd-image-grid {
+    display: grid;
+    /* Adjust to create flexible columns for staggering */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    /* Flexible columns based on content */
+    grid-auto-rows: auto;
+    /* <--- NEW: Let rows determine their height based on content */
+    gap: 20px;
+    /* Gap between grid items */
+    max-width: 1200px;
+    /* Max width of the grid */
+    margin: 0 auto;
+    /* Center the grid */
+    align-items: start;
+    /* Align items to the start of their grid area */
+}
+
+.pd-grid-item {
+    width: 100%;
+    /* No fixed height here, let content dictate height */
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    display: flex;
+    /* Use flex to ensure image fills height if needed */
+}
+
+.pd-grid-item img {
+    width: 100%;
+    height: auto;
+    /* <--- NEW: Auto height to maintain aspect ratio and enable staggering */
+    object-fit: cover;
+    /* Ensures images cover their area without distortion */
+    display: block;
+}
+
+/* --- Specific Grid Item Spanning based on Screenshot --- */
+/*
+     For a "staggered" or masonry-like effect using CSS Grid,
+     we typically define a fixed number of columns and then use
+     grid-row-end: span X; to make items take up more "row units".
+     However, since images have natural aspect ratios, often just
+     setting grid-auto-rows: auto and allowing images to dictate
+     height, combined with column spans, can create a staggered look.
+  
+     Let's try a fixed 3-column setup and use `grid-row-end: span N` to control
+     vertical size if images need to take up more vertical space than one row
+     would naturally allow, *or if the image itself is naturally taller*.
+  
+     The images in your screenshot don't appear to be varying drastically in height within the same column,
+     but rather some span horizontally (e.g., Image 4, 6, 7).
+     A true staggered view means images in the same column have different heights.
+     Let's assume the images themselves have varied aspect ratios and the `height: auto`
+     will produce the staggered effect.
+  
+     If your images are all the same aspect ratio and this doesn't create the stagger,
+     you would need to manually set `grid-row-end: span X;` for some items.
+  */
+
+.pd-image-grid {
+    grid-template-columns: repeat(3, 1fr);
+    /* Stick to a 3-column base */
+    grid-auto-rows: auto;
+    /* Let row height be determined by content */
+}
+
+/* Image 4, 6, 7 appear wider, spanning 2 columns */
+.pd-grid-item-4,
+.pd-grid-item-6,
+.pd-grid-item-7 {
+    grid-column: span 2;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1024px) {
+    .pd-image-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns for tablets */
+        grid-auto-rows: auto;
+    }
+
+    /* Re-adjust spans for 2 columns */
+    .pd-grid-item-4,
+    .pd-grid-item-6,
+    .pd-grid-item-7 {
+        grid-column: span 2;
+        /* These might still span two columns */
+    }
+
+    /* All other items take 1 column */
+    .pd-grid-item-1,
+    .pd-grid-item-2,
+    .pd-grid-item-3,
+    .pd-grid-item-5,
+    .pd-grid-item-8 {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .pd-main-headline {
+        font-size: 2em;
+        margin-bottom: 30px;
+    }
+
+    .pd-image-grid {
+        grid-template-columns: 1fr;
+        /* Single column for mobile */
+        grid-auto-rows: auto;
+        gap: 15px;
+    }
+
+    /* All items take 1 column in mobile */
+    .pd-grid-item-1,
+    .pd-grid-item-2,
+    .pd-grid-item-3,
+    .pd-grid-item-4,
+    .pd-grid-item-5,
+    .pd-grid-item-6,
+    .pd-grid-item-7,
+    .pd-grid-item-8 {
+        grid-column: span 1;
+    } 
+}

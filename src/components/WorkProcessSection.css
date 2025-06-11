@@ -21,9 +21,8 @@
 .wp-tabs {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: end;
   margin-bottom: 60px;
-  gap: 40px;
   /* Space between tabs */
   font-weight: 600;
   /* Set the default color here */
@@ -34,11 +33,10 @@
 .wp-tab {
   display: flex;
   align-items: center;
-  gap: 10px;
   cursor: default;
   /* Change cursor to default, as it's no longer interactive */
   /* Remove padding-bottom and position: relative if underline is also removed */
-  padding-bottom: 5px;
+  /* padding-bottom: 5px; */
   /* Keep if you want the space for a non-active underline */
   position: relative;
   /* Keep if you want the space for a non-active underline */
@@ -47,8 +45,10 @@
 }
 
 .wp-tab-icon {
-  width: 24px;
-  height: 24px;
+  width: 65px;
+  height: 65px;
+  stroke: #929E87;
+  flex-grow: 1;
   /* SVG path stroke/fill will inherit color from .wp-tab */
 }
 
@@ -60,6 +60,31 @@
   /* Center the container */
   padding-bottom: 20px;
   /* Add some space below the SVG if needed */
+}
+
+/* --- NEW: Add vertical divider to the first tab (Design Process) --- */
+.wp-tab:first-child {
+  position: relative;
+  /* Needed for positioning the ::after pseudo-element */
+  padding-right: 20px;
+  /* Add space for the divider to the right of the first tab */
+}
+
+.wp-tab:first-child::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  /* Position at the right edge of the first tab */
+  top: 50%;
+  /* Center vertically */
+  transform: translateY(-50%);
+  /* Adjust for perfect vertical centering */
+  width: 2px;
+  /* Thickness of the divider */
+  height: 50%;
+  /* Height of the divider relative to the tab's height */
+  background-color: #929E87;
+  /* Color of the divider, adjust as needed */
 }
 
 .wp-flow-diagram {

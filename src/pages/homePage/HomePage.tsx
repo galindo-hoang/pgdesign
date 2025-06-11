@@ -7,6 +7,7 @@ import ImageSlider from "../../components/ImageSlider";
 import StatsSection from "../../components/StatsSection";
 import ServicesSection from "../../components/ServicesSection";
 import WorkflowSection from "../../components/WorkProcessSection";
+import ProjectDiarySection from "../../components/ProjectDiarySection";
 
 const HomePage: React.FC = () => {
   return (
@@ -31,6 +32,9 @@ const HomePage: React.FC = () => {
       </div>
       <div>
         <WorkflowSection />
+      </div>
+      <div>
+        <ProjectDiarySection />
       </div>
     </div>
   );
