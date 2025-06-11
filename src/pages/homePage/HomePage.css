@@ -1,0 +1,23 @@
+.fullscreen-container {
+    position: relative;
+    /* Needed for positioning content overlay */
+    width: 100vw;
+    top: 0;
+    overflow: hidden;
+    /* Hide any overflow if image is larger than container */
+}
+
+.fullscreen-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* This is the key: it covers the container while maintaining aspect ratio */
+    object-position: center;
+    /* Center the image within the container */
+}
+
+.feeback {
+    position: absolute;
+    width: 100%;
+    top: 0;
+}

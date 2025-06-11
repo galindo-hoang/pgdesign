@@ -1,0 +1,284 @@
+/* src/components/ServicesSection.css */
+
+.services-section {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #ffffff;
+    /* White background */
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.services-main-headline {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    /* Align to start if needed, similar to previous section */
+    text-align: left;
+    /* Adjust if you want it centered */
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.services-sub-headline {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 60px;
+    /* Space before the grid */
+    font-weight: 400;
+    /* Align to start if needed */
+    text-align: left;
+    /* Adjust if you want it centered */
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.services-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* Allow wrapping on smaller screens */
+    gap: 30px;
+    /* Space between cards */
+    max-width: 100vw;
+    /* Max width for the grid */
+    margin: 0 auto;
+    /* Center the grid */
+}
+
+.service-card {
+    width: 22%;
+    height: 60vh;
+    /* Fixed width for each card, adjust as needed */
+    
+    border-radius: 0; /* No general border-radius for the card itself, as the curve is on the image container */
+    box-shadow: none; /* No general box-shadow for the card itself */
+    overflow: hidden; /* This is correct for clipping */
+    z-index: 1;
+
+    position: relative;
+    /* Crucial to clip content to the curved shape */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding-top: 10px;
+}
+
+.service-card:hover .service-image-container {
+    transform: translateY(-6px); /* Lifts the image */
+    z-index: 2; /* Ensures the hovered card is on top */
+}
+
+.service-image-container {
+    width: 100%;
+    height: 100%;
+    /* Fixed height for the image area */
+    position: relative;
+    overflow: hidden;
+    /* Important for the border-radius effect */
+
+    /* This is where the background color for the 'card' visually should be */
+    background-color: #ffffff; /* This is the white background visible in the screenshot */
+    border-top-left-radius: 50% 150px; /* Adjust as needed for your curve */
+    border-top-right-radius: 50% 150px; /* Adjust as needed for your curve */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Shadow on the image container itself */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ensures image covers the container */
+    display: block;
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    /* Adjust height for gradient */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+    /* Darkens bottom for text */
+    pointer-events: none;
+    /* Allows clicks to pass through to underlying content */
+    /* Remove this overlay if you don't need text on the image */
+    z-index: 2;
+}
+
+/* Add hover effect to the image-overlay */
+.service-card:hover .image-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    /* Make it significantly darker on hover */ 
+}
+
+
+.service-info {
+    position: absolute; /* Replaced bottom, left, width with inset properties */
+    inset: 0; /* <--- NEW: Covers the entire parent .service-image-container */
+    padding: 25px; /* <--- This padding will now push content inwards from all edges */
+    text-align: left; /* Text inside this div will be left-aligned */
+    color: #fff; /* Default white color for all text in this block */
+    z-index: 3; /* Ensures text is above overlay and image */
+    pointer-events: none; /* --- NEW: Make service-info a flex container to control its children layout --- */
+    display: flex;
+    flex-direction: column-reverse;
+        /* Stack children vertically */
+        /* Remove justify-content from here as we'll apply it to a sub-container */
+    /* justify-content: space-between; */
+            /* <--- NEW: Distribute space between items */
+    align-items: end;
+            /* <--- NEW: Align items to the start (left) by default */
+}
+
+/* Add a new container for the text that needs to be left-aligned */
+.service-text-content {
+    display: flex;
+    width: 100%;
+        flex-direction: column;
+        justify-content: flex-start;
+    pointer-events: auto;
+    /* Re-enable pointer events for text content */
+    /* flex-grow: 1; */
+    /* Allow this content to take up available space, pushing link down if needed */
+}
+
+.service-category {
+    font-size: 0.9em;
+    /* Slightly adjusted size */
+    color: rgba(255, 255, 255, 0.8);
+    /* Subtler white, matching the image */
+    margin-bottom: 5px;
+    /* Space below category */
+    text-transform: uppercase;
+    font-weight: 500;
+    /* Slightly bolder than default */
+    /* pointer-events: auto; */
+    /* Allow interaction if this was to be clickable */
+}
+
+.service-title {
+    font-size: 1.6em;
+    /* Larger, more prominent title */
+    font-weight: 700;
+    /* Bold */
+    color: #fff;
+    /* Pure white for main title */
+    line-height: 1.3;
+    /* Ensure readability for multi-line titles */
+    /* pointer-events: auto; */
+    /* Allow interaction if this was to be clickable */
+}
+
+.service-details-link { 
+    display: block; /* Make it a block element to control its alignment */
+    width: fit-content; /* Make it only as wide as its content */
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+    position: relative;
+    padding-bottom: 3px;
+    pointer-events: auto;
+        /* Keep this to make the link clickable */
+}
+
+
+/* Custom underline effect from previous steps */
+.service-details-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #fff;
+    transform: scaleX(0);
+    transform-origin: bottom left;
+    transition: transform 0.3s ease-out;
+}
+
+.service-details-link:hover::after {
+    transform: scaleX(1);
+}
+
+/* ... (rest of your responsive adjustments) ... */
+
+@media (max-width: 768px) {
+
+    /* ... existing responsive styles ... */
+    .service-info {
+        padding: 15px;
+        /* Adjust padding for smaller screens */
+    }
+
+    .service-title {
+        font-size: 1.4em;
+        /* Adjust title size for mobile */
+    } 
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1200px) {
+    .services-grid {
+        max-width: 90%;
+        /* Allow grid to use more width on smaller large screens */
+    }
+}
+
+@media (max-width: 992px) {
+    .services-card {
+        width: calc(50% - 30px);
+        /* Two cards per row, accounting for gap */
+    }
+
+    .services-grid {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .services-section {
+        padding: 60px 15px;
+    }
+
+    .services-main-headline {
+        font-size: 2em;
+        text-align: center;
+        /* Center headlines on smaller screens */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .services-sub-headline {
+        font-size: 1em;
+        margin-bottom: 40px;
+        text-align: center;
+        /* Center sub-headlines on smaller screens */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .services-card {
+        width: 90%;
+        /* Full width cards on mobile */
+        max-width: 350px;
+        /* Prevent cards from getting too wide on small screens */
+    }
+
+    .services-grid {
+        flex-direction: column;
+        /* Stack cards vertically */
+        align-items: center;
+        /* Center stacked cards */
+    }
+}
+
+@media (max-width: 480px) {
+    .services-main-headline {
+        font-size: 1.8em;
+    } }

@@ -1,0 +1,173 @@
+/* src/components/ImageSlider.css */
+
+.image-slider-container {
+  padding: 50px 0;
+  /* Add vertical padding around the slider */
+  background-color: #f8f8f8;
+  /* Light background for the section */
+  font-family: Arial, sans-serif;
+}
+
+/* Styles for the individual slide cards */
+.slide-card-wrapper {
+  padding: 0 10px;
+  /* Space between cards, adjusted for centerMode */
+  box-sizing: border-box;
+  /* Include padding in card width */
+}
+
+.slide-card {
+  background-color: #fff;
+  border-radius: 12px;
+  /* Rounded corners for the card */
+  overflow: hidden;
+  /* Ensures image corners are rounded */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  /* Soft shadow */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  /* Flex to stack image and info */
+  flex-direction: column;
+  height: 100%;
+  /* Ensure cards in a row have same height */
+}
+
+.slide-card:hover {
+  transform: translateY(-5px);
+  /* Slight lift on hover */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  /* Enhanced shadow on hover */
+}
+
+.slide-image-container {
+  width: 100%;
+  padding-top: 70%;
+  /* Aspect ratio hack (70% height relative to width) */
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Ensures image covers the container without distortion */
+  border-top-left-radius: 12px;
+  /* Match card border-radius */
+  border-top-right-radius: 12px;
+}
+
+.slide-info {
+  padding: 15px;
+  text-align: left;
+  /* Text is left-aligned in your screenshot */
+}
+
+.slide-title {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.slide-subtitle {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 3px;
+}
+
+.slide-size {
+  font-size: 0.8em;
+  color: #999;
+}
+
+/* --- react-slick specific overrides --- */
+/* Center slide styling */
+.slick-center .slide-card-wrapper {
+  /* No specific transform needed for the center slide in basic setup */
+  /* If you want it to appear slightly larger or more prominent, add styles here */
+}
+
+/* Dots styling */
+.slick-dots {
+  bottom: -40px;
+  /* Adjust vertical position of dots */
+}
+
+.slick-dots li button:before {
+  font-size: 10px;
+  /* Size of the dots */
+  color: #ccc;
+  /* Default dot color */
+}
+
+.slick-dots li.slick-active button:before {
+  color: #557256;
+  /* Active dot color (e.g., your brand green) */
+}
+
+/* Fade out effect for side images (optional, needs more complex CSS) */
+/* This is a visual trick often done with `opacity` and `transform` */
+.slick-slide:not(.slick-center) .slide-card {
+  filter: blur(1px);
+    /* Adjust the blur radius (e.g., 2px, 5px) */
+    opacity: 0.7;
+    /* Optionally reduce opacity as well */
+    transform: scale(0.95);
+    /* Optionally scale down non-centered items */
+    transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+    /* Smooth transition */
+}
+
+/* Style for the currently centered slide */
+.slick-center .slide-card {
+  filter: blur(0);
+  /* Remove blur from the centered item */
+  opacity: 1;
+  /* Ensure full opacity */
+  transform: scale(1);
+  /* Reset scale */
+  transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  /* Smooth transition */
+}
+
+.slick-slide {
+  transition: all 0.3s ease;
+  /* Smooth transition for scale and opacity */
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .image-slider-container {
+    padding: 30px 0;
+  }
+
+  .slide-card-wrapper {
+    padding: 0 5px;
+    /* Less space between cards on mobile */
+  }
+
+  .slide-info {
+    padding: 10px;
+  }
+
+  .slide-title {
+    font-size: 1.1em;
+  }
+
+  .slide-subtitle {
+    font-size: 0.85em;
+  }
+
+  .slide-size {
+    font-size: 0.75em;
+  }
+
+  /* Adjust centerPadding for smaller screens in JS settings */
+}

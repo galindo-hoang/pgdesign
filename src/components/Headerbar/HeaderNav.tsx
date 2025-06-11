@@ -1,5 +1,6 @@
 import React from "react";
-import "./Header.css"; // Import your CSS file for styling
+import "./HeaderNav.css"; // Import your CSS file for styling
+import { ReactComponent as MyIcon } from "../../assets/icons/Edit.svg";
 
 interface NavLink {
   label: string;
@@ -13,7 +14,7 @@ interface HeaderProps {
   // navLinks?: NavLink[];
 }
 
-const Header: React.FC<HeaderProps> = () => {
+const HeaderNav: React.FC<HeaderProps> = () => {
   // Example of static navigation links, could be props if dynamic
   const navLinks: NavLink[] = [
     { label: "Giới thiệu", href: "#gioithieu" },
@@ -26,11 +27,7 @@ const Header: React.FC<HeaderProps> = () => {
   return (
     <div className="header">
       <div className="logo-container">
-        {/* Replace with your actual logo image or text */}
-        {/* If logoSrc was a prop: <img src={logoSrc || "/path/to/default/logo.png"} alt="Company Logo" className="logo" /> */}
-        <img src="/path/to/your/logo.png" alt="Company Logo" className="logo" />
-        {/* Or if it's text: */}
-        {/* <span className="logo-text">PG ARCHITECTURE <br/> CONSTRUCTION <br/> & INTERIOR</span> */}
+        <MyIcon className="logo" stroke="#000000" width="40px" height="40px" />
       </div>
       <nav className="navbar">
         <ul className="nav-list">
@@ -47,4 +44,4 @@ const Header: React.FC<HeaderProps> = () => {
   );
 };
 
-export default Header;
+export default HeaderNav;

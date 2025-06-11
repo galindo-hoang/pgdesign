@@ -6,7 +6,7 @@
     /* Vertically aligns items */
     padding: 15px 150px;
     /* Adjust padding as needed (top/bottom, left/right) */
-    background-color: #f0f0f000;
+    background-color: #ffffff52;
     /* White background, adjust if needed */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     /* Optional: subtle shadow */
@@ -37,14 +37,14 @@
     padding: 0;
     display: flex;
     /* Arranges nav items horizontally */
-    gap: 30px;
+    gap: 25px;
     /* Space between nav items */
 }
 
 .nav-item .nav-link {
     text-decoration: none;
     /* Removes underline from links */
-    color: #333;
+    color: #2F674B;
     /* Link color, adjust as needed */
     font-family: Arial, sans-serif;
     /* Use your desired font */
@@ -52,14 +52,25 @@
     /* Adjust font size */
     font-weight: 500;
     /* Adjust font weight */
-    padding: 5px 0;
+    padding: 10px;
     /* Optional: adds a bit of padding for click area */
     transition: color 0.3s ease;
     /* Smooth transition for hover effect */
 }
 
 .nav-item .nav-link:hover {
-    color: #007bff;
+/* --- Styles for the hover state --- */
+    background-color: #a7a7a7a2;
+    /* White background on hover */
+    /* Keep text color dark, or change if needed */
+    /* margin: 5px; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+    transform: translateY(-2px);
+    border-radius: 10px;
+    /* Slight lift effect */
+    /* You can also add a slight scale if desired */
+    transform: scale(1.05);
     /* Change color on hover, adjust as needed */
 }
 

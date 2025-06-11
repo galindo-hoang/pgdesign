@@ -1,0 +1,165 @@
+/* src/components/StatsSection.css */
+
+.stats-section {
+    /* text-align: center; */
+    /* Center-aligns all content */
+    padding: 80px 20px;
+    /* Adjust top/bottom padding */
+    background-color: #f8f8f8;
+    /* Light background as seen in screenshot */
+    font-family: Arial, sans-serif;
+    /* Consistent font */
+    color: #333;
+    /* Default text color */
+}
+
+.stats-main-headline {
+    font-size: 2.5em;
+    color: #557256;
+    margin-bottom: 5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-align: left;
+        /* <--- Add this line to align left */
+        max-width: 1200px;
+        /* Optional: Constrain width if needed */
+        margin-left: auto;
+        /* Optional: if using max-width and want to center the block itself */
+        margin-right: auto;
+        /* Optional: if using max-width and want to center the block itself */
+}
+
+.stats-sub-headline {
+    font-size: 1.4em;
+    margin-top: 2%;
+    /* Smaller sub-headline */
+    color: black;
+    /* Space before the stats grid */
+    font-weight: bold;
+    /* Regular weight */
+}
+
+.stats-grid {
+    display: flex;
+    /* Use flexbox to arrange items horizontally */
+    justify-content: center;
+    /* Center the items in the grid */
+    gap: 50px;
+    /* Space before the divider line */
+    flex-wrap: wrap;
+    /* Allow items to wrap to next line on smaller screens */
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    /* Stack icon, value, and label vertically */
+    align-items: center;
+    /* Center content within each item */
+    text-align: center;
+    flex: 0 0 auto;
+    /* Prevent items from growing/shrinking excessively */
+    width: 150px;
+    /* Give each item a fixed width for alignment */
+}
+
+.stat-icon {
+    width: 160px;
+    /* Size of the icon */
+    height: 160px;
+    color: #557256;
+    /* The green color for icons, matching your brand */
+}
+
+.stat-value {
+    font-size: 2.5em; /* Large font size for the number */
+    font-weight: 700; /* Bold */
+    color: #557256;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 1em;
+    /* Smaller font size for the label */
+    color: #000;
+    font-weight: 400;
+}
+/*
+
+*/
+
+.stats-divider {
+    width: 60%;
+    /* Width of the horizontal line */
+    max-width: 40wh;
+    /* Max width for the line */
+    border: none;
+    border-top: 2px solid #557256;
+    /* Thin gray line */
+    margin: 0 auto;
+    /* Center the line */
+    padding-top: 1%;
+    /* Space after the line */
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1024px) {
+    .stats-grid {
+        gap: 30px;
+        /* Reduce gap on tablets */
+    }
+
+    .stat-item {
+        width: 120px;
+        /* Slightly smaller item width */
+    }
+
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .stat-value {
+        font-size: 2em;
+    }
+
+    .stat-label {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-section {
+        padding: 60px 15px;
+    }
+
+    .stats-main-headline {
+        font-size: 2em;
+    }
+
+    .stats-sub-headline {
+        font-size: 1em;
+        margin-bottom: 40px;
+    }
+
+    .stats-grid {
+        flex-direction: column;
+        /* Stack items vertically on smaller screens */
+        gap: 30px;
+        /* Space between stacked items */
+    }
+
+    .stat-item {
+        width: 100%;
+        /* Full width for stacked items */
+    }
+
+    .stats-divider {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-main-headline {
+        font-size: 1.8em;
+    } }
