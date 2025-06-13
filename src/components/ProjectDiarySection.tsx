@@ -1,4 +1,3 @@
-// src/components/ProjectDiarySection.tsx
 import React from "react";
 import "./ProjectDiarySection.css";
 
@@ -12,6 +11,7 @@ import image5 from "../assets/images/diary-image-5.jpg"; // Middle middle, perso
 import image6 from "../assets/images/diary-image-6.jpg"; // Middle right, living room
 import image7 from "../assets/images/diary-image-7.jpg"; // Bottom left, people in front of house
 import image8 from "../assets/images/diary-image-8.jpg"; // Bottom right, worker installing window
+import Masonry from "react-masonry-css";
 
 interface DiaryImage {
   src: string;
@@ -31,15 +31,28 @@ const diaryImages: DiaryImage[] = [
 ];
 
 const ProjectDiarySection: React.FC = () => {
+  // Define breakpoints for responsive columns
+  const breakpointColumnsObj = {
+    default: 3, // Default to 3 columns
+    1024: 2, // 2 columns on screens <= 1024px
+    768: 1, // 1 column on screens <= 768px
+  };
+
   return (
     <section className="project-diary-section">
       <h2 className="pd-main-headline">NHẬT KÝ HÀNH TRÌNH</h2>
-      <div className="pd-image-grid">
-        {diaryImages.map((image, index) => (
-          <div key={index} className={`pd-grid-item pd-grid-item-${index + 1}`}>
-            <img src={image.src} alt={image.alt} />
-          </div>
-        ))}
+      <div className="pd-masonry-wrapper">
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="pd-masonry-grid"
+          columnClassName="pd-masonry-grid_column"
+        >
+          {diaryImages.map((image, index) => (
+            <div key={index} className="pd-grid-item">
+              <img src={image.src} alt={image.alt} />
+            </div>
+          ))}
+        </Masonry>
       </div>
     </section>
   );

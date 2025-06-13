@@ -1,0 +1,194 @@
+/* src/components/Footer.css */
+
+.main-footer {
+    background-color: #374737;
+    /* Dark green background */
+    color: #e0e0e0;
+    /* Light text color */
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+/* --- Top Section --- */
+.footer-top-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.footer-logo {
+    width: 250px;
+    /* Adjust logo width to accommodate the text. You might need to fine-tune this. */
+    height: auto;
+    margin-bottom: 20px;
+    /* Space below the logo */
+}
+
+/* REMOVED: .footer-tagline styles */
+
+
+/* --- Middle Section (Info Columns) --- */
+.footer-middle-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* Four columns */
+    gap: 20px;
+    max-width: 1200px;
+    /* Max width for content */
+    margin: 0 auto auto auto;
+    /* Center and add margin below */
+    text-align: center;
+    /* Center content within columns */
+}
+
+.footer-info-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    /* Space between elements in a column */
+    padding: 0 0 10px 0;
+    /* Padding for readability */
+    position: relative;
+    /* For the vertical line */
+}
+
+.footer-info-column:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -15px;
+    /* Adjust to position line between columns */
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #557256;
+    /* Vertical divider color */
+}
+
+.info-icon {
+    width: 35px;
+    /* Size of the icon */
+    height: 35px;
+    margin-bottom: 5px;
+}
+
+.info-title {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #fff;
+    /* White color for titles */
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.info-text {
+    font-size: 0.9em;
+    color: #e0e0e0;
+    /* Lighter text color */
+    text-decoration: none;
+    /* Remove underline for links */
+    margin: 0;
+    word-break: break-word;
+    /* Ensure long addresses wrap */
+}
+
+.info-text:hover {
+    text-decoration: underline;
+}
+
+/* --- Horizontal Divider --- */
+.footer-divider {
+    border: none;
+    border-top: 1px solid #557256;
+    /* Horizontal divider color */
+    width: 100%;
+    max-width: 800px;
+    /* Match width of contact info columns */
+    margin: 0 auto 40px auto;
+    /* Center and add margin below */
+}
+
+/* --- Social Section --- */
+.footer-social-section {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    /* Space between social icons */
+    margin-top: 40px;
+}
+
+.social-icon {
+    width: 40px;
+    /* Size of social icons */
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: translateY(-5px);
+    /* Simple hover effect */
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 992px) {
+    .footer-middle-section {
+        grid-template-columns: 1fr 1fr;
+        /* 2 columns on medium screens */
+    }
+
+    .footer-info-column:nth-child(even)::after {
+        content: none;
+        /* Remove vertical line after 2nd column */
+    }
+
+    .footer-info-column:nth-child(odd)::after {
+        right: -15px;
+        /* Ensure line after first column in a row remains */
+    }
+
+    .footer-info-column:nth-child(1)::after,
+    .footer-info-column:nth-child(3)::after {
+        content: '';
+        /* Re-add content for these */
+    }
+}
+
+@media (max-width: 576px) {
+    .main-footer {
+        padding: 30px 15px;
+    }
+
+    .footer-middle-section {
+        grid-template-columns: 1fr;
+        /* 1 column on small screens */
+        gap: 40px;
+    }
+
+    .footer-info-column::after {
+        content: none;
+        /* Remove all vertical lines on mobile */
+    }
+
+    .footer-logo {
+        width: 180px;
+        /* Adjust for smaller screens */
+    }
+
+    /* REMOVED: .footer-tagline adjustments */
+    .info-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .info-title,
+    .info-text {
+        font-size: 0.85em;
+    }
+
+    .social-icon {
+        width: 35px;
+        height: 35px;
+    } 
+}

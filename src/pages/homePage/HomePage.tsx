@@ -3,11 +3,14 @@ import "./HomePage.css";
 import thumb from "../../assets/images/thumb-home.png";
 import HeaderNav from "../../components/Headerbar/HeaderNav";
 import AboutSection from "../../components/AboutSection";
-import ImageSlider from "../../components/ImageSlider";
+import ImageSliderSection from "../../components/ImageSliderSection";
 import StatsSection from "../../components/StatsSection";
 import ServicesSection from "../../components/ServicesSection";
 import WorkflowSection from "../../components/WorkProcessSection";
 import ProjectDiarySection from "../../components/ProjectDiarySection";
+import TestimonialSliderSection from "../../components/TestimonialSliderSection";
+import ConsultationFormSection from "../../components/ConsultationFormSection";
+import Footer from "../../components/Footerbar/FooterNav";
 
 const HomePage: React.FC = () => {
   return (
@@ -22,7 +25,7 @@ const HomePage: React.FC = () => {
         <AboutSection />
       </div>
       <div>
-        <ImageSlider slides={[]} />
+        <ImageSliderSection slides={[]} />
       </div>
       <div>
         <StatsSection />
@@ -36,6 +39,13 @@ const HomePage: React.FC = () => {
       <div>
         <ProjectDiarySection />
       </div>
+      <div>
+        <TestimonialSliderSection />
+      </div>
+      <div>
+        <ConsultationFormSection />
+      </div>
+      <Footer />
     </div>
   );
 };

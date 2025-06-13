@@ -1,7 +1,7 @@
 // src/components/ImageSlider.tsx
 import React, { useRef } from "react";
 import Slider from "react-slick";
-import "./ImageSlider.css"; // Custom CSS for styling cards and slider
+import "./ImageSliderSection.css"; // Custom CSS for styling cards and slider
 import TmpImage from "../assets/images/thumb-home.png";
 
 // Define an interface for each slide's data
@@ -18,45 +18,44 @@ interface ImageSliderProps {
   slides: SlideData[];
 }
 
-const ImageSlider: React.FC<ImageSliderProps> = ({ slides }) => {
-
-    slides = [
-      {
-        id: 1,
-        imageUrl: "/assets/images/thumb-home.png", // Path to your image
-        title: "NHÀ ANH TRẠCH",
-        subtitle: "Thi công nội thất nhà phố",
-        size: "180m2",
-      },
-      {
-        id: 2,
-        imageUrl: "/assets/images/thumb-home.png", // Path to your image
-        title: "ANH MỸ - OPAL GARDEN",
-        subtitle: "Thi công nội thất căn hộ",
-        size: "180m2",
-      },
-      {
-        id: 3,
-        imageUrl: "/assets/images/thumb-home.png", // Path to your image
-        title: "SKY LINKED VILLA",
-        subtitle: "Thi công nội thất biệt thự",
-        size: "180m2",
-      },
-      {
-        id: 4,
-        imageUrl: "/assets/images/thumb-home.png",
-        title: "DỰ ÁN MỚI 1",
-        subtitle: "Thi công nội thất chung cư",
-        size: "120m2",
-      },
-      {
-        id: 5,
-        imageUrl: "/assets/images/thumb-home.png",
-        title: "DỰ ÁN MỚI 2",
-        subtitle: "Thi công nội thất văn phòng",
-        size: "300m2",
-      },
-    ];
+const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides }) => {
+  slides = [
+    {
+      id: 1,
+      imageUrl: "/assets/images/thumb-home.png", // Path to your image
+      title: "NHÀ ANH TRẠCH",
+      subtitle: "Thi công nội thất nhà phố",
+      size: "180m2",
+    },
+    {
+      id: 2,
+      imageUrl: "/assets/images/thumb-home.png", // Path to your image
+      title: "ANH MỸ - OPAL GARDEN",
+      subtitle: "Thi công nội thất căn hộ",
+      size: "180m2",
+    },
+    {
+      id: 3,
+      imageUrl: "/assets/images/thumb-home.png", // Path to your image
+      title: "SKY LINKED VILLA",
+      subtitle: "Thi công nội thất biệt thự",
+      size: "180m2",
+    },
+    {
+      id: 4,
+      imageUrl: "/assets/images/thumb-home.png",
+      title: "DỰ ÁN MỚI 1",
+      subtitle: "Thi công nội thất chung cư",
+      size: "120m2",
+    },
+    {
+      id: 5,
+      imageUrl: "/assets/images/thumb-home.png",
+      title: "DỰ ÁN MỚI 2",
+      subtitle: "Thi công nội thất văn phòng",
+      size: "300m2",
+    },
+  ];
   const sliderRef = useRef<Slider>(null); // Specify type for Slider ref
 
   const settings = {
@@ -138,4 +137,4 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ slides }) => {
   );
 };
 
-export default ImageSlider;
+export default ImageSliderSection;
