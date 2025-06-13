@@ -45,6 +45,7 @@
     justify-content: center;
     /* Center the items in the grid */
     gap: 50px;
+    stroke: #557256;
     /* Space before the divider line */
     flex-wrap: wrap;
     /* Allow items to wrap to next line on smaller screens */

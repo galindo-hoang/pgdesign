@@ -1,7 +1,7 @@
 /* src/components/ImageSlider.css */
 
 .image-slider-container {
-  padding: 50px 0;
+  padding: 20px 0;
   /* Add vertical padding around the slider */
   background-color: #f8f8f8;
   /* Light background for the section */
@@ -11,6 +11,7 @@
 /* Styles for the individual slide cards */
 .slide-card-wrapper {
   padding: 0 10px;
+  margin-bottom: 10px;
   /* Space between cards, adjusted for centerMode */
   box-sizing: border-box;
   /* Include padding in card width */
@@ -78,19 +79,13 @@
 .slide-subtitle {
   font-size: 0.9em;
   color: #666;
-  margin-bottom: 3px;
+  margin: 3px 0px;
 }
 
 .slide-size {
+  margin: auto;
   font-size: 0.8em;
   color: #999;
-}
-
-/* --- react-slick specific overrides --- */
-/* Center slide styling */
-.slick-center .slide-card-wrapper {
-  /* No specific transform needed for the center slide in basic setup */
-  /* If you want it to appear slightly larger or more prominent, add styles here */
 }
 
 /* Dots styling */
@@ -130,7 +125,7 @@
   /* Remove blur from the centered item */
   opacity: 1;
   /* Ensure full opacity */
-  transform: scale(1);
+  transform: translateY(-20px) scale(1.2);
   /* Reset scale */
   transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
   /* Smooth transition */
@@ -167,6 +162,9 @@
 
   .slide-size {
     font-size: 0.75em;
+  }
+  .slick-center .ts-card {
+    transform: translateY(0px) scale(1); /* No transform on mobile */
   }
 
   /* Adjust centerPadding for smaller screens in JS settings */

@@ -4,7 +4,7 @@
     /* Puts logo on left, nav on right */
     align-items: center;
     /* Vertically aligns items */
-    padding: 15px 150px;
+    padding: 0 150px;
     /* Adjust padding as needed (top/bottom, left/right) */
     background-color: #ffffff52;
     /* White background, adjust if needed */
@@ -16,18 +16,6 @@
     left: 0;
     z-index: 1000;
     /* Ensures header is above other content */
-}
-
-.logo-container .logo {
-    height: 40px;
-    /* Adjust logo height */
-    /* If using text logo: */
-    /* font-family: 'Montserrat', sans-serif; */
-    /* Use your desired font */
-    /* font-weight: bold; */
-    /* font-size: 1.2em; */
-    /* line-height: 1.2; */
-    /* color: #333; */
 }
 
 .navbar .nav-list {
@@ -52,7 +40,7 @@
     /* Adjust font size */
     font-weight: 500;
     /* Adjust font weight */
-    padding: 10px;
+    padding: 20px;
     /* Optional: adds a bit of padding for click area */
     transition: color 0.3s ease;
     /* Smooth transition for hover effect */
@@ -60,7 +48,7 @@
 
 .nav-item .nav-link:hover {
 /* --- Styles for the hover state --- */
-    background-color: #a7a7a7a2;
+    background-color: #92929247;
     /* White background on hover */
     /* Keep text color dark, or change if needed */
     /* margin: 5px; */
@@ -68,6 +56,7 @@
     /* Subtle shadow for depth */
     transform: translateY(-2px);
     border-radius: 10px;
+    padding: 20px;
     /* Slight lift effect */
     /* You can also add a slight scale if desired */
     transform: scale(1.05);

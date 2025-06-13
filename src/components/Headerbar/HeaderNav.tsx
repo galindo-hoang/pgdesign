@@ -1,6 +1,6 @@
 import React from "react";
 import "./HeaderNav.css"; // Import your CSS file for styling
-import { ReactComponent as MyIcon } from "../../assets/icons/Edit.svg";
+import { ReactComponent as MyIcon } from "../../assets/logo/pg-design-logo.svg";
 
 interface NavLink {
   label: string;
@@ -27,7 +27,12 @@ const HeaderNav: React.FC<HeaderProps> = () => {
   return (
     <div className="header">
       <div className="logo-container">
-        <MyIcon className="logo" stroke="#000000" width="40px" height="40px" />
+        <MyIcon
+          className="logo"
+          stroke="#2F674B"
+          width="140px"
+          height="100px"
+        />
       </div>
       <nav className="navbar">
         <ul className="nav-list">
