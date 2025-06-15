@@ -1,0 +1,222 @@
+/* src/components/TeamSection.css */
+
+/* Base font size for better 'rem' unit scaling across the document */
+html {
+    font-size: 16px;
+}
+
+.pg-team-section {
+    padding: 5rem 1.25rem;
+    background-color: white;
+    /* Changed from #f9f9f9 to white as per latest file */
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.pg-team-heading {
+    font-size: 48px;
+    /* Increased font size from 40px */
+    line-height: 1.2;
+    /* Added line-height for better readability */
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 0.625rem 2.5rem;
+    border-radius: 5px;
+    /* Adjusted margin based on previous iteration */
+}
+
+/* UPDATED: Container for the intro text and the grid */
+.pg-team-content {
+    display: flex;
+    /* Enables flexbox layout for its children */
+    align-items: stretch;
+    /* <--- KEY CHANGE: This makes flex items stretch to fill the height */
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 2rem;
+    padding: 0 1.25rem;
+}
+
+/* NEW: Wrapper for the introductory text */
+.pg-team-intro-wrapper {
+    flex: 1;
+    min-width: 250px;
+    background-color: #929E87;
+    /* Greenish background as per latest file */
+    max-width: 400px;
+    text-align: left;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.pg-team-intro-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: white;
+    /* Changed text color to white as per latest file */
+    margin-bottom: 0;
+}
+
+/* Team Grid */
+.pg-team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    flex: 2;
+}
+
+/* Individual Team Member Card */
+.team-member-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F7F7F7;
+    border-radius: 8px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding-bottom: 0.5rem;
+}
+
+.member-image-container {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.member-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.member-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: black;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: left;
+}
+
+.member-title {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 0;
+    width: 100%;
+    text-align: left;
+    font-style: italic;
+}
+
+/* --- Responsive Adjustments --- */
+
+/* For screens 1400px and above (approx 4 columns) - Base grid already handles this with minmax(200px, 1fr) and auto-fit */
+/* We'll explicitly set minmax for better control on larger screens as well for the 4-column layout */
+/* NO CHANGES NEEDED HERE FOR HEIGHT STRETCHING IN THIS BREAKPOINT */
+
+
+/* For screens where the text and grid should stack (e.g., tablet portrait, mobile) - Target 2 columns */
+@media (max-width: 992px) {
+    html {
+        font-size: 15px;
+    }
+
+    .pg-team-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .pg-team-intro-wrapper {
+        width: 100%;
+        margin-bottom: 1.5rem;
+        max-width: 600px;
+    }
+
+    .pg-team-grid {
+        width: 100%;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+    }
+
+    .pg-team-heading {
+        font-size: 2rem;
+        /* Adjusted for this breakpoint */
+        padding: 0.5rem 1.5rem;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .pg-team-intro-text {
+        font-size: 1rem;
+    }
+
+    .member-name {
+        font-size: 1.1rem;
+    }
+
+    .member-title {
+        font-size: 0.85rem;
+    }
+}
+
+/* For mobile phones (e.g., 480px and below) - Target 1 column */
+@media (max-width: 480px) {
+    html {
+        font-size: 13px;
+    }
+
+    .pg-team-section {
+        padding: 3rem 0.8rem;
+    }
+
+    .pg-team-heading {
+        font-size: 1.5rem;
+        /* Adjusted for this breakpoint */
+        padding: 0.4rem 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .pg-team-intro-text {
+        font-size: 0.9rem;
+    }
+
+    .pg-team-content {
+        padding: 0 0.8rem;
+    }
+
+    .pg-team-grid {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+
+    .team-member-card {
+        padding: 1rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .member-name {
+        font-size: 1rem;
+    }
+
+    .member-title {
+        font-size: 0.75rem;
+    }
+}

@@ -1,0 +1,54 @@
+// src/components/Navbar/Navbar.tsx
+import React, { useState, useEffect } from "react"; // Import useState and useEffect
+import "./Navbar.css";
+import { ReactComponent as PGLogo } from "../../assets/logo/pg-design-logo.svg"; // Import SVG as ReactComponent
+
+const Navbar: React.FC = () => {
+  const [scrolled, setScrolled] = useState(false); // State to track scroll position
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const offset = window.scrollY;
+      if (offset > 50) {
+        // Adjust this value (e.g., 50px) based on when you want it to become transparent
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []); // Empty dependency array means this effect runs once on mount and cleans up on unmount
+
+  return (
+    <nav className={`navbar-header ${scrolled ? "transparent-bg" : ""}`}>
+      <div className="navbar-logo-container">
+        <PGLogo className="navbar-logo" /> {/* Use PGLogo as a component */}
+      </div>
+      <ul className="navbar-links">
+        <li className="navbar-item">
+          <a href="#gioithieu">Giới thiệu</a>
+        </li>
+        <li className="navbar-item">
+          <a href="#dichvu">Dịch vụ</a>
+        </li>
+        <li className="navbar-item">
+          <a href="#duan">Dự án</a>
+        </li>
+        <li className="navbar-item">
+          <a href="#lienhe">Liên hệ</a>
+        </li>
+        <li className="navbar-item">
+          <a href="#blog">Blog</a>
+        </li>
+      </ul>
+    </nav>
+  );
+};
+
+export default Navbar;

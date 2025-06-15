@@ -1,0 +1,121 @@
+/* src/components/Navbar/Navbar.css */
+
+.navbar-header {
+    background-color: #36604c;
+    /* Initial background color */
+    padding: 0.5rem 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    /* Add transition */
+}
+
+.navbar-header.transparent-bg {
+    background-color: rgba(54, 96, 76, 0.7);
+    /* Semi-transparent version of your color */
+    /* For fully transparent: background-color: transparent; */
+    box-shadow: none;
+    /* Remove shadow when transparent for cleaner look */
+}
+
+.navbar-logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo {
+    height: 60px;
+    /* Adjust SVG logo height */
+    width: auto;
+    /* Maintain aspect ratio */
+    /* If your SVG has fill colors defined within its code,
+       you might need to target specific paths to change color: */
+    /*
+    .navbar-logo path {
+        fill: white;
+    }
+    */
+}
+
+
+.navbar-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 2.5rem;
+}
+
+.navbar-item a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Existing transition */
+    border-radius: 5px;
+}
+
+.navbar-item a:hover {
+    background-color: white;
+    color: #36604c;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1024px) {
+    .navbar-header {
+        padding: 1rem 1.5rem;
+    }
+
+    .navbar-links {
+        gap: 1.5rem;
+    }
+
+    .navbar-item a {
+        font-size: 1rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .navbar-logo {
+        height: 50px;
+        /* Adjust responsive height for SVG */
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-header {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .navbar-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-logo {
+        height: 40px;
+        /* Adjust responsive height for SVG */
+    }
+
+    .navbar-links {
+        gap: 0.8rem;
+    }
+
+    .navbar-item a {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.6rem;
+    }
+}

@@ -1,0 +1,177 @@
+/* src/components/AboutUsSection.css */
+
+/* Base font size for better 'rem' unit scaling across the document */
+html {
+    font-size: 16px;
+    /* Default base font size (adjust as needed for overall scale) */
+}
+
+.about-us-section {
+    padding: 5rem 1.25rem;
+    /* Adjusted from 80px 20px to rem for responsive padding */
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.about-us-content-wrapper {
+    background-color: white;
+    display: flex;
+    max-width: 83%;
+    margin: 0 auto;
+    align-items: stretch;
+    gap: 2.5rem;
+    /* Adjusted from 40px to rem for responsive gap */
+}
+
+.about-us-image-container {
+    flex: 9;
+    overflow: hidden;
+    border-radius: 50px;
+}
+
+.about-us-decoration-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.about-us-text-content {
+    flex: 11;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    /* Adjusted from 50px to rem for responsive gap between blocks */
+    text-align: left;
+}
+
+.about-us-heading {
+    font-size: 1.8rem;
+    color: #2f674B;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-color: #D8DDD4;
+    padding: 0.625rem 2.5rem 0.625rem 1.25rem;
+    border-top-right-radius: 80px;
+    display: inline-block;
+    margin-bottom: 0.625rem;
+}
+
+.about-us-block p,
+.about-us-block ul {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0.9375rem;
+    /* Base margin-bottom in rem */
+    margin-left: 2.5rem;
+    /* Base margin-left in rem */
+}
+
+.about-us-block ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.about-us-block ul li {
+    position: relative;
+    padding-left: 1.5625rem;
+    /* Base padding-left in rem */
+    margin-bottom: 0;
+}
+
+.about-us-block ul li::before {
+    content: '•';
+    color: black;
+    font-size: 1.2rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: bold;
+}
+
+.core-value-item strong {
+    color: black;
+    font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    html {
+        font-size: 15px;
+        /* Slightly smaller base font size for tablets/smaller desktops */
+    }
+
+    .about-us-content-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 3.125rem;
+        height: auto;
+    }
+
+    .about-us-image-container {
+        flex: none;
+        width: 80%;
+        max-width: 500px;
+        max-height: none;
+    }
+
+    .about-us-text-content {
+        flex: none;
+        width: 100%;
+        padding: 0 0.9375rem;
+        text-align: left;
+    }
+
+    .about-us-heading {
+        font-size: 1.5rem;
+        padding: 0.625rem 2rem 0.625rem 1rem;
+    }
+
+    /* NEW: Responsive margins/padding for content within about-us-text-content for tablets */
+    .about-us-block p,
+    .about-us-block ul {
+        margin-left: 1.5rem;
+        /* Reduce left margin for tablets */
+        margin-bottom: 0.75rem;
+        /* Slightly less vertical margin for tablets */
+    }
+
+    .about-us-block ul li {
+        padding-left: 1rem;
+        /* Reduce padding-left for list items on tablets */
+    }
+}
+
+@media (max-width: 576px) {
+    html {
+        font-size: 14px;
+        /* Even smaller base font size for mobile devices */
+    }
+
+    .about-us-section {
+        padding: 3.75rem 0.9375rem;
+    }
+
+    .about-us-heading {
+        font-size: 1.3rem;
+        padding: 0.625rem 1.5rem 0.625rem 0.9375rem;
+    }
+
+    .about-us-image-container {
+        width: 95%;
+    }
+
+    /* NEW: Responsive margins/padding for content within about-us-text-content for mobile */
+    .about-us-block p,
+    .about-us-block ul {
+        margin-left: 0.8rem;
+        /* Further reduce left margin for mobile */
+        margin-bottom: 0.5rem;
+        /* Further reduce vertical margin for mobile */
+    }
+
+    .about-us-block ul li {
+        padding-left: 0.6rem;
+        /* Further reduce padding-left for list items on mobile */
+    }
+}
