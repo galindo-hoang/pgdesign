@@ -80,7 +80,7 @@
 }
 
 .stat-label {
-    font-size: 1em;
+    font-size: 1.2em;
     /* Smaller font size for the label */
     color: #000;
     font-weight: 400;
@@ -90,7 +90,7 @@
 */
 
 .stats-divider {
-    width: 60%;
+    width: 50%;
     /* Width of the horizontal line */
     max-width: 40wh;
     /* Max width for the line */

@@ -10,12 +10,10 @@ import Navbar from "../../components/Headerbar/Navbar";
 const IntroPage: React.FC = () => {
   return (
     <div className="IntroPageContainter">
-      <Navbar />
       <AboutIntroSection />
       <VisionMissionSection />
       <CommitmentsSection />
       <TeamSection />
-      <Footer />
     </div>
   );
 };

@@ -10,7 +10,6 @@ import WorkflowSection from "../../components/WorkProcessSection";
 import ProjectDiarySection from "../../components/ProjectDiarySection";
 import TestimonialSliderSection from "../../components/TestimonialSliderSection";
 import ConsultationFormSection from "../../components/ConsultationFormSection";
-import Footer from "../../components/Footerbar/FooterNav";
 
 const HomePage: React.FC = () => {
   return (
@@ -45,7 +44,6 @@ const HomePage: React.FC = () => {
       <div>
         <ConsultationFormSection />
       </div>
-      <Footer />
     </div>
   );
 };
