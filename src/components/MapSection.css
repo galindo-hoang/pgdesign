@@ -1,0 +1,166 @@
+/* src/components/MapSection/MapSection.css */
+
+.pg-map-section {
+    padding: 5rem 1.25rem;
+    /* Consistent padding with other sections */
+    background-color: white;
+    /* Light background for the section */
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding: 0px 20% 1%;
+}
+
+.pg-map-content-wrapper {
+    display: flex;
+    justify-content: center;
+    /* Center content when not full width */
+    gap: 2rem;
+    /* Space between info and map */
+    max-width: 1200px;
+    /* Max width for the content area */
+    margin: 0 auto;
+    /* Center the wrapper */
+    align-items: flex-start;
+    /* Align items to the top */
+    flex-wrap: wrap;
+    /* Allow items to wrap on smaller screens */
+}
+
+.pg-map-info {
+    flex: 1;
+    /* Allows this to grow */
+    min-width: 300px;
+    /* Minimum width before wrapping */
+    max-width: 400px;
+    /* Max width for the info box */
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    /* Space between text elements */
+}
+
+.pg-map-info h2 {
+    font-size: 1.5rem;
+    color: #2f674B;
+    /* Dark green consistent with other sections */
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.pg-map-info p {
+    font-size: 1rem;
+    color: #555;
+    margin: 0;
+}
+
+.pg-map-rating {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #777;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.pg-map-rating span:first-child {
+    color: #FFC107;
+    /* Star color */
+    font-weight: bold;
+}
+
+.pg-map-view-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #007bff;
+    /* Blue link color */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.pg-map-view-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.pg-map-embed {
+    flex: 2;
+    /* Map takes more space */
+    min-width: 400px;
+    /* Minimum width for map before wrapping */
+    border-radius: 8px;
+    overflow: hidden;
+    /* Ensures iframe corners are rounded */
+    box-shadow: 0 4px dd10px rgba(0, 0, 0, 0.1);
+}
+
+.pg-map-embed iframe {
+    border-radius: 8px;
+    /* Apply border-radius to the iframe itself */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .pg-map-content-wrapper {
+        flex-direction: column;
+        /* Stack info and map vertically */
+        align-items: center;
+        /* Center items when stacked */
+        gap: 1.5rem;
+    }
+
+    .pg-map-info {
+        max-width: 100%;
+        /* Allow info to take full width */
+        width: 100%;
+        /* Explicitly set width to 100% when stacked */
+    }
+
+    .pg-map-embed {
+        min-width: unset;
+        /* Remove min-width to allow shrinking */
+        width: 100%;
+        /* Allow map to take full width */
+    }
+
+    .pg-map-embed iframe {
+        height: 350px;
+        /* Adjust map height for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .pg-map-section {
+        padding: 3rem 0.8rem;
+    }
+
+    .pg-map-info {
+        padding: 1rem;
+    }
+
+    .pg-map-info h2 {
+        font-size: 1.3rem;
+    }
+
+    .pg-map-info p {
+        font-size: 0.9rem;
+    }
+
+    .pg-map-rating {
+        font-size: 0.8rem;
+    }
+
+    .pg-map-view-link {
+        font-size: 0.9rem;
+    }
+
+    .pg-map-embed iframe {
+        height: 300px;
+        /* Further adjust map height for very small screens */
+    }
+}
