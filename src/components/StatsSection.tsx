@@ -1,7 +1,7 @@
 // src/components/StatsSection.tsx
-import React, { useRef, useEffect, useState } from "react"; // Import useRef, useEffect, useState
+import React, { useRef, useEffect, useState } from "react";
 import "./StatsSection.css";
-import useCountUp from "../hooks/useCountUp"; // Import the custom hook
+import useCountUp from "../hooks/useCountUp";
 
 // Import your SVG icons
 import { ReactComponent as BriefcaseIcon } from "../assets/icons/experience-icon.svg";
@@ -13,42 +13,69 @@ import { ReactComponent as GearIcon } from "../assets/icons/building-icon.svg";
 interface StatItemData {
   id: number;
   icon: React.ElementType;
-  targetValue: number; // The number the animation counts up to
+  targetValue: number;
   label: string;
+  suffix: string;
+  description: string;
 }
 
 const StatsSection: React.FC = () => {
-  const sectionRef = useRef<HTMLElement>(null); // Ref for the section itself
-  const [inView, setInView] = useState(false); // State to track if section is in view
+  const sectionRef = useRef<HTMLElement>(null);
+  const [inView, setInView] = useState(false);
 
-  // Define the data for your statistics with target numeric values
+  // Enhanced, more relevant statistics for architecture & interior design company
   const stats: StatItemData[] = [
-    { id: 1, icon: BriefcaseIcon, targetValue: 5, label: "Năm kinh nghiệm" },
-    { id: 2, icon: HandshakeIcon, targetValue: 389, label: "Khách hàng" },
-    { id: 3, icon: DesignIcon, targetValue: 365, label: "Dự án thiết kế" },
-    { id: 4, icon: GearIcon, targetValue: 250, label: "Dự án thi công" },
+    { 
+      id: 1, 
+      icon: BriefcaseIcon, 
+      targetValue: 8, 
+      label: "Kinh nghiệm", 
+      suffix: "+ năm",
+      description: "Trong thiết kế & thi công"
+    },
+    { 
+      id: 2, 
+      icon: HandshakeIcon, 
+      targetValue: 500, 
+      label: "Khách hàng", 
+      suffix: "+",
+      description: "Tin tưởng & hài lòng"
+    },
+    { 
+      id: 3, 
+      icon: DesignIcon, 
+      targetValue: 450, 
+      label: "Dự án", 
+      suffix: "+",
+      description: "Thiết kế hoàn thành"
+    },
+    { 
+      id: 4, 
+      icon: GearIcon, 
+      targetValue: 98, 
+      label: "Chất lượng", 
+      suffix: "%",
+      description: "Cam kết hoàn hảo"
+    },
   ];
 
   // Set up Intersection Observer
   useEffect(() => {
-    const currentRef = sectionRef.current; // Capture the current value of the ref here
-    if (!currentRef) {
-      return;
-    }
+    const currentRef = sectionRef.current;
+    if (!currentRef) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setInView(true);
-            // Optionally, disconnect observer once it's in view
             observer.disconnect();
           }
         });
       },
       {
-        threshold: 0.5, // Trigger when 50% of the section is visible
-        // rootMargin: '0px 0px -100px 0px', // Adjust if you want it to trigger before fully in view
+        threshold: 0.3,
+        rootMargin: '0px 0px -50px 0px',
       }
     );
 
@@ -59,36 +86,43 @@ const StatsSection: React.FC = () => {
         observer.unobserve(currentRef);
       }
     };
-  }, []); // Run once on mount
+  }, []);
 
   return (
     <section className="stats-section" ref={sectionRef}>
-      {" "}
-      {/* Attach the ref */}
-      <h2 className="stats-main-headline">CHÚNG TÔI ĐÃ XÂY DỰNG</h2>
-      <div className="stats-sub-headline-with-lines">
-        <h3 className="stats-sub-headline">NHỮNG NGÔI NHÀ HẠNH PHÚC</h3>
-      </div>
-      <div className="stats-grid">
-        {stats.map((item) => (
-          <StatItem
-            key={item.id}
-            icon={item.icon}
-            targetValue={item.targetValue}
-            label={item.label}
-            startAnimation={inView} // Pass 'inView' to tell StatItem when to start
-          />
-        ))}
-      </div>
-      <hr className="stats-divider" />
-      <div className="stats-grid">
-        {" "}
-        {stats.map((item) => (
-          <div key={item.id} className="stat-item">
-            {" "}
-            <div className="stat-label"> {item.label}</div>{" "}
+      <div className="stats-container">
+        <div className="stats-header">
+          <h2 className="stats-main-headline">THÀNH TỰU CỦA CHÚNG TÔI</h2>
+          <div className="stats-sub-headline-wrapper">
+            <h3 className="stats-sub-headline">Những con số ấn tượng</h3>
+            <p className="stats-description">
+              Với nhiều năm kinh nghiệm trong lĩnh vực thiết kế kiến trúc và nội thất, 
+              chúng tôi tự hào mang đến những giải pháp tối ưu cho mọi không gian sống.
+            </p>
           </div>
-        ))}
+        </div>
+
+        <div className="stats-grid">
+          {stats.map((item, index) => (
+            <StatItem
+              key={item.id}
+              icon={item.icon}
+              targetValue={item.targetValue}
+              label={item.label}
+              suffix={item.suffix}
+              description={item.description}
+              startAnimation={inView}
+              animationDelay={index * 150}
+            />
+          ))}
+        </div>
+
+        <div className="stats-footer">
+          <div className="stats-cta">
+            <h4>Hãy để chúng tôi biến ước mơ của bạn thành hiện thực</h4>
+            <button className="stats-contact-btn">Liên hệ tư vấn</button>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -96,43 +130,56 @@ const StatsSection: React.FC = () => {
 
 export default StatsSection;
 
-// --- Helper Component for individual Stat Item with counting ---
+// Enhanced StatItem component
 interface StatItemProps {
   icon: React.ElementType;
   targetValue: number;
   label: string;
-  startAnimation: boolean; // Prop to trigger animation
+  suffix: string;
+  description: string;
+  startAnimation: boolean;
+  animationDelay: number;
 }
 
 const StatItem: React.FC<StatItemProps> = ({
   icon: Icon,
   targetValue,
   label,
+  suffix,
+  description,
   startAnimation,
+  animationDelay,
 }) => {
-  // Use the useCountUp hook
-  const {
-    count,
-    startAnimation: triggerCountUp,
-    hasStarted,
-  } = useCountUp({
+  const { count, startAnimation: triggerCountUp, hasStarted } = useCountUp({
     end: targetValue,
-    duration: 1000, // 2 seconds animation
-    // startOnEnter: true,
+    duration: 1500,
   });
 
-  // Effect to start counting when startAnimation prop becomes true
   useEffect(() => {
     if (startAnimation && !hasStarted) {
-      // Only start if in view and not already started
-      triggerCountUp();
+      setTimeout(() => {
+        triggerCountUp();
+      }, animationDelay);
     }
-  }, [startAnimation, hasStarted, triggerCountUp]);
+  }, [startAnimation, hasStarted, triggerCountUp, animationDelay]);
 
   return (
-    <div className="stat-item">
-      <Icon className="stat-icon" />
-      <div className="stat-value">{count} +</div>
+    <div 
+      className="stat-item" 
+      style={{ 
+        animationDelay: `${animationDelay}ms` 
+      }}
+    >
+      <div className="stat-icon-wrapper">
+        <Icon className="stat-icon" />
+      </div>
+      <div className="stat-content">
+        <div className="stat-value">
+          {count}{suffix}
+        </div>
+        <div className="stat-label">{label}</div>
+        <div className="stat-description">{description}</div>
+      </div>
     </div>
   );
 };
