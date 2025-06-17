@@ -43,7 +43,7 @@
   width: 100px;
   /* Adjust icon size */
   height: 100px;
-  color: gray;
+  stroke: gray;
   /* Color for the SVG icon (dark green from screenshot) */
   /* This works because the SVG's path uses `fill="currentColor"` */
 }

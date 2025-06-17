@@ -1,23 +1,248 @@
-.fullscreen-container {
-    position: relative;
-    /* Needed for positioning content overlay */
-    width: 100vw;
-    top: 0;
-    overflow: hidden;
-    /* Hide any overflow if image is larger than container */
+/* HomePage.css - Beautiful Intro Page Design */
+
+.home-page {
+  width: 100%;
+  overflow-x: hidden;
 }
 
-.fullscreen-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    /* This is the key: it covers the container while maintaining aspect ratio */
-    object-position: center;
-    /* Center the image within the container */
+/* === HERO/INTRO SECTION === */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
 }
 
-.feeback {
-    position: absolute;
-    width: 100%;
-    top: 0;
+.hero-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-text-overlay {
+  position: absolute;
+  bottom: 80px;
+  left: 60px;
+  z-index: 2;
+}
+
+.hero-main-text {
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* === MAIN CONTENT === */
+.main-content {
+  position: relative;
+  background: #ffffff;
+  padding: 0;
+}
+
+/* === SECTION STYLING === */
+.about-intro-section,
+.statistics-section,
+.solutions-section,
+.services-section,
+.work-process-section,
+.team-section,
+.projects-section,
+.testimonials-section,
+.consultation-section {
+  position: relative;
+  width: 100%;
+}
+
+/* Section Headers */
+.section-header {
+  text-align: center;
+  padding: 60px 0 40px 0;
+  background: #ffffff;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2f674b;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #36604c, #2f674b);
+  border-radius: 2px;
+}
+
+/* Specific Section Backgrounds */
+.about-intro-section {
+  background: linear-gradient(135deg, #f8faf9 0%, #ffffff 100%);
+  padding: 80px 0;
+}
+
+.statistics-section {
+  background: linear-gradient(135deg, #36604c 0%, #4a7a5e 100%);
+  color: white;
+}
+
+.solutions-section {
+  background: #ffffff;
+}
+
+.services-section {
+  background: linear-gradient(135deg, #f8faf9 0%, #ffffff 100%);
+}
+
+.work-process-section {
+  background: #ffffff;
+}
+
+.team-section {
+  background: linear-gradient(135deg, #f8faf9 0%, #ffffff 100%);
+  padding: 80px 0;
+}
+
+.projects-section {
+  background: linear-gradient(135deg, #f8faf9 0%, #ffffff 100%);
+}
+
+.testimonials-section {
+  background: #ffffff;
+}
+
+.consultation-section {
+  background: linear-gradient(135deg, #36604c 0%, #4a7a5e 100%);
+  color: white;
+}
+
+.consultation-section .section-title {
+  color: #ffffff;
+}
+
+.consultation-section .section-title::after {
+  background: linear-gradient(90deg, #ffffff, rgba(255, 255, 255, 0.8));
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 1200px) {
+  .hero-main-text {
+    font-size: 4rem;
+  }
+  
+  .hero-text-overlay {
+    bottom: 60px;
+    left: 40px;
+  }
+  
+  .section-title {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: 80vh;
+  }
+  
+  .hero-main-text {
+    font-size: 3rem;
+    line-height: 1.2;
+  }
+  
+  .hero-text-overlay {
+    bottom: 40px;
+    left: 30px;
+    right: 30px;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+  }
+  
+  .section-header {
+    padding: 50px 0 30px 0;
+  }
+  
+  .about-intro-section {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    height: 70vh;
+  }
+  
+  .hero-main-text {
+    font-size: 2.2rem;
+  }
+  
+  .hero-text-overlay {
+    bottom: 30px;
+    left: 20px;
+    right: 20px;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .section-header {
+    padding: 40px 0 25px 0;
+  }
+  
+  .about-intro-section {
+    padding: 50px 0;
+  }
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* === SMOOTH SCROLLING === */
+html {
+  scroll-behavior: smooth;
+}
+
+/* === SECTION TRANSITIONS === */
+.main-content > section {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s ease-out;
+}
+
+/* Add subtle hover effects for interactive sections */
+.solutions-section:hover,
+.services-section:hover,
+.work-process-section:hover,
+.team-section:hover {
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
 }

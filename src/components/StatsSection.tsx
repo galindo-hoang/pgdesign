@@ -9,6 +9,12 @@ import { ReactComponent as HandshakeIcon } from "../assets/icons/customer-icon.s
 import { ReactComponent as DesignIcon } from "../assets/icons/design-icon.svg";
 import { ReactComponent as GearIcon } from "../assets/icons/building-icon.svg";
 
+// Import project images for backgrounds
+import experienceImg from "../assets/images/diary-image-1.jpg";
+import customerImg from "../assets/images/diary-image-2.jpg";
+import projectImg from "../assets/images/diary-image-3.jpg";
+import qualityImg from "../assets/images/diary-image-4.jpg";
+
 // Define an interface for each statistic item
 interface StatItemData {
   id: number;
@@ -17,6 +23,8 @@ interface StatItemData {
   label: string;
   suffix: string;
   description: string;
+  backgroundImage: string;
+  category: string;
 }
 
 const StatsSection: React.FC = () => {
@@ -31,7 +39,9 @@ const StatsSection: React.FC = () => {
       targetValue: 8, 
       label: "Kinh nghiệm", 
       suffix: "+ năm",
-      description: "Trong thiết kế & thi công"
+      description: "Trong thiết kế & thi công",
+      backgroundImage: experienceImg,
+      category: "experience"
     },
     { 
       id: 2, 
@@ -39,7 +49,9 @@ const StatsSection: React.FC = () => {
       targetValue: 500, 
       label: "Khách hàng", 
       suffix: "+",
-      description: "Tin tưởng & hài lòng"
+      description: "Tin tưởng & hài lòng",
+      backgroundImage: customerImg,
+      category: "customers"
     },
     { 
       id: 3, 
@@ -47,7 +59,9 @@ const StatsSection: React.FC = () => {
       targetValue: 450, 
       label: "Dự án", 
       suffix: "+",
-      description: "Thiết kế hoàn thành"
+      description: "Thiết kế hoàn thành",
+      backgroundImage: projectImg,
+      category: "projects"
     },
     { 
       id: 4, 
@@ -55,7 +69,9 @@ const StatsSection: React.FC = () => {
       targetValue: 98, 
       label: "Chất lượng", 
       suffix: "%",
-      description: "Cam kết hoàn hảo"
+      description: "Cam kết hoàn hảo",
+      backgroundImage: qualityImg,
+      category: "quality"
     },
   ];
 
@@ -111,6 +127,8 @@ const StatsSection: React.FC = () => {
               label={item.label}
               suffix={item.suffix}
               description={item.description}
+              backgroundImage={item.backgroundImage}
+              category={item.category}
               startAnimation={inView}
               animationDelay={index * 150}
             />
@@ -137,6 +155,8 @@ interface StatItemProps {
   label: string;
   suffix: string;
   description: string;
+  backgroundImage: string;
+  category: string;
   startAnimation: boolean;
   animationDelay: number;
 }
@@ -147,6 +167,8 @@ const StatItem: React.FC<StatItemProps> = ({
   label,
   suffix,
   description,
+  backgroundImage,
+  category,
   startAnimation,
   animationDelay,
 }) => {
@@ -165,20 +187,28 @@ const StatItem: React.FC<StatItemProps> = ({
 
   return (
     <div 
-      className="stat-item" 
+      className={`stat-item stat-item-${category}`}
       style={{ 
         animationDelay: `${animationDelay}ms` 
       }}
     >
-      <div className="stat-icon-wrapper">
-        <Icon className="stat-icon" />
-      </div>
-      <div className="stat-content">
-        <div className="stat-value">
-          {count}{suffix}
+      <div 
+        className="stat-background-image"
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      />
+      <div className="stat-overlay" />
+      
+      <div className="stat-content-wrapper">
+        <div className="stat-icon-wrapper">
+          <Icon className="stat-icon" />
         </div>
-        <div className="stat-label">{label}</div>
-        <div className="stat-description">{description}</div>
+        <div className="stat-content">
+          <div className="stat-value">
+            {count}{suffix}
+          </div>
+          <div className="stat-label">{label}</div>
+          <div className="stat-description">{description}</div>
+        </div>
       </div>
     </div>
   );
