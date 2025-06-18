@@ -9,7 +9,7 @@ html {
 .about-us-section {
     padding: 5rem 1.25rem;
     /* Adjusted from 80px 20px to rem for responsive padding */
-    font-family: Arial, sans-serif;
+    font-family: var(--primary-font);
     color: #333;
 }
 

@@ -4,7 +4,7 @@
     /* Consistent padding with other sections */
     background-color: white;
     /* Light background for the section */
-    font-family: Arial, sans-serif;
+    font-family: var(--primary-font);
     color: #333;
 }
 

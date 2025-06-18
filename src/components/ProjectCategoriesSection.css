@@ -3,7 +3,7 @@
 .project-categories-section {
   padding: 80px 20px;
   background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-  font-family: Arial, sans-serif;
+  font-family: var(--primary-font);
   color: #333;
   position: relative;
   overflow: hidden;

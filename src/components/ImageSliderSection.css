@@ -5,7 +5,7 @@
   /* Add vertical padding around the slider */
   background-color: #f8f8f8;
   /* Light background for the section */
-  font-family: Arial, sans-serif;
+  font-family: var(--primary-font);
 }
 
 /* Styles for the individual slide cards */

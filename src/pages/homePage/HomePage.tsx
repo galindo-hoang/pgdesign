@@ -6,7 +6,6 @@ import ImageSliderSection from "../../components/ImageSliderSection";
 import StatsSection from "../../components/StatsSection";
 import ServicesSection from "../../components/ServicesSection";
 import WorkflowSection from "../../components/WorkProcessSection";
-import TeamSection from "../../components/TeamSection";
 import ProjectDiarySection from "../../components/ProjectDiarySection";
 import TestimonialSliderSection from "../../components/TestimonialSliderSection";
 import ConsultationFormSection from "../../components/ConsultationFormSection";

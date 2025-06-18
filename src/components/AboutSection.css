@@ -7,7 +7,7 @@
   /* Adjust top/bottom padding as needed, and side padding */
   background-color: #ffffff;
   /* White background */
-  font-family: Arial, sans-serif;
+  font-family: var(--primary-font);
   /* Use a consistent font */
   color: #333;
   /* Default text color for the section */

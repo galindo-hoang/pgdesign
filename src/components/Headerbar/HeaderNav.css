@@ -34,7 +34,7 @@
     /* Removes underline from links */
     color: #2F674B;
     /* Link color, adjust as needed */
-    font-family: Arial, sans-serif;
+    font-family: var(--primary-font);
     /* Use your desired font */
     font-size: 16px;
     /* Adjust font size */

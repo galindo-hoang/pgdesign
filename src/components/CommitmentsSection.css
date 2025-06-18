@@ -8,7 +8,7 @@ html {
     padding: 0 1.25rem;
     /* ADDED: Restoring padding for the section */
     background-color: #fff;
-    font-family: Arial, sans-serif;
+    font-family: var(--primary-font);
     color: #333;
     text-align: center;
     /* This centers the heading within the section */

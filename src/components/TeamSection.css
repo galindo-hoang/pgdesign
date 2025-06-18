@@ -9,7 +9,7 @@ html {
     padding: 5rem 1.25rem;
     background-color: white;
     /* Changed from #f9f9f9 to white as per latest file */
-    font-family: Arial, sans-serif;
+    font-family: var(--primary-font);
     color: #333;
 }
 

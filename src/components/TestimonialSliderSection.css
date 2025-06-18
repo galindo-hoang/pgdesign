@@ -3,7 +3,7 @@
 .testimonial-slider-section {
     padding: 80px 20px;
     background-color: transparent;
-    font-family: Arial, sans-serif;
+    font-family: var(--primary-font);
     text-align: center;
 }
 

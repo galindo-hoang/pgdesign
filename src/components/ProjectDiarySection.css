@@ -3,7 +3,7 @@
 .project-diary-section {
     padding: 80px 20px;
     background-color: #fff;
-    font-family: Arial, sans-serif;
+    font-family: var(--primary-font);
     color: #333;
     text-align: center;
 }
