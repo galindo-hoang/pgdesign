@@ -1,6 +1,6 @@
 // src/App.tsx
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import "./App.css"; // General app styles, if any
 import Navbar from "./components/Headerbar/Navbar";
 import Footer from "./components/Footerbar/FooterNav";
@@ -13,20 +13,20 @@ import ContactPage from "./pages/contactPage/ContactPage";
 
 const App: React.FC = () => {
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <HashRouter>
       <div className="App">
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/intro" element={<IntroPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/projects" element={<ProjectPage />} />
+          <Route path="/project" element={<ProjectPage />} />
           <Route path="/projects/:categoryId" element={<ProjectCategoryPage />} />
           <Route path="/blog" element={<BlogPage />} />
         </Routes>
         <Footer />
       </div>
-    </Router>
+    </HashRouter>
   );
 };
 
