@@ -86,9 +86,9 @@ const getSampleProjects = (category: string, subCategory: string): ProjectItem[]
 // Category configurations
 const getCategoryData = (categoryId: string): CategoryData | null => {
   switch (categoryId) {
-    case "nha-pho":
+    case "house-normal":
       return {
-        id: "nha-pho",
+        id: "house-normal",
         title: "NHÀ PHỐ",
         description: "Thiết kế nhà phố hiện đại, tối ưu hóa không gian và ánh sáng tự nhiên cho cuộc sống đô thị.",
         subCategories: [
@@ -96,32 +96,32 @@ const getCategoryData = (categoryId: string): CategoryData | null => {
             id: "nha-ong",
             title: "Nhà Ống",
             description: "Thiết kế cho mặt tiền hẹp, chiều sâu dài, tận dụng tối đa diện tích.",
-            projects: getSampleProjects("nha-pho", "Nhà Ống")
+            projects: getSampleProjects("house-normal", "Nhà Ống")
           },
           {
             id: "nha-lien-ke",
             title: "Nhà Liền Kề",
             description: "Nhà phố trong khu quy hoạch, kiến trúc đồng bộ và hiện đại.",
-            projects: getSampleProjects("nha-pho", "Nhà Liền Kề")
+            projects: getSampleProjects("house-normal", "Nhà Liền Kề")
           },
           {
-            id: "nha-pho-san-vuon",
+            id: "house-normal-san-vuon",
             title: "Nhà Phố Có Sân Vườn",
             description: "Kết hợp không gian xanh, tạo sự thông thoáng và gần gũi thiên nhiên.",
-            projects: getSampleProjects("nha-pho", "Nhà Phố Có Sân Vườn")
+            projects: getSampleProjects("house-normal", "Nhà Phố Có Sân Vườn")
           },
           {
             id: "shophouse",
             title: "Shophouse",
             description: "Tầng trệt kinh doanh, tầng trên ở, tối ưu hóa mặt tiền thu hút khách hàng.",
-            projects: getSampleProjects("nha-pho", "Shophouse")
+            projects: getSampleProjects("house-normal", "Shophouse")
           }
         ]
       };
 
-    case "nha-vuon":
+    case "house-full":
       return {
-        id: "nha-vuon",
+        id: "house-full",
         title: "NHÀ VƯỜN",
         description: "Hòa quyện kiến trúc với thiên nhiên, tạo nên không gian sống xanh và thư thái.",
         subCategories: [
@@ -129,41 +129,41 @@ const getCategoryData = (categoryId: string): CategoryData | null => {
             id: "resort-villa",
             title: "Resort Garden Houses",
             description: "Diện tích lớn, nhiều tiện ích cao cấp như hồ bơi, sân tennis.",
-            projects: getSampleProjects("nha-vuon", "Resort Garden Houses")
+            projects: getSampleProjects("house-full", "Resort Garden Houses")
           },
           {
             id: "mini-garden",
             title: "Nhà Vườn Mini",
             description: "Diện tích vừa phải, vẫn có không gian xanh và cảnh quan nhỏ.",
-            projects: getSampleProjects("nha-vuon", "Nhà Vườn Mini")
+            projects: getSampleProjects("house-full", "Nhà Vườn Mini")
           }
         ]
       };
 
-    case "biet-thu":
+    case "house-rough":
       return {
-        id: "biet-thu",
+        id: "house-rough",
         title: "BIỆT THỰ",
         description: "Kiến trúc sang trọng và đẳng cấp, thể hiện phong cách sống luxury của gia chủ.",
         subCategories: [
           {
-            id: "biet-thu-don-lap",
+            id: "house-rough-don-lap",
             title: "Biệt Thự Đơn Lập",
             description: "Hoàn toàn độc lập, 4 mặt thoáng, tối đa hóa sự riêng tư.",
-            projects: getSampleProjects("biet-thu", "Biệt Thự Đơn Lập")
+            projects: getSampleProjects("house-rough", "Biệt Thự Đơn Lập")
           },
           {
-            id: "biet-thu-song-lap",
+            id: "house-rough-song-lap",
             title: "Biệt Thự Song Lập",
             description: "Hai biệt thự kiến trúc đối xứng, chung một bức tường.",
-            projects: getSampleProjects("biet-thu", "Biệt Thự Song Lập")
+            projects: getSampleProjects("house-rough", "Biệt Thự Song Lập")
           }
         ]
       };
 
-    case "nha-cap4":
+    case "house-interior":
       return {
-        id: "nha-cap4",
+        id: "house-interior",
         title: "NHÀ CẤP 4",
         description: "Nhà một tầng đặc trưng của Việt Nam với nhiều biến thể phong cách và bố trí.",
         subCategories: [
@@ -171,62 +171,28 @@ const getCategoryData = (categoryId: string): CategoryData | null => {
             id: "mai-thai",
             title: "Nhà Cấp 4 Mái Thái",
             description: "Mái dốc lớn hình chóp hoặc chữ A, đẹp mắt, thoát nước tốt.",
-            projects: getSampleProjects("nha-cap4", "Mái Thái")
+            projects: getSampleProjects("house-interior", "Mái Thái")
           },
           {
             id: "mai-nhat",
             title: "Nhà Cấp 4 Mái Nhật",
             description: "Độ dốc ít hơn mái Thái, tạo vẻ trang nghiêm, phù hợp phong cách hiện đại.",
-            projects: getSampleProjects("nha-cap4", "Mái Nhật")
+            projects: getSampleProjects("house-interior", "Mái Nhật")
           },
           {
             id: "mai-bang",
             title: "Nhà Cấp 4 Mái Bằng",
             description: "Mái phẳng, có thể tận dụng không gian mái, kiến trúc vững chắc, hiện đại.",
-            projects: getSampleProjects("nha-cap4", "Mái Bằng")
+            projects: getSampleProjects("house-interior", "Mái Bằng")
           },
           {
             id: "gac-lung",
             title: "Nhà Cấp 4 Gác Lửng",
             description: "Có thêm không gian gác lửng để tối ưu diện tích sử dụng.",
-            projects: getSampleProjects("nha-cap4", "Gác Lửng")
+            projects: getSampleProjects("house-interior", "Gác Lửng")
           }
         ]
       };
-
-    case "can-ho-chung-cu":
-      return {
-        id: "can-ho-chung-cu",
-        title: "CĂN HỘ CHUNG CƯ",
-        description: "Không gian sống riêng tư trong tòa nhà lớn, tập trung vào thiết kế nội thất và tối ưa hóa không gian.",
-        subCategories: [
-          {
-            id: "studio",
-            title: "Studio Apartments",
-            description: "Không gian mở, không có vách ngăn phòng ngủ, phù hợp với người độc thân/cặp đôi.",
-            projects: getSampleProjects("can-ho-chung-cu", "Studio")
-          },
-          {
-            id: "1-bedroom",
-            title: "Căn Hộ 1 Phòng Ngủ",
-            description: "Có 1 phòng ngủ riêng biệt, phòng khách và bếp chung.",
-            projects: getSampleProjects("can-ho-chung-cu", "1 Phòng Ngủ")
-          },
-          {
-            id: "2-bedroom",
-            title: "Căn Hộ 2 Phòng Ngủ",
-            description: "2 phòng ngủ riêng biệt, phù hợp với gia đình nhỏ.",
-            projects: getSampleProjects("can-ho-chung-cu", "2 Phòng Ngủ")
-          },
-          {
-            id: "penthouse",
-            title: "Penthouse",
-            description: "Tầng cao nhất, diện tích lớn, view đẹp, có thể có sân thượng/hồ bơi riêng.",
-            projects: getSampleProjects("can-ho-chung-cu", "Penthouse")
-          }
-        ]
-      };
-
     default:
       return null;
   }

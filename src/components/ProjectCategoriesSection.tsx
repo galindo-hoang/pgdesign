@@ -11,8 +11,6 @@ import khongGianBg from "../assets/images/diary-image-4.jpg";
 interface ProjectCategory {
   id: string;
   title: string;
-  description: string;
-  icon: string;
   projectCount: number;
   backgroundImage: string;
   navigationPath: string;
@@ -24,49 +22,32 @@ const ProjectCategoriesSection: React.FC = () => {
 
   const categories: ProjectCategory[] = [
     {
-      id: "nha-pho",
+      id: "house-normal",
       title: "NHÀ PHỐ",
-      description: "Thiết kế hiện đại cho không gian sống đô thị, tối ưu hóa diện tích và ánh sáng tự nhiên.",
-      icon: "🏢",
       projectCount: 45,
       backgroundImage: nhaPhoBg,
-      navigationPath: "/projects/nha-pho",
+      navigationPath: "/projects/house-normal",
     },
     {
-      id: "nha-vuon",
-      title: "NHÀ VƯỜN",
-      description: "Hòa quyện kiến trúc với thiên nhiên, tạo nên không gian sống xanh và thư thái.",
-      icon: "🌿",
+      id: "house-full",
+      title: "Xây nhà trọn gói",
       projectCount: 32,
       backgroundImage: nhaVuonBg,
-      navigationPath: "/projects/nha-vuon",
+      navigationPath: "/projects/house-full",
     },
     {
-      id: "biet-thu",
-      title: "BIỆT THỰ",
-      description: "Kiến trúc sang trọng và đẳng cấp, thể hiện phong cách sống luxury của gia chủ.",
-      icon: "🏛️",
+      id: "house-rough",
+      title: "Xây dựng phần thô",
       projectCount: 28,
       backgroundImage: bietThuBg,
-      navigationPath: "/projects/biet-thu",
+      navigationPath: "/projects/house-rough",
     },
     {
-      id: "nha-cap4",
-      title: "NHÀ CẤP 4",
-      description: "Một loại hình nhà ở đặc trưng của Việt Nam, thường chỉ có một tầng (tầng trệt). Tuy nhiên, nó không chỉ đơn thuần là một ngôi nhà một tầng mà còn có nhiều biến thể dựa trên phong cách và cách thức bố trí.",
-      icon: "🎨",
+      id: "house-interior",
+      title: "Thiết kế  và thi công nội thất",
       projectCount: 50,
       backgroundImage: khongGianBg,
-      navigationPath: "/projects/nha-cap4",
-    },
-    {
-      id: "can-ho-chung-cu",
-      title: "CĂN HỘ CHUNG CƯ",
-      description: "Là một không gian sống riêng tư bên trong một tòa nhà lớn hơn, được thiết kế để đáp ứng nhu cầu sinh hoạt của một gia đình hoặc cá nhân.",
-      icon: "🎨",
-      projectCount: 30,
-      backgroundImage: khongGianBg,
-      navigationPath: "/projects/can-ho-chung-cu",
+      navigationPath: "/projects/house-interior",
     }
   ];
 
@@ -81,7 +62,7 @@ const ProjectCategoriesSection: React.FC = () => {
   };
 
   const handleExploreAll = () => {
-    navigate("/projects");
+    navigate("/project");
   };
 
   return (
@@ -115,31 +96,20 @@ const ProjectCategoriesSection: React.FC = () => {
             <div className="category-content-wrapper">
               <div className="category-content">
                 <h4 className="category-title">{category.title}</h4>
-                <p className="category-description">{category.description}</p>
                 <div className="category-stats">
                   <span className="project-count">{category.projectCount} dự án</span>
                   <button 
                     className="view-more"
                     onClick={(e) => handleViewMore(e, category.navigationPath)}
-                    aria-label={`Xem thêm dự án ${category.title}`}
+                    aria-label={`Xem chi tiết dự án ${category.title}`}
                   >
-                    Xem thêm →
+                    Xem chi tiết
                   </button>
                 </div>
               </div>
             </div>
           </div>
         ))}
-      </div>
-
-      <div className="categories-cta">
-        <button 
-          className="explore-all-btn"
-          onClick={handleExploreAll}
-        >
-          <span>KHÁM PHÁ TẤT CẢ DỰ ÁN</span>
-          <div className="btn-arrow">→</div>
-        </button>
       </div>
     </section>
   );
