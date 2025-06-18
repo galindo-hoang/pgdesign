@@ -8,18 +8,21 @@
 }
 
 .ts-main-headline {
-    font-size: 2.5em;
-    color: #557256;
+    text-align: left;
+    margin: auto 122px auto 122px;
+    max-width: 1200px;
     margin-bottom: 10px;
     font-weight: 700;
     text-transform: uppercase;
+    font-size: 48px;
+    color: #557256;
 }
 
 .ts-sub-headline {
     font-size: 1.2em;
-    color: #888;
+    color: black;
     margin-bottom: 60px;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
 }
 

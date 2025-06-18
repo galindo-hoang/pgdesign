@@ -12,7 +12,7 @@ import { ReactComponent as PostHandoverWarrantyIcon } from "../assets/icons/post
 const CommitmentsSection: React.FC = () => {
   return (
     <section className="pg-commitments-section">
-      <h2 className="pg-commitments-heading">CAM KẾT CỦA PG DESIGN</h2>
+      <div className="pg-commitments-heading">CAM KẾT CỦA PG DESIGN</div>
       <div className="pg-commitments-grid">
         {/* Commitment Item 1: KHÔNG KHOÁN THẦU */}
         <div className="commitment-item">

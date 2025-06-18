@@ -18,7 +18,8 @@
   /* Adjust font size for the main headline */
   color: #2F674B;
   /* Darker color for prominence */
-  margin-bottom: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
   /* Space below headline */
   font-weight: 600;
   /* Semi-bold */
@@ -40,17 +41,18 @@
 }
 
 .about-pen-icon {
-  width: 100px;
+  width: 105px;
   /* Adjust icon size */
-  height: 100px;
-  stroke: gray;
-  fill: rgb(123, 121, 121);
+  height: 105px;
+  stroke: #929E87;
+  fill: #929E87;
   
   /* Color for the SVG icon (dark green from screenshot) */
   /* This works because the SVG's path uses `fill="currentColor"` */
 }
 
 .about-description {
+  font-style: italic;
   font-size: 1em;
   /* Standard paragraph font size */
   line-height: 1.6;
@@ -59,7 +61,7 @@
   /* Limit paragraph width for better readability */
   margin: 0 auto;
   /* Center the paragraph horizontally */
-  color: #666;
+  color: #40674D;
   /* Slightly lighter color for body text */
 }
 

@@ -10,12 +10,14 @@
 }
 
 .wp-main-headline {
-  font-size: 2.5em;
-  color: #333;
+  font-size: 48px;
+  color: #40674D;
   margin-bottom: 30px;
-  font-weight: 700;
+  font-weight: bold;
   text-transform: uppercase;
-  text-align: center;
+  text-align: left;
+  margin: auto;
+  max-width: 1200px;
 }
 
 .wp-tabs {
@@ -34,20 +36,14 @@
   display: flex;
   align-items: center;
   cursor: default;
-  /* Change cursor to default, as it's no longer interactive */
-  /* Remove padding-bottom and position: relative if underline is also removed */
-  /* padding-bottom: 5px; */
-  /* Keep if you want the space for a non-active underline */
   position: relative;
-  /* Keep if you want the space for a non-active underline */
-  /* Remove transition as there are no more hover/active states */
-  /* transition: color 0.3s ease; <-- REMOVE THIS */
+font-size: 24px;
 }
 
 .wp-tab-icon {
-  width: 65px;
-  height: 65px;
-  stroke: #929E87;
+  width: 60px;
+  height: 60px;
+  stroke: #949E89;
   flex-grow: 1;
   /* SVG path stroke/fill will inherit color from .wp-tab */
 }
@@ -99,7 +95,7 @@
 /* --- Responsive Adjustments --- */
 @media (max-width: 768px) {
   .wp-main-headline {
-    font-size: 2em;
+    font-size: 40px;
   }
 
   .wp-tabs {

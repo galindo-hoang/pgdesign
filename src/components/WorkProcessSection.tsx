@@ -16,7 +16,7 @@ const WorkProcessSection: React.FC = () => {
       <div className="wp-tabs">
         <div className="wp-tab">
           <DesignProcessIcon className="wp-tab-icon" />
-          <div className="wp-tab-title">QUY TRÌNH THIẾT KẾ</div>
+          QUY TRÌNH THIẾT KẾ
         </div>
         <div className="headerDivider"></div>
         <div className="wp-tab">

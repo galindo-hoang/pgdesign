@@ -9,8 +9,6 @@ const IntroSection: React.FC = () => {
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <div className="intro-content-container">
-        <h2 className="intro-about-us-heading">VỀ CHÚNG TÔI</h2>
-
         <div className="intro-pg-design">
           <p className="intro-pg-design-title">PG DESIGN</p>
           <p className="intro-pg-design-subtitle">KIẾN TẠO KHÔNG GIAN</p>

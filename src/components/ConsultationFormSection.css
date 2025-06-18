@@ -23,7 +23,10 @@ cf-form-group input.input-error,
 }
 
 .cf-main-headline {
-    font-size: 2.5em;
+    text-align: left;
+    margin: auto 122px auto 122px;
+    max-width: 1200px;
+    font-size: 48px;
     color: #557256;
     margin-bottom: 60px;
     font-weight: 700;
