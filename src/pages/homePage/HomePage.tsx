@@ -28,7 +28,6 @@ const HomePage: React.FC = () => {
           <StatsSection />
           <ServicesSection />
           <WorkflowSection />
-          <TeamSection />
           <ProjectDiarySection />
           <TestimonialSliderSection />
           <ConsultationFormSection />
