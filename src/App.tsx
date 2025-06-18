@@ -1,6 +1,6 @@
 // src/App.tsx
 import React from "react";
-import { Routes, Route, HashRouter, BrowserRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import "./App.css"; // General app styles, if any
 import Navbar from "./components/Headerbar/Navbar";
 import Footer from "./components/Footerbar/FooterNav";
