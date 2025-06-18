@@ -44,7 +44,7 @@
 }
 
 .pd-masonry-grid_column {
-    padding-left: 2px;
+    /* padding-left: 2px; */
     /* Spacing between columns */
     background-clip: padding-box;
     display: flex;
@@ -57,9 +57,9 @@
 /* Style for individual grid items within the columns */
 .pd-masonry-grid_column>div {
     /* Target the actual item containers */
-    margin-bottom: 2px;
+    /* margin-bottom: 2px; */
     /* Spacing between items in a column */
-    border-radius: 8px;
+    /* border-radius: 8px; */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     overflow: hidden;
     /* Ensures rounded corners and crops overflowing image parts */

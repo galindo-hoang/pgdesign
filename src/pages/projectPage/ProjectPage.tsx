@@ -8,8 +8,8 @@ const ProjectPage: React.FC = () => {
   return (
     <div className="project-page">
       <AboutProjectSection />
-      <ProjectCategoriesSection />
       <StatsSection />
+      <ProjectCategoriesSection />
     </div>
   );
 };

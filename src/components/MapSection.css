@@ -1,13 +1,11 @@
 /* src/components/MapSection/MapSection.css */
 
 .pg-map-section {
-    padding: 5rem 1.25rem;
     /* Consistent padding with other sections */
     background-color: white;
     /* Light background for the section */
     font-family: Arial, sans-serif;
     color: #333;
-    padding: 0px 20% 1%;
 }
 
 .pg-map-content-wrapper {

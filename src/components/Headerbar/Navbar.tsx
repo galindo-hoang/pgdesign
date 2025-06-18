@@ -32,19 +32,19 @@ const Navbar: React.FC = () => {
       </div>
       <ul className="navbar-links">
         <li className="navbar-item">
-          <a href="#gioithieu">Giới thiệu</a>
+          <a href="/intro">Giới thiệu</a>
         </li>
         <li className="navbar-item">
-          <a href="#dichvu">Dịch vụ</a>
+          <a href="/dichvu">Dịch vụ</a>
         </li>
         <li className="navbar-item">
-          <a href="#duan">Dự án</a>
+          <a href="/project">Dự án</a>
         </li>
         <li className="navbar-item">
-          <a href="#lienhe">Liên hệ</a>
+          <a href="/contact">Liên hệ</a>
         </li>
         <li className="navbar-item">
-          <a href="#blog">Blog</a>
+          <a href="/blog">Blog</a>
         </li>
       </ul>
     </nav>

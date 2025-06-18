@@ -18,17 +18,14 @@ const HomePage: React.FC = () => {
       <section className="hero-section">
         <div className="hero-image-container">
           <img src={thumbIntro} alt="PG Design - Kiến tạo không gian" className="hero-image" />
-          <div className="hero-text-overlay">
-            <h1 className="hero-main-text">PG DESIGN<br />KIẾN TẠO KHÔNG GIAN</h1>
-          </div>
         </div>
       </section>
 
       {/* Main Content Sections */}
       <main className="main-content">
           <AboutSection />
-          <StatsSection />
           <ImageSliderSection slides={[]} />
+          <StatsSection />
           <ServicesSection />
           <WorkflowSection />
           <TeamSection />

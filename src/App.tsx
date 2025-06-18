@@ -9,6 +9,7 @@ import IntroPage from "./pages/introPage/IntroPage";
 import HomePage from "./pages/homePage/HomePage";
 import ProjectCategoryPage from "./pages/ProjectCategoryPage";
 import BlogPage from "./pages/BlogPage";
+import ContactPage from "./pages/contactPage/ContactPage";
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/intro" element={<IntroPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/projects" element={<ProjectPage />} />
           <Route path="/projects/:categoryId" element={<ProjectCategoryPage />} />
           <Route path="/blog" element={<BlogPage />} />

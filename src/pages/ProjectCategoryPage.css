@@ -404,7 +404,6 @@
 
 .subcategory-nav-item.active {
   color: #2f674b;
-  border-bottom-color: #2f674b;
   background: rgba(54, 96, 76, 0.1);
 }
 
@@ -415,7 +414,7 @@
   left: 50%;
   width: 0;
   height: 3px;
-  background: linear-gradient(90deg, #2f674b, #4a7a5e);
+  /* background: linear-gradient(90deg, #2f674b, #4a7a5e); */
   transition: all 0.3s ease;
   transform: translateX(-50%);
 }

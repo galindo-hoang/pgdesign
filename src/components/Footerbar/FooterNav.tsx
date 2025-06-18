@@ -57,7 +57,7 @@ const Footer: React.FC = () => {
         <div className="footer-info-column">
           <img src={LocationIcon} alt="Xưởng Sản Xuất" className="info-icon" />
           <p className="info-title">XƯỞNG SẢN XUẤT</p>
-          <p className="info-text">36/37/8/1 Đường số 4, P.Hiệp Bình Phước</p>
+          <p className="info-text">28 Đ.41 Tam Bình, P.Hiệp Bình Chánh </p>
           <p className="info-text">TP.Thủ Đức, TP. Hồ Chí Minh.</p>
         </div>
       </div>

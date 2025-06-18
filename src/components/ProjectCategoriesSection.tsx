@@ -113,9 +113,6 @@ const ProjectCategoriesSection: React.FC = () => {
             <div className="category-overlay"></div>
             
             <div className="category-content-wrapper">
-              <div className="category-icon">
-                <span>{category.icon}</span>
-              </div>
               <div className="category-content">
                 <h4 className="category-title">{category.title}</h4>
                 <p className="category-description">{category.description}</p>

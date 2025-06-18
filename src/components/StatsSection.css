@@ -84,11 +84,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
-    margin-bottom: 4rem;
 }
 
 .stat-item {
-    background: rgba(255, 255, 255, 0.1);
+    /* background: rgba(255, 255, 255, 0.1); */
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px;
@@ -125,8 +124,8 @@
 }
 
 .stat-icon {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     stroke: #ffffff;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
     transition: all 0.4s ease;
@@ -144,7 +143,7 @@
 }
 
 .stat-value {
-    font-size: 3rem;
+    font-size: 1.3rem;
     font-weight: 800;
     color: #ffffff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -243,7 +242,6 @@
     
     .stats-grid {
         gap: 1.5rem;
-        margin-bottom: 3rem;
     }
     
     .stat-item {
@@ -280,7 +278,6 @@
     .stats-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
-        margin-bottom: 2.5rem;
     }
     
     .stat-item {

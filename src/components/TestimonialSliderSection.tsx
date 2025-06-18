@@ -52,7 +52,7 @@ const TestimonialSliderSection: React.FC = () => {
     centerMode: true,
     slidesToScroll: 1, // Scroll one slide at a time
     autoplay: true, // Auto-play the slider
-    autoplaySpeed: 3000, // Speed of autoplay
+    autoplaySpeed: 2000, // Speed of autoplay
     arrows: false, // Hide default arrows, we'll create custom ones if needed
     swipe: true, // <--- Ensure this is true (it's default true)
     draggable: true, // <--- Ensure this is true (it's default true for desktop)

@@ -134,13 +134,6 @@ const StatsSection: React.FC = () => {
             />
           ))}
         </div>
-
-        <div className="stats-footer">
-          <div className="stats-cta">
-            <h4>Hãy để chúng tôi biến ước mơ của bạn thành hiện thực</h4>
-            <button className="stats-contact-btn">Liên hệ tư vấn</button>
-          </div>
-        </div>
       </div>
     </section>
   );
