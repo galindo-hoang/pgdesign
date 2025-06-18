@@ -13,7 +13,7 @@ import ContactPage from "./pages/contactPage/ContactPage";
 
 const App: React.FC = () => {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <div className="App">
         <Navbar />
         <Routes>
