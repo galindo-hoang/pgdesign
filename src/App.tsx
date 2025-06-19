@@ -13,7 +13,7 @@ import ContactPage from "./pages/contactPage/ContactPage";
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="App">
         <Navbar />
         <Routes>
@@ -26,7 +26,7 @@ const App: React.FC = () => {
         </Routes>
         <Footer />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
