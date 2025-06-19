@@ -28,6 +28,8 @@ interface StatItemData {
 }
 
 const StatsSection: React.FC = () => {
+  console.log("StatsSection component mounting...");
+  
   const sectionRef = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -77,12 +79,18 @@ const StatsSection: React.FC = () => {
 
   // Set up Intersection Observer
   useEffect(() => {
+    console.log("StatsSection useEffect running, setting up intersection observer");
+    
     const currentRef = sectionRef.current;
-    if (!currentRef) return;
+    if (!currentRef) {
+      console.log("StatsSection: sectionRef.current is null");
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          console.log("StatsSection intersection observer entry:", entry.isIntersecting);
           if (entry.isIntersecting) {
             setInView(true);
             observer.disconnect();
@@ -103,6 +111,8 @@ const StatsSection: React.FC = () => {
       }
     };
   }, []);
+
+  console.log("StatsSection rendering, inView:", inView);
 
   return (
     <section className="stats-section" ref={sectionRef}>
@@ -165,6 +175,8 @@ const StatItem: React.FC<StatItemProps> = ({
   startAnimation,
   animationDelay,
 }) => {
+  console.log(`StatItem ${category} rendering, startAnimation:`, startAnimation);
+  
   const { count, startAnimation: triggerCountUp, hasStarted } = useCountUp({
     end: targetValue,
     duration: 1500,
@@ -172,11 +184,12 @@ const StatItem: React.FC<StatItemProps> = ({
 
   useEffect(() => {
     if (startAnimation && !hasStarted) {
+      console.log(`StatItem ${category} starting animation with delay:`, animationDelay);
       setTimeout(() => {
         triggerCountUp();
       }, animationDelay);
     }
-  }, [startAnimation, hasStarted, triggerCountUp, animationDelay]);
+  }, [startAnimation, hasStarted, triggerCountUp, animationDelay, category]);
 
   return (
     <div 

@@ -19,43 +19,48 @@ interface ImageSliderProps {
 }
 
 const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides }) => {
-  slides = [
+  // Default slides data with imported image instead of hardcoded paths
+  const defaultSlides = [
     {
       id: 1,
-      imageUrl: "/assets/images/thumb-home.png", // Path to your image
+      imageUrl: TmpImage, // Use imported image
       title: "NHÀ ANH TRẠCH",
       subtitle: "Thi công nội thất nhà phố",
       size: "180m2",
     },
     {
       id: 2,
-      imageUrl: "/assets/images/thumb-home.png", // Path to your image
+      imageUrl: TmpImage, // Use imported image
       title: "ANH MỸ - OPAL GARDEN",
       subtitle: "Thi công nội thất căn hộ",
       size: "180m2",
     },
     {
       id: 3,
-      imageUrl: "/assets/images/thumb-home.png", // Path to your image
+      imageUrl: TmpImage, // Use imported image
       title: "SKY LINKED VILLA",
       subtitle: "Thi công nội thất biệt thự",
       size: "180m2",
     },
     {
       id: 4,
-      imageUrl: "/assets/images/thumb-home.png",
+      imageUrl: TmpImage, // Use imported image
       title: "DỰ ÁN MỚI 1",
       subtitle: "Thi công nội thất chung cư",
       size: "120m2",
     },
     {
       id: 5,
-      imageUrl: "/assets/images/thumb-home.png",
+      imageUrl: TmpImage, // Use imported image
       title: "DỰ ÁN MỚI 2",
       subtitle: "Thi công nội thất văn phòng",
       size: "300m2",
     },
   ];
+
+  // Use provided slides or default slides
+  const slidesToUse = slides.length > 0 ? slides : defaultSlides;
+  
   const sliderRef = useRef<Slider>(null); // Specify type for Slider ref
 
   const settings = {
@@ -111,10 +116,12 @@ const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides }) => {
     }
   };
 
+  console.log("ImageSliderSection rendering with slides:", slidesToUse.length);
+
   return (
     <div className="image-slider-container">
       <Slider ref={sliderRef} {...settings}>
-        {slides.map((slide, index) => (
+        {slidesToUse.map((slide, index) => (
           <div
             key={slide.id}
             className="slide-card-wrapper"
@@ -122,7 +129,7 @@ const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides }) => {
           >
             <div className="slide-card">
               <div className="slide-image-container">
-                <img src={TmpImage} alt={slide.title} className="slide-image" />
+                <img src={slide.imageUrl} alt={slide.title} className="slide-image" />
               </div>
               <div className="slide-info">
                 <h4 className="slide-title">{slide.title}</h4>

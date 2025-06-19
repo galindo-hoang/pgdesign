@@ -13,6 +13,8 @@ interface AboutSectionProps {
 }
 
 const AboutSection: React.FC<AboutSectionProps> = () => {
+  console.log("AboutSection component mounting...");
+  
   return (
     <section className="about-section">
       <h2 className="about-headline">MỖI THIẾT KẾ LÀ MỘT CÂU CHUYỆN</h2>
