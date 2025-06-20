@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "PG Design",
+  "name": "PG Design - Kiến Tạo Không Gian",
+  "description": "PG Design - Chuyên thiết kế và thi công nội thất, kiến trúc",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,8 +19,9 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/pgdesign/",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#2c3e50",
+  "background_color": "#ffffff",
+  "scope": "/pgdesign/"
 }
