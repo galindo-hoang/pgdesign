@@ -2,8 +2,9 @@
 
 .services-section {
     text-align: center;
-    padding: 40px 20px 20px 20px;
+    padding: 40px 0px 20px 0px;
     background-color: #ffffff;
+    min-width: 99vw;
     /* White background */
     font-family: var(--primary-font);
     color: #333;
@@ -17,6 +18,7 @@
     text-transform: uppercase;
     margin: auto auto 0px auto;
     max-width: 1200px;
+    padding: 0 20px;
 }
 
 .services-sub-headline {
@@ -29,6 +31,7 @@
     text-align: center;
     /* Adjust if you want it centered */
     max-width: 1200px;
+    padding: 0 20px;
 }
 
 .services-grid {
@@ -42,11 +45,15 @@
     /* Max width for the grid */
     margin: 0 auto;
     /* Center the grid */
+    padding: 0;
 }
 
 .service-card {
     width: 22%;
+    min-width: 24%;
     height: 70vh;
+    min-height: 500px;
+    max-height: 600px;
     /* Fixed width for each card, adjust as needed */
     
     border-radius: 0; /* No general border-radius for the card itself, as the curve is on the image container */
@@ -160,6 +167,7 @@
     font-size: 22px;
     font-weight: 800;
     color: #fff;
+    line-height: 1.2;
 }
 
 .service-details-link { 
@@ -193,80 +201,404 @@
     transform: scaleX(1);
 }
 
-/* ... (rest of your responsive adjustments) ... */
+/* === RESPONSIVE DESIGN === */
 
-@media (max-width: 768px) {
-
-    /* ... existing responsive styles ... */
-    .service-info {
-        padding: 15px;
-        /* Adjust padding for smaller screens */
-    }
-
-    .service-title {
-        font-size: 1.4em;
-        /* Adjust title size for mobile */
-    } 
-}
-
-/* --- Responsive Adjustments --- */
-@media (max-width: 1200px) {
-    .services-grid {
-        max-width: 90%;
-        /* Allow grid to use more width on smaller large screens */
-    }
-}
-
-@media (max-width: 992px) {
-    .services-card {
-        width: calc(50% - 30px);
-        /* Two cards per row, accounting for gap */
-    }
-
-    .services-grid {
-        gap: 20px;
-    }
-}
-
-@media (max-width: 768px) {
+/* Extra Large Screens (1400px and up) */
+@media (min-width: 1400px) {
     .services-section {
-        padding: 15px;
+        padding: 60px 0px 40px 0px;
     }
-
+    
     .services-main-headline {
-        font-size: 44px;
-        text-align: center;
-        /* Center headlines on smaller screens */
-        margin-left: auto;
-        margin-right: auto;
+        font-size: 52px;
+        max-width: 1400px;
     }
+    
+    .services-sub-headline {
+        font-size: 26px;
+        max-width: 1400px;
+    }
+    
+    .services-grid {
+        max-width: 1400px;
+        gap: 1px;
+    }
+    
+    .service-card {
+        width: 23%;
+        height: 75vh;
+        max-height: 700px;
+    }
+    
+    .service-info {
+        padding: 30px;
+    }
+    
+    .service-title {
+        font-size: 24px;
+    }
+    
+    .service-details-link {
+        font-size: 19px;
+    }
+}
 
+/* Large Screens (1200px to 1399px) */
+@media (max-width: 1399px) and (min-width: 1200px) {
+    .services-grid {
+        max-width: 100%;
+        gap: 1px;
+    }
+    
+    .service-card {
+        width: 22.5%;
+        height: 70vh;
+        max-height: 650px;
+    }
+}
+
+/* Medium Large Screens (992px to 1199px) */
+@media (max-width: 1199px) and (min-width: 992px) {
+    .services-section {
+        padding: 50px 0px 30px 0px;
+    }
+    
+    .services-main-headline {
+        font-size: 46px;
+    }
+    
+    .services-sub-headline {
+        font-size: 22px;
+    }
+    
+    .services-grid {
+        max-width: 95%;
+        gap: 1px;
+    }
+    
+    .service-card {
+        width: calc(50% - 10px);
+        height: 60vh;
+        min-height: 450px;
+        max-height: 550px;
+        min-width: 300px;
+    }
+    
+    .service-info {
+        padding: 22px;
+    }
+    
+    .service-title {
+        font-size: 20px;
+        margin-bottom: 25px;
+    }
+    
+    .service-details-link {
+        font-size: 17px;
+    }
+}
+
+/* Tablet Landscape (768px to 991px) */
+@media (max-width: 991px) and (min-width: 768px) {
+    .services-section {
+        padding: 40px 0px 25px 0px;
+    }
+    
+    .services-main-headline {
+        font-size: 42px;
+        text-align: center;
+        padding: 0 25px;
+    }
+    
     .services-sub-headline {
         font-size: 20px;
-        margin-bottom: 40px;
         text-align: center;
-        /* Center sub-headlines on smaller screens */
-        margin-left: auto;
-        margin-right: auto;
+        padding: 0 25px;
+        margin-bottom: 35px;
     }
-
-    .services-card {
-        width: 90%;
-        /* Full width cards on mobile */
-        max-width: 350px;
-        /* Prevent cards from getting too wide on small screens */
-    }
-
+    
     .services-grid {
-        flex-direction: column;
-        /* Stack cards vertically */
-        align-items: center;
-        /* Center stacked cards */
+        gap: 2px;
+    }
+    
+    .service-card {
+        width: calc(50% - 15px);
+        height: 55vh;
+        min-height: 400px;
+        max-height: 500px;
+        min-width: 280px;
+    }
+    
+    .service-image-container {
+        border-top-left-radius: 45% 120px;
+        border-top-right-radius: 45% 120px;
+    }
+    
+    .service-info {
+        padding: 20px;
+    }
+    
+    .service-title {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    
+    .service-category {
+        font-size: 0.8em;
+    }
+    
+    .service-details-link {
+        font-size: 16px;
     }
 }
 
-@media (max-width: 480px) {
+/* Tablet Portrait (576px to 767px) */
+@media (max-width: 767px) and (min-width: 576px) {
+    .services-section {
+        padding: 35px 0px 20px 0px;
+    }
+    
     .services-main-headline {
         font-size: 38px;
-    } 
+        text-align: center;
+        padding: 0 20px;
+    }
+    
+    .services-sub-headline {
+        font-size: 18px;
+        text-align: center;
+        padding: 0 20px;
+        margin-bottom: 30px;
+    }
+    
+    .services-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 1px;
+    }
+    
+    .service-card {
+        width: 100%;
+        max-width: 400px;
+        height: 50vh;
+        min-height: 350px;
+        max-height: 450px;
+        padding-top: 15px;
+    }
+    
+    .service-image-container {
+        border-top-left-radius: 40% 100px;
+        border-top-right-radius: 40% 100px;
+    }
+    
+    .service-info {
+        padding: 18px;
+    }
+    
+    .service-title {
+        font-size: 17px;
+        margin-bottom: 18px;
+    }
+    
+    .service-category {
+        font-size: 0.75em;
+    }
+    
+    .service-details-link {
+        font-size: 15px;
+    }
+}
+
+/* Mobile Landscape (481px to 575px) */
+@media (max-width: 575px) and (min-width: 481px) {
+    .services-section {
+        padding: 30px 0px 15px 0px;
+    }
+    
+    .services-main-headline {
+        font-size: 34px;
+        text-align: center;
+        padding: 0 15px;
+    }
+    
+    .services-sub-headline {
+        font-size: 16px;
+        text-align: center;
+        padding: 0 15px;
+        margin-bottom: 25px;
+    }
+    
+    .services-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 1px;
+        padding: 0 10px;
+    }
+    
+    .service-card {
+        width: 100%;
+        max-width: 360px;
+        height: 45vh;
+        min-height: 320px;
+        max-height: 400px;
+        padding-top: 12px;
+    }
+    
+    .service-image-container {
+        border-top-left-radius: 35% 80px;
+        border-top-right-radius: 35% 80px;
+    }
+    
+    .service-info {
+        padding: 16px;
+    }
+    
+    .service-title {
+        font-size: 16px;
+        margin-bottom: 15px;
+        line-height: 1.3;
+    }
+    
+    .service-category {
+        font-size: 0.7em;
+    }
+    
+    .service-details-link {
+        font-size: 14px;
+    }
+}
+
+/* Mobile Portrait (320px to 480px) */
+@media (max-width: 480px) {
+    .services-section {
+        padding: 25px 0px 15px 0px;
+    }
+    
+    .services-main-headline {
+        font-size: 28px;
+        text-align: center;
+        padding: 0 15px;
+        line-height: 1.2;
+    }
+    
+    .services-sub-headline {
+        font-size: 14px;
+        text-align: center;
+        padding: 0 15px;
+        margin-bottom: 20px;
+    }
+    
+    .services-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 1px;
+        padding: 0 10px;
+    }
+    
+    .service-card {
+        width: 100%;
+        max-width: 320px;
+        height: 40vh;
+        min-height: 280px;
+        max-height: 350px;
+        padding-top: 10px;
+    }
+    
+    .service-image-container {
+        border-top-left-radius: 30% 60px;
+        border-top-right-radius: 30% 60px;
+    }
+    
+    .service-info {
+        padding: 14px;
+    }
+    
+    .service-title {
+        font-size: 15px;
+        margin-bottom: 12px;
+        line-height: 1.3;
+    }
+    
+    .service-category {
+        font-size: 0.65em;
+    }
+    
+    .service-details-link {
+        font-size: 13px;
+    }
+}
+
+/* Extra Small Mobile (up to 319px) */
+@media (max-width: 319px) {
+    .services-section {
+        padding: 20px 0px 10px 0px;
+    }
+    
+    .services-main-headline {
+        font-size: 24px;
+        padding: 0 10px;
+    }
+    
+    .services-sub-headline {
+        font-size: 12px;
+        padding: 0 10px;
+        margin-bottom: 15px;
+    }
+    
+    .services-grid {
+        gap: 1px;
+        padding: 0 5px;
+    }
+    
+    .service-card {
+        max-width: 280px;
+        height: 35vh;
+        min-height: 250px;
+        max-height: 300px;
+    }
+    
+    .service-image-container {
+        border-top-left-radius: 25% 50px;
+        border-top-right-radius: 25% 50px;
+    }
+    
+    .service-info {
+        padding: 12px;
+    }
+    
+    .service-title {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    
+    .service-category {
+        font-size: 0.6em;
+    }
+    
+    .service-details-link {
+        font-size: 12px;
+    }
+}
+
+/* Hover effects adjustments for touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .service-card:hover .service-image-container {
+        transform: none;
+    }
+    
+    .service-card:hover .image-overlay {
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+    }
+    
+    .service-details-link:hover::after {
+        transform: scaleX(1);
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+    .service-image {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+    }
 }

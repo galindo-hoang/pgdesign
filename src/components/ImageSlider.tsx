@@ -60,46 +60,35 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ slides }) => {
   const sliderRef = useRef<Slider>(null); // Specify type for Slider ref
 
   const settings = {
-    dots: false, // Show navigation dots
-    infinite: true, // Loop the slider
-    speed: 500, // Transition speed in ms
-    slidesToShow: 3, // How many slides are visible at once (adjust for your layout)
-    slidesToScroll: 1, // How many slides to scroll at a time
-    centerMode: true, // This is key for the "partially visible" effect
-    centerPadding: "120px", // Space around the center slide (adjust as needed)
-    autoplay: true, // Auto-scroll
-    autoplaySpeed: 3000, // Time between slides
-    arrows: false, // Hide default arrows (you can add custom ones if needed)
-    swipe: true, // <--- Ensure this is true (it's default true)
-    draggable: true, // <--- Ensure this is true (it's default true for desktop)
-    touchMove: true, // <--- Ensure this is true (it's default true for mobile)
+    className: "center",
+    centerMode: true,
+    infinite: true,
+    centerPadding: "60px",
+    slidesToShow: 3,
+    speed: 500,
+    autoplaySpeed: 3000, // Speed of autoplay
+    autoplay: true, // Auto-play the slider
+    arrows: false, // Hide default arrows
+    swipe: true,
+    draggable: true,
+    touchMove: true,
     responsive: [
       {
-        breakpoint: 1024, // Tablets
+        breakpoint: 1024,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 2, // 2 slides on tablet screens
           slidesToScroll: 1,
-          centerPadding: "40px",
-        },
-      },
-      {
-        breakpoint: 768, // Smaller tablets / large phones
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerPadding: "40px", // Adjust if you want smaller side peeks
-          dots: true, // Keep dots for mobile
-          arrows: false,
-        },
-      },
-      {
-        breakpoint: 480, // Mobile phones
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerPadding: "60px", // Even smaller side peeks
+          infinite: true,
           dots: true,
-          arrows: false,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1, // 1 slide on mobile screens
+          slidesToScroll: 1,
+          initialSlide: 0, // Start from the first slide
+          dots: true,
         },
       },
     ],
