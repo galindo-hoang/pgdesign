@@ -2,9 +2,12 @@
 import React, { useState, useEffect } from "react"; // Import useState and useEffect
 import "./Navbar.css";
 import { ReactComponent as PGLogo } from "../../assets/logo/pg-design-logo.svg"; // Import SVG as ReactComponent
+import { useNavigate } from "react-router-dom";
+import Handle from "rc-slider/lib/Handles/Handle";
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false); // State to track scroll position
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,9 +28,13 @@ const Navbar: React.FC = () => {
     };
   }, []); // Empty dependency array means this effect runs once on mount and cleans up on unmount
 
+  const hanldeNavHome = () => {
+    navigate("/")
+  }
+
   return (
     <nav className={`navbar-header ${scrolled ? "transparent-bg" : ""}`}>
-      <div className="navbar-logo-container">
+      <div className="navbar-logo-container" onClick={hanldeNavHome}>
         <PGLogo className="navbar-logo" /> {/* Use PGLogo as a component */}
       </div>
       <ul className="navbar-links">

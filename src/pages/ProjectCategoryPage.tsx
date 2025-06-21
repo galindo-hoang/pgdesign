@@ -9,6 +9,9 @@ import sampleImage2 from "../assets/images/diary-image-2.jpg";
 import sampleImage3 from "../assets/images/diary-image-3.jpg";
 import sampleImage4 from "../assets/images/diary-image-4.jpg";
 
+// Import hero background image
+import heroImage from "../assets/images/diary-image-1.jpg";
+
 interface SubCategory {
   id: string;
   title: string;
@@ -236,10 +239,15 @@ const ProjectCategoryPage: React.FC = () => {
 
   return (
     <div className="project-category-page">
-      {/* Category Header */}
       <div 
         className="category-header"
         data-category={categoryData.id}
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(${heroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
       >
         <div className="floating-particles"></div>
         <div className="category-header-content">

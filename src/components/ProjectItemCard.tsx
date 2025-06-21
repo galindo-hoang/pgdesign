@@ -27,13 +27,6 @@ const ProjectItemCard: React.FC<ProjectItemCardProps> = ({ project, onClick }) =
     }
   };
 
-  // Generate consistent height for masonry effect based on project id
-  const getMasonryHeight = () => {
-    const heights = [280, 320, 360, 300, 340, 380, 260, 290, 350, 310];
-    const index = parseInt(project.id) || 0;
-    return heights[index % heights.length];
-  };
-
   return (
     <div 
       className="project-masonry-card" 

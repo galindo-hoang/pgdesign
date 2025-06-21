@@ -1,5 +1,5 @@
 // src/components/ConsultationFormSection.tsx
-import React, { useState } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import "./ConsultationFormSection.css";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -13,7 +13,7 @@ const projectTypes = [
 ];
 
 const MIN_INVESTMENT = 100; // 100 triệu VND
-const MAX_INVESTMENT = 1000; // 10 tỷ VND (which is 10,000 triệu VND)
+const MAX_INVESTMENT = 10000; // 10 tỷ VND (which is 10,000 triệu VND)
 const STEP_INVESTMENT = 100; // Step of 100 triệu VND
 
 const ConsultationFormSection: React.FC = () => {
@@ -23,13 +23,17 @@ const ConsultationFormSection: React.FC = () => {
     email: "", // Keep it as an empty string initially
     address: "",
     projectType: "Nhà Phố - Căn hộ",
-    investmentLevel: [MIN_INVESTMENT, MAX_INVESTMENT] as [number, number],
+    investmentLevel: MIN_INVESTMENT,
     specificRequest: "",
   });
 
   const [phoneNumberError, setPhoneNumberError] = useState<string | null>(null);
   // NEW: State for email error
   const [emailError, setEmailError] = useState<string | null>(null);
+
+  // State for showing tooltips on slider handles
+  const [showTooltips, setShowTooltips] = useState(false);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   // Phone number validation function (unchanged)
   const validatePhoneNumber = (number: string): boolean => {
@@ -86,12 +90,27 @@ const ConsultationFormSection: React.FC = () => {
   };
 
   const handleSliderChange = (value: number | number[]) => {
-    if (Array.isArray(value) && value.length === 2) {
+    if (typeof value === 'number') {
       setFormData((prevData) => ({
         ...prevData,
-        investmentLevel: value as [number, number],
+        investmentLevel: value,
       }));
     }
+  };
+
+  // Handle mouse enter/leave on slider for showing handle tooltips
+  const handleSliderMouseEnter = useCallback(() => {
+    setShowTooltips(true);
+  }, []);
+
+  const handleSliderMouseLeave = useCallback(() => {
+    setShowTooltips(false);
+  }, []);
+
+  // Calculate tooltip positions based on slider values
+  const getTooltipPosition = (value: number) => {
+    const percentage = (value - MIN_INVESTMENT) / (MAX_INVESTMENT - MIN_INVESTMENT);
+    return `${percentage * 100}%`;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -113,9 +132,7 @@ const ConsultationFormSection: React.FC = () => {
 
     const dataToSend = {
       ...formData,
-      investmentLevel: `${formatCurrencyDisplay(
-        formData.investmentLevel[0]
-      )} - ${formatCurrencyDisplay(formData.investmentLevel[1])}`,
+      investmentLevel: formatCurrencyDisplay(formData.investmentLevel),
     };
     console.log("Form data submitted:", dataToSend);
     alert("Yêu cầu của bạn đã được gửi thành công!");
@@ -125,7 +142,7 @@ const ConsultationFormSection: React.FC = () => {
       email: "", // Reset email
       address: "",
       projectType: "Nhà Phố - Căn hộ",
-      investmentLevel: [MIN_INVESTMENT, MAX_INVESTMENT],
+      investmentLevel: MIN_INVESTMENT,
       specificRequest: "",
     });
     setPhoneNumberError(null);
@@ -230,32 +247,43 @@ const ConsultationFormSection: React.FC = () => {
 
         <div className="cf-form-group cf-investment-slider-group">
           <label>Mức đầu tư</label>
-          <div className="cf-slider-display-text">
-            {formatCurrencyDisplay(formData.investmentLevel[0])} -{" "}
-            {formatCurrencyDisplay(formData.investmentLevel[1])}
+          <div className="cf-slider-display-text" style={{ display: 'none' }}>
+            {formatCurrencyDisplay(formData.investmentLevel)}
           </div>
-          <Slider
-            range
-            min={MIN_INVESTMENT}
-            max={MAX_INVESTMENT}
-            step={STEP_INVESTMENT}
-            value={formData.investmentLevel}
-            onChange={handleSliderChange}
-            trackStyle={[{ backgroundColor: "#557256" }]}
-            handleStyle={[
-              {
+          <div 
+            ref={sliderRef}
+            className="cf-slider-container"
+            onMouseEnter={handleSliderMouseEnter}
+            onMouseLeave={handleSliderMouseLeave}
+          >
+            <Slider
+              min={MIN_INVESTMENT}
+              max={MAX_INVESTMENT}
+              step={STEP_INVESTMENT}
+              value={formData.investmentLevel}
+              onChange={handleSliderChange}
+              trackStyle={{ backgroundColor: "#557256" }}
+              handleStyle={{
                 borderColor: "#557256",
                 backgroundColor: "#557256",
                 opacity: 1,
-              },
-              {
-                borderColor: "#557256",
-                backgroundColor: "#557256",
-                opacity: 1,
-              },
-            ]}
-            railStyle={{ backgroundColor: "#e0e0e0" }}
-          />
+              }}
+              railStyle={{ backgroundColor: "#e0e0e0" }}
+            />
+            {/* Handle tooltip positioned above slider handle */}
+            {showTooltips && (
+              <div className="cf-slider-tooltips">
+                <div 
+                  className="cf-handle-tooltip"
+                  style={{
+                    left: getTooltipPosition(formData.investmentLevel)
+                  }}
+                >
+                  {formatCurrencyDisplay(formData.investmentLevel)}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="cf-form-group cf-full-width">

@@ -30,11 +30,9 @@
 .project-image-container {
   position: relative;
   display: block;
-  width: 100%;
-  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
   overflow: hidden;
-  margin: 0;
-  padding: 0;
 }
 
 .project-masonry-image {
@@ -104,9 +102,9 @@
 }
 
 .client-name {
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 22px;
   margin-bottom: 6px;
+  font-weight: bold;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -118,8 +116,8 @@
 
 .area,
 .location {
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 16px;
+  font-style: italic;
   opacity: 0.9;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }

@@ -3,7 +3,7 @@
 .navbar-header {
     background-color: #36604c;
     /* Initial background color */
-    padding: 0.5rem 10%;
+    padding: 0.5rem 12%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -28,6 +28,7 @@
 .navbar-logo-container {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .navbar-logo {
@@ -56,7 +57,7 @@
 .navbar-item a {
     color: white;
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 16px;
     font-weight: 500;
     padding: 0.5rem 1rem;
     transition: background-color 0.3s ease, color 0.3s ease;

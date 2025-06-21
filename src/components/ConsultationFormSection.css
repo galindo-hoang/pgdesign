@@ -171,6 +171,61 @@ cf-form-group input.input-error,
 
 /* --- END Slider styling --- */
 
+/* Slider container for tooltip functionality */
+.cf-slider-container {
+  position: relative;
+  padding: 10px 0;
+}
+
+/* Container for handle tooltips */
+.cf-slider-tooltips {
+  position: absolute;
+  top: -45px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Individual handle tooltips */
+.cf-handle-tooltip {
+  position: absolute;
+  background: #557256;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateX(-50%);
+  opacity: 0;
+  animation: fadeInTooltip 0.2s ease-out forwards;
+}
+
+/* Arrow pointing down from tooltip */
+.cf-handle-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #557256;
+}
+
+/* Fade in animation for tooltips */
+@keyframes fadeInTooltip {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
 
 .cf-full-width {
     grid-column: 1 / 3;
@@ -218,5 +273,15 @@ cf-form-group input.input-error,
     .cf-form-group select {
         background-position: right 10px center;
         padding-right: 30px;
+    }
+
+    /* Mobile tooltip adjustments */
+    .cf-handle-tooltip {
+        font-size: 0.75rem;
+        padding: 5px 8px;
+    }
+    
+    .cf-slider-tooltips {
+        top: -35px;
     } 
 }

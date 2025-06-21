@@ -61,10 +61,6 @@ const ProjectCategoriesSection: React.FC = () => {
     navigate(navigationPath);
   };
 
-  const handleExploreAll = () => {
-    navigate("/project");
-  };
-
   return (
     <section className="project-categories-section">
       <div className="categories-header">
