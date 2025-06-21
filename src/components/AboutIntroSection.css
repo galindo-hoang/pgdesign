@@ -1,10 +1,10 @@
-/* Using a prefix like 'intro-' for all classes to minimize global conflicts */
+/* Using a prefix like 'about-intro-' for all classes to minimize global conflicts */
 
-.intro-section {
+.about-intro-section {
     position: relative;
     width: 100%;
     height: 90vh;
-    background-size: cover;
+    background-size: 150%; /* Start much more zoomed in */
     background-position: center;
     display: flex;
     justify-content: flex-end;
@@ -12,9 +12,39 @@
     padding: 0;
     margin: 0;
     overflow: hidden;
+    /* Hardware acceleration for smooth animation */
+    will-change: background-size, transform;
+    transition: background-size 3s ease-out, transform 3s ease-out;
+    transform: scale(1.1); /* Additional scale for more dramatic effect */
 }
 
-.intro-section::before {
+/* Zoom-in animation class */
+.about-intro-section.zoom-in-bg {
+    background-size: cover; /* Animate to normal size */
+    transform: scale(1); /* Scale back to normal */
+    animation: aboutIntroZoomIn 3s ease-out forwards;
+}
+
+/* Keyframe animation for zoom effect */
+@keyframes aboutIntroZoomIn {
+    0% {
+        background-size: 150%;
+        transform: scale(1.1);
+        filter: blur(1px);
+    }
+    50% {
+        background-size: 125%;
+        transform: scale(1.05);
+        filter: blur(0.5px);
+    }
+    100% {
+        background-size: cover;
+        transform: scale(1);
+        filter: blur(0px);
+    }
+}
+
+.about-intro-section::before {
     content: "";
     position: absolute;
     top: 0;
@@ -25,7 +55,7 @@
     z-index: 1;
 }
 
-.intro-content-container {
+.about-intro-content-container {
     position: relative;
     z-index: 2;
     width: 500px;
@@ -39,85 +69,144 @@
     justify-content: center;
 }
 
-.intro-about-us-heading {
+.about-intro-about-us-heading {
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 20px;
     text-transform: uppercase;
 }
 
-.intro-pg-design-title {
+.about-intro-pg-design-title {
     font-size: 45px;
     font-weight: bold;
     margin: 0;
     line-height: 1;
 }
 
-.intro-pg-design-subtitle {
+.about-intro-pg-design-subtitle {
     font-size: 28px;
     margin-top: 5px;
     margin-bottom: 0px;
 }
 
-.intro-separator-line {
+.about-intro-separator-line {
     width: 60px;
     height: 3px;
     background-color: #ff4500;
 }
 
-.intro-affirm-identity {
+.about-intro-affirm-identity {
     margin: 0px 0px;
     font-size: 28px;
     font-weight: normal;
     text-transform: uppercase;
 }
 
-.intro-description-paragraph {
+.about-intro-description-paragraph {
     font-size: 16px;
     line-height: 1.6;
     margin-bottom: 20px;
 }
 
-.intro-description-paragraph:last-child {
+.about-intro-description-paragraph:last-child {
     margin-bottom: 0;
 }
 
-/* Basic Responsiveness (Example) */
+/* Responsive adjustments with zoom animation */
 @media (max-width: 768px) {
-    .intro-section {
+    .about-intro-section {
         justify-content: center;
+        background-size: 130%; /* Smaller initial zoom on mobile */
+        transform: scale(1.06);
     }
 
-    .intro-content-container {
+    /* Faster animation on mobile */
+    .about-intro-section.zoom-in-bg {
+        transition: background-size 2s ease-out, transform 2s ease-out;
+        animation-duration: 2s;
+    }
+
+    /* Mobile-optimized animation */
+    @keyframes aboutIntroZoomIn {
+        0% {
+            background-size: 130%;
+            transform: scale(1.06);
+            filter: blur(0.5px);
+        }
+        100% {
+            background-size: cover;
+            transform: scale(1);
+            filter: blur(0px);
+        }
+    }
+
+    .about-intro-content-container {
         width: 90%;
         padding: 60px 25px;
     }
 
-    .intro-about-us-heading {
+    .about-intro-about-us-heading {
         font-size: 1.2rem;
     }
 
-    .intro-pg-design-title {
-        font-size: 38rem;
+    .about-intro-pg-design-title {
+        font-size: 38px; /* Fixed: was 38rem which is incorrect */
     }
 
-    .intro-pg-design-subtitle {
+    .about-intro-pg-design-subtitle {
         font-size: 24px;
     }
 
-    .intro-affirm-identity {
+    .about-intro-affirm-identity {
         font-size: 24px;
     }
 
-    .intro-description-paragraph {
+    .about-intro-description-paragraph {
         font-size: 0.9rem;
     }
 }
 
 @media (max-width: 480px) {
-    .intro-content-container {
+    .about-intro-section {
+        background-size: 120%; /* Minimal zoom on small screens */
+        transform: scale(1.04);
+    }
+
+    /* Fastest animation on small devices */
+    .about-intro-section.zoom-in-bg {
+        transition: background-size 1.5s ease-out, transform 1.5s ease-out;
+        animation-duration: 1.5s;
+    }
+
+    .about-intro-content-container {
         width: 100%;
         height: auto;
         padding: 40px 20px;
     } 
+}
+
+/* Accessibility: Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .about-intro-section {
+        background-size: cover;
+        transform: scale(1);
+        transition: opacity 0.5s ease;
+        animation: none;
+        will-change: auto;
+    }
+
+    .about-intro-section.zoom-in-bg {
+        background-size: cover;
+        transform: scale(1);
+        animation: fadeInOnly 0.8s ease forwards;
+    }
+
+    @keyframes fadeInOnly {
+        0% {
+            opacity: 0.7;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 }

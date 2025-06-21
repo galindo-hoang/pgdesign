@@ -38,7 +38,7 @@ const WorkProcessSection: React.FC = () => {
       <div className="wp-flow-diagram-container">
         {/* Conditionally render the appropriate diagram based on active tab */}
         {activeTab === 'design' ? (
-          <WorkProcessFlowDiagram1 className="wp-flow-diagram" />
+        <WorkProcessFlowDiagram1 className="wp-flow-diagram" />
         ) : (
           <WorkProcessFlowDiagram2 className="wp-flow-diagram" />
         )}

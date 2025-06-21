@@ -1,11 +1,10 @@
-/* src/components/ProjectDiarySection.css */
-
 .project-diary-section {
     padding: 20px;
     background-color: #fff;
     font-family: var(--primary-font);
     color: #333;
     text-align: center;
+    position: relative;
 }
 
 .pd-main-headline {
@@ -20,83 +19,198 @@
 }
 
 .pd-masonry-wrapper {
-    height: 60vh;
-    /* Set height to 60% of viewport height */
+    height: 70vw;
+    max-height: 90vh;
+    min-height: 50vh;
     overflow: hidden;
-    /* Crucial: ensures no scrolling and content is clipped if it overflows */
     display: flex;
-    /* Use flex to center the masonry grid vertically */
     align-items: center;
-    /* Center masonry grid vertically within the wrapper */
     justify-content: center;
-    /* Center masonry grid horizontally */
-    /* No padding-bottom if no scroll */
+    position: relative;
 }
 
-/* Styles for react-masonry-css components */
 .pd-masonry-grid {
     display: flex;
     margin-left: -20px;
-    /* Counteract the column gap */
     width: auto;
     max-width: 1200px;
-    /* Max width of the grid */
-    /* Make the Masonry grid itself fill the wrapper's height */
     height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .pd-masonry-grid_column {
-    /* padding-left: 2px; */
-    /* Spacing between columns */
+    padding-left: 20px;
     background-clip: padding-box;
     display: flex;
-    /* Make each column a flex container */
     flex-direction: column;
-    /* Stack items vertically within the column */
-    /* This ensures items try to distribute space within the column's height */
+    gap: 15px;
 }
 
-/* Style for individual grid items within the columns */
 .pd-masonry-grid_column>div {
-    /* Target the actual item containers */
-    /* margin-bottom: 2px; */
-    /* Spacing between items in a column */
-    /* border-radius: 8px; */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     overflow: hidden;
-    /* Ensures rounded corners and crops overflowing image parts */
-
-    /* --- Key to scaling and fitting --- */
+    border-radius: 8px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    cursor: pointer;
     flex: 1 1 auto;
-    /* Allow items to grow/shrink based on content, but try to distribute space */
-    /* This makes items fill available height in column */
     min-height: 0;
-    /* Allows the flex item to shrink below its content height if needed */
-    /* Optional: Set a min-height for items if you don't want them to become too small */
-    /* min-height: 80px; */
-
-    /* The actual height of the item will now be determined by
-       the combination of its content, flex properties, and parent's height.
-       If images are still too large, you might need to try to calculate a
-       max-height here, e.g., max-height: calc( (60vh / 3) - 20px);
-       (60vh / average_num_rows_per_column) - margin_bottom; */
 }
 
 .pd-grid-item img {
     width: 100%;
     height: 100%;
-    /* Make image fill the height of its parent div */
     object-fit: cover;
-    /* Crucial: Scales the image to cover the entire container, cropping if necessary */
     display: block;
-    /* Removes extra space below image */
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* No specific responsive media queries needed for Masonry columns,
-     as breakpointCols handles that automatically.
-     Only general styling like headline size. */
-@media (max-width: 768px) {
+/* Individual item hover effects */
+.pd-masonry-grid_column>div:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    z-index: 15;
+}
+
+.pd-masonry-grid_column>div:hover .pd-grid-item img,
+.pd-masonry-grid_column>div:hover img {
+    transform: scale(1.1);
+}
+
+@media (max-width: 1200px) {
+    .pd-masonry-wrapper {
+        height: 75vw;
+        max-height: 85vh;
+        min-height: 45vh;
+    }
+    
     .pd-main-headline {
-        font-size: 2em;
-        margin-bottom: 30px;
-    } }
+        font-size: 2.5rem;
+        margin: 0 auto 40px auto;
+        padding: 0 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .project-diary-section {
+        padding: 15px;
+    }
+    
+    .pd-main-headline {
+        font-size: 2rem;
+        margin: 0 auto 30px auto;
+        padding: 0 20px;
+        text-align: center;
+    }
+    
+    .pd-masonry-wrapper {
+        height: 80vh;
+        max-height: 85vh;
+        min-height: 60vh;
+    }
+    
+    .pd-masonry-grid {
+        margin-left: -15px;
+        max-width: 100%;
+    }
+    
+    .pd-masonry-grid_column {
+        padding-left: 15px;
+        gap: 12px;
+    }
+    
+    .pd-masonry-grid_column>div {
+        min-height: 150px;
+        flex: 0 0 auto;
+    }
+    
+    /* Reduce hover effects on tablet */
+    .pd-masonry-grid_column>div:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    }
+    
+    .pd-masonry-grid_column>div:hover .pd-grid-item img,
+    .pd-masonry-grid_column>div:hover img {
+        transform: scale(1.08);
+    }
+}
+
+@media (max-width: 480px) {
+    .project-diary-section {
+        padding: 10px;
+    }
+    
+    .pd-main-headline {
+        font-size: 1.8rem;
+        margin: 0 auto 20px auto;
+        padding: 0 15px;
+        text-align: center;
+    }
+    
+    .pd-masonry-wrapper {
+        height: 70vh;
+        max-height: 80vh;
+        min-height: 50vh;
+    }
+    
+    .pd-masonry-grid {
+        margin-left: -10px;
+        max-width: 100%;
+    }
+    
+    .pd-masonry-grid_column {
+        padding-left: 10px;
+        gap: 10px;
+    }
+    
+    .pd-masonry-grid_column>div {
+        border-radius: 6px;
+        min-height: 120px;
+        flex: 0 0 auto;
+    }
+    
+    /* Minimal hover effects on mobile */
+    .pd-masonry-grid_column>div:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .pd-masonry-grid_column>div:hover .pd-grid-item img,
+    .pd-masonry-grid_column>div:hover img {
+        transform: scale(1.05);
+    }
+}
+
+@media (max-width: 320px) {
+    .pd-masonry-wrapper {
+        height: 60vh;
+        max-height: 70vh;
+        min-height: 45vh;
+    }
+    
+    .pd-masonry-grid_column>div {
+        min-height: 100px;
+        flex: 0 0 auto;
+    }
+    
+    .pd-main-headline {
+        font-size: 1.5rem;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .pd-masonry-grid,
+    .pd-masonry-grid_column>div,
+    .pd-grid-item img {
+        transition: none;
+    }
+    
+    .pd-masonry-grid_column>div:hover,
+    .pd-masonry-grid_column>div:hover .pd-grid-item img,
+    .pd-masonry-grid_column>div:hover img {
+        transform: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+}

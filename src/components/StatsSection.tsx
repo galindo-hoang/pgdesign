@@ -36,7 +36,7 @@ const StatsSection: React.FC = () => {
     { 
       id: 1, 
       icon: BriefcaseIcon, 
-      targetValue: 8, 
+      targetValue: 5, 
       label: "Kinh nghiệm", 
       suffix: "+ năm",
       description: "Trong thiết kế & thi công",
@@ -167,7 +167,6 @@ const StatItem: React.FC<StatItemProps> = ({
 }) => {
   const { count, startAnimation: triggerCountUp, hasStarted } = useCountUp({
     end: targetValue,
-    duration: 1500,
   });
 
   useEffect(() => {

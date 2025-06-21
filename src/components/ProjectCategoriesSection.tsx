@@ -94,19 +94,20 @@ const ProjectCategoriesSection: React.FC = () => {
             <div className="category-overlay"></div>
             
             <div className="category-content-wrapper">
-              <div className="category-content">
-                <h4 className="category-title">{category.title}</h4>
-                <div className="category-stats">
-                  <span className="project-count">{category.projectCount} dự án</span>
-                  <button 
-                    className="view-more"
-                    onClick={(e) => handleViewMore(e, category.navigationPath)}
-                    aria-label={`Xem chi tiết dự án ${category.title}`}
-                  >
-                    Xem chi tiết
-                  </button>
-                </div>
+              <div className="category-top">
+                <div>Dự án</div>
+                <div>{category.title}</div>
               </div>
+                             <div className="category-bottom">
+                 <span className="project-count">{category.projectCount} dự án</span>
+                 <button 
+                     className="view-more"
+                     onClick={(e) => handleViewMore(e, category.navigationPath)}
+                     aria-label={`Xem chi tiết dự án ${category.title}`}
+                   >
+                     Xem chi tiết
+                   </button>
+               </div>
             </div>
           </div>
         ))}

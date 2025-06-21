@@ -1,4 +1,3 @@
-// src/App.tsx
 import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "./App.css"; // General app styles, if any

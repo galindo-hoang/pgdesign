@@ -27,6 +27,37 @@ html {
     flex: 9;
     overflow: hidden;
     border-radius: 50px;
+    /* Initial state for animation - use transform3d for hardware acceleration */
+    transform: translate3d(0, 0, 0) scale(0.8);
+    opacity: 0;
+    /* Simplified transition with shorter duration */
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+    /* Enable hardware acceleration */
+    will-change: transform, opacity;
+}
+
+/* Animation class applied when element is visible */
+.about-us-image-container.zoom-in-animation {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+    /* Simple one-shot animation */
+    animation: zoomInSimple 0.8s ease-out forwards;
+}
+
+/* Simplified keyframe animation for better performance */
+@keyframes zoomInSimple {
+    0% {
+        transform: translate3d(0, 0, 0) scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: translate3d(0, 0, 0) scale(0.9);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
 }
 
 .about-us-decoration-image {
@@ -34,6 +65,9 @@ html {
     height: 100%;
     object-fit: cover;
     display: block;
+    /* Remove heavy filter effects that cause lag */
+    backface-visibility: hidden;
+    /* Improve rendering performance */
 }
 
 .about-us-text-content {
@@ -116,6 +150,11 @@ html {
         max-height: none;
     }
 
+    /* Faster animation for tablets */
+    .about-us-image-container.zoom-in-animation {
+        animation-duration: 0.6s;
+    }
+
     .about-us-text-content {
         flex: none;
         width: 100%;
@@ -162,6 +201,11 @@ html {
         width: 95%;
     }
 
+    /* Fastest animation for mobile */
+    .about-us-image-container.zoom-in-animation {
+        animation-duration: 0.5s;
+    }
+
     /* NEW: Responsive margins/padding for content within about-us-text-content for mobile */
     .about-us-block p,
     .about-us-block ul {
@@ -174,5 +218,30 @@ html {
     .about-us-block ul li {
         padding-left: 0.6rem;
         /* Further reduce padding-left for list items on mobile */
+    }
+}
+
+/* Prefers-reduced-motion support for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .about-us-image-container {
+        transition: opacity 0.3s ease;
+        transform: translate3d(0, 0, 0) scale(1);
+        animation: none;
+        will-change: auto;
+    }
+
+    .about-us-image-container.zoom-in-animation {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+        animation: fadeInOnly 0.4s ease forwards;
+    }
+
+    @keyframes fadeInOnly {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
     }
 }

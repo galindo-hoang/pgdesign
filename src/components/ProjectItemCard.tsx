@@ -27,61 +27,40 @@ const ProjectItemCard: React.FC<ProjectItemCardProps> = ({ project, onClick }) =
     }
   };
 
+  // Generate consistent height for masonry effect based on project id
+  const getMasonryHeight = () => {
+    const heights = [280, 320, 360, 300, 340, 380, 260, 290, 350, 310];
+    const index = parseInt(project.id) || 0;
+    return heights[index % heights.length];
+  };
+
   return (
-    <div className="project-item-card" onClick={handleCardClick}>
-      <div className="project-thumbnail">
+    <div 
+      className="project-masonry-card" 
+      onClick={handleCardClick}
+    >
+      <div className="project-image-container">
         <img 
           src={project.thumbnailImage} 
           alt={project.title}
-          className="project-image"
+          className="project-masonry-image"
           loading="lazy"
         />
-        <div className="project-overlay">
-          <div className="project-category-tag">
-            {project.subCategory}
-          </div>
-          {project.style && (
-            <div className="project-style-tag">
-              {project.style}
+        
+        {/* Category label - always visible */}
+        <div className="project-category-label">
+          {project.subCategory}
+        </div>
+        
+        {/* Hover overlay with client info */}
+        <div className="project-hover-overlay">
+          <div className="client-info">
+            <div className="client-name">{project.clientName}</div>
+            <div className="project-specs">
+              <span className="area">{project.area}</span>
+              <span className="location">{project.address}</span>
             </div>
-          )}
-        </div>
-      </div>
-      
-      <div className="project-content">
-        <h3 className="project-title">{project.title}</h3>
-        
-        <div className="project-details">
-          <div className="project-detail-item">
-            <span className="detail-label">Khách hàng:</span>
-            <span className="detail-value">{project.clientName}</span>
           </div>
-          
-          <div className="project-detail-item">
-            <span className="detail-label">Diện tích:</span>
-            <span className="detail-value">{project.area}</span>
-          </div>
-          
-          <div className="project-detail-item">
-            <span className="detail-label">Hoàn thành:</span>
-            <span className="detail-value">{project.constructionDate}</span>
-          </div>
-          
-          <div className="project-detail-item">
-            <span className="detail-label">Địa chỉ:</span>
-            <span className="detail-value">{project.address}</span>
-          </div>
-        </div>
-        
-        {project.description && (
-          <p className="project-description">{project.description}</p>
-        )}
-        
-        <div className="project-actions">
-          <button className="view-details-btn">
-            Xem chi tiết
-            <span className="btn-arrow">→</span>
-          </button>
         </div>
       </div>
     </div>

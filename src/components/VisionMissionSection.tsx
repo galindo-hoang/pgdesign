@@ -1,14 +1,49 @@
 // src/components/AboutUsSection.tsx
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./VisionMissionSection.css";
 import aboutUsImage from "../assets/images/vision-mission-section.jpg"; // Path to your image
 // Make sure you have this image in src/assets/images/ or update the path
 
 const VisionMissionSection: React.FC = () => {
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isVisible) {
+            setIsVisible(true);
+            // Disconnect observer after first trigger to prevent re-animation
+            observer.disconnect();
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of the element is visible
+        rootMargin: '0px 0px -50px 0px', // Adjust trigger point
+      }
+    );
+
+    if (imageContainerRef.current) {
+      observer.observe(imageContainerRef.current);
+    }
+
+    return () => {
+      if (imageContainerRef.current) {
+        observer.unobserve(imageContainerRef.current);
+      }
+      observer.disconnect();
+    };
+  }, [isVisible]);
+
   return (
     <section className="about-us-section">
       <div className="about-us-content-wrapper">
-        <div className="about-us-image-container">
+        <div 
+          ref={imageContainerRef}
+          className={`about-us-image-container ${isVisible ? 'zoom-in-animation' : ''}`}
+        >
           <img
             src={aboutUsImage}
             alt="Interior decoration with lamp and plant"
