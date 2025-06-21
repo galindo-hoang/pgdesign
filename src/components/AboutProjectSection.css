@@ -105,7 +105,7 @@
     left: 0;
     width: 80px;
     height: 4px;
-    background: linear-gradient(90deg, #557256, #2f674b);
+    background: rgb(255, 255, 255);
     border-radius: 2px;
     animation: expandLine 1.5s ease-out 0.5s both;
 }

@@ -65,7 +65,7 @@ const TeamSection: React.FC = () => {
     <section className="pg-team-section">
       <div className="pg-team-content">
         <div className="pg-team-intro-wrapper">
-          <div className="pg-team-heading">ĐỘI NGŨ PG DESIGN</div>
+          <div className="pg-teavi-heading">Đội ngữ PG Design</div>
           <p className="pg-team-intro-text">
             Những người trẻ đầy nhiệt huyết và đam mê sáng tạo. Đội ngũ được xây
             dựng để đồng hành cùng bạn từ bước định hình ý tưởng, phát triển bản

@@ -39,17 +39,17 @@
 }
 
 .pd-masonry-grid_column {
-    padding-left: 20px;
+    padding-left: 5px;
     background-clip: padding-box;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 5px;
 }
 
 .pd-masonry-grid_column>div {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     overflow: hidden;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
     cursor: pointer;

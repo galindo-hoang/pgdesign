@@ -20,7 +20,7 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
         <h3 className="about-headline">MỖI CÔNG TRÌNH LÀ MỘT DẤU ẤN</h3>
         {/* The SVG icon next to the sub-headline */}
         {/* Set its color via the 'color' CSS property of its parent/self */}
-        <PenIcon className="about-pen-icon" />
+        {/* <PenIcon className="about-pen-icon" /> */}
       </div>
       <p className="about-description">
         Thành lập từ năm 2022, PG là đội ngũ kiến trúc sư trẻ đầy đam mê và

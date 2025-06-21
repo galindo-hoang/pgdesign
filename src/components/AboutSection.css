@@ -24,6 +24,7 @@
   font-weight: 600;
   /* Semi-bold */
   text-transform: uppercase;
+  font-style: italic;
   /* Match the uppercase in the image */
 }
 
@@ -34,16 +35,16 @@
   /* Center the entire container */
   align-items: center;
   /* Vertically align text and icon */
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   /* Space below sub-headline and icon */
   gap: 15px;
   /* Space between the sub-headline text and the icon */
 }
 
 .about-pen-icon {
-  width: 105px;
+  width: 90px;
   /* Adjust icon size */
-  height: 105px;
+  height: 90px;
   stroke: #929E87;
   fill: #929E87;
   
@@ -61,7 +62,7 @@
   /* Limit paragraph width for better readability */
   margin: 0 auto;
   /* Center the paragraph horizontally */
-  color: #40674D;
+  color: black;
   /* Slightly lighter color for body text */
 }
 

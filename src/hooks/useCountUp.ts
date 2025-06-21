@@ -11,7 +11,7 @@ interface UseCountUpOptions {
 const useCountUp = (options: UseCountUpOptions) => {
   const {
     end,
-    duration = 1000,
+    duration = 1500,
     // startOnEnter = false,
     startValue = 0,
   } = options;

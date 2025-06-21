@@ -18,7 +18,7 @@
 }
 
 .navbar-header.transparent-bg {
-    background-color: rgba(54, 96, 76, 0.7);
+    background-color: rgba(60, 60, 60, 0.175);
     /* Semi-transparent version of your color */
     /* For fully transparent: background-color: transparent; */
     box-shadow: none;

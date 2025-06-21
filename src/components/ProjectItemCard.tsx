@@ -41,9 +41,9 @@ const ProjectItemCard: React.FC<ProjectItemCardProps> = ({ project, onClick }) =
         />
         
         {/* Category label - always visible */}
-        <div className="project-category-label">
+        {/* <div className="project-category-label">
           {project.subCategory}
-        </div>
+        </div> */}
         
         {/* Hover overlay with client info */}
         <div className="project-hover-overlay">

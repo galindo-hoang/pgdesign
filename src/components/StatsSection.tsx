@@ -39,7 +39,7 @@ const StatsSection: React.FC = () => {
       targetValue: 5, 
       label: "Kinh nghiệm", 
       suffix: "+ năm",
-      description: "Trong thiết kế & thi công",
+      description: "Kinh nghiệm",
       backgroundImage: experienceImg,
       category: "experience"
     },
@@ -198,7 +198,7 @@ const StatItem: React.FC<StatItemProps> = ({
           <div className="stat-value">
             {count}{suffix}
           </div>
-          <div className="stat-label">{label}</div>
+          {/* <div className="stat-label">{label}</div> */}
           <div className="stat-description">{description}</div>
         </div>
       </div>

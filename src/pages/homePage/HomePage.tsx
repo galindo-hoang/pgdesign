@@ -1,6 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import "./HomePage.css";
 import thumbIntro from "../../assets/images/thumb-intro.jpg";
+import thumbIntro1 from "../../assets/images/diary-image-1.jpg";
+import thumbIntro2 from "../../assets/images/diary-image-2.jpg";
+import thumbIntro3 from "../../assets/images/diary-image-3.jpg";
 import AboutSection from "../../components/AboutSection";
 import ImageSliderSection from "../../components/ImageSliderSection";
 import StatsSection from "../../components/StatsSection";
@@ -18,9 +21,9 @@ const HomePage: React.FC = () => {
 
   const heroImages = [
     thumbIntro, 
-    thumbIntro, 
-    thumbIntro, 
-    thumbIntro, 
+    thumbIntro1, 
+    thumbIntro2, 
+    thumbIntro3, 
     thumbIntro, 
   ];
 
