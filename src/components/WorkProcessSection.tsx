@@ -4,8 +4,8 @@ import "./WorkProcessSection.css";
 
 // Import SVG components
 // Make sure these paths are correct for your project structure
-import { ReactComponent as DesignProcessIcon } from "../assets/icons/design-process-icon.svg"; // Your design icon SVG
-import { ReactComponent as ConstructionProcessIcon } from "../assets/icons/construction-process-icon.svg"; // Your construction icon SVG
+import { ReactComponent as DesignProcessIcon } from "../assets/icons/design-icon.svg"; // Your design icon SVG
+import { ReactComponent as ConstructionProcessIcon } from "../assets/icons/building-icon.svg"; // Your construction icon SVG
 import { ReactComponent as WorkProcessFlowDiagram1 } from "../assets/icons/work-process-flow-diagram-1.svg"; // Your main flow diagram SVG
 import { ReactComponent as WorkProcessFlowDiagram2 } from "../assets/icons/work-process-flow-diagram-2.svg"; // Your main flow diagram SVG
 
