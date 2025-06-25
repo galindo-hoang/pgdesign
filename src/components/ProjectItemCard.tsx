@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./ProjectItemCard.css";
 
 interface ProjectItem {
@@ -21,7 +22,13 @@ interface ProjectItemCardProps {
 }
 
 const ProjectItemCard: React.FC<ProjectItemCardProps> = ({ project, onClick }) => {
+  const navigate = useNavigate();
+  
   const handleCardClick = () => {
+    // Navigate to project detail page
+    navigate(`/project-detail/${project.id}`);
+    
+    // Keep the onClick callback for backward compatibility
     if (onClick) {
       onClick(project);
     }

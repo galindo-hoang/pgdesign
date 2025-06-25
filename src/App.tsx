@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import "./App.css"; // General app styles, if any
 import Navbar from "./components/Headerbar/Navbar";
 import Footer from "./components/Footerbar/FooterNav";
@@ -9,10 +9,11 @@ import HomePage from "./pages/homePage/HomePage";
 import ProjectCategoryPage from "./pages/ProjectCategoryPage";
 import BlogPage from "./pages/BlogPage";
 import ContactPage from "./pages/contactPage/ContactPage";
+import ProjectDetailPage from "./pages/projectDetailPage/ProjectDetailPage";
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="App">
         <Navbar />
         <Routes>
@@ -21,11 +22,12 @@ const App: React.FC = () => {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/project" element={<ProjectPage />} />
           <Route path="/projects/:categoryId" element={<ProjectCategoryPage />} />
+          <Route path="/project-detail/:projectId" element={<ProjectDetailPage />} />
           <Route path="/blog" element={<BlogPage />} />
         </Routes>
         <Footer />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
