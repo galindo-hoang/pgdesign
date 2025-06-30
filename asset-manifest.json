@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/pgdesign/static/css/main.b0ca256a.css",
-    "main.js": "/pgdesign/static/js/main.98511ca7.js",
+    "main.css": "/pgdesign/static/css/main.bb7a5e34.css",
+    "main.js": "/pgdesign/static/js/main.55ee64f8.js",
     "static/js/453.44dccd39.chunk.js": "/pgdesign/static/js/453.44dccd39.chunk.js",
     "static/media/diary-image-7.jpg": "/pgdesign/static/media/diary-image-7.17d41552c642db388d14.jpg",
     "static/media/thumb-home.png": "/pgdesign/static/media/thumb-home.6ea368fe0f432dfb53da.png",
@@ -58,12 +58,12 @@
     "static/media/email-icon.svg": "/pgdesign/static/media/email-icon.335e37934953a34d6d6713b83dca4591.svg",
     "static/media/youtube-icon.svg": "/pgdesign/static/media/youtube-icon.5a756154933f343f632c0c78e8ba1555.svg",
     "static/media/facebook-icon.svg": "/pgdesign/static/media/facebook-icon.3ffdd3df032a19c1f82a45b01b66ffba.svg",
-    "main.b0ca256a.css.map": "/pgdesign/static/css/main.b0ca256a.css.map",
-    "main.98511ca7.js.map": "/pgdesign/static/js/main.98511ca7.js.map",
+    "main.bb7a5e34.css.map": "/pgdesign/static/css/main.bb7a5e34.css.map",
+    "main.55ee64f8.js.map": "/pgdesign/static/js/main.55ee64f8.js.map",
     "453.44dccd39.chunk.js.map": "/pgdesign/static/js/453.44dccd39.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b0ca256a.css",
-    "static/js/main.98511ca7.js"
+    "static/css/main.bb7a5e34.css",
+    "static/js/main.55ee64f8.js"
   ]
 }
