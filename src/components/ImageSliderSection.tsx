@@ -58,50 +58,50 @@ const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides }) => {
   ];
   const sliderRef = useRef<Slider>(null); // Specify type for Slider ref
 
-  const settings = {
-    dots: false, // Show navigation dots
-    infinite: true, // Loop the slider
-    speed: 500, // Transition speed in ms
-    slidesToShow: 3, // How many slides are visible at once (adjust for your layout)
-    slidesToScroll: 1, // How many slides to scroll at a time
-    centerMode: true, // This is key for the "partially visible" effect
-    centerPadding: "120px", // Space around the center slide (adjust as needed)
-    autoplay: true, // Auto-scroll
-    autoplaySpeed: 3000, // Time between slides
-    arrows: false, // Hide default arrows (you can add custom ones if needed)
-    swipe: true, // <--- Ensure this is true (it's default true)
-    draggable: true, // <--- Ensure this is true (it's default true for desktop)
-    touchMove: true, // <--- Ensure this is true (it's default true for mobile)
-    responsive: [
-      {
-        breakpoint: 1024, // Tablets
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          centerPadding: "40px",
-        },
-      },
-      {
-        breakpoint: 768, // Smaller tablets / large phones
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerPadding: "40px", // Adjust if you want smaller side peeks
-          dots: true, // Keep dots for mobile
-          arrows: false,
-        },
-      },
-      {
-        breakpoint: 480, // Mobile phones
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerPadding: "60px", // Even smaller side peeks
-          dots: true,
-          arrows: false,
-        },
-      },
-    ],
+     const settings = {
+     dots: false, // Show navigation dots
+     infinite: true, // Loop the slider
+     speed: 500, // Transition speed in ms
+     slidesToShow: 3, // How many slides are visible at once (adjust for your layout)
+     slidesToScroll: 1, // How many slides to scroll at a time
+     centerMode: true, // This is key for the "partially visible" effect
+     centerPadding: "120px", // Space around the center slide (adjust as needed)
+     autoplay: true, // Disable auto-scroll
+     autoplaySpeed: 1500, // Time between slides (not used when autoplay is false)
+     arrows: false, // Hide default arrows (you can add custom ones if needed)
+     swipe: true, // <--- Ensure this is true (it's default true)
+     draggable: true, // <--- Ensure this is true (it's default true for desktop)
+     touchMove: true, // <--- Ensure this is true (it's default true for mobile)
+         responsive: [
+       {
+         breakpoint: 1024, // Tablets
+         settings: {
+           slidesToShow: 3,
+           slidesToScroll: 1,
+           centerPadding: "60px",
+         },
+       },
+       {
+         breakpoint: 768, // Smaller tablets / large phones
+         settings: {
+           slidesToShow: 3,
+           slidesToScroll: 1,
+           centerPadding: "40px",
+           dots: false,
+           arrows: false,
+         },
+       },
+       {
+         breakpoint: 480, // Mobile phones
+         settings: {
+           slidesToShow: 3,
+           slidesToScroll: 1,
+           centerPadding: "20px",
+           dots: false,
+           arrows: false,
+         },
+       },
+     ],
   };
 
   // Click handler for each slide
