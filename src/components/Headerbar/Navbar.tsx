@@ -33,24 +33,24 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <nav className={`navbar-header ${scrolled ? "transparent-bg" : ""}`}>
+    <nav className={`navbar-header ${scrolled ? "scrolled" : ""}`}>
       <div className="navbar-logo-container" onClick={hanldeNavHome}>
         <PGLogo className="navbar-logo" /> {/* Use PGLogo as a component */}
       </div>
       <ul className="navbar-links">
-        <li className="navbar-item">
+        <li className={`navbar-item ${scrolled ? "scrolled" : ""}`}>
           <a href="/intro">Giới thiệu</a>
         </li>
-        <li className="navbar-item">
+        <li className={`navbar-item ${scrolled ? "scrolled" : ""}`}>
           <a href="/dichvu">Dịch vụ</a>
         </li>
-        <li className="navbar-item">
+        <li className={`navbar-item ${scrolled ? "scrolled" : ""}`}>
           <a href="/project">Dự án</a>
         </li>
-        <li className="navbar-item">
+        <li className={`navbar-item ${scrolled ? "scrolled" : ""}`}>
           <a href="/contact">Liên hệ</a>
         </li>
-        <li className="navbar-item">
+        <li className={`navbar-item ${scrolled ? "scrolled" : ""}`}>
           <a href="/blog">Blog</a>
         </li>
       </ul>

@@ -1,16 +1,17 @@
 .project-diary-section {
-    padding: 20px;
+    padding: 20px 0px;
     background-color: #fff;
     font-family: var(--primary-font);
     color: #333;
     text-align: center;
     position: relative;
+    background: linear-gradient(to bottom, var(--primary-color) 50%, #fff 50%);
 }
 
 .pd-main-headline {
     font-size: 48px;
-    color: #557256;
-    margin: auto 122px auto 122px;
+    color: #fff;
+    margin: auto 100px;
     max-width: 1200px;
     margin-bottom: 50px;
     font-weight: 700;

@@ -2,7 +2,7 @@
 
 .stats-section {
     padding: 20px 0;
-    background: linear-gradient(135deg, #36604c 0%, #4a7a5e 100%);
+    background: var(--primary-color);
     color: white;
     position: relative;
     overflow: hidden;

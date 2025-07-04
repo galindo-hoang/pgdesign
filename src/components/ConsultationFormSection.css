@@ -16,18 +16,18 @@ cf-form-group input.input-error,
 }
 
 .consultation-form-section {
-    padding: 80px 20px 40px 20px;
-    background-color: #fff;
+    padding: 80px 0px 40px 0px;
+    background-color: #1b3025;
     font-family: var(--primary-font);
     text-align: center;
 }
 
 .cf-main-headline {
     text-align: left;
-    margin: auto 122px auto 122px;
+    margin: auto 100px;
     max-width: 1200px;
     font-size: 48px;
-    color: #557256;
+    color: #fff;
     margin-bottom: 60px;
     font-weight: 700;
     text-transform: uppercase;
@@ -50,7 +50,7 @@ cf-form-group input.input-error,
 
 .cf-form-group label {
     font-size: 1em;
-    color: #333;
+    color: #fff;
     margin-bottom: 8px;
     font-weight: 600;
 }
@@ -236,8 +236,8 @@ cf-form-group input.input-error,
 }
 
 .cf-submit-button {
-    background-color: #557256;
-    color: #fff;
+    background-color: #fff;
+    color: #000;
     padding: 15px 40px;
     border: none;
     border-radius: 5px;

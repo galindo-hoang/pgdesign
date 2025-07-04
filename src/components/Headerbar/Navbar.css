@@ -17,7 +17,7 @@
     /* Add transition */
 }
 
-.navbar-header.transparent-bg {
+.navbar-header.scrolled {
     background-color: rgba(60, 60, 60, 0.175);
     /* Semi-transparent version of your color */
     /* For fully transparent: background-color: transparent; */
@@ -35,16 +35,21 @@
     height: 60px;
     /* Adjust SVG logo height */
     width: auto;
-    /* Maintain aspect ratio */
-    /* If your SVG has fill colors defined within its code,
-       you might need to target specific paths to change color: */
-    /*
-    .navbar-logo path {
-        fill: white;
-    }
-    */
+    transition: filter 0.3s ease-in-out;
+    /* Smooth transition for color change */
 }
 
+.navbar-logo .pgDes-1 {
+    fill: #fff;
+    /* Default white color */
+    transition: fill 0.3s ease-in-out;
+}
+
+.navbar-header.scrolled .navbar-logo .pgDes-1,.navbar-item.scrolled a {
+    color: var(--primary-color);
+    fill: var(--primary-color);
+    /* Changes logo to primary color when scrolled */
+}
 
 .navbar-links {
     list-style: none;
@@ -66,8 +71,8 @@
 }
 
 .navbar-item a:hover {
-    background-color: white;
-    color: #36604c;
+    background-color: var(--primary-color);
+    color: white;
 }
 
 /* Responsive adjustments for smaller screens */

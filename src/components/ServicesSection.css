@@ -16,7 +16,7 @@
     color: #2f674B;
     font-weight: 700;
     text-transform: uppercase;
-    margin: auto auto 0px auto;
+    margin: auto 100px;
     max-width: 1200px;
     padding: 0 20px;
 }
@@ -39,7 +39,7 @@
     justify-content: center;
     flex-wrap: wrap;
     /* Allow wrapping on smaller screens */
-    gap: 5px;
+    gap: 0.1%;
     /* Space between cards */
     max-width: 100vw;
     /* Max width for the grid */
@@ -49,8 +49,6 @@
 }
 
 .service-card {
-    width: 22%;
-    min-width: 24%;
     height: 70vh;
     min-height: 500px;
     max-height: 600px;
@@ -219,13 +217,8 @@
         max-width: 1400px;
     }
     
-    .services-grid {
-        max-width: 1400px;
-        gap: 1px;
-    }
-    
     .service-card {
-        width: 23%;
+        width: 24.9%;
         height: 75vh;
         max-height: 700px;
     }
@@ -246,7 +239,6 @@
 /* Large Screens (1200px to 1399px) */
 @media (max-width: 1399px) and (min-width: 1200px) {
     .services-grid {
-        max-width: 100%;
         gap: 1px;
     }
     
@@ -270,12 +262,7 @@
     .services-sub-headline {
         font-size: 22px;
     }
-    
-    .services-grid {
-        max-width: 95%;
-        gap: 1px;
-    }
-    
+
     .service-card {
         width: calc(50% - 10px);
         height: 60vh;
@@ -315,10 +302,6 @@
         text-align: center;
         padding: 0 25px;
         margin-bottom: 35px;
-    }
-    
-    .services-grid {
-        gap: 2px;
     }
     
     .service-card {
@@ -371,12 +354,6 @@
         margin-bottom: 30px;
     }
     
-    .services-grid {
-        flex-direction: column;
-        align-items: center;
-        gap: 1px;
-    }
-    
     .service-card {
         width: 100%;
         max-width: 400px;
@@ -426,13 +403,6 @@
         text-align: center;
         padding: 0 15px;
         margin-bottom: 25px;
-    }
-    
-    .services-grid {
-        flex-direction: column;
-        align-items: center;
-        gap: 1px;
-        padding: 0 10px;
     }
     
     .service-card {
@@ -488,13 +458,6 @@
         margin-bottom: 20px;
     }
     
-    .services-grid {
-        flex-direction: column;
-        align-items: center;
-        gap: 1px;
-        padding: 0 10px;
-    }
-    
     .service-card {
         width: 100%;
         max-width: 320px;
@@ -543,11 +506,6 @@
         font-size: 12px;
         padding: 0 10px;
         margin-bottom: 15px;
-    }
-    
-    .services-grid {
-        gap: 1px;
-        padding: 0 5px;
     }
     
     .service-card {

@@ -1,7 +1,7 @@
 /* src/components/TestimonialSliderSection.css */
 
 .testimonial-slider-section {
-    padding: 80px 20px;
+    padding: 80px 0px;
     background-color: transparent;
     font-family: var(--primary-font);
     text-align: center;
@@ -9,7 +9,7 @@
 
 .ts-main-headline {
     text-align: left;
-    margin: auto 122px auto 122px;
+    margin: auto 100px;
     max-width: 1200px;
     margin-bottom: 10px;
     font-weight: 700;

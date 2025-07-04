@@ -7,6 +7,7 @@
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   --heading-font: 'Barlow', sans-serif;
   --code-font: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  --primary-color: #1b3025;
 }
 
 /* Global Font Application with High Specificity */
