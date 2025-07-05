@@ -8,6 +8,20 @@ import TmpImage from "../assets/images/thumb-home.png";
 // import voNguyenPhapImage from '../assets/images/vo_nguyen_phap.jpg';
 
 const TeamSection: React.FC = () => {
+  const boardDirectors = [
+    {
+      id: 1,
+      name: "Phan Anh Thư",
+      title: "CEO",
+      image: "path/to/phan_anh_thu_image.jpg",
+    },
+    {
+      id: 2,
+      name: "Võ Nguyên Pháp",
+      title: "Project Director",
+      image: "path/to/vo_nguyen_phap_image.jpg",
+    },
+  ]
   // You could define your team members as an array of objects here
   const teamMembers = [
     {
@@ -73,7 +87,23 @@ const TeamSection: React.FC = () => {
             khi sản phẩm hoàn thiện.
           </p>
         </div>
-        <div className="pg-team-grid">
+        <div className="pg-member-container">
+          <div className="pg-board-grid">
+            {boardDirectors.map((member) => (
+            <div className="team-member-card" key={member.id}>
+              <div className="member-image-container">
+                <img
+                  src={TmpImage}
+                  alt={member.name}
+                  className="member-image"
+                />
+              </div>
+              <p className="member-name">{member.name}</p>
+              <p className="member-title">{member.title}</p>
+            </div>
+          ))}
+          </div>
+          <div className="pg-member-grid">
           {teamMembers.map((member) => (
             <div className="team-member-card" key={member.id}>
               <div className="member-image-container">
@@ -87,6 +117,7 @@ const TeamSection: React.FC = () => {
               <p className="member-title">{member.title}</p>
             </div>
           ))}
+          </div>
         </div>
       </div>
     </section>

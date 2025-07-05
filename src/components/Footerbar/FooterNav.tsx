@@ -3,7 +3,7 @@ import React from "react";
 import "./FooterNav.css";
 
 // Assuming your SVG icons are in src/assets/icons/ and logo in src/assets/logo/
-import Logo from "../../assets/logo/pg-design-logo.svg"; // Path to your logo SVG, now containing the tagline
+import Logo from "../../assets/logo/pg-design-logo-footer.svg"; // Path to your logo SVG, now containing the tagline
 import EmailIcon from "../../assets/icons/email-icon.svg"; // Path to your email icon SVG
 import PhoneIcon from "../../assets/icons/phone-icon.svg"; // Path to your phone/hotline icon SVG
 import LocationIcon from "../../assets/icons/location-icon.svg"; // Path to your location icon SVG
