@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/pgdesign/static/css/main.bb7a5e34.css",
-    "main.js": "/pgdesign/static/js/main.55ee64f8.js",
+    "main.css": "/pgdesign/static/css/main.fcb10038.css",
+    "main.js": "/pgdesign/static/js/main.3284daf6.js",
     "static/js/453.44dccd39.chunk.js": "/pgdesign/static/js/453.44dccd39.chunk.js",
     "static/media/diary-image-7.jpg": "/pgdesign/static/media/diary-image-7.17d41552c642db388d14.jpg",
     "static/media/thumb-home.png": "/pgdesign/static/media/thumb-home.6ea368fe0f432dfb53da.png",
@@ -34,7 +34,8 @@
     "static/media/Barlow-Thin.ttf": "/pgdesign/static/media/Barlow-Thin.ed7c51aed47c9fd3db93.ttf",
     "static/media/work-process-flow-diagram-1.svg": "/pgdesign/static/media/work-process-flow-diagram-1.a8cc6de6fd128584eaf2e6ad60cdee55.svg",
     "static/media/work-process-flow-diagram-2.svg": "/pgdesign/static/media/work-process-flow-diagram-2.97343d6b28ea3686b9e9d013f487a1f4.svg",
-    "static/media/pg-design-logo.svg": "/pgdesign/static/media/pg-design-logo.e9c5547050d6818864ec2796ed08683c.svg",
+    "static/media/pg-design-logo-footer.svg": "/pgdesign/static/media/pg-design-logo-footer.baf664014f919889b81b0f87f016478f.svg",
+    "static/media/pg-design-logo.svg": "/pgdesign/static/media/pg-design-logo.6e16d54e3643363ab5db1321b5b7264c.svg",
     "static/media/reasonable-price-icon.svg": "/pgdesign/static/media/reasonable-price-icon.9b3f0fce54427e4b13cc8daf4424a5c8.svg",
     "static/media/post-handover-warranty-icon.svg": "/pgdesign/static/media/post-handover-warranty-icon.8654e957a642ed0d5b7ccc4c88c60d7b.svg",
     "static/media/quality-materials-icon.svg": "/pgdesign/static/media/quality-materials-icon.af91882da545b11d58790d6181304ba7.svg",
@@ -44,7 +45,7 @@
     "static/media/clear-pricing-icon.svg": "/pgdesign/static/media/clear-pricing-icon.6a44cbcb2e4c0aff7a3fa4eb9cce9803.svg",
     "static/media/slick.eot": "/pgdesign/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "static/media/slick.ttf": "/pgdesign/static/media/slick.c94f7671dcc99dce43e2.ttf",
-    "static/media/experience-icon.svg": "/pgdesign/static/media/experience-icon.04dd7c2ba024b2b9702aa7c1c2cfa93f.svg",
+    "static/media/experience-icon.svg": "/pgdesign/static/media/experience-icon.6ef8725bebca6d8edafff52c2b2613cc.svg",
     "static/media/design-icon.svg": "/pgdesign/static/media/design-icon.27ae23e6804a5f36d9c4500e68f6532b.svg",
     "static/media/slick.woff": "/pgdesign/static/media/slick.295183786cd8a1389865.woff",
     "static/media/timely-delivery-icon.svg": "/pgdesign/static/media/timely-delivery-icon.cd900b2e6c8cd6a5726b59394404c69d.svg",
@@ -58,12 +59,12 @@
     "static/media/email-icon.svg": "/pgdesign/static/media/email-icon.335e37934953a34d6d6713b83dca4591.svg",
     "static/media/youtube-icon.svg": "/pgdesign/static/media/youtube-icon.5a756154933f343f632c0c78e8ba1555.svg",
     "static/media/facebook-icon.svg": "/pgdesign/static/media/facebook-icon.3ffdd3df032a19c1f82a45b01b66ffba.svg",
-    "main.bb7a5e34.css.map": "/pgdesign/static/css/main.bb7a5e34.css.map",
-    "main.55ee64f8.js.map": "/pgdesign/static/js/main.55ee64f8.js.map",
+    "main.fcb10038.css.map": "/pgdesign/static/css/main.fcb10038.css.map",
+    "main.3284daf6.js.map": "/pgdesign/static/js/main.3284daf6.js.map",
     "453.44dccd39.chunk.js.map": "/pgdesign/static/js/453.44dccd39.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.bb7a5e34.css",
-    "static/js/main.55ee64f8.js"
+    "static/css/main.fcb10038.css",
+    "static/js/main.3284daf6.js"
   ]
 }
