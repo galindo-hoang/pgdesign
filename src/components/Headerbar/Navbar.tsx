@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
           <a href="/intro">Giới thiệu</a>
         </li>
         <li className={`navbar-item ${scrolled ? "scrolled" : ""}`}>
-          <a href="/dichvu">Dịch vụ</a>
+          <a href="/service">Dịch vụ</a>
         </li>
         <li className={`navbar-item ${scrolled ? "scrolled" : ""}`}>
           <a href="/project">Dự án</a>

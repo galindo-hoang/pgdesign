@@ -1,0 +1,331 @@
+/* Service Process Section Styles */
+.service-process-section {
+  width: 100%;
+  min-height: 65vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--primary-font);
+}
+
+.service-process-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.service-process-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: fit-content;
+  background: var(--primary-color);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 2rem 1rem 2rem;
+  box-sizing: border-box;
+}
+
+/* Process Number Circle */
+.service-process-number {
+  position: absolute;
+  top: -40px;
+  left: calc(50% - 5%);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: white;
+  border: 4px solid var(--primary-color);
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  font-weight: 900;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  z-index: 3;
+}
+
+/* Content */
+.service-process-content {
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.service-process-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.service-process-title {
+  font-size: 3rem;
+  font-weight: 900;
+  color: white;
+  margin: 1rem 0 0 0;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.service-process-description {
+  font-size: 24px;
+  line-height: 1.6;
+  color: white;
+  margin: 3rem 0;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.service-process-note {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  font-style: italic;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  align-self: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .service-process-overlay {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: fit-content;
+    padding: 3.2rem 1.5rem 2rem 1.5rem;
+  }
+  
+  .service-process-number {
+    width: 70px;
+    height: 70px;
+    font-size: 2.2rem;
+    top: -35px;
+    left: calc(50% - 5%);
+  }
+  
+  .service-process-title {
+    font-size: 2.5rem;
+  }
+  
+  .service-process-description {
+    font-size: 22px;
+    margin: 2.6rem 0; 
+  }
+}
+
+@media (max-width: 768px) {
+  .service-process-section {
+    min-height: 50vh;
+    padding: 2rem 1rem;
+  }
+  
+  .service-process-overlay {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    max-width: 600px;
+    height: fit-content;
+    padding: 3rem 1.5rem 1.5rem 1.5rem;
+    margin: 0 auto;
+  }
+  
+  .service-process-number {
+    width: 55px;
+    height: 55px;
+    font-size: 1.8rem;
+    top: -27px;
+    left: calc(50% - 5%);
+  }
+  
+  .service-process-title {
+    font-size: 1.8rem;
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+  
+  .service-process-description {
+    font-size: 20px;
+    margin: 2.2rem 0; 
+    line-height: 1.6;
+  }
+  
+  .service-process-note {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-process-section {
+    min-height: 40vh;
+    padding: 1.5rem 0.8rem;
+  }
+  
+  .service-process-overlay {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 88%;
+    max-width: 420px;
+    height: fit-content;
+    padding: 3rem 1.2rem 1.5rem 1.2rem;
+    margin: 0 auto;
+  }
+  
+  .service-process-number {
+    width: 45px;
+    height: 45px;
+    font-size: 1.4rem;
+    top: -22px;
+    left: calc(50% - 5%);
+  }
+  
+  .service-process-title{
+    font-size: 1.2rem;
+    margin-bottom: 1.4rem;
+    line-height: 1.3;
+  }
+  
+  .service-process-description {
+    font-size: 18px;
+    margin: 1.8rem 0; 
+    line-height: 1.6;
+  }
+  
+  .service-process-note {
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 380px) {
+  .service-process-section {
+    min-height: 40vh;
+    padding: 1rem 0.5rem;
+  }
+  
+  .service-process-overlay {
+    width: 92%;
+    max-width: 350px;
+    padding: 2.6rem 1rem 1.2rem 1rem;
+  }
+  
+  .service-process-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    top: -20px;
+    left: calc(50% - 5%);
+  }
+  
+  .service-process-title {
+    font-size: 1.1rem;
+    line-height: 1.35;
+    margin-bottom: 1.5rem;
+  }
+  
+  .service-process-description {
+    line-height: 1.7;
+    font-size: 16px;
+    margin: 1.4rem 0; 
+  }
+  
+  .service-process-note {
+    font-size: 0.68rem;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 320px) {
+  .service-process-section {
+    min-height: 60vh;
+    padding: 0.8rem 0.3rem;
+  }
+  
+  .service-process-overlay {
+    width: 96%;
+    max-width: 300px;
+    padding: 1.6rem 0.8rem 1rem 0.8rem;
+  }
+  
+  .service-process-number {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+    top: -18px;
+    left: calc(50% - 5%);
+  }
+  
+  .service-process-title {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 1.4rem;
+  }
+  
+  .service-process-description {
+    font-size: 14px;
+    margin: 1.4rem 0; 
+    line-height: 1.75;
+  }
+  
+  .service-process-note {
+    font-size: 0.65rem;
+    line-height: 1.7;
+  }
+}
+
+/* Animation for entrance */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.service-process-number {
+  animation: fadeInUp 0.8s ease-out 0.1s both;
+}
+
+.service-process-main-content {
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.service-process-note {
+  animation: fadeInUp 0.8s ease-out 0.5s both;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .service-process-number,
+  .service-process-main-content,
+  .service-process-note {
+    animation: none;
+  }
+} 

@@ -1,0 +1,173 @@
+/* Construction Services Section Styles */
+.construction-services-section {
+  padding: 4rem 0;
+  background-color: #ffffff;
+  font-family: var(--primary-font);
+}
+
+.construction-services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.construction-services-grid {
+  display: grid;
+  grid-template-columns: 1fr 2px 1fr;
+  gap: 3rem;
+  align-items: stretch;
+}
+
+.construction-service-column {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.construction-service-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0 0 2rem 0;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
+}
+
+.construction-service-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+.construction-service-list li {
+  position: relative;
+  padding: 0.3rem 0 0.3rem 1rem;
+  font-size: 22px;
+  line-height: 1.5;
+  color: #444444;
+  text-align: left;
+}
+
+.construction-service-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0.3rem;
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.construction-services-divider {
+  width: 2px;
+  height: 100%;
+  background-color: black;
+  justify-self: center;
+  align-self: stretch;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .construction-services-container {
+    padding: 0 1.5rem;
+  }
+  
+  .construction-services-grid {
+    gap: 2rem;
+  }
+  
+  .construction-service-title {
+    font-size: 1.3rem;
+  }
+  
+  .construction-service-list li {
+    font-size: 20px
+  }
+}
+
+@media (max-width: 768px) {
+  .construction-services-section {
+    padding: 3rem 0;
+  }
+  
+  .construction-services-container {
+    padding: 0 1rem;
+  }
+  
+  .construction-services-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .construction-services-divider {
+    display: none;
+  }
+  
+  .construction-service-column {
+    padding: 1rem;
+    border-radius: 8px;
+    display: block;
+    height: auto;
+  }
+  
+  .construction-service-title {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .construction-service-list {
+    flex: none;
+  }
+  
+  .construction-service-list li {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .construction-services-section {
+    padding: 2rem 0;
+  }
+  
+  .construction-services-container {
+    padding: 0 0.8rem;
+  }
+  
+  .construction-service-column {
+    padding: 0.8rem;
+  }
+  
+  .construction-service-title {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .construction-service-list li {
+    font-size: 16px;
+    padding-left: 0.8rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .construction-services-section {
+    padding: 1.5rem 0;
+  }
+  
+  .construction-service-column {
+    padding: 0.6rem;
+  }
+  
+  .construction-service-title {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .construction-service-list li {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+} 

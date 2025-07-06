@@ -10,6 +10,7 @@ import ProjectCategoryPage from "./pages/ProjectCategoryPage";
 import BlogPage from "./pages/BlogPage";
 import ContactPage from "./pages/contactPage/ContactPage";
 import ProjectDetailPage from "./pages/projectDetailPage/ProjectDetailPage";
+import ServicePage from "./pages/servicePage/ServicePage";
 
 const App: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/intro" element={<IntroPage />} />
+          <Route path="/service" element={<ServicePage/>}/>
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/project" element={<ProjectPage />} />
           <Route path="/projects/:categoryId" element={<ProjectCategoryPage />} />

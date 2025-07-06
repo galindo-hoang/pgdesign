@@ -1,82 +1,77 @@
 // src/components/ServicesSection.tsx
 import React from "react";
 import "./ServicesSection.css"; // Import its dedicated CSS
-import TmpImage from "../assets/images/thumb-home.png";
-
-// Define an interface for each service item
-interface ServiceItemData {
-  id: number;
-  imageUrl: string;
-  category: string; // "Dịch vụ"
-  title: string;
-  link: string; // URL for "Xem chi tiết"
-}
+import heroImage from "../assets/images/vision-mission-section.jpg";
 
 const ServicesSection: React.FC = () => {
-  // Define the data for your services
-  const services: ServiceItemData[] = [
+  const services = [
     {
       id: 1,
-      imageUrl: "../assets/images/thumb-home.png", // Replace with your image paths
-      category: "Dịch vụ",
-      title: "Thiết kế kiến trúc",
-      link: "#", // Placeholder link
+      title: "Dịch vụ thi công",
+      subtitle: "Phân thô hoặc",
+      description: "Trọn gói hoàn thiện"
     },
     {
       id: 2,
-      imageUrl: "../assets/images/thumb-home.png",
-      category: "Dịch vụ",
-      title: "Thiết kế nội thất",
-      link: "#",
+      title: "Dịch vụ thi công",
+      subtitle: "",
+      description: "Nội thất"
     },
     {
       id: 3,
-      imageUrl: "/assets/images/thumb-home.png",
-      category: "Dịch vụ",
-      title: "Thi công hoàn thiện",
-      link: "#",
+      title: "Dịch vụ thiết kế",
+      subtitle: "",
+      description: "Kiến trúc - Nội thất"
     },
     {
       id: 4,
-      imageUrl: "/assets/images/thumb-home.png",
-      category: "Dịch vụ",
-      title: "Thi công trọn gói",
-      link: "#",
-    },
+      title: "Dịch vụ thi công",
+      subtitle: "Cải tạo sửa chữa hoặc",
+      description: "Dự án đã có bản vẽ"
+    }
   ];
 
   return (
     <section className="services-section">
-      <h2 className="services-main-headline">GIẢI PHÁP KHÔNG GIAN</h2>
-      <h3 className="services-sub-headline">DÀNH RIÊNG CHO BẠN</h3>
-
-      <div className="services-grid">
-        {services.map((service) => (
-          <div key={service.id} className="service-card">
-            {/* The image container with the curved top and now the overlaid text */}
-            <div className="service-image-container">
-              <img
-                src={TmpImage}
-                alt={service.title}
-                className="service-image"
-              />
-              {/* Overlay for gradient/text readability */}
-              <div className="image-overlay">
-                <div className="service-info">
-                  <a href={service.link} className="service-details-link">
-                    Xem chi tiết
-                  </a>
-                  <div className="service-text-content">
-                    <p className="service-category">{service.category}</p>
-                    <h4 className="service-title">{service.title}</h4>
-                  </div>
-                </div>
-              </div>
-
-              {/* Service info is now inside the image container */}
-            </div>
+      <div className="services-container">
+        <div className="services-hero-content-container">
+          <div className="services-hero-content">
+            <h1 className="services-main-title">DỊCH VỤ</h1>
+            <h2 className="services-brand">PG DESIGN</h2>
+            <p className="services-description">
+              Chúng tôi đồng hành cùng khách hàng từ bản vẽ ý tưởng đến không gian sống hoàn thiện, 
+              tối ưu công năng - nâng tầm thẩm mỹ - đảm bảo chất lượng thi công.
+            </p>
           </div>
-        ))}
+        </div>
+        
+        {/* Hero Image */}
+        <div className="services-hero-image">
+          <img 
+            src={heroImage} 
+            alt="Modern Interior Design" 
+            className="services-hero-img"
+          />
+        </div>
+
+        <div className="services-grid-container">
+          <div className="services-grid">
+          {services.map((service) => (
+            <div key={service.id} className="service-card">
+              <div className="service-number">
+                <span>{service.id}</span>
+              </div>
+              <div className="service-content">
+                <h3 className="service-title">{service.title}</h3>
+                {service.subtitle && (
+                  <p className="service-subtitle">{service.subtitle}</p>
+                )}
+                <p className="service-card-description">{service.description}</p>
+              </div>
+            </div>
+          ))}
+          </div>
+        </div>
       </div>
     </section>
   );
