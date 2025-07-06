@@ -7,7 +7,7 @@ import thumbIntro3 from "../../assets/images/diary-image-3.jpg";
 import AboutSection from "../../components/AboutSection";
 import ImageSliderSection from "../../components/ImageSliderSection";
 import StatsSection from "../../components/StatsSection";
-import ServicesSection from "../../components/ServicesSection";
+// import SolutionSection from "../../components/SolutionSection";
 import WorkflowSection from "../../components/WorkProcessSection";
 import ProjectDiarySection from "../../components/ProjectDiarySection";
 import TestimonialSliderSection from "../../components/TestimonialSliderSection";
@@ -107,7 +107,7 @@ const HomePage: React.FC = () => {
           <AboutSection />
           <ImageSliderSection slides={[]} />
           <StatsSection />
-          <ServicesSection />
+          {/* <SolutionSection /> */}
           <WorkflowSection />
           <ProjectDiarySection />
           <TestimonialSliderSection />

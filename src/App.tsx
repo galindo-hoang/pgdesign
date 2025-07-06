@@ -11,6 +11,7 @@ import BlogPage from "./pages/BlogPage";
 import ContactPage from "./pages/contactPage/ContactPage";
 import ProjectDetailPage from "./pages/projectDetailPage/ProjectDetailPage";
 import ServicePage from "./pages/servicePage/ServicePage";
+import FloatingActionButton from "./components/FloatingActionButton";
 
 const App: React.FC = () => {
   return (
@@ -28,6 +29,7 @@ const App: React.FC = () => {
           <Route path="/blog" element={<BlogPage />} />
         </Routes>
         <Footer />
+        <FloatingActionButton />
       </div>
     </BrowserRouter>
   );

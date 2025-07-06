@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./ConstructionServicesSection.css";
 
 
@@ -15,8 +15,42 @@ const ConstructionServicesSection: React.FC<ServiceProcessSectionProps> = ({
   titleRight,
   contentsRight,
 }) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const currentRef = sectionRef.current;
+    if (!currentRef) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setInView(true);
+            observer.disconnect();
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px',
+      }
+    );
+
+    observer.observe(currentRef);
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, []);
+
   return (
-    <section className="construction-services-section">
+    <section 
+      ref={sectionRef}
+      className={`construction-services-section ${inView ? 'animate-in' : ''}`}
+    >
       <div className="construction-services-container">
         <div className="construction-services-grid">
           {/* Left Column - Rough Construction */}

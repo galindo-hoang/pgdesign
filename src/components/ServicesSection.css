@@ -4,6 +4,14 @@
     padding: 80px 0;
     background-color: #fff;
     font-family: var(--primary-font);
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.services-section.animate-in {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .services-container {
@@ -21,6 +29,14 @@
 .services-hero-content {
     text-align: left;
     max-width: fit-content;
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+}
+
+.services-section.animate-in .services-hero-content {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .services-main-title {
@@ -57,6 +73,14 @@
     justify-content: center;
     width: 100%;
     overflow: hidden;
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+}
+
+.services-section.animate-in .services-hero-image {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .services-hero-img {
@@ -87,10 +111,37 @@
     text-align: center;
     position: relative;
     transition: transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .service-card:hover {
     transform: translateY(-2px);
+}
+
+.services-section.animate-in .service-card:nth-child(1) {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition-delay: 0.6s;
+}
+
+.services-section.animate-in .service-card:nth-child(2) {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition-delay: 0.75s;
+}
+
+.services-section.animate-in .service-card:nth-child(3) {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition-delay: 0.9s;
+}
+
+.services-section.animate-in .service-card:nth-child(4) {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition-delay: 1.05s;
 }
 
 /* Service Number Circle */

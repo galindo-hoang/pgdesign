@@ -1,9 +1,12 @@
 // src/components/ServicesSection.tsx
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./ServicesSection.css"; // Import its dedicated CSS
 import heroImage from "../assets/images/vision-mission-section.jpg";
 
 const ServicesSection: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [inView, setInView] = useState(false);
+
   const services = [
     {
       id: 1,
@@ -31,8 +34,39 @@ const ServicesSection: React.FC = () => {
     }
   ];
 
+  useEffect(() => {
+    const currentRef = sectionRef.current;
+    if (!currentRef) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setInView(true);
+            observer.disconnect();
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px',
+      }
+    );
+
+    observer.observe(currentRef);
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, []);
+
   return (
-    <section className="services-section">
+    <section 
+      ref={sectionRef} 
+      className={`services-section ${inView ? 'animate-in' : ''}`}
+    >
       <div className="services-container">
         <div className="services-hero-content-container">
           <div className="services-hero-content">
