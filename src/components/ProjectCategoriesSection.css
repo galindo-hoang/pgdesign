@@ -72,7 +72,6 @@
 .categories-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
   max-width: 99%;
   margin: 40px auto;
   position: relative;
@@ -154,7 +153,7 @@
 }
 
 .category-top div:first-child {
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 500;
   opacity: 0.9;
   text-transform: uppercase;
@@ -258,7 +257,6 @@
   }
   
   .categories-grid {
-    gap: 1px;
     margin: 25px auto;
   }
   
@@ -275,7 +273,7 @@
 @media (max-width: 1024px) {
   .categories-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    gap: 2px;
     margin: 20px auto;
   }
   
@@ -317,7 +315,7 @@
   
   .categories-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    gap: 2px;
     margin: 15px auto;
   }
   
@@ -345,7 +343,7 @@
 @media (max-width: 640px) {
   .categories-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 4px;
+    gap: 2px;
     max-width: 500px;
   }
   
@@ -376,7 +374,7 @@
   
   .categories-grid {
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 4px;
     margin: 10px auto;
   }
   
@@ -393,7 +391,7 @@
   }
   
   .category-top div:first-child {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
   
   .category-top div:last-child {
@@ -434,7 +432,7 @@
   }
   
   .category-top div:first-child {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
   }
   
   .category-top div:last-child {

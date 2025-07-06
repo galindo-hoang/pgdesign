@@ -18,7 +18,7 @@
 }
 
 .navbar-header.scrolled {
-    background-color: rgba(60, 60, 60, 0.175);
+    background-color: rgba(86, 86, 86, 0.593);
     /* Semi-transparent version of your color */
     /* For fully transparent: background-color: transparent; */
     box-shadow: none;
@@ -41,13 +41,13 @@
 
 .navbar-logo .pgDes-1 {
     fill: #fff;
-    /* Default white color */
     transition: fill 0.3s ease-in-out;
 }
 
-.navbar-header.scrolled .navbar-logo .pgDes-1,.navbar-item.scrolled a {
-    color: var(--primary-color);
-    fill: var(--primary-color);
+.navbar-header.scrolled .navbar-logo .pgDes-1,
+.navbar-item.scrolled a {
+    color: white;
+    fill: white;
     /* Changes logo to primary color when scrolled */
 }
 
@@ -71,8 +71,8 @@
 }
 
 .navbar-item a:hover {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: white;
+    color: var(--primary-color);
 }
 
 /* Responsive adjustments for smaller screens */

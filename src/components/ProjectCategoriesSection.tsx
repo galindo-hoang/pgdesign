@@ -91,8 +91,8 @@ const ProjectCategoriesSection: React.FC = () => {
             
             <div className="category-content-wrapper">
               <div className="category-top">
-                <div>Dự án</div>
-                <div>{category.title}</div>
+                <div className="project">Dự án</div>
+                <div className="title">{category.title}</div>
               </div>
                              <div className="category-bottom">
                  <span className="project-count">{category.projectCount} dự án</span>
