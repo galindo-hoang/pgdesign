@@ -416,24 +416,24 @@ html {
     }
 
     .pg-member-grid {
+        width: 95vw;
         grid-template-columns: repeat(3, 1fr);
         gap: 6px;
     }
 
     .pg-member-grid .team-member-card {
-        max-width: 160px;
-        min-width: 100px;
+        width: 120px;
         padding-bottom: 0.3rem;
     }
 
     .pg-board-grid {
+        width: 90vw;
         justify-content: space-around;
         grid-template-columns: repeat(2, 1fr);
     }
     .pg-board-grid .team-member-card {
         padding-bottom: 0.3rem;
-        max-width: 200px;
-        min-width: 140px;
+        width: 160px;
         margin: 0 auto;
     }
 

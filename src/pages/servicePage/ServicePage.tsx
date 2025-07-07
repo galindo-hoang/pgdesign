@@ -10,7 +10,7 @@ const ServicePage: React.FC = () => {
       <ServicesSection />
       <ServiceProcessSection 
         processNumber={1}
-        title="THI CÔNG PHẦN THÔ TRỌN GÓI HOÀN THIỆN"
+        title="THI CÔNG PHẦN THÔ HOẶC TRỌN GÓI HOÀN THIỆN"
         description="PG Design đảm nhận toàn bộ quy trình xây dựng từ phần thô đến hoàn thiện công trình — bao gồm thi công móng, kết cấu, xây tô, ốp lát, sơn nước, lắp đặt thiết bị vệ sinh, hệ thống điện - nước và trần đến hoàn chỉnh."
         note="Không bao gồm thi công đồ nội thất rời - xem mục Thi công nội thất"
       />
