@@ -30,6 +30,7 @@ export const fetchHeroData = async (): Promise<HeroData> => {
     const response = await fetch(`${API_BASE_URL}/homepage/hero`);
     const data = await response.json();
     
+    console.log(`HeroData: ${JSON.stringify(data)}`);
     if (!response.ok) {
       throw new Error(data.error || 'Failed to fetch hero data');
     }
@@ -46,6 +47,7 @@ export const fetchAboutData = async (): Promise<AboutData> => {
     const response = await fetch(`${API_BASE_URL}/homepage/about`);
     const data = await response.json();
     
+    console.log(`AboutData: ${JSON.stringify(data)}`);
     if (!response.ok) {
       throw new Error(data.error || 'Failed to fetch about data');
     }
@@ -61,7 +63,8 @@ export const fetchImageSliderData = async (): Promise<ImageSlideData[]> => {
   try {
     const response = await fetch(`${API_BASE_URL}/homepage/image-slider`);
     const data = await response.json();
-    
+
+    console.log(`ImageSlideData: ${JSON.stringify(data)}`);
     if (!response.ok) {
       throw new Error(data.error || 'Failed to fetch image slider data');
     }
@@ -78,6 +81,7 @@ export const fetchStatsData = async (): Promise<StatsData> => {
     const response = await fetch(`${API_BASE_URL}/homepage/stats`);
     const data = await response.json();
     
+    console.log(`StatsData: ${JSON.stringify(data)}`);
     if (!response.ok) {
       throw new Error(data.error || 'Failed to fetch stats data');
     }
@@ -94,6 +98,7 @@ export const fetchSolutionData = async (): Promise<SolutionData> => {
     const response = await fetch(`${API_BASE_URL}/homepage/solution`);
     const data = await response.json();
     
+    console.log(`SolutionData: ${JSON.stringify(data)}`);
     if (!response.ok) {
       throw new Error(data.error || 'Failed to fetch solution data');
     }
@@ -110,6 +115,7 @@ export const fetchWorkflowData = async (): Promise<WorkflowData> => {
     const response = await fetch(`${API_BASE_URL}/homepage/workflow`);
     const data = await response.json();
     
+    console.log(`WorkflowData: ${JSON.stringify(data)}`);
     if (!response.ok) {
       throw new Error(data.error || 'Failed to fetch workflow data');
     }
@@ -126,6 +132,7 @@ export const fetchProjectDiaryData = async (): Promise<ProjectDiaryData> => {
     const response = await fetch(`${API_BASE_URL}/homepage/project-diary`);
     const data = await response.json();
     
+    console.log(`ProjectDiaryData: ${JSON.stringify(data)}`);
     if (!response.ok) {
       throw new Error(data.error || 'Failed to fetch project diary data');
     }
@@ -141,7 +148,8 @@ export const fetchTestimonialData = async (): Promise<TestimonialData> => {
   try {
     const response = await fetch(`${API_BASE_URL}/homepage/testimonials`);
     const data = await response.json();
-    
+
+    console.log(`TestimonialData: ${JSON.stringify(data)}`);
     if (!response.ok) {
       throw new Error(data.error || 'Failed to fetch testimonial data');
     }
@@ -158,6 +166,7 @@ export const fetchConsultationFormData = async (): Promise<ConsultationFormData>
     const response = await fetch(`${API_BASE_URL}/homepage/consultation-form`);
     const data = await response.json();
     
+    console.log(`ConsultationFormData: ${JSON.stringify(data)}`);
     if (!response.ok) {
       throw new Error(data.error || 'Failed to fetch consultation form data');
     }
