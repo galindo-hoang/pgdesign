@@ -2,11 +2,6 @@
 import React from "react";
 import "./TeamSection.css"; // Import the CSS file
 
-import TmpImage from "../assets/images/thumb-home.png";
-// Import your images here (if using local files in a React app)
-// import phanAnhThuImage from '../assets/images/phan_anh_thu.jpg';
-// import voNguyenPhapImage from '../assets/images/vo_nguyen_phap.jpg';
-
 interface TeamMember {
   id: number;
   name: string;
@@ -46,7 +41,7 @@ const TeamSection: React.FC<TeamSectionProps> = ({
             <div className="team-member-card" key={member.id}>
               <div className="member-image-container">
                 <img
-                  src={TmpImage}
+                  src={member.image}
                   alt={member.name}
                   className="member-image"
                 />
@@ -61,7 +56,7 @@ const TeamSection: React.FC<TeamSectionProps> = ({
             <div className="team-member-card" key={member.id}>
               <div className="member-image-container">
                 <img
-                  src={TmpImage}
+                  src={member.image}
                   alt={member.name}
                   className="member-image"
                 />

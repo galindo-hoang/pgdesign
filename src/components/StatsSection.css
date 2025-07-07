@@ -142,6 +142,13 @@
     color: rgba(255, 255, 255, 0.9);
 }
 
+/* Responsive hover effects */
+@media (max-width: 768px) {
+    .stat-item:hover .stat-icon {
+        transform: scale(1.05) rotate(3deg);
+    }
+}
+
 .stat-content {
     display: flex;
     flex-direction: column;
@@ -251,6 +258,15 @@
     .stat-item {
         padding: 2rem 1.25rem;
     }
+    
+    .stat-icon {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .stat-value {
+        font-size: 1.2rem;
+    }
 }
 
 @media (max-width: 768px) {
@@ -282,6 +298,15 @@
     
     .stat-item {
         padding: 2rem 1.5rem;
+    }
+    
+    .stat-icon {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .stat-value {
+        font-size: 1.1rem;
     }
     
     .stat-label {
@@ -323,6 +348,15 @@
         padding: 1.5rem 1rem;
     }
     
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .stat-value {
+        font-size: 1rem;
+    }
+    
     .stat-label {
         font-size: 0.95rem;
     }
@@ -330,8 +364,20 @@
     .stat-description {
         font-size: 15px;
     }
+}
+
+@media (max-width: 380px) {
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .stat-item {
+        padding: 1.2rem 0.8rem;
+    }
+    
     .stat-value {
-        font-size: 28px;
+        font-size: 0.9rem;
     }
 }
 
