@@ -4,20 +4,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ImageSliderModel = void 0;
-const BaseModel_js_1 = require("./BaseModel.js");
-const database_js_1 = __importDefault(require("../config/database.js"));
-class ImageSliderModel extends BaseModel_js_1.BaseModel {
+const BaseModel_1 = require("./BaseModel");
+const database_1 = __importDefault(require("../config/database"));
+class ImageSliderModel extends BaseModel_1.BaseModel {
     constructor() {
         super('image_slider_data');
     }
     async getAllSlides() {
-        return await (0, database_js_1.default)(this.tableName)
+        return await (0, database_1.default)(this.tableName)
             .select('*')
             .where('is_active', true)
             .orderBy('display_order', 'asc');
     }
     async createSlide(slideData) {
-        const maxOrder = await (0, database_js_1.default)(this.tableName)
+        const maxOrder = await (0, database_1.default)(this.tableName)
             .where('is_active', true)
             .max('display_order as max_order')
             .first();

@@ -1,5 +1,5 @@
-import { BaseModel } from './BaseModel.js';
-import { StatsData } from '../types/homePageTypes.js';
+import { BaseModel } from './BaseModel';
+import { StatsData } from '../types/homePageTypes';
 export declare class StatsModel extends BaseModel {
     private statsItemsModel;
     constructor();

@@ -7,6 +7,11 @@ import HeroModel from '../models/HeroModel';
 import AboutModel from '../models/AboutModel';
 import ImageSliderModel from '../models/ImageSliderModel';
 import StatsModel from '../models/StatsModel';
+import SolutionModel from '../models/SolutionModel';
+import WorkflowModel from '../models/WorkflowModel';
+import ProjectDiaryModel from '../models/ProjectDiaryModel';
+import TestimonialModel from '../models/TestimonialModel';
+import ConsultationFormModel from '../models/ConsultationFormModel';
 
 export class HomepageController {
   
@@ -16,12 +21,22 @@ export class HomepageController {
       hero,
       about,
       imageSlider,
-      stats
+      stats,
+      solution,
+      workflow,
+      projectDiary,
+      testimonials,
+      consultationForm
     ] = await Promise.all([
       HeroModel.getHeroWithImages(),
       AboutModel.getActiveAbout(),
       ImageSliderModel.getAllSlides(),
-      StatsModel.getStatsWithItems()
+      StatsModel.getStatsWithItems(),
+      SolutionModel.getSolutionWithItems(),
+      WorkflowModel.getWorkflowWithTabs(),
+      ProjectDiaryModel.getProjectDiaryWithImages(),
+      TestimonialModel.getTestimonialWithItems(),
+      ConsultationFormModel.getConsultationFormWithProjectTypes()
     ]);
 
     const response: ApiResponse<any> = {
@@ -30,7 +45,12 @@ export class HomepageController {
         hero,
         about,
         imageSlider,
-        stats
+        stats,
+        solution,
+        workflow,
+        projectDiary,
+        testimonials,
+        consultationForm
       }
     };
 
@@ -371,6 +391,180 @@ export class HomepageController {
     const response: ApiResponse<any> = {
       success: true,
       message: 'Stats data deleted successfully'
+    };
+
+    res.json(response);
+  });
+
+  // SOLUTION SECTION ENDPOINTS
+  getSolutionData = asyncHandler(async (req: Request, res: Response) => {
+    const solutionData = await SolutionModel.getSolutionWithItems();
+    
+    const response: ApiResponse<any> = {
+      success: true,
+      data: solutionData
+    };
+
+    res.json(response);
+  });
+
+  createSolutionData = asyncHandler(async (req: Request, res: Response) => {
+    const { header, solutions } = req.body;
+    
+    const headerErrors = await SolutionModel.validateSolutionHeaderData(header);
+    if (headerErrors.length > 0) {
+      throw createError(`Header validation errors: ${headerErrors.join(', ')}`, 400);
+    }
+
+    if (solutions && solutions.length > 0) {
+      for (const solution of solutions) {
+        const solutionErrors = await SolutionModel.validateSolutionItemData(solution);
+        if (solutionErrors.length > 0) {
+          throw createError(`Solution validation errors: ${solutionErrors.join(', ')}`, 400);
+        }
+      }
+    }
+    
+    const createdSolution = await SolutionModel.createSolutionWithItems(header, solutions || []);
+    
+    const response: ApiResponse<any> = {
+      success: true,
+      data: createdSolution,
+      message: 'Solution data created successfully'
+    };
+
+    res.status(201).json(response);
+  });
+
+  updateSolutionData = asyncHandler(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { header, solutions } = req.body;
+    
+    if (!id) {
+      throw createError('ID parameter is required', 400);
+    }
+    
+    const headerErrors = await SolutionModel.validateSolutionHeaderData(header);
+    if (headerErrors.length > 0) {
+      throw createError(`Header validation errors: ${headerErrors.join(', ')}`, 400);
+    }
+
+    if (solutions && solutions.length > 0) {
+      for (const solution of solutions) {
+        const solutionErrors = await SolutionModel.validateSolutionItemData(solution);
+        if (solutionErrors.length > 0) {
+          throw createError(`Solution validation errors: ${solutionErrors.join(', ')}`, 400);
+        }
+      }
+    }
+    
+    const updatedSolution = await SolutionModel.updateSolutionWithItems(parseInt(id), header, solutions);
+    
+    if (!updatedSolution) {
+      throw createError('Solution data not found', 404);
+    }
+    
+    const response: ApiResponse<any> = {
+      success: true,
+      data: updatedSolution,
+      message: 'Solution data updated successfully'
+    };
+
+    res.json(response);
+  });
+
+  deleteSolutionData = asyncHandler(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    
+    if (!id) {
+      throw createError('ID parameter is required', 400);
+    }
+    
+    const deleted = await SolutionModel.delete(parseInt(id));
+    
+    if (!deleted) {
+      throw createError('Solution data not found', 404);
+    }
+    
+    const response: ApiResponse<any> = {
+      success: true,
+      message: 'Solution data deleted successfully'
+    };
+
+    res.json(response);
+  });
+
+  // WORKFLOW SECTION ENDPOINTS
+  getWorkflowData = asyncHandler(async (req: Request, res: Response) => {
+    const workflowData = await WorkflowModel.getWorkflowWithTabs();
+    
+    const response: ApiResponse<any> = {
+      success: true,
+      data: workflowData
+    };
+
+    res.json(response);
+  });
+
+  createWorkflowData = asyncHandler(async (req: Request, res: Response) => {
+    const { main, tabs } = req.body;
+    
+    const mainErrors = await WorkflowModel.validateWorkflowData(main);
+    if (mainErrors.length > 0) {
+      throw createError(`Main workflow validation errors: ${mainErrors.join(', ')}`, 400);
+    }
+
+    if (tabs && tabs.length > 0) {
+      for (const tab of tabs) {
+        const tabErrors = await WorkflowModel.validateWorkflowTabData(tab);
+        if (tabErrors.length > 0) {
+          throw createError(`Tab validation errors: ${tabErrors.join(', ')}`, 400);
+        }
+      }
+    }
+    
+    const createdWorkflow = await WorkflowModel.createWorkflowWithTabs(main, tabs || []);
+    
+    const response: ApiResponse<any> = {
+      success: true,
+      data: createdWorkflow,
+      message: 'Workflow data created successfully'
+    };
+
+    res.status(201).json(response);
+  });
+
+  // PROJECT DIARY SECTION ENDPOINTS
+  getProjectDiaryData = asyncHandler(async (req: Request, res: Response) => {
+    const projectDiaryData = await ProjectDiaryModel.getProjectDiaryWithImages();
+    
+    const response: ApiResponse<any> = {
+      success: true,
+      data: projectDiaryData
+    };
+
+    res.json(response);
+  });
+
+  // TESTIMONIAL SECTION ENDPOINTS
+  getTestimonialData = asyncHandler(async (req: Request, res: Response) => {
+    const testimonialData = await TestimonialModel.getTestimonialWithItems();
+    
+    const response: ApiResponse<any> = {
+      success: true,
+      data: testimonialData
+    };
+
+    res.json(response);
+  });
+
+  // CONSULTATION FORM SECTION ENDPOINTS
+  getConsultationFormData = asyncHandler(async (req: Request, res: Response) => {
+    const consultationFormData = await ConsultationFormModel.getConsultationFormWithProjectTypes();
+    
+    const response: ApiResponse<any> = {
+      success: true,
+      data: consultationFormData
     };
 
     res.json(response);

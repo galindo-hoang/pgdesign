@@ -1,5 +1,5 @@
-import { BaseModel } from './BaseModel.js';
-import { AboutData } from '../types/homePageTypes.js';
+import { BaseModel } from './BaseModel';
+import { AboutData } from '../types/homePageTypes';
 export declare class AboutModel extends BaseModel {
     constructor();
     getActiveAbout(): Promise<AboutData | null>;

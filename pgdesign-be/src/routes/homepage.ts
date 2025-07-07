@@ -31,4 +31,23 @@ router.post('/stats', HomepageController.createStatsData);
 router.put('/stats/:id', HomepageController.updateStatsData);
 router.delete('/stats/:id', HomepageController.deleteStatsData);
 
+// SOLUTION SECTION ROUTES
+router.get('/solution', HomepageController.getSolutionData);
+router.post('/solution', HomepageController.createSolutionData);
+router.put('/solution/:id', HomepageController.updateSolutionData);
+router.delete('/solution/:id', HomepageController.deleteSolutionData);
+
+// WORKFLOW SECTION ROUTES
+router.get('/workflow', HomepageController.getWorkflowData);
+router.post('/workflow', HomepageController.createWorkflowData);
+
+// PROJECT DIARY SECTION ROUTES
+router.get('/project-diary', HomepageController.getProjectDiaryData);
+
+// TESTIMONIAL SECTION ROUTES
+router.get('/testimonials', HomepageController.getTestimonialData);
+
+// CONSULTATION FORM SECTION ROUTES
+router.get('/consultation-form', HomepageController.getConsultationFormData);
+
 export default router; 

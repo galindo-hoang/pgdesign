@@ -18,6 +18,15 @@ export declare class HomepageController {
     createStatsData: (req: Request, res: Response, next: import("express").NextFunction) => void;
     updateStatsData: (req: Request, res: Response, next: import("express").NextFunction) => void;
     deleteStatsData: (req: Request, res: Response, next: import("express").NextFunction) => void;
+    getSolutionData: (req: Request, res: Response, next: import("express").NextFunction) => void;
+    createSolutionData: (req: Request, res: Response, next: import("express").NextFunction) => void;
+    updateSolutionData: (req: Request, res: Response, next: import("express").NextFunction) => void;
+    deleteSolutionData: (req: Request, res: Response, next: import("express").NextFunction) => void;
+    getWorkflowData: (req: Request, res: Response, next: import("express").NextFunction) => void;
+    createWorkflowData: (req: Request, res: Response, next: import("express").NextFunction) => void;
+    getProjectDiaryData: (req: Request, res: Response, next: import("express").NextFunction) => void;
+    getTestimonialData: (req: Request, res: Response, next: import("express").NextFunction) => void;
+    getConsultationFormData: (req: Request, res: Response, next: import("express").NextFunction) => void;
 }
 declare const _default: HomepageController;
 export default _default;

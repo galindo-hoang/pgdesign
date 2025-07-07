@@ -11,13 +11,13 @@ const morgan_1 = __importDefault(require("morgan"));
 const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
 const express_slow_down_1 = __importDefault(require("express-slow-down"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const errorHandler_js_1 = require("./middleware/errorHandler.js");
-const notFoundHandler_js_1 = require("./middleware/notFoundHandler.js");
-const validateContentType_js_1 = require("./middleware/validateContentType.js");
-const index_js_1 = __importDefault(require("./routes/index.js"));
+const errorHandler_1 = require("./middleware/errorHandler");
+const notFoundHandler_1 = require("./middleware/notFoundHandler");
+const validateContentType_1 = require("./middleware/validateContentType");
+const routes_1 = __importDefault(require("./routes"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 app.use((0, helmet_1.default)({
     crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
@@ -47,7 +47,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 app.use(express_1.default.json({ limit: '10mb' }));
 app.use(express_1.default.urlencoded({ extended: true, limit: '10mb' }));
-app.use(validateContentType_js_1.validateContentType);
+app.use(validateContentType_1.validateContentType);
 app.get('/health', (req, res) => {
     res.status(200).json({
         status: 'OK',
@@ -56,9 +56,9 @@ app.get('/health', (req, res) => {
         version: process.env.npm_package_version || '1.0.0'
     });
 });
-app.use('/api', index_js_1.default);
-app.use(notFoundHandler_js_1.notFoundHandler);
-app.use(errorHandler_js_1.errorHandler);
+app.use('/api', routes_1.default);
+app.use(notFoundHandler_1.notFoundHandler);
+app.use(errorHandler_1.errorHandler);
 if (process.env.NODE_ENV !== 'test') {
     app.listen(PORT, () => {
         console.log(`🚀 Server is running on port ${PORT}`);

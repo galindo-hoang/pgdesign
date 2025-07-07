@@ -13,10 +13,9 @@ const config = {
         host: process.env.DB_HOST || 'localhost',
         port: parseInt(process.env.DB_PORT || '3306'),
         user: process.env.DB_USER || 'root',
-        password: process.env.DB_PASSWORD || '',
+        password: process.env.DB_PASSWORD || 'rootpassword',
         database: process.env.DB_NAME || 'pgdesign_dev',
-        charset: 'utf8mb4',
-        timezone: 'UTC'
+        charset: 'utf8mb4'
     },
     pool: {
         min: 2,

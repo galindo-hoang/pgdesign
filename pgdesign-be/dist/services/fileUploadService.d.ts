@@ -1,4 +1,4 @@
-import { FileUpload } from '../types/homePageTypes.js';
+import { FileUpload } from '../types/homePageTypes';
 export declare class FileUploadService {
     private allowedMimeTypes;
     private maxFileSize;

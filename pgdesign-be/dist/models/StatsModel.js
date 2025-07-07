@@ -4,19 +4,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StatsModel = void 0;
-const database_js_1 = __importDefault(require("../config/database.js"));
-const BaseModel_js_1 = require("./BaseModel.js");
-class StatsModel extends BaseModel_js_1.BaseModel {
+const database_1 = __importDefault(require("../config/database"));
+const BaseModel_1 = require("./BaseModel");
+class StatsModel extends BaseModel_1.BaseModel {
     constructor() {
         super('stats_header');
-        this.statsItemsModel = new BaseModel_js_1.BaseModel('stats_items');
+        this.statsItemsModel = new BaseModel_1.BaseModel('stats_items');
     }
     async getStatsWithItems() {
         const header = await this.findOneByCondition({ is_active: true });
         if (!header) {
             return null;
         }
-        const items = await (0, database_js_1.default)('stats_items')
+        const items = await (0, database_1.default)('stats_items')
             .select('*')
             .where({ stats_header_id: header.id, is_active: true })
             .orderBy('display_order', 'asc');
@@ -36,7 +36,7 @@ class StatsModel extends BaseModel_js_1.BaseModel {
                 created_at: new Date(),
                 updated_at: new Date()
             }));
-            await (0, database_js_1.default)('stats_items').insert(itemInserts);
+            await (0, database_1.default)('stats_items').insert(itemInserts);
         }
         const result = await this.getStatsWithItems();
         if (!result) {
@@ -50,7 +50,7 @@ class StatsModel extends BaseModel_js_1.BaseModel {
             return null;
         }
         if (itemsData !== undefined) {
-            await (0, database_js_1.default)('stats_items').where({ stats_header_id: headerId }).update({ is_active: false });
+            await (0, database_1.default)('stats_items').where({ stats_header_id: headerId }).update({ is_active: false });
             if (itemsData.length > 0) {
                 const itemInserts = itemsData.map((item, index) => ({
                     ...item,
@@ -60,7 +60,7 @@ class StatsModel extends BaseModel_js_1.BaseModel {
                     created_at: new Date(),
                     updated_at: new Date()
                 }));
-                await (0, database_js_1.default)('stats_items').insert(itemInserts);
+                await (0, database_1.default)('stats_items').insert(itemInserts);
             }
         }
         return await this.getStatsWithItems();

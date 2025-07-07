@@ -37,10 +37,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileUploadService = void 0;
-const minio_js_1 = __importStar(require("../config/minio.js"));
+const minio_1 = __importStar(require("../config/minio"));
 const sharp_1 = __importDefault(require("sharp"));
 const uuid_1 = require("uuid");
-const errorHandler_js_1 = require("../middleware/errorHandler.js");
+const errorHandler_1 = require("../middleware/errorHandler");
 class FileUploadService {
     constructor() {
         this.allowedMimeTypes = [
@@ -64,16 +64,16 @@ class FileUploadService {
             }
             catch (error) {
                 console.error('Error generating thumbnail:', error);
-                throw (0, errorHandler_js_1.createError)('Failed to generate thumbnail', 500);
+                throw (0, errorHandler_1.createError)('Failed to generate thumbnail', 500);
             }
         };
     }
     validateFile(file) {
         if (!this.allowedMimeTypes.includes(file.mimetype)) {
-            throw (0, errorHandler_js_1.createError)(`Invalid file type. Allowed types: ${this.allowedMimeTypes.join(', ')}`, 400);
+            throw (0, errorHandler_1.createError)(`Invalid file type. Allowed types: ${this.allowedMimeTypes.join(', ')}`, 400);
         }
         if (file.size > this.maxFileSize) {
-            throw (0, errorHandler_js_1.createError)(`File size exceeds maximum limit of ${this.maxFileSize / 1024 / 1024}MB`, 400);
+            throw (0, errorHandler_1.createError)(`File size exceeds maximum limit of ${this.maxFileSize / 1024 / 1024}MB`, 400);
         }
     }
     async uploadImage(file, folder = 'images') {
@@ -86,7 +86,7 @@ class FileUploadService {
             if (file.mimetype !== 'image/svg+xml') {
                 processedBuffer = await this.processImage(file.buffer, file.mimetype);
             }
-            await minio_js_1.default.putObject(minio_js_1.bucketName, objectName, processedBuffer, {
+            await minio_1.default.putObject(minio_1.bucketName, objectName, processedBuffer, {
                 'Content-Type': file.mimetype,
                 'Cache-Control': 'max-age=31536000'
             });
@@ -94,7 +94,7 @@ class FileUploadService {
         }
         catch (error) {
             console.error('Error uploading file:', error);
-            throw (0, errorHandler_js_1.createError)('Failed to upload file', 500);
+            throw (0, errorHandler_1.createError)('Failed to upload file', 500);
         }
     }
     async processImage(buffer, mimeType) {
@@ -124,20 +124,20 @@ class FileUploadService {
     }
     async getFileUrl(objectName) {
         try {
-            return await minio_js_1.default.presignedGetObject(minio_js_1.bucketName, objectName, 7 * 24 * 60 * 60);
+            return await minio_1.default.presignedGetObject(minio_1.bucketName, objectName, 7 * 24 * 60 * 60);
         }
         catch (error) {
             console.error('Error getting file URL:', error);
-            throw (0, errorHandler_js_1.createError)('Failed to get file URL', 500);
+            throw (0, errorHandler_1.createError)('Failed to get file URL', 500);
         }
     }
     async deleteFile(objectName) {
         try {
-            await minio_js_1.default.removeObject(minio_js_1.bucketName, objectName);
+            await minio_1.default.removeObject(minio_1.bucketName, objectName);
         }
         catch (error) {
             console.error('Error deleting file:', error);
-            throw (0, errorHandler_js_1.createError)('Failed to delete file', 500);
+            throw (0, errorHandler_1.createError)('Failed to delete file', 500);
         }
     }
     async uploadMultipleImages(files, folder = 'images') {
@@ -147,7 +147,7 @@ class FileUploadService {
     extractObjectNameFromUrl(url) {
         try {
             const urlParts = url.split('/');
-            const bucketIndex = urlParts.indexOf(minio_js_1.bucketName);
+            const bucketIndex = urlParts.indexOf(minio_1.bucketName);
             if (bucketIndex !== -1 && bucketIndex < urlParts.length - 1) {
                 return urlParts.slice(bucketIndex + 1).join('/');
             }
@@ -188,11 +188,11 @@ class FileUploadService {
         }
         catch (error) {
             console.error('Error uploading image with thumbnail:', error);
-            throw (0, errorHandler_js_1.createError)('Failed to upload image with thumbnail', 500);
+            throw (0, errorHandler_1.createError)('Failed to upload image with thumbnail', 500);
         }
     }
     async uploadProcessedImage(objectName, buffer, mimeType) {
-        await minio_js_1.default.putObject(minio_js_1.bucketName, objectName, buffer, {
+        await minio_1.default.putObject(minio_1.bucketName, objectName, buffer, {
             'Content-Type': mimeType,
             'Cache-Control': 'max-age=31536000'
         });

@@ -1,5 +1,5 @@
-import { BaseModel } from './BaseModel.js';
-import { ImageSlideData } from '../types/homePageTypes.js';
+import { BaseModel } from './BaseModel';
+import { ImageSlideData } from '../types/homePageTypes';
 export declare class ImageSliderModel extends BaseModel {
     constructor();
     getAllSlides(): Promise<ImageSlideData[]>;

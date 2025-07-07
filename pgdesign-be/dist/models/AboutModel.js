@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AboutModel = void 0;
-const BaseModel_js_1 = require("./BaseModel.js");
-class AboutModel extends BaseModel_js_1.BaseModel {
+const BaseModel_1 = require("./BaseModel");
+class AboutModel extends BaseModel_1.BaseModel {
     constructor() {
         super('about_data');
     }

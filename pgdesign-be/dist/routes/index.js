@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const homepage_js_1 = __importDefault(require("./homepage.js"));
+const homepage_1 = __importDefault(require("./homepage"));
 const router = (0, express_1.Router)();
 const API_VERSION = 'v1';
-router.use(`/${API_VERSION}/homepage`, homepage_js_1.default);
+router.use(`/${API_VERSION}/homepage`, homepage_1.default);
 router.get('/health', (req, res) => {
     res.json({
         status: 'OK',

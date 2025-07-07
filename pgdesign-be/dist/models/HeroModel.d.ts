@@ -1,5 +1,5 @@
-import { BaseModel } from './BaseModel.js';
-import { HeroData, HeroImage } from '../types/homePageTypes.js';
+import { BaseModel } from './BaseModel';
+import { HeroData, HeroImage } from '../types/homePageTypes';
 export declare class HeroModel extends BaseModel {
     private heroImagesModel;
     constructor();
