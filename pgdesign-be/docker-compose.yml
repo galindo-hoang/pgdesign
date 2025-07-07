@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: pgdesign_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: pgdesign_dev
+      MYSQL_USER: pgdesign
+      MYSQL_PASSWORD: pgdesignpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - pgdesign_network
+
+  minio:
+    image: minio/minio:latest
+    container_name: pgdesign_minio
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - pgdesign_network
+
+  api:
+    build: .
+    container_name: pgdesign_api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 3002
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: pgdesign
+      DB_PASSWORD: pgdesignpassword
+      DB_NAME: pgdesign_dev
+      MINIO_ENDPOINT: minio
+      MINIO_PORT: 9000
+      MINIO_USE_SSL: false
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+      MINIO_BUCKET_NAME: pgdesign-assets
+      CORS_ORIGIN: http://localhost:3001
+    ports:
+      - "3002:3002"
+    depends_on:
+      - mysql
+      - minio
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - pgdesign_network
+
+volumes:
+  mysql_data:
+  minio_data:
+
+networks:
+  pgdesign_network:
+    driver: bridge 

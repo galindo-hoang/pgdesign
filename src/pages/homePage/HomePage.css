@@ -443,3 +443,86 @@ html {
   transform: translateY(-2px);
   transition: transform 0.3s ease;
 }
+
+/* === PAGE LOADING AND ERROR STATES === */
+
+/* Page loading overlay styles */
+.page-loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(2px);
+}
+
+/* Error state styles for HomePage */
+.home-page .loading-error {
+  max-width: 600px;
+  margin: 50px auto;
+  text-align: center;
+  padding: 40px;
+  background-color: #fdf2f2;
+  border: 1px solid #fbb6b6;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.home-page .loading-error h3 {
+  color: #c53030;
+  font-size: 24px;
+  margin: 0 0 15px 0;
+  font-family: var(--primary-font);
+}
+
+.home-page .loading-error p {
+  color: #721c24;
+  font-size: 16px;
+  margin: 0 0 25px 0;
+  line-height: 1.5;
+}
+
+.home-page .retry-button {
+  background-color: #40674D;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  font-family: var(--primary-font);
+}
+
+.home-page .retry-button:hover {
+  background-color: #355a42;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(64, 103, 77, 0.3);
+}
+
+.home-page .retry-button:active {
+  background-color: #2d4d37;
+  transform: translateY(0);
+}
+
+/* Responsive adjustments for error states */
+@media (max-width: 768px) {
+  .home-page .loading-error {
+    margin: 20px;
+    padding: 30px 20px;
+  }
+  
+  .home-page .loading-error h3 {
+    font-size: 20px;
+  }
+  
+  .home-page .loading-error p {
+    font-size: 14px;
+  }
+}
