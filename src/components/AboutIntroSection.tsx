@@ -2,7 +2,19 @@ import React, { useRef, useEffect, useState } from "react";
 import "./AboutIntroSection.css"; // Import CSS module
 import backgroundImage from "../assets/images/thumb-intro.jpg"; // Adjust path as needed
 
-const IntroSection: React.FC = () => {
+interface AboutIntroContent {
+  brandTitle: string;
+  brandSubtitle: string;
+  identity: string;
+  descriptions: string[];
+  backgroundImage?: string;
+}
+
+interface AboutIntroSectionProps {
+  content: AboutIntroContent;
+}
+
+const AboutIntroSection: React.FC<AboutIntroSectionProps> = ({content}) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -51,36 +63,26 @@ const IntroSection: React.FC = () => {
     <section
       ref={sectionRef}
       className={`about-intro-section ${isVisible ? 'zoom-in-bg' : ''}`}
-      style={{ backgroundImage: `url(${backgroundImage})` }}
+      style={{ backgroundImage: `url(${content.backgroundImage || backgroundImage})` }}
     >
       <div className="about-intro-content-container">
         <div className="intro-pg-design">
-          <p className="about-intro-pg-design-title">PG DESIGN</p>
-          <p className="about-intro-pg-design-subtitle">KIẾN TẠO KHÔNG GIAN</p>
+          <p className="about-intro-pg-design-title">{content.brandTitle}</p>
+          <p className="about-intro-pg-design-subtitle">{content.brandSubtitle}</p>
         </div>
 
         <div className="about-intro-separator-line"></div>
 
-        <p className="about-intro-affirm-identity">KHẲNG ĐỊNH BẢN SẮC</p>
+        <p className="about-intro-affirm-identity">{content.identity}</p>
 
-        <p className="about-intro-description-paragraph">
-          Là đơn vị chuyên nghiệp trong lĩnh vực thiết kế kiến trúc, nội thất và
-          thi công trọn gói. Với đội ngũ thiết kế và thi công giàu kinh nghiệm,
-          chúng tôi cam kết mang đến những công trình chất lượng cao, đúng tiến
-          độ và phần ánh rõ rệt tính cách của từng khách hàng.
-        </p>
-
-        <p className="about-intro-description-paragraph">
-          PG Design không chỉ tạo ra những không gian sống và làm việc thẩm mỹ,
-          mà còn góp phần xây dựng bản sắc riêng cho mỗi công trình thông qua
-          thiết kế cá nhân hóa và có chiều sâu, gắn liền với phong cách sống và
-          định hướng thương hiệu của khách hàng. Đây chính là cách chúng tôi
-          mang đến giá trị vượt lên trên vẻ đẹp bề mặt - một không gian có hồn
-          và có ý nghĩa.
-        </p>
+        {content.descriptions.map((description, index) => (
+          <p key={index} className="about-intro-description-paragraph">
+            {description}
+          </p>
+        ))}
       </div>
     </section>
   );
 };
 
-export default IntroSection;
+export default AboutIntroSection;

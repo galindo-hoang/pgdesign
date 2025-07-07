@@ -3,11 +3,46 @@ import "./ServicePage.css";
 import ServicesSection from "../../components/ServicesSection";
 import ConstructionServicesSection from "../../components/ConstructionServicesSection";
 import ServiceProcessSection from "../../components/ServiceProcessSection";
+import heroImage from "../../assets/images/vision-mission-section.jpg";
 
 const ServicePage: React.FC = () => {
+  const serviceProps = { 
+    heroContent: {
+      mainTitle: "DỊCH VỤ",
+      brandName: "PG DESIGN",
+      description: "Chúng tôi đồng hành cùng khách hàng từ bản vẽ ý tưởng đến không gian sống hoàn thiện, tối ưu công năng - nâng tầm thẩm mỹ - đảm bảo chất lượng thi công.",
+      heroImageUrl: heroImage
+    },
+    services: [
+      {
+        id: 1,
+        title: "Dịch vụ thi công",
+        subtitle: "Phân thô hoặc",
+        description: "Trọn gói hoàn thiện"
+      },
+      {
+        id: 2,
+        title: "Dịch vụ thi công",
+        subtitle: "",
+        description: "Nội thất"
+      },
+      {
+        id: 3,
+        title: "Dịch vụ thiết kế",
+        subtitle: "",
+        description: "Kiến trúc - Nội thất"
+      },
+      {
+        id: 4,
+        title: "Dịch vụ thi công",
+        subtitle: "Cải tạo sửa chữa hoặc",
+        description: "Dự án đã có bản vẽ"
+      }
+    ]
+  }
   return (
     <div className="service-page">
-      <ServicesSection />
+      <ServicesSection heroContent={serviceProps.heroContent} services={serviceProps.services}/>
       <ServiceProcessSection 
         processNumber={1}
         title="THI CÔNG PHẦN THÔ HOẶC TRỌN GÓI HOÀN THIỆN"

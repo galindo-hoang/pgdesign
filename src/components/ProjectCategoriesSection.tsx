@@ -2,12 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProjectCategoriesSection.css";
 
-// Import project images for category backgrounds
-import nhaPhoBg from "../assets/images/diary-image-1.jpg";
-import nhaVuonBg from "../assets/images/diary-image-2.jpg";
-import bietThuBg from "../assets/images/diary-image-3.jpg";
-import khongGianBg from "../assets/images/diary-image-4.jpg";
-
 interface ProjectCategory {
   id: string;
   title: string;
@@ -16,40 +10,23 @@ interface ProjectCategory {
   navigationPath: string;
 }
 
-const ProjectCategoriesSection: React.FC = () => {
+interface ProjectCategoriesHeader {
+  mainTitle: string;
+  subtitle: string;
+  description: string;
+}
+
+interface ProjectCategoriesSectionProps {
+  header: ProjectCategoriesHeader;
+  categories: ProjectCategory[];
+}
+
+const ProjectCategoriesSection: React.FC<ProjectCategoriesSectionProps> = ({
+  header,
+  categories
+}) => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const navigate = useNavigate();
-
-  const categories: ProjectCategory[] = [
-    {
-      id: "house-normal",
-      title: "NHÀ PHỐ",
-      projectCount: 45,
-      backgroundImage: nhaPhoBg,
-      navigationPath: "/projects/house-normal",
-    },
-    {
-      id: "house-full",
-      title: "Xây nhà trọn gói",
-      projectCount: 32,
-      backgroundImage: nhaVuonBg,
-      navigationPath: "/projects/house-full",
-    },
-    {
-      id: "house-rough",
-      title: "Xây dựng phần thô",
-      projectCount: 28,
-      backgroundImage: bietThuBg,
-      navigationPath: "/projects/house-rough",
-    },
-    {
-      id: "house-interior",
-      title: "Thiết kế  và thi công nội thất",
-      projectCount: 50,
-      backgroundImage: khongGianBg,
-      navigationPath: "/projects/house-interior",
-    }
-  ];
 
   const handleCategoryClick = (categoryId: string) => {
     setSelectedCategory(selectedCategory === categoryId ? null : categoryId);
@@ -64,15 +41,13 @@ const ProjectCategoriesSection: React.FC = () => {
   return (
     <section className="project-categories-section">
       <div className="categories-header">
-        <h2 className="categories-main-title">DANH MỤC DỰ ÁN</h2>
+        <h2 className="categories-main-title">{header.mainTitle}</h2>
         <div className="categories-subtitle-container">
-          <h3 className="categories-subtitle">KHÁM PHÁ CÁC LOẠI HÌNH THIẾT KẾ</h3>
+          <h3 className="categories-subtitle">{header.subtitle}</h3>
           <div className="categories-accent-line"></div>
         </div>
         <p className="categories-description">
-          Từ những căn nhà phố hiện đại đến những biệt thự sang trọng, 
-          từ không gian nội thất tinh tế đến những ngôi nhà vườn xanh mát - 
-          chúng tôi mang đến giải pháp thiết kế toàn diện cho mọi nhu cầu.
+          {header.description}
         </p>
       </div>
 

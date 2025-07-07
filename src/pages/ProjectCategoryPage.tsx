@@ -26,7 +26,12 @@ interface CategoryData {
   subCategories: SubCategory[];
 }
 
-// Sample project data - you can replace this with actual data from API
+interface ProjectCategoryPageProps {
+  categoriesData?: { [key: string]: CategoryData };
+  defaultHeroImage?: string;
+}
+
+// Sample project data generator - can be overridden with real data
 const getSampleProjects = (category: string, subCategory: string): ProjectItem[] => {
   const baseProjects = [
     {
@@ -86,135 +91,129 @@ const getSampleProjects = (category: string, subCategory: string): ProjectItem[]
   return baseProjects;
 };
 
-// Category configurations
-const getCategoryData = (categoryId: string): CategoryData | null => {
-  switch (categoryId) {
-    case "house-normal":
-      return {
-        id: "house-normal",
-        title: "NHÀ PHỐ",
-        description: "Thiết kế nhà phố hiện đại, tối ưu hóa không gian và ánh sáng tự nhiên cho cuộc sống đô thị.",
-        subCategories: [
-          {
-            id: "nha-ong",
-            title: "Nhà Ống",
-            description: "Thiết kế cho mặt tiền hẹp, chiều sâu dài, tận dụng tối đa diện tích.",
-            projects: getSampleProjects("house-normal", "Nhà Ống")
-          },
-          {
-            id: "nha-lien-ke",
-            title: "Nhà Liền Kề",
-            description: "Nhà phố trong khu quy hoạch, kiến trúc đồng bộ và hiện đại.",
-            projects: getSampleProjects("house-normal", "Nhà Liền Kề")
-          },
-          {
-            id: "house-normal-san-vuon",
-            title: "Nhà Phố Có Sân Vườn",
-            description: "Kết hợp không gian xanh, tạo sự thông thoáng và gần gũi thiên nhiên.",
-            projects: getSampleProjects("house-normal", "Nhà Phố Có Sân Vườn")
-          },
-          {
-            id: "shophouse",
-            title: "Shophouse",
-            description: "Tầng trệt kinh doanh, tầng trên ở, tối ưu hóa mặt tiền thu hút khách hàng.",
-            projects: getSampleProjects("house-normal", "Shophouse")
-          }
-        ]
-      };
-
-    case "house-full":
-      return {
-        id: "house-full",
-        title: "NHÀ VƯỜN",
-        description: "Hòa quyện kiến trúc với thiên nhiên, tạo nên không gian sống xanh và thư thái.",
-        subCategories: [
-          {
-            id: "resort-villa",
-            title: "Resort Garden Houses",
-            description: "Diện tích lớn, nhiều tiện ích cao cấp như hồ bơi, sân tennis.",
-            projects: getSampleProjects("house-full", "Resort Garden Houses")
-          },
-          {
-            id: "mini-garden",
-            title: "Nhà Vườn Mini",
-            description: "Diện tích vừa phải, vẫn có không gian xanh và cảnh quan nhỏ.",
-            projects: getSampleProjects("house-full", "Nhà Vườn Mini")
-          }
-        ]
-      };
-
-    case "house-rough":
-      return {
-        id: "house-rough",
-        title: "BIỆT THỰ",
-        description: "Kiến trúc sang trọng và đẳng cấp, thể hiện phong cách sống luxury của gia chủ.",
-        subCategories: [
-          {
-            id: "house-rough-don-lap",
-            title: "Biệt Thự Đơn Lập",
-            description: "Hoàn toàn độc lập, 4 mặt thoáng, tối đa hóa sự riêng tư.",
-            projects: getSampleProjects("house-rough", "Biệt Thự Đơn Lập")
-          },
-          {
-            id: "house-rough-song-lap",
-            title: "Biệt Thự Song Lập",
-            description: "Hai biệt thự kiến trúc đối xứng, chung một bức tường.",
-            projects: getSampleProjects("house-rough", "Biệt Thự Song Lập")
-          }
-        ]
-      };
-
-    case "house-interior":
-      return {
-        id: "house-interior",
-        title: "NHÀ CẤP 4",
-        description: "Nhà một tầng đặc trưng của Việt Nam với nhiều biến thể phong cách và bố trí.",
-        subCategories: [
-          {
-            id: "mai-thai",
-            title: "Nhà Cấp 4 Mái Thái",
-            description: "Mái dốc lớn hình chóp hoặc chữ A, đẹp mắt, thoát nước tốt.",
-            projects: getSampleProjects("house-interior", "Mái Thái")
-          },
-          {
-            id: "mai-nhat",
-            title: "Nhà Cấp 4 Mái Nhật",
-            description: "Độ dốc ít hơn mái Thái, tạo vẻ trang nghiêm, phù hợp phong cách hiện đại.",
-            projects: getSampleProjects("house-interior", "Mái Nhật")
-          },
-          {
-            id: "mai-bang",
-            title: "Nhà Cấp 4 Mái Bằng",
-            description: "Mái phẳng, có thể tận dụng không gian mái, kiến trúc vững chắc, hiện đại.",
-            projects: getSampleProjects("house-interior", "Mái Bằng")
-          },
-          {
-            id: "gac-lung",
-            title: "Nhà Cấp 4 Gác Lửng",
-            description: "Có thêm không gian gác lửng để tối ưu diện tích sử dụng.",
-            projects: getSampleProjects("house-interior", "Gác Lửng")
-          }
-        ]
-      };
-    default:
-      return null;
-  }
+// Default category configurations - can be overridden
+const getDefaultCategoriesData = (): { [key: string]: CategoryData } => {
+  return {
+    "house-normal": {
+      id: "house-normal",
+      title: "NHÀ PHỐ",
+      description: "Thiết kế nhà phố hiện đại, tối ưu hóa không gian và ánh sáng tự nhiên cho cuộc sống đô thị.",
+      subCategories: [
+        {
+          id: "nha-ong",
+          title: "Nhà Ống",
+          description: "Thiết kế cho mặt tiền hẹp, chiều sâu dài, tận dụng tối đa diện tích.",
+          projects: getSampleProjects("house-normal", "Nhà Ống")
+        },
+        {
+          id: "nha-lien-ke",
+          title: "Nhà Liền Kề",
+          description: "Nhà phố trong khu quy hoạch, kiến trúc đồng bộ và hiện đại.",
+          projects: getSampleProjects("house-normal", "Nhà Liền Kề")
+        },
+        {
+          id: "house-normal-san-vuon",
+          title: "Nhà Phố Có Sân Vườn",
+          description: "Kết hợp không gian xanh, tạo sự thông thoáng và gần gũi thiên nhiên.",
+          projects: getSampleProjects("house-normal", "Nhà Phố Có Sân Vườn")
+        },
+        {
+          id: "shophouse",
+          title: "Shophouse",
+          description: "Tầng trệt kinh doanh, tầng trên ở, tối ưu hóa mặt tiền thu hút khách hàng.",
+          projects: getSampleProjects("house-normal", "Shophouse")
+        }
+      ]
+    },
+    "house-full": {
+      id: "house-full",
+      title: "NHÀ VƯỜN",
+      description: "Hòa quyện kiến trúc với thiên nhiên, tạo nên không gian sống xanh và thư thái.",
+      subCategories: [
+        {
+          id: "resort-villa",
+          title: "Resort Garden Houses",
+          description: "Diện tích lớn, nhiều tiện ích cao cấp như hồ bơi, sân tennis.",
+          projects: getSampleProjects("house-full", "Resort Garden Houses")
+        },
+        {
+          id: "mini-garden",
+          title: "Nhà Vườn Mini",
+          description: "Diện tích vừa phải, vẫn có không gian xanh và cảnh quan nhỏ.",
+          projects: getSampleProjects("house-full", "Nhà Vườn Mini")
+        }
+      ]
+    },
+    "house-rough": {
+      id: "house-rough",
+      title: "BIỆT THỰ",
+      description: "Kiến trúc sang trọng và đẳng cấp, thể hiện phong cách sống luxury của gia chủ.",
+      subCategories: [
+        {
+          id: "house-rough-don-lap",
+          title: "Biệt Thự Đơn Lập",
+          description: "Hoàn toàn độc lập, 4 mặt thoáng, tối đa hóa sự riêng tư.",
+          projects: getSampleProjects("house-rough", "Biệt Thự Đơn Lập")
+        },
+        {
+          id: "house-rough-song-lap",
+          title: "Biệt Thự Song Lập",
+          description: "Hai biệt thự kiến trúc đối xứng, chung một bức tường.",
+          projects: getSampleProjects("house-rough", "Biệt Thự Song Lập")
+        }
+      ]
+    },
+    "house-interior": {
+      id: "house-interior",
+      title: "NHÀ CẤP 4",
+      description: "Nhà một tầng đặc trưng của Việt Nam với nhiều biến thể phong cách và bố trí.",
+      subCategories: [
+        {
+          id: "mai-thai",
+          title: "Nhà Cấp 4 Mái Thái",
+          description: "Mái dốc lớn hình chóp hoặc chữ A, đẹp mắt, thoát nước tốt.",
+          projects: getSampleProjects("house-interior", "Mái Thái")
+        },
+        {
+          id: "mai-nhat",
+          title: "Nhà Cấp 4 Mái Nhật",
+          description: "Độ dốc ít hơn mái Thái, tạo vẻ trang nghiêm, phù hợp phong cách hiện đại.",
+          projects: getSampleProjects("house-interior", "Mái Nhật")
+        },
+        {
+          id: "mai-bang",
+          title: "Nhà Cấp 4 Mái Bằng",
+          description: "Mái phẳng, có thể tận dụng không gian mái, kiến trúc vững chắc, hiện đại.",
+          projects: getSampleProjects("house-interior", "Mái Bằng")
+        },
+        {
+          id: "gac-lung",
+          title: "Nhà Cấp 4 Gác Lửng",
+          description: "Có thêm không gian gác lửng để tối ưu diện tích sử dụng.",
+          projects: getSampleProjects("house-interior", "Gác Lửng")
+        }
+      ]
+    }
+  };
 };
 
-const ProjectCategoryPage: React.FC = () => {
+const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = ({
+  categoriesData = getDefaultCategoriesData(),
+  defaultHeroImage = heroImage
+}) => {
   const { categoryId } = useParams<{ categoryId: string }>();
   const [categoryData, setCategoryData] = useState<CategoryData | null>(null);
   const [activeSubCategory, setActiveSubCategory] = useState<string | null>(null);
 
   useEffect(() => {
-    if (categoryId) {
-      const data = getCategoryData(categoryId);
+    if (categoryId && categoriesData[categoryId]) {
+      const data = categoriesData[categoryId];
       setCategoryData(data);
       if (data && data.subCategories.length > 0) {
         setActiveSubCategory(data.subCategories[0].id);
       }
     }
-  }, [categoryId]);
+  }, [categoryId, categoriesData]);
 
   const handleProjectClick = (project: ProjectItem) => {
     // Navigate to detailed project page
@@ -243,7 +242,7 @@ const ProjectCategoryPage: React.FC = () => {
         className="category-header"
         data-category={categoryData.id}
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(${heroImage})`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(${defaultHeroImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'

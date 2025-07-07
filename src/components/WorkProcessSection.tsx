@@ -2,45 +2,58 @@
 import React, { useState } from "react";
 import "./WorkProcessSection.css";
 
-// Import SVG components
-// Make sure these paths are correct for your project structure
-import { ReactComponent as DesignProcessIcon } from "../assets/icons/design-icon.svg"; // Your design icon SVG
-import { ReactComponent as ConstructionProcessIcon } from "../assets/icons/building-icon.svg"; // Your construction icon SVG
-import { ReactComponent as WorkProcessFlowDiagram1 } from "../assets/icons/work-process-flow-diagram-1.svg"; // Your main flow diagram SVG
-import { ReactComponent as WorkProcessFlowDiagram2 } from "../assets/icons/work-process-flow-diagram-2.svg"; // Your main flow diagram SVG
+interface WorkflowTab {
+  id: string;
+  icon: React.ElementType;
+  title: string;
+  diagram: React.ElementType;
+}
 
-const WorkProcessSection: React.FC = () => {
+interface WorkProcessSectionProps {
+  title: string;
+  workflows: WorkflowTab[];
+  defaultActiveTab?: string;
+}
+
+const WorkProcessSection: React.FC<WorkProcessSectionProps> = ({
+  title,
+  workflows,
+  defaultActiveTab = 'design'
+}) => {
   // State to track which tab is active
-  const [activeTab, setActiveTab] = useState<'design' | 'construction'>('design');
+  const [activeTab, setActiveTab] = useState<string>(defaultActiveTab);
+
+  // Find the active workflow
+  const activeWorkflow = workflows.find((workflow: WorkflowTab) => workflow.id === activeTab) || workflows[0];
 
   return (
     <section className="work-process-section">
-      <h2 className="wp-main-headline">QUY TRÌNH LÀM VIỆC</h2>
+      <h2 className="wp-main-headline">{title}</h2>
 
       <div className="wp-tabs">
-        <div 
-          className={`wp-tab ${activeTab === 'design' ? 'wp-tab-active' : ''}`}
-          onClick={() => setActiveTab('design')}
-        >
-          <DesignProcessIcon className="wp-tab-icon" />
-          QUY TRÌNH THIẾT KẾ
-        </div>
-        <div className="headerDivider"></div>
-        <div 
-          className={`wp-tab ${activeTab === 'construction' ? 'wp-tab-active' : ''}`}
-          onClick={() => setActiveTab('construction')}
-        >
-          <ConstructionProcessIcon className="wp-tab-icon" />
-          QUY TRÌNH THI CÔNG
-        </div>
+        {workflows.map((workflow, index) => {
+          const IconComponent = workflow.icon;
+          return (
+            <React.Fragment key={workflow.id}>
+              <div 
+                className={`wp-tab ${activeTab === workflow.id ? 'wp-tab-active' : ''}`}
+                onClick={() => setActiveTab(workflow.id)}
+              >
+                <IconComponent className="wp-tab-icon" />
+                {workflow.title}
+              </div>
+              {index < workflows.length - 1 && (
+                <div className="headerDivider"></div>
+              )}
+            </React.Fragment>
+          );
+        })}
       </div>
 
       <div className="wp-flow-diagram-container">
         {/* Conditionally render the appropriate diagram based on active tab */}
-        {activeTab === 'design' ? (
-        <WorkProcessFlowDiagram1 className="wp-flow-diagram" />
-        ) : (
-          <WorkProcessFlowDiagram2 className="wp-flow-diagram" />
+        {activeWorkflow && (
+          <activeWorkflow.diagram className="wp-flow-diagram" />
         )}
       </div>
     </section>

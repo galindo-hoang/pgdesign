@@ -1,8 +1,7 @@
 import React from "react";
-import "./SolutionSection.css"
-import TmpImage from "../assets/images/diary-image-1.jpg";
+import "./SolutionSection.css";
 
-interface solutionItemData {
+interface SolutionItemData {
   id: number;
   imageUrl: string;
   category: string; // "Dịch vụ"
@@ -10,50 +9,28 @@ interface solutionItemData {
   link: string; // URL for "Xem chi tiết"
 }
 
-const SolutionSection: React.FC = () => {
-  // Define the data for your solutions
-  const solutions: solutionItemData[] = [
-    {
-      id: 1,
-      imageUrl: "../assets/images/thumb-home.png", // Replace with your image paths
-      category: "Dịch vụ",
-      title: "Thiết kế kiến trúc",
-      link: "#", // Placeholder link
-    },
-    {
-      id: 2,
-      imageUrl: "../assets/images/thumb-home.png",
-      category: "Dịch vụ",
-      title: "Thiết kế nội thất",
-      link: "#",
-    },
-    {
-      id: 3,
-      imageUrl: "/assets/images/thumb-home.png",
-      category: "Dịch vụ",
-      title: "Thi công hoàn thiện",
-      link: "#",
-    },
-    {
-      id: 4,
-      imageUrl: "/assets/images/thumb-home.png",
-      category: "Dịch vụ",
-      title: "Thi công trọn gói",
-      link: "#",
-    },
-  ];
+interface SolutionHeader {
+  mainHeadline: string;
+  subHeadline: string;
+}
 
+interface SolutionSectionProps {
+  header: SolutionHeader;
+  solutions: SolutionItemData[];
+}
+
+const SolutionSection: React.FC<SolutionSectionProps> = ({header,solutions}) => {
   return (
     <section className="solutions-section">
-      <h2 className="solutions-main-headline">GIẢI PHÁP KHÔNG GIAN</h2>
-      <h3 className="solutions-sub-headline">DÀNH RIÊNG CHO BẠN</h3>
+      <h2 className="solutions-main-headline">{header.mainHeadline}</h2>
+      <h3 className="solutions-sub-headline">{header.subHeadline}</h3>
       <div className="solutions-grid">
         {solutions.map((solution) => (
           <div key={solution.id} className="solution-card">
             {/* The image container with the curved top and now the overlaid text */}
             <div className="solution-image-container">
               <img
-                src={TmpImage}
+                src={solution.imageUrl}
                 alt={solution.title}
                 className="solution-image"
               />

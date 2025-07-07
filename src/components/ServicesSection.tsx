@@ -1,38 +1,29 @@
 // src/components/ServicesSection.tsx
 import React, { useRef, useEffect, useState } from "react";
 import "./ServicesSection.css"; // Import its dedicated CSS
-import heroImage from "../assets/images/vision-mission-section.jpg";
 
-const ServicesSection: React.FC = () => {
+interface ServiceItem {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+}
+
+interface ServicesHeroContent {
+  mainTitle: string;
+  brandName: string;
+  description: string;
+  heroImageUrl?: string;
+}
+
+interface ServicesSectionProps {
+  heroContent: ServicesHeroContent;
+  services: ServiceItem[];
+}
+
+const ServicesSection: React.FC<ServicesSectionProps> = ({heroContent, services}) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
-
-  const services = [
-    {
-      id: 1,
-      title: "Dịch vụ thi công",
-      subtitle: "Phân thô hoặc",
-      description: "Trọn gói hoàn thiện"
-    },
-    {
-      id: 2,
-      title: "Dịch vụ thi công",
-      subtitle: "",
-      description: "Nội thất"
-    },
-    {
-      id: 3,
-      title: "Dịch vụ thiết kế",
-      subtitle: "",
-      description: "Kiến trúc - Nội thất"
-    },
-    {
-      id: 4,
-      title: "Dịch vụ thi công",
-      subtitle: "Cải tạo sửa chữa hoặc",
-      description: "Dự án đã có bản vẽ"
-    }
-  ];
 
   useEffect(() => {
     const currentRef = sectionRef.current;
@@ -70,11 +61,10 @@ const ServicesSection: React.FC = () => {
       <div className="services-container">
         <div className="services-hero-content-container">
           <div className="services-hero-content">
-            <h1 className="services-main-title">DỊCH VỤ</h1>
-            <h2 className="services-brand">PG DESIGN</h2>
+            <h1 className="services-main-title">{heroContent.mainTitle}</h1>
+            <h2 className="services-brand">{heroContent.brandName}</h2>
             <p className="services-description">
-              Chúng tôi đồng hành cùng khách hàng từ bản vẽ ý tưởng đến không gian sống hoàn thiện, 
-              tối ưu công năng - nâng tầm thẩm mỹ - đảm bảo chất lượng thi công.
+              {heroContent.description}
             </p>
           </div>
         </div>
@@ -82,7 +72,7 @@ const ServicesSection: React.FC = () => {
         {/* Hero Image */}
         <div className="services-hero-image">
           <img 
-            src={heroImage} 
+            src={heroContent.heroImageUrl} 
             alt="Modern Interior Design" 
             className="services-hero-img"
           />

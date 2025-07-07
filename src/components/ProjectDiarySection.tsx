@@ -1,5 +1,6 @@
 import React from "react";
 import "./ProjectDiarySection.css";
+import Masonry from "react-masonry-css";
 
 // Import your images. Replace with actual paths to your images.
 // For demonstration, I'll use placeholder names.
@@ -11,7 +12,6 @@ import image5 from "../assets/images/diary-image-5.jpg"; // Middle middle, perso
 import image6 from "../assets/images/diary-image-6.jpg"; // Middle right, living room
 import image7 from "../assets/images/diary-image-7.jpg"; // Bottom left, people in front of house
 import image8 from "../assets/images/diary-image-8.jpg"; // Bottom right, worker installing window
-import Masonry from "react-masonry-css";
 
 interface DiaryImage {
   src: string;
@@ -19,18 +19,12 @@ interface DiaryImage {
   className?: string; // Optional for specific grid spanning
 }
 
-const diaryImages: DiaryImage[] = [
-  { src: image1, alt: "People presenting something at a table" },
-  { src: image2, alt: "People inspecting a room in construction" },
-  { src: image3, alt: "Construction workers reviewing plans" },
-  { src: image4, alt: "Stylish kitchen interior" },
-  { src: image5, alt: "Person using a tablet at a desk" },
-  { src: image6, alt: "Modern living room interior" },
-  { src: image7, alt: "Team standing in front of a house design" },
-  { src: image8, alt: "Worker installing a window" },
-];
+interface ProjectDiarySectionProps {
+  title: string;
+  images: DiaryImage[];
+}
 
-const ProjectDiarySection: React.FC = () => {
+const ProjectDiarySection: React.FC<ProjectDiarySectionProps> = ({title,images}) => {
   // Define breakpoints for responsive columns
   const breakpointColumnsObj = {
     default: 3, // Default to 3 columns
@@ -40,14 +34,14 @@ const ProjectDiarySection: React.FC = () => {
 
   return (
     <section className="project-diary-section">
-      <h2 className="pd-main-headline">NHẬT KÝ HÀNH TRÌNH</h2>
+      <h2 className="pd-main-headline">{title}</h2>
       <div className="pd-masonry-wrapper">
         <Masonry
           breakpointCols={breakpointColumnsObj}
           className="pd-masonry-grid"
           columnClassName="pd-masonry-grid_column"
         >
-          {diaryImages.map((image, index) => (
+          {images.map((image, index) => (
             <div key={index} className="pd-grid-item">
               <img src={image.src} alt={image.alt} />
             </div>

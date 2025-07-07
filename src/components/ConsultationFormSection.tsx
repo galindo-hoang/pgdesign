@@ -4,25 +4,30 @@ import "./ConsultationFormSection.css";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
-const projectTypes = [
-  "-- Chọn loại công trình --",
-  "Nhà Phố - Căn hộ",
-  "Nhà hàng - Khách sạn",
-  "Quán Cafe",
-  "Văn phòng",
-];
+interface ConsultationFormData {
+  title?: string;
+  projectTypes?: string[];
+  minInvestment?: number;
+  maxInvestment?: number;
+  stepInvestment?: number;
+}
 
-const MIN_INVESTMENT = 100; // 100 triệu VND
-const MAX_INVESTMENT = 10000; // 10 tỷ VND (which is 10,000 triệu VND)
-const STEP_INVESTMENT = 100; // Step of 100 triệu VND
+interface ConsultationFormSectionProps {
+  formData: ConsultationFormData;
+}
 
-const ConsultationFormSection: React.FC = () => {
-  const [formData, setFormData] = useState({
+const ConsultationFormSection: React.FC<ConsultationFormSectionProps> = ({formData}) => {
+  const MIN_INVESTMENT = formData.minInvestment || 100; // 100 triệu VND
+  const MAX_INVESTMENT = formData.maxInvestment || 10000; // 10 tỷ VND (which is 10,000 triệu VND)
+  const STEP_INVESTMENT = formData.stepInvestment || 100; // Step of 100 triệu VND
+  const projectTypes = formData.projectTypes || ["-- Chọn loại công trình --", "Nhà Phố - Căn hộ"];
+
+  const [stateFormData, setStateFormData] = useState({
     fullName: "",
     phoneNumber: "",
     email: "", // Keep it as an empty string initially
     address: "",
-    projectType: "Nhà Phố - Căn hộ",
+    projectType: projectTypes[1],
     investmentLevel: MIN_INVESTMENT,
     specificRequest: "",
   });
@@ -75,7 +80,7 @@ const ConsultationFormSection: React.FC = () => {
     >
   ) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
+    setStateFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -91,7 +96,7 @@ const ConsultationFormSection: React.FC = () => {
 
   const handleSliderChange = (value: number | number[]) => {
     if (typeof value === 'number') {
-      setFormData((prevData) => ({
+      setStateFormData((prevData) => ({
         ...prevData,
         investmentLevel: value,
       }));
@@ -117,11 +122,11 @@ const ConsultationFormSection: React.FC = () => {
     e.preventDefault();
 
     // NEW: Perform all validations before submitting
-    const isPhoneNumberValid = validatePhoneNumber(formData.phoneNumber);
-    const isEmailValid = validateEmail(formData.email); // Validate email
+    const isPhoneNumberValid = validatePhoneNumber(stateFormData.phoneNumber);
+    const isEmailValid = validateEmail(stateFormData.email); // Validate email
     const isProjectTypeSelected = !(
-      formData.projectType === "-- Chọn loại công trình --" ||
-      formData.projectType === ""
+      stateFormData.projectType === "-- Chọn loại công trình --" ||
+      stateFormData.projectType === ""
     );
 
     if (!isPhoneNumberValid || !isEmailValid || !isProjectTypeSelected) {
@@ -131,17 +136,17 @@ const ConsultationFormSection: React.FC = () => {
     }
 
     const dataToSend = {
-      ...formData,
-      investmentLevel: formatCurrencyDisplay(formData.investmentLevel),
+      ...stateFormData,
+      investmentLevel: formatCurrencyDisplay(stateFormData.investmentLevel),
     };
     console.log("Form data submitted:", dataToSend);
     alert("Yêu cầu của bạn đã được gửi thành công!");
-    setFormData({
+    setStateFormData({
       fullName: "",
       phoneNumber: "",
       email: "", // Reset email
       address: "",
-      projectType: "Nhà Phố - Căn hộ",
+      projectType: projectTypes[1] || "Nhà Phố - Căn hộ",
       investmentLevel: MIN_INVESTMENT,
       specificRequest: "",
     });
@@ -158,7 +163,7 @@ const ConsultationFormSection: React.FC = () => {
 
   return (
     <section className="consultation-form-section">
-      <h2 className="cf-main-headline">ĐĂNG KÝ TƯ VẤN</h2>
+      <h2 className="cf-main-headline">{formData.title}</h2>
 
       <form onSubmit={handleSubmit} className="cf-form-grid">
         <div className="cf-form-group">
@@ -167,7 +172,7 @@ const ConsultationFormSection: React.FC = () => {
             type="text"
             id="fullName"
             name="fullName"
-            value={formData.fullName}
+            value={stateFormData.fullName}
             onChange={handleChange}
             placeholder="Jane"
             required
@@ -180,7 +185,7 @@ const ConsultationFormSection: React.FC = () => {
             type="tel"
             id="phoneNumber"
             name="phoneNumber"
-            value={formData.phoneNumber}
+            value={stateFormData.phoneNumber}
             onChange={handleChange}
             placeholder="0901234567"
             required
@@ -197,7 +202,7 @@ const ConsultationFormSection: React.FC = () => {
             type="email"
             id="email"
             name="email"
-            value={formData.email}
+            value={stateFormData.email}
             onChange={handleChange}
             placeholder="email@janesfakedomain.net"
             required
@@ -213,7 +218,7 @@ const ConsultationFormSection: React.FC = () => {
             type="text"
             id="address"
             name="address"
-            value={formData.address}
+            value={stateFormData.address}
             onChange={handleChange}
             placeholder="Số ..."
           />
@@ -224,11 +229,11 @@ const ConsultationFormSection: React.FC = () => {
           <select
             id="projectType"
             name="projectType"
-            value={formData.projectType}
+            value={stateFormData.projectType}
             onChange={handleChange}
             required
             className={
-              formData.projectType === "-- Chọn loại công trình --"
+              stateFormData.projectType === "-- Chọn loại công trình --"
                 ? "placeholder-selected"
                 : ""
             }
@@ -248,7 +253,7 @@ const ConsultationFormSection: React.FC = () => {
         <div className="cf-form-group cf-investment-slider-group">
           <label>Mức đầu tư</label>
           <div className="cf-slider-display-text" style={{ display: 'none' }}>
-            {formatCurrencyDisplay(formData.investmentLevel)}
+            {formatCurrencyDisplay(stateFormData.investmentLevel)}
           </div>
           <div 
             ref={sliderRef}
@@ -260,7 +265,7 @@ const ConsultationFormSection: React.FC = () => {
               min={MIN_INVESTMENT}
               max={MAX_INVESTMENT}
               step={STEP_INVESTMENT}
-              value={formData.investmentLevel}
+              value={stateFormData.investmentLevel}
               onChange={handleSliderChange}
               trackStyle={{ backgroundColor: "#557256" }}
               handleStyle={{
@@ -276,10 +281,10 @@ const ConsultationFormSection: React.FC = () => {
                 <div 
                   className="cf-handle-tooltip"
                   style={{
-                    left: getTooltipPosition(formData.investmentLevel)
+                    left: getTooltipPosition(stateFormData.investmentLevel)
                   }}
                 >
-                  {formatCurrencyDisplay(formData.investmentLevel)}
+                  {formatCurrencyDisplay(stateFormData.investmentLevel)}
                 </div>
               </div>
             )}
@@ -291,7 +296,7 @@ const ConsultationFormSection: React.FC = () => {
           <textarea
             id="specificRequest"
             name="specificRequest"
-            value={formData.specificRequest}
+            value={stateFormData.specificRequest}
             onChange={handleChange}
             rows={5}
           ></textarea>

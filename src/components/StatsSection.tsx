@@ -3,18 +3,6 @@ import React, { useRef, useEffect, useState } from "react";
 import "./StatsSection.css";
 import useCountUp from "../hooks/useCountUp";
 
-// Import your SVG icons
-import { ReactComponent as BriefcaseIcon } from "../assets/icons/experience-icon.svg";
-import { ReactComponent as HandshakeIcon } from "../assets/icons/customer-icon.svg";
-import { ReactComponent as DesignIcon } from "../assets/icons/design-icon.svg";
-import { ReactComponent as GearIcon } from "../assets/icons/building-icon.svg";
-
-// Import project images for backgrounds
-import experienceImg from "../assets/images/diary-image-1.jpg";
-import customerImg from "../assets/images/diary-image-2.jpg";
-import projectImg from "../assets/images/diary-image-3.jpg";
-import qualityImg from "../assets/images/diary-image-4.jpg";
-
 // Define an interface for each statistic item
 interface StatItemData {
   id: number;
@@ -27,53 +15,20 @@ interface StatItemData {
   category: string;
 }
 
-const StatsSection: React.FC = () => {
+interface StatMainHeader {
+  mainHeadline: string
+  subHeadline: string
+  description: string
+}
+
+interface StatProps {
+  stateHeader: StatMainHeader,
+  stateItems: StatItemData[]
+}
+
+const StatsSection: React.FC<StatProps> = ({stateHeader, stateItems}) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
-
-  // Enhanced, more relevant statistics for architecture & interior design company
-  const stats: StatItemData[] = [
-    { 
-      id: 1, 
-      icon: BriefcaseIcon, 
-      targetValue: 5, 
-      label: "Kinh nghiệm", 
-      suffix: "+ năm",
-      description: "Kinh nghiệm",
-      backgroundImage: experienceImg,
-      category: "experience"
-    },
-    { 
-      id: 2, 
-      icon: HandshakeIcon, 
-      targetValue: 500, 
-      label: "Khách hàng", 
-      suffix: "+",
-      description: "Tin tưởng & hài lòng",
-      backgroundImage: customerImg,
-      category: "customers"
-    },
-    { 
-      id: 3, 
-      icon: DesignIcon, 
-      targetValue: 450, 
-      label: "Dự án", 
-      suffix: "+",
-      description: "Thiết kế hoàn thành",
-      backgroundImage: projectImg,
-      category: "projects"
-    },
-    { 
-      id: 4, 
-      icon: GearIcon, 
-      targetValue: 98, 
-      label: "Chất lượng", 
-      suffix: "%",
-      description: "Cam kết hoàn hảo",
-      backgroundImage: qualityImg,
-      category: "quality"
-    },
-  ];
 
   // Set up Intersection Observer
   useEffect(() => {
@@ -108,18 +63,15 @@ const StatsSection: React.FC = () => {
     <section className="stats-section" ref={sectionRef}>
       <div className="stats-container">
         <div className="stats-header">
-          <h2 className="stats-main-headline">THÀNH TỰU CỦA CHÚNG TÔI</h2>
+          <h2 className="stats-main-headline">{stateHeader.mainHeadline}</h2>
           <div className="stats-sub-headline-wrapper">
-            <h3 className="stats-sub-headline">Những con số ấn tượng</h3>
-            <p className="stats-description">
-              Với nhiều năm kinh nghiệm trong lĩnh vực thiết kế kiến trúc và nội thất, 
-              chúng tôi tự hào mang đến những giải pháp tối ưu cho mọi không gian sống.
-            </p>
+            <h3 className="stats-sub-headline">{stateHeader.subHeadline}</h3>
+            <p className="stats-description">{stateHeader.description}</p>
           </div>
         </div>
 
         <div className="stats-grid">
-          {stats.map((item, index) => (
+          {stateItems.map((item, index) => (
             <StatItem
               key={item.id}
               icon={item.icon}
