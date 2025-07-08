@@ -12,6 +12,7 @@ const ContactPage: React.FC = () => {
       "Nhà hàng - Khách sạn",
       "Quán Cafe",
       "Văn phòng",
+      "Khác",
     ],
     minInvestment: 100,
     maxInvestment: 10000,

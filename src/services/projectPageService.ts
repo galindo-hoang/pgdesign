@@ -8,12 +8,25 @@ import {
   ApiResponse
 } from '../types/projectPageTypes';
 
+// Import asset images
+import thumbIntro from "../assets/images/thumb-intro.jpg";
+import diaryImage1 from "../assets/images/diary-image-1.jpg";
+import diaryImage2 from "../assets/images/diary-image-2.jpg";
+import diaryImage3 from "../assets/images/diary-image-3.jpg";
+import diaryImage4 from "../assets/images/diary-image-4.jpg";
+
+// Import icon assets
+import experienceIcon from "../assets/icons/experience-icon.svg";
+import customerIcon from "../assets/icons/customer-icon.svg";
+import designIcon from "../assets/icons/design-icon.svg";
+import buildingIcon from "../assets/icons/building-icon.svg";
+
 // API Configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
 const API_TIMEOUT = 10000; // 10 seconds
 
 // Configuration for data source (can be controlled via environment variable)
-const USE_MOCK_DATA = process.env.REACT_APP_USE_MOCK_DATA === 'true';
+const USE_MOCK_DATA = true;
 
 // ========== MOCK DATA ==========
 
@@ -22,7 +35,7 @@ const mockAboutProjectData: AboutProjectData = {
   id: 1,
   title: 'Dự án',
   subtitle: 'PG DESIGN',
-  backgroundImageUrl: '/assets/images/thumb-intro.jpg',
+  backgroundImageUrl: thumbIntro,
   isActive: true,
   createdAt: new Date(),
   updatedAt: new Date()
@@ -33,48 +46,48 @@ const mockStatsItems: StatsItem[] = [
   {
     id: 1,
     iconName: 'experience-icon',
-    iconUrl: '/assets/icons/experience-icon.svg',
+    iconUrl: experienceIcon,
     targetValue: 5,
     label: 'Kinh nghiệm',
     suffix: '+ năm',
     description: 'Kinh nghiệm',
-    backgroundImageUrl: '/assets/images/diary-image-1.jpg',
+    backgroundImageUrl: diaryImage1,
     category: 'experience',
     displayOrder: 0
   },
   {
     id: 2,
     iconName: 'customer-icon',
-    iconUrl: '/assets/icons/customer-icon.svg',
+    iconUrl: customerIcon,
     targetValue: 500,
     label: 'Khách hàng',
     suffix: '+',
     description: 'Tin tưởng & hài lòng',
-    backgroundImageUrl: '/assets/images/diary-image-2.jpg',
+    backgroundImageUrl: diaryImage2,
     category: 'customers',
     displayOrder: 1
   },
   {
     id: 3,
     iconName: 'design-icon',
-    iconUrl: '/assets/icons/design-icon.svg',
+    iconUrl: designIcon,
     targetValue: 450,
     label: 'Dự án',
     suffix: '+',
     description: 'Thiết kế hoàn thành',
-    backgroundImageUrl: '/assets/images/diary-image-3.jpg',
+    backgroundImageUrl: diaryImage3,
     category: 'projects',
     displayOrder: 2
   },
   {
     id: 4,
     iconName: 'building-icon',
-    iconUrl: '/assets/icons/building-icon.svg',
+    iconUrl: buildingIcon,
     targetValue: 98,
     label: 'Chất lượng',
     suffix: '%',
     description: 'Cam kết hoàn hảo',
-    backgroundImageUrl: '/assets/images/diary-image-4.jpg',
+    backgroundImageUrl: diaryImage4,
     category: 'quality',
     displayOrder: 3
   }
@@ -99,7 +112,7 @@ const mockProjectCategories: ProjectCategory[] = [
     categoryId: 'house-normal',
     title: 'NHÀ PHỐ',
     projectCount: 45,
-    backgroundImageUrl: '/assets/images/diary-image-1.jpg',
+    backgroundImageUrl: diaryImage1,
     navigationPath: '/projects/house-normal',
     displayOrder: 0
   },
@@ -108,7 +121,7 @@ const mockProjectCategories: ProjectCategory[] = [
     categoryId: 'house-full',
     title: 'Xây nhà trọn gói',
     projectCount: 32,
-    backgroundImageUrl: '/assets/images/diary-image-2.jpg',
+    backgroundImageUrl: diaryImage2,
     navigationPath: '/projects/house-full',
     displayOrder: 1
   },
@@ -117,7 +130,7 @@ const mockProjectCategories: ProjectCategory[] = [
     categoryId: 'house-rough',
     title: 'Xây dựng phần thô',
     projectCount: 28,
-    backgroundImageUrl: '/assets/images/diary-image-3.jpg',
+    backgroundImageUrl: diaryImage3,
     navigationPath: '/projects/house-rough',
     displayOrder: 2
   },
@@ -126,7 +139,7 @@ const mockProjectCategories: ProjectCategory[] = [
     categoryId: 'house-interior',
     title: 'Thiết kế và thi công nội thất',
     projectCount: 50,
-    backgroundImageUrl: '/assets/images/diary-image-4.jpg',
+    backgroundImageUrl: diaryImage4,
     navigationPath: '/projects/house-interior',
     displayOrder: 3
   }

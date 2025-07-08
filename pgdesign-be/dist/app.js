@@ -21,8 +21,13 @@ const PORT = process.env.PORT || 3002;
 app.use((0, helmet_1.default)({
     crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
+const allowedOrigins = [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    process.env.CORS_ORIGIN
+].filter((origin) => typeof origin === 'string');
 app.use((0, cors_1.default)({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+    origin: allowedOrigins,
     credentials: process.env.CORS_CREDENTIALS === 'true' || true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
