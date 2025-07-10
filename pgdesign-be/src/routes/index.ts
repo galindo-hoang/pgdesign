@@ -2,6 +2,7 @@ import { Router } from 'express';
 import homepageRoutes from './homepage';
 import intropageRoutes from './intropage';
 import projectpageRoutes from './projectpage';
+import consultationRoutes from './consultation';
 
 const router: Router = Router();
 
@@ -16,6 +17,9 @@ router.use(`/${API_VERSION}/intropage`, intropageRoutes);
 
 // Project page routes
 router.use(`/${API_VERSION}/projectpage`, projectpageRoutes);
+
+// Consultation routes
+router.use(`/${API_VERSION}/consultation`, consultationRoutes);
 
 // Health check
 router.get('/health', (req, res) => {

@@ -35,6 +35,8 @@ const ConsultationFormSection: React.FC<ConsultationFormSectionProps> = ({formDa
   const [phoneNumberError, setPhoneNumberError] = useState<string | null>(null);
   // NEW: State for email error
   const [emailError, setEmailError] = useState<string | null>(null);
+  // NEW: State for address error
+  const [addressError, setAddressError] = useState<string | null>(null);
 
   // State for showing tooltips on slider handles
   const [showTooltips, setShowTooltips] = useState(false);
@@ -74,6 +76,20 @@ const ConsultationFormSection: React.FC<ConsultationFormSectionProps> = ({formDa
     return true;
   };
 
+  // NEW: Address validation function
+  const validateAddress = (address: string): boolean => {
+    if (!address || address.trim().length === 0) {
+      setAddressError("*Địa chỉ không được để trống.");
+      return false;
+    }
+    if (address.trim().length < 10) {
+      setAddressError("*Địa chỉ phải có ít nhất 10 ký tự.");
+      return false;
+    }
+    setAddressError(null);
+    return true;
+  };
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -91,6 +107,10 @@ const ConsultationFormSection: React.FC<ConsultationFormSectionProps> = ({formDa
     // NEW: Validate email on change
     if (name === "email") {
       validateEmail(value);
+    }
+    // NEW: Validate address on change
+    if (name === "address") {
+      validateAddress(value);
     }
   };
 
@@ -118,19 +138,19 @@ const ConsultationFormSection: React.FC<ConsultationFormSectionProps> = ({formDa
     return `${percentage * 100}%`;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // NEW: Perform all validations before submitting
     const isPhoneNumberValid = validatePhoneNumber(stateFormData.phoneNumber);
-    const isEmailValid = validateEmail(stateFormData.email); // Validate email
+    const isEmailValid = validateEmail(stateFormData.email);
+    const isAddressValid = validateAddress(stateFormData.address); // Validate address
     const isProjectTypeSelected = !(
       stateFormData.projectType === "-- Chọn loại công trình --" ||
       stateFormData.projectType === ""
     );
 
-    if (!isPhoneNumberValid || !isEmailValid || !isProjectTypeSelected) {
-      // Add email validation
+    if (!isPhoneNumberValid || !isEmailValid || !isAddressValid || !isProjectTypeSelected) {
       alert("Vui lòng kiểm tra lại thông tin. Có lỗi trong biểu mẫu.");
       return;
     }
@@ -139,19 +159,42 @@ const ConsultationFormSection: React.FC<ConsultationFormSectionProps> = ({formDa
       ...stateFormData,
       investmentLevel: formatCurrencyDisplay(stateFormData.investmentLevel),
     };
-    console.log("Form data submitted:", dataToSend);
-    alert("Yêu cầu của bạn đã được gửi thành công!");
-    setStateFormData({
-      fullName: "",
-      phoneNumber: "",
-      email: "", // Reset email
-      address: "",
-      projectType: projectTypes[1] || "Nhà Phố - Căn hộ",
-      investmentLevel: MIN_INVESTMENT,
-      specificRequest: "",
-    });
-    setPhoneNumberError(null);
-    setEmailError(null); // Clear email error on successful submission
+
+    try {
+      // Send data to backend API
+      const response = await fetch('http://localhost:3002/api/v1/consultation/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        alert(result.message || "Yêu cầu của bạn đã được gửi thành công!");
+        
+        // Reset form on successful submission
+        setStateFormData({
+          fullName: "",
+          phoneNumber: "",
+          email: "",
+          address: "",
+          projectType: projectTypes[1] || "Nhà Phố - Căn hộ",
+          investmentLevel: MIN_INVESTMENT,
+          specificRequest: "",
+        });
+        setPhoneNumberError(null);
+        setEmailError(null);
+        setAddressError(null);
+      } else {
+        alert(result.error?.message || "Có lỗi xảy ra khi gửi yêu cầu. Vui lòng thử lại.");
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert("Không thể kết nối tới máy chủ. Vui lòng thử lại sau.");
+    }
   };
 
   const formatCurrencyDisplay = (value: number) => {
@@ -221,7 +264,12 @@ const ConsultationFormSection: React.FC<ConsultationFormSectionProps> = ({formDa
             value={stateFormData.address}
             onChange={handleChange}
             placeholder="Số ..."
+            required
+            className={addressError ? "input-error" : ""}
           />
+          {addressError && (
+            <p className="error-message">{addressError}</p>
+          )}
         </div>
 
         <div className="cf-form-group cf-project-type-group">

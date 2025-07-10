@@ -7,11 +7,13 @@ const express_1 = require("express");
 const homepage_1 = __importDefault(require("./homepage"));
 const intropage_1 = __importDefault(require("./intropage"));
 const projectpage_1 = __importDefault(require("./projectpage"));
+const consultation_1 = __importDefault(require("./consultation"));
 const router = (0, express_1.Router)();
 const API_VERSION = 'v1';
 router.use(`/${API_VERSION}/homepage`, homepage_1.default);
 router.use(`/${API_VERSION}/intropage`, intropage_1.default);
 router.use(`/${API_VERSION}/projectpage`, projectpage_1.default);
+router.use(`/${API_VERSION}/consultation`, consultation_1.default);
 router.get('/health', (req, res) => {
     res.json({
         status: 'OK',

@@ -7,11 +7,9 @@ export interface ConsultationFormSubmission {
     investmentLevel: string;
     specificRequest?: string;
 }
-export interface ConsultationResponse {
-    success: boolean;
-    message?: string;
-    data?: any;
-    error?: string;
+export interface ValidationError {
+    field: string;
+    message: string;
 }
 export interface EmailConfig {
     service: string;
@@ -20,8 +18,13 @@ export interface EmailConfig {
         pass: string;
     };
 }
-export interface ValidationError {
-    field: string;
+export interface ConsultationResponse {
+    success: boolean;
     message: string;
+    data?: {
+        submittedAt: string;
+        customerName: string;
+        projectType: string;
+    };
 }
 //# sourceMappingURL=consultationTypes.d.ts.map

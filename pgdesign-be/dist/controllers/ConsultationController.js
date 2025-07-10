@@ -53,13 +53,10 @@ class ConsultationController {
         if (!formData.fullName || formData.fullName.trim().length === 0) {
             errors.push({ field: 'fullName', message: 'Họ và tên không được để trống' });
         }
-        else if (formData.fullName.trim().length < 2) {
-            errors.push({ field: 'fullName', message: 'Họ và tên phải có ít nhất 2 ký tự' });
-        }
         if (!formData.phoneNumber || formData.phoneNumber.trim().length === 0) {
             errors.push({ field: 'phoneNumber', message: 'Số điện thoại không được để trống' });
         }
-        else if (!this.isValidPhoneNumber(formData.phoneNumber)) {
+        else if (!this.isValidVietnamesePhoneNumber(formData.phoneNumber)) {
             errors.push({ field: 'phoneNumber', message: 'Số điện thoại không hợp lệ' });
         }
         if (!formData.email || formData.email.trim().length === 0) {
@@ -80,9 +77,12 @@ class ConsultationController {
         if (!formData.investmentLevel || formData.investmentLevel.trim().length === 0) {
             errors.push({ field: 'investmentLevel', message: 'Mức đầu tư không được để trống' });
         }
+        if (formData.specificRequest && formData.specificRequest.length > 1000) {
+            errors.push({ field: 'specificRequest', message: 'Yêu cầu cụ thể không được vượt quá 1000 ký tự' });
+        }
         return errors;
     }
-    isValidPhoneNumber(phoneNumber) {
+    isValidVietnamesePhoneNumber(phoneNumber) {
         const vnPhoneRegex = /^(0|\+84)(3|5|7|8|9)\d{8}$|^02\d{9}$/;
         return vnPhoneRegex.test(phoneNumber.trim());
     }
@@ -92,4 +92,5 @@ class ConsultationController {
     }
 }
 exports.ConsultationController = ConsultationController;
+exports.default = new ConsultationController();
 //# sourceMappingURL=ConsultationController.js.map
