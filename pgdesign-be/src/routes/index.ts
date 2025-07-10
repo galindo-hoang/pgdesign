@@ -2,6 +2,7 @@ import { Router } from 'express';
 import homepageRoutes from './homepage';
 import intropageRoutes from './intropage';
 import projectpageRoutes from './projectpage';
+import servicepageRoutes from './servicepage';
 import consultationRoutes from './consultation';
 
 const router: Router = Router();
@@ -17,6 +18,9 @@ router.use(`/${API_VERSION}/intropage`, intropageRoutes);
 
 // Project page routes
 router.use(`/${API_VERSION}/projectpage`, projectpageRoutes);
+
+// Service page routes
+router.use(`/${API_VERSION}/servicepage`, servicepageRoutes);
 
 // Consultation routes
 router.use(`/${API_VERSION}/consultation`, consultationRoutes);
