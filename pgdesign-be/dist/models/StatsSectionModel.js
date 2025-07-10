@@ -80,8 +80,13 @@ class StatsSectionModel extends BaseModel_1.BaseModel {
             await trx.commit();
             return {
                 id: statsSectionId,
-                ...data,
-                isActive: true
+                mainHeadline: data.mainHeadline,
+                subHeadline: data.subHeadline,
+                description: data.description,
+                statsItems: statsItems,
+                isActive: true,
+                createdAt: new Date(),
+                updatedAt: new Date()
             };
         }
         catch (error) {

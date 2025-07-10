@@ -35,13 +35,33 @@ export class AboutProjectModel extends BaseModel {
       updated_at: new Date()
     };
 
-    const [id] = await this.create(insertData);
+    const [id] = await this.insert(insertData);
     
     return {
       id: id as number,
-      ...data,
-      isActive: true
+      title: data.title,
+      subtitle: data.subtitle,
+      backgroundImageUrl: data.backgroundImageUrl,
+      isActive: true,
+      createdAt: new Date(),
+      updatedAt: new Date()
     };
+  }
+
+  async updateByCondition(condition: any, updateData: any): Promise<boolean> {
+    const result = await this.db(this.tableName).where(condition).update({
+      ...updateData,
+      updated_at: new Date()
+    });
+    return result > 0;
+  }
+
+  async insert(data: any): Promise<any> {
+    return await this.db(this.tableName).insert(data);
+  }
+
+  get db() {
+    return require('../config/database').default;
   }
 
   async updateAboutProject(id: number, data: Partial<AboutProjectData>): Promise<AboutProjectData | null> {

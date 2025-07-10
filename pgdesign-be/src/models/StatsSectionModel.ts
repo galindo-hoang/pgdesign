@@ -98,8 +98,13 @@ export class StatsSectionModel extends BaseModel {
       
       return {
         id: statsSectionId as number,
-        ...data,
-        isActive: true
+        mainHeadline: data.mainHeadline,
+        subHeadline: data.subHeadline,
+        description: data.description,
+        statsItems: statsItems,
+        isActive: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
       };
     } catch (error) {
       await trx.rollback();

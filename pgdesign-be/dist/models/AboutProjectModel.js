@@ -30,12 +30,29 @@ class AboutProjectModel extends BaseModel_1.BaseModel {
             created_at: new Date(),
             updated_at: new Date()
         };
-        const [id] = await this.create(insertData);
+        const [id] = await this.insert(insertData);
         return {
             id: id,
-            ...data,
-            isActive: true
+            title: data.title,
+            subtitle: data.subtitle,
+            backgroundImageUrl: data.backgroundImageUrl,
+            isActive: true,
+            createdAt: new Date(),
+            updatedAt: new Date()
         };
+    }
+    async updateByCondition(condition, updateData) {
+        const result = await this.db(this.tableName).where(condition).update({
+            ...updateData,
+            updated_at: new Date()
+        });
+        return result > 0;
+    }
+    async insert(data) {
+        return await this.db(this.tableName).insert(data);
+    }
+    get db() {
+        return require('../config/database').default;
     }
     async updateAboutProject(id, data) {
         const updateData = {
