@@ -1,289 +1,181 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import './ProjectDetailPage.css';
-
-interface ProjectDetail {
-  id: string;
-  title: string;
-  thumbnailImage: string;
-  clientName: string;
-  area: string;
-  constructionDate: string;
-  address: string;
-  description?: string;
-  category: string;
-  subCategory: string;
-  style?: string;
-  htmlContent?: string; // Admin-editable HTML content
-}
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import "./ProjectDetailPage.css";
+import { ProjectDetailData } from "../../types/projectDetailTypes";
+import { fetchProjectDetailData } from "../../services/projectDetailService";
+import heroImage from "../../assets/images/diary-image-1.jpg";
 
 const ProjectDetailPage: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
-  const navigate = useNavigate();
-  const [project, setProject] = useState<ProjectDetail | null>(null);
+  
+  const [projectData, setProjectData] = useState<ProjectDetailData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isAdminMode, setIsAdminMode] = useState(false);
-  const [editableContent, setEditableContent] = useState('');
-  const [isDragging, setIsDragging] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Simulate loading project data
-    // In a real app, you would fetch this from your API
-    const loadProject = async () => {
-      try {
-        // Mock project data - replace with your actual data fetching logic
-        const mockProject: ProjectDetail = {
-          id: projectId || '',
-          title: 'Blank Project Page',
-          thumbnailImage: '/path/to/image.jpg',
-          clientName: 'Admin',
-          area: '',
-          constructionDate: '',
-          address: '',
-          description: '',
-          category: '',
-          subCategory: '',
-          style: '',
-          htmlContent: '' // Start completely blank
-        };
-        
-        setProject(mockProject);
-        setEditableContent(mockProject.htmlContent || '');
+    const loadProjectData = async () => {
+      if (!projectId) {
+        setError('Project ID is required');
         setIsLoading(false);
-      } catch (error) {
-        console.error('Error loading project:', error);
+        return;
+      }
+
+      try {
+        setIsLoading(true);
+        setError(null);
+        
+        const data = await fetchProjectDetailData(projectId);
+        setProjectData(data);
+      } catch (err: any) {
+        console.error('Error loading project detail data:', err);
+        setError(err.message || 'Failed to load project detail data');
+      } finally {
         setIsLoading(false);
       }
     };
 
-    if (projectId) {
-      loadProject();
-    }
+    loadProjectData();
   }, [projectId]);
 
-  const handleSaveContent = () => {
-    if (project) {
-      // Here you would save the edited content to your backend/database
-      console.log('Saving content:', editableContent);
-      setProject({ ...project, htmlContent: editableContent });
-      setIsAdminMode(false);
-      // Add your API call to save content here
-    }
-  };
-
-  const handleGoBack = () => {
-    navigate(-1);
-  };
-
-  const handleImageUpload = (file: File) => {
-    // Create a temporary URL for the uploaded image
-    const imageUrl = URL.createObjectURL(file);
-    
-    // Insert image HTML at cursor position or append to content
-    const imageHtml = `<img src="${imageUrl}" alt="${file.name}" style="max-width: 100%; height: auto; margin: 10px 0;" />`;
-    
-    // Add to the textarea content
-    setEditableContent(prev => prev + '\n' + imageHtml);
-    
-    // In a real app, you would upload to your server here
-    console.log('Image uploaded:', file.name);
-    // Example API call:
-    // uploadImageToServer(file).then(url => {
-    //   const serverImageHtml = `<img src="${url}" alt="${file.name}" style="max-width: 100%; height: auto;" />`;
-    //   setEditableContent(prev => prev.replace(imageUrl, url));
-    // });
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    
-    const files = Array.from(e.dataTransfer.files);
-    const imageFiles = files.filter(file => file.type.startsWith('image/'));
-    
-    imageFiles.forEach(file => {
-      handleImageUpload(file);
-    });
-  };
-
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    const imageFiles = files.filter(file => file.type.startsWith('image/'));
-    
-    imageFiles.forEach(file => {
-      handleImageUpload(file);
-    });
-    
-    // Reset input
-    e.target.value = '';
-  };
-
-  const insertImagePlaceholder = () => {
-    const imagePlaceholder = `<img src="https://via.placeholder.com/600x400/f0f0f0/666666?text=Your+Image+Here" alt="Replace with your image URL" style="max-width: 100%; height: auto; margin: 10px 0;" />`;
-    setEditableContent(prev => prev + '\n' + imagePlaceholder);
-  };
-
-  const insertHtmlTemplate = () => {
-    const template = `<div style="padding: 40px; max-width: 1200px; margin: 0 auto;">
-  <h1 style="color: #2F674B; text-align: center; margin-bottom: 30px;">Project Title</h1>
-  
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px;">
-    <div>
-      <img src="https://via.placeholder.com/500x300" alt="Project Image" style="width: 100%; border-radius: 8px;" />
-    </div>
-    <div>
-      <h2 style="color: #2F674B;">Project Details</h2>
-      <p><strong>Client:</strong> Client Name</p>
-      <p><strong>Area:</strong> 150 m²</p>
-      <p><strong>Year:</strong> 2024</p>
-      <p><strong>Location:</strong> Address Here</p>
-      <p style="margin-top: 20px;">Project description and details go here...</p>
-    </div>
-  </div>
-  
-  <h2 style="color: #2F674B; text-align: center;">Project Gallery</h2>
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-    <img src="https://via.placeholder.com/400x300" alt="Image 1" style="width: 100%; border-radius: 8px;" />
-    <img src="https://via.placeholder.com/400x300" alt="Image 2" style="width: 100%; border-radius: 8px;" />
-    <img src="https://via.placeholder.com/400x300" alt="Image 3" style="width: 100%; border-radius: 8px;" />
-  </div>
-</div>`;
-    setEditableContent(template);
-  };
-
+  // Show blank screen while loading
   if (isLoading) {
-    return (
-      <div className="project-detail-page">
-        <div className="loading-container">
-          <div className="loading-spinner">Loading...</div>
-        </div>
-      </div>
-    );
+    return <div className="blank-screen"></div>;
   }
 
-  if (!project) {
-    return (
-      <div className="project-detail-page">
-        <div className="error-container">
-          <h2>Project not found</h2>
-          <button onClick={handleGoBack} className="back-button">
-            Go Back
-          </button>
-        </div>
-      </div>
-    );
+  // Show blank screen if there's an error (you can modify this to show error if needed)
+  if (error) {
+    return <div className="blank-screen"></div>;
   }
 
+  // Show blank screen if no data
+  if (!projectData) {
+    return <div className="blank-screen"></div>;
+  }
+
+  // Render the project detail layout as JSX components
   return (
-    <div className="project-detail-page">
-      {/* Floating Admin Button */}
-      <div className="floating-admin-controls">
-        <button 
-          onClick={() => setIsAdminMode(!isAdminMode)}
-          className={`floating-admin-toggle ${isAdminMode ? 'active' : ''}`}
-          title={isAdminMode ? 'Exit Admin Mode' : 'Enter Admin Mode'}
-        >
-          {isAdminMode ? '✕' : '✎'}
-        </button>
+    <div className="project-detail-page-dynamic">
+      {/* Hero Section */}
+      <div className="project-hero">
+        <img 
+          src={projectData.thumbnailImage || heroImage} 
+          alt={projectData.title}
+          className="hero-background-image"
+        />
+        <div className="hero-overlay">
+          <div>
+            <h1>{projectData.title}</h1>
+            <div className="subtitle">
+              {projectData.clientName} • {projectData.area} • {projectData.address}
+            </div>
+          </div>
+        </div>
       </div>
-
-      {/* Main content area - completely blank white canvas */}
-      <div className="blank-content-area">
-        {isAdminMode ? (
-          <div className="admin-edit-overlay">
-            <div className="admin-edit-container">
-              <div className="admin-edit-header">
-                <h3>Edit Page Content</h3>
-                              <div className="admin-edit-actions">
-                <div className="image-upload-controls">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    onChange={handleFileSelect}
-                    style={{ display: 'none' }}
-                    id="image-upload"
-                  />
-                  <label htmlFor="image-upload" className="upload-button">
-                    📁 Upload Images
-                  </label>
-                  <button onClick={insertImagePlaceholder} className="placeholder-button">
-                    🖼️ Image Placeholder
-                  </button>
-                  <button onClick={insertHtmlTemplate} className="template-button">
-                    📋 Page Template
-                  </button>
-                </div>
-                <div className="save-cancel-controls">
-                  <button onClick={handleSaveContent} className="save-button">
-                    Save Changes
-                  </button>
-                  <button 
-                    onClick={() => {
-                      setEditableContent(project.htmlContent || '');
-                      setIsAdminMode(false);
-                    }}
-                    className="cancel-button"
-                  >
-                    Cancel
-                  </button>
-                </div>
+      
+      {/* Project Content */}
+      <div className="project-content">
+        <div className="content-grid">
+          {/* Main Content */}
+          <div className="main-content">
+            <h2>Thông tin chi tiết dự án</h2>
+            <p>
+              Đây là dự án nhà phố hiện đại được thiết kế với phong cách tối giản nhưng không kém phần sang trọng. 
+              Công trình được hoàn thành với chất lượng cao và sự hài lòng của khách hàng.
+            </p>
+            
+            <h3>Đặc điểm nổi bật</h3>
+            <ul>
+              <li>Thiết kế mặt tiền hiện đại với các đường nét sạch sẽ</li>
+              <li>Tối ưu hóa ánh sáng tự nhiên cho toàn bộ không gian</li>
+              <li>Sử dụng vật liệu cao cấp và thân thiện với môi trường</li>
+              <li>Bố trí không gian thông minh, tận dụng tối đa diện tích</li>
+            </ul>
+            
+            <h3>Không gian chức năng</h3>
+            <p><strong>Tầng 1:</strong> Phòng khách, phòng bếp, phòng ăn và khu vực tiếp khách</p>
+            <p><strong>Tầng 2:</strong> Phòng ngủ chính, phòng ngủ khách và phòng tắm</p>
+            <p><strong>Tầng 3:</strong> Phòng làm việc, khu vực thư giãn và sân thượng</p>
+            
+            <div className="project-gallery">
+              <h3>Hình ảnh dự án</h3>
+              <div className="image-grid">
+                {projectData.projectImages?.map((image, index) => (
+                                     <img 
+                     key={index}
+                     src={image} 
+                     alt={`Project view ${index + 1}`}
+                   />
+                ))}
               </div>
+            </div>
+            
+            <h3>Vật liệu sử dụng</h3>
+            <ul>
+              <li>Gạch ốp lát: Granite cao cấp</li>
+              <li>Cửa sổ: Nhôm kính cường lực</li>
+              <li>Sơn: Sơn nước cao cấp chống thấm</li>
+              <li>Hệ thống điện: Schneider Electric</li>
+              <li>Cửa gỗ: Gỗ công nghiệp MDF chống ẩm</li>
+              <li>Sàn gỗ: Sàn gỗ công nghiệp cao cấp</li>
+            </ul>
+            
+            <p>
+              <em>
+                Dự án được hoàn thành vào tháng 12/2023 với sự hài lòng cao của khách hàng. 
+                Đây là minh chứng cho chất lượng và uy tín của PG Design trong lĩnh vực thiết kế và thi công.
+              </em>
+            </p>
+          </div>
+          
+          {/* Sidebar */}
+          <div className="sidebar">
+            <div className="info-card">
+              <h3>Thông tin dự án</h3>
+              <div className="info-item">
+                <strong>Khách hàng:</strong>
+                <span>{projectData.clientName}</span>
               </div>
-                          <div 
-              className={`editor-container ${isDragging ? 'dragging' : ''}`}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-            >
-              <textarea
-                value={editableContent}
-                onChange={(e) => setEditableContent(e.target.value)}
-                className="html-editor"
-                placeholder="Enter HTML content here to build this page...&#10;&#10;💡 Tips:&#10;• Drag & drop images directly here&#10;• Use Upload Images button&#10;• Write HTML: <img src='URL' alt='description'>&#10;• Add styles: style='width: 100%; border-radius: 8px;'"
-                rows={25}
-              />
-              {isDragging && (
-                <div className="drag-overlay">
-                  <div className="drag-message">
-                    📁 Drop images here to upload
-                  </div>
+              <div className="info-item">
+                <strong>Diện tích:</strong>
+                <span>{projectData.area}</span>
+              </div>
+              <div className="info-item">
+                <strong>Địa chỉ:</strong>
+                <span>{projectData.address}</span>
+              </div>
+              <div className="info-item">
+                <strong>Ngày khởi công:</strong>
+                <span>{new Date(projectData.constructionDate).toLocaleDateString('vi-VN')}</span>
+              </div>
+              {projectData.completionDate && (
+                <div className="info-item">
+                  <strong>Ngày hoàn thành:</strong>
+                  <span>{new Date(projectData.completionDate).toLocaleDateString('vi-VN')}</span>
+                </div>
+              )}
+              {projectData.projectStatus && (
+                <div className="info-item">
+                  <strong>Trạng thái:</strong>
+                  <span className="status-badge">{projectData.projectStatus}</span>
                 </div>
               )}
             </div>
-                          <div className="editor-help">
-              <p><strong>💡 HTML Editor Help:</strong></p>
-              <p>• Drag & drop images directly into the editor</p>
-              <p>• Use "Upload Images" button to select multiple files</p>
-              <p>• Write HTML tags: <code>&lt;h1&gt;Title&lt;/h1&gt;</code>, <code>&lt;p&gt;Text&lt;/p&gt;</code></p>
-              <p>• Image example: <code>&lt;img src="URL" alt="description" style="margin: 20px;"&gt;</code></p>
-            </div>
-            </div>
-          </div>
-        ) : (
-          <div className="blank-canvas">
-            {project.htmlContent ? (
-              <div 
-                className="rendered-content"
-                dangerouslySetInnerHTML={{ __html: project.htmlContent }}
-              />
-            ) : (
-              <div className="completely-blank">
-                {/* Completely empty - no placeholder text */}
+            
+            {projectData.projectSpecs && projectData.projectSpecs.length > 0 && (
+              <div className="info-card">
+                <h3>Thông số kỹ thuật</h3>
+                {projectData.projectSpecs
+                  .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0))
+                  .map((spec) => (
+                    <div key={spec.id} className="info-item">
+                      <strong>{spec.label}:</strong>
+                      <span>{spec.value} {spec.unit || ''}</span>
+                    </div>
+                  ))}
               </div>
             )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
