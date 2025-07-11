@@ -7,7 +7,7 @@ import ProjectPage from "./pages/projectPage/ProjectPage";
 import IntroPage from "./pages/introPage/IntroPage";
 import HomePage from "./pages/homePage/HomePage";
 import ProjectCategoryPage from "./pages/ProjectCategoryPage";
-import BlogPage from "./pages/BlogPage";
+import BlogPage from "./pages/blogPage/BlogPage";
 import ContactPage from "./pages/contactPage/ContactPage";
 import ProjectDetailPage from "./pages/projectDetailPage/ProjectDetailPage";
 import ServicePage from "./pages/servicePage/ServicePage";
