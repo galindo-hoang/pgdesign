@@ -4,6 +4,7 @@ import intropageRoutes from './intropage';
 import projectpageRoutes from './projectpage';
 import servicepageRoutes from './servicepage';
 import consultationRoutes from './consultation';
+import projectdetailRoutes from './projectdetail';
 
 const router: Router = Router();
 
@@ -24,6 +25,9 @@ router.use(`/${API_VERSION}/servicepage`, servicepageRoutes);
 
 // Consultation routes
 router.use(`/${API_VERSION}/consultation`, consultationRoutes);
+
+// Project detail routes
+router.use(`/${API_VERSION}/projectdetail`, projectdetailRoutes);
 
 // Health check
 router.get('/health', (req, res) => {

@@ -3,8 +3,10 @@
 import { ProjectDetailData, ApiResponse } from '../types/projectDetailTypes';
 
 // Environment configuration
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api/v1';
-const USE_MOCK_DATA = true; // Default to true for development
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002';
+const API_VERSION = 'v1';
+const API_ENDPOINT = `${API_BASE_URL}/api/${API_VERSION}/projectdetail`;
+const USE_MOCK_DATA = process.env.NODE_ENV === 'development' && !process.env.REACT_APP_USE_REAL_API;
 
 // Mock project detail data - Project 1
 const mockProjectDetailData: ProjectDetailData = {
@@ -20,285 +22,63 @@ const mockProjectDetailData: ProjectDetailData = {
   style: "Hiện đại",
   thumbnailImage: "/assets/images/diary-image-1.jpg",
   
-  // Embedded HTML content from server (admin can modify this)
+  // Embedded HTML content from server (admin can modify this - only main content area)
   htmlContent: `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <style>
-        body {
-          margin: 0;
-          padding: 0;
-          font-family: 'Barlow', sans-serif;
-          background-color: #f8f9fa;
-        }
-        
-        .project-hero {
-          position: relative;
-          height: 60vh;
-          background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/assets/images/diary-image-1.jpg');
-          background-size: cover;
-          background-position: center;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          text-align: center;
-        }
-        
-        .project-hero h1 {
-          font-size: 3rem;
-          margin-bottom: 1rem;
-          text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-        }
-        
-        .project-hero .subtitle {
-          font-size: 1.2rem;
-          opacity: 0.9;
-        }
-        
-        .project-content {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 2rem;
-        }
-        
-        .content-grid {
-          display: grid;
-          grid-template-columns: 7fr 3fr;
-          gap: 3rem;
-          margin-top: 2rem;
-        }
-        
-        .main-content {
-          background: white;
-          padding: 2rem;
-          border-radius: 8px;
-          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .sidebar {
-          background: white;
-          padding: 2rem;
-          border-radius: 8px;
-          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-          height: fit-content;
-        }
-        
-        .main-content h2 {
-          color: #1b3025;
-          border-bottom: 3px solid #4CAF50;
-          padding-bottom: 0.5rem;
-          margin-bottom: 1.5rem;
-        }
-        
-        .main-content h3 {
-          color: #1b3025;
-          margin-top: 2rem;
-          margin-bottom: 1rem;
-        }
-        
-        .main-content p {
-          line-height: 1.6;
-          color: #333;
-          margin-bottom: 1rem;
-        }
-        
-        .main-content ul {
-          line-height: 1.6;
-          color: #555;
-        }
-        
-        .main-content li {
-          margin-bottom: 0.5rem;
-        }
-        
-        .project-gallery {
-          margin: 2rem 0;
-        }
-        
-        .image-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 1rem;
-          margin-top: 1rem;
-        }
-        
-        .image-grid img {
-          width: 100%;
-          height: 200px;
-          object-fit: cover;
-          border-radius: 4px;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .info-card {
-          background: #f8f9fa;
-          border-radius: 8px;
-          padding: 1.5rem;
-          margin-bottom: 1.5rem;
-        }
-        
-        .info-card h3 {
-          color: #1b3025;
-          margin-bottom: 1rem;
-          border-bottom: 2px solid #4CAF50;
-          padding-bottom: 0.5rem;
-        }
-        
-        .info-item {
-          display: flex;
-          justify-content: space-between;
-          padding: 0.5rem 0;
-          border-bottom: 1px solid #e0e0e0;
-        }
-        
-        .info-item:last-child {
-          border-bottom: none;
-        }
-        
-        .info-item strong {
-          color: #1b3025;
-        }
-        
-        .status-badge {
-          background: #4CAF50;
-          color: white;
-          padding: 0.25rem 0.75rem;
-          border-radius: 12px;
-          font-size: 0.8rem;
-          font-weight: 600;
-        }
-        
-
-        
-        @media (max-width: 768px) {
-          .project-hero h1 {
-            font-size: 2rem;
-          }
-          
-          .content-grid {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-          }
-          
-          .project-content {
-            padding: 1rem;
-          }
-          
-          .image-grid {
-            grid-template-columns: 1fr;
-          }
-        }
-      </style>
-    </head>
-    <body>
-      <div class="project-hero">
-        <div>
-          <h1>Nhà Phố Hiện Đại 3 Tầng</h1>
-          <div class="subtitle">Anh Nguyễn Văn A • 120m² • Quận 5, TP.HCM</div>
-        </div>
+    <p style="line-height: 1.6; color: #333; margin-bottom: 1rem;">Đây là dự án nhà phố hiện đại được thiết kế với phong cách tối giản nhưng không kém phần sang trọng. Công trình được hoàn thành với chất lượng cao và sự hài lòng của khách hàng.</p>
+    
+    <h3 style="color: #1b3025; margin-top: 2rem; margin-bottom: 1rem;">Đặc điểm nổi bật</h3>
+    <ul style="line-height: 1.6; color: #555;">
+      <li style="margin-bottom: 0.5rem;">Thiết kế mặt tiền hiện đại với các đường nét sạch sẽ</li>
+      <li style="margin-bottom: 0.5rem;">Tối ưu hóa ánh sáng tự nhiên cho toàn bộ không gian</li>
+      <li style="margin-bottom: 0.5rem;">Sử dụng vật liệu cao cấp và thân thiện với môi trường</li>
+      <li style="margin-bottom: 0.5rem;">Bố trí không gian thông minh, tận dụng tối đa diện tích</li>
+    </ul>
+    
+    <h3 style="color: #1b3025; margin-top: 2rem; margin-bottom: 1rem;">Không gian chức năng</h3>
+    <p style="line-height: 1.6; color: #333; margin-bottom: 1rem;"><strong style="color: #1b3025;">Tầng 1:</strong> Phòng khách, phòng bếp, phòng ăn và khu vực tiếp khách</p>
+    <p style="line-height: 1.6; color: #333; margin-bottom: 1rem;"><strong style="color: #1b3025;">Tầng 2:</strong> Phòng ngủ chính, phòng ngủ khách và phòng tắm</p>
+    <p style="line-height: 1.6; color: #333; margin-bottom: 1rem;"><strong style="color: #1b3025;">Tầng 3:</strong> Phòng làm việc, khu vực thư giãn và sân thượng</p>
+    
+    <div style="margin: 2rem 0;">
+      <h3 style="color: #1b3025; margin-top: 2rem; margin-bottom: 1rem;">Hình ảnh dự án</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 1rem;">
+        <img src="/assets/images/diary-image-1.jpg" alt="Mặt tiền nhà" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <img src="/assets/images/diary-image-2.jpg" alt="Phòng khách" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <img src="/assets/images/diary-image-3.jpg" alt="Phòng bếp" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <img src="/assets/images/diary-image-4.jpg" alt="Phòng ngủ" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
       </div>
-      
-      <div class="project-content">
-        <div class="content-grid">
-          <div class="main-content">
-            <h2>Thông tin chi tiết dự án</h2>
-            <p>Đây là dự án nhà phố hiện đại được thiết kế với phong cách tối giản nhưng không kém phần sang trọng. Công trình được hoàn thành với chất lượng cao và sự hài lòng của khách hàng.</p>
-            
-            <h3>Đặc điểm nổi bật</h3>
-            <ul>
-              <li>Thiết kế mặt tiền hiện đại với các đường nét sạch sẽ</li>
-              <li>Tối ưu hóa ánh sáng tự nhiên cho toàn bộ không gian</li>
-              <li>Sử dụng vật liệu cao cấp và thân thiện với môi trường</li>
-              <li>Bố trí không gian thông minh, tận dụng tối đa diện tích</li>
-            </ul>
-            
-            <h3>Không gian chức năng</h3>
-            <p><strong>Tầng 1:</strong> Phòng khách, phòng bếp, phòng ăn và khu vực tiếp khách</p>
-            <p><strong>Tầng 2:</strong> Phòng ngủ chính, phòng ngủ khách và phòng tắm</p>
-            <p><strong>Tầng 3:</strong> Phòng làm việc, khu vực thư giãn và sân thượng</p>
-            
-            <div class="project-gallery">
-              <h3>Hình ảnh dự án</h3>
-              <div class="image-grid">
-                <img src="/assets/images/diary-image-1.jpg" alt="Mặt tiền nhà">
-                <img src="/assets/images/diary-image-2.jpg" alt="Phòng khách">
-                <img src="/assets/images/diary-image-3.jpg" alt="Phòng bếp">
-                <img src="/assets/images/diary-image-4.jpg" alt="Phòng ngủ">
-              </div>
-            </div>
-            
-            <h3>Vật liệu sử dụng</h3>
-            <ul>
-              <li>Gạch ốp lát: Granite cao cấp</li>
-              <li>Cửa sổ: Nhôm kính cường lực</li>
-              <li>Sơn: Sơn nước cao cấp chống thấm</li>
-              <li>Hệ thống điện: Schneider Electric</li>
-              <li>Cửa gỗ: Gỗ công nghiệp MDF chống ẩm</li>
-              <li>Sàn gỗ: Sàn gỗ công nghiệp cao cấp</li>
-            </ul>
-            
-            <p><em>Dự án được hoàn thành vào tháng 12/2023 với sự hài lòng cao của khách hàng. Đây là minh chứng cho chất lượng và uy tín của PG Design trong lĩnh vực thiết kế và thi công.</em></p>
-          </div>
-          
-          <div class="sidebar">
-            <div class="info-card">
-              <h3>Thông tin dự án</h3>
-              <div class="info-item">
-                <strong>Khách hàng:</strong>
-                <span>Anh Nguyễn Văn A</span>
-              </div>
-              <div class="info-item">
-                <strong>Diện tích:</strong>
-                <span>120m²</span>
-              </div>
-              <div class="info-item">
-                <strong>Địa chỉ:</strong>
-                <span>Quận 5, TP.HCM</span>
-              </div>
-              <div class="info-item">
-                <strong>Ngày khởi công:</strong>
-                <span>15/06/2023</span>
-              </div>
-              <div class="info-item">
-                <strong>Ngày hoàn thành:</strong>
-                <span>20/12/2023</span>
-              </div>
-              <div class="info-item">
-                <strong>Trạng thái:</strong>
-                <span class="status-badge">Hoàn thành</span>
-              </div>
-            </div>
-            
-            <div class="info-card">
-              <h3>Thông số kỹ thuật</h3>
-              <div class="info-item">
-                <strong>Số tầng:</strong>
-                <span>3 tầng</span>
-              </div>
-              <div class="info-item">
-                <strong>Số phòng ngủ:</strong>
-                <span>4 phòng</span>
-              </div>
-              <div class="info-item">
-                <strong>Số phòng tắm:</strong>
-                <span>3 phòng</span>
-              </div>
-              <div class="info-item">
-                <strong>Diện tích xây dựng:</strong>
-                <span>300m²</span>
-              </div>
-              <div class="info-item">
-                <strong>Kinh phí:</strong>
-                <span>2.5 tỷ đồng</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </body>
-    </html>
+    </div>
+    
+    <h3 style="color: #1b3025; margin-top: 2rem; margin-bottom: 1rem;">Vật liệu sử dụng</h3>
+    <ul style="line-height: 1.6; color: #555;">
+      <li style="margin-bottom: 0.5rem;">Gạch ốp lát: Granite cao cấp</li>
+      <li style="margin-bottom: 0.5rem;">Cửa sổ: Nhôm kính cường lực</li>
+      <li style="margin-bottom: 0.5rem;">Sơn: Sơn nước cao cấp chống thấm</li>
+      <li style="margin-bottom: 0.5rem;">Hệ thống điện: Schneider Electric</li>
+      <li style="margin-bottom: 0.5rem;">Cửa gỗ: Gỗ công nghiệp MDF chống ẩm</li>
+      <li style="margin-bottom: 0.5rem;">Sàn gỗ: Sàn gỗ công nghiệp cao cấp</li>
+    </ul>
+    
+    <p style="line-height: 1.6; color: #333; margin-bottom: 1rem;">
+      <em style="color: #666; font-style: italic;">
+        Dự án được hoàn thành vào tháng 12/2023 với sự hài lòng cao của khách hàng. 
+        Đây là minh chứng cho chất lượng và uy tín của PG Design trong lĩnh vực thiết kế và thi công.
+      </em>
+    </p>
+    
+    <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 8px; margin: 2rem 0; border-left: 4px solid #4CAF50;">
+      <h3 style="color: #1b3025; margin-bottom: 1rem;">Cam kết chất lượng</h3>
+      <p style="color: #333; line-height: 1.6; margin-bottom: 1rem;">
+        PG Design cam kết mang đến cho khách hàng những công trình chất lượng cao với:
+      </p>
+      <ul style="color: #555; line-height: 1.6; margin: 0;">
+        <li style="margin-bottom: 0.5rem;">✓ Thiết kế độc đáo, phù hợp với nhu cầu khách hàng</li>
+        <li style="margin-bottom: 0.5rem;">✓ Vật liệu xây dựng chất lượng cao, có nguồn gốc rõ ràng</li>
+        <li style="margin-bottom: 0.5rem;">✓ Thi công đúng tiến độ với đội ngũ thợ lành nghề</li>
+        <li style="margin-bottom: 0.5rem;">✓ Bảo hành công trình lên đến 2 năm</li>
+        <li style="margin-bottom: 0;">✓ Hỗ trợ khách hàng 24/7 trong quá trình thi công</li>
+      </ul>
+    </div>
   `,
   
   projectImages: [
@@ -369,9 +149,12 @@ export const fetchProjectDetailDataMock = async (projectId: string): Promise<Pro
 // Real API functions
 export const fetchProjectDetailDataApi = async (projectId: string): Promise<ProjectDetailData> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/projects/${projectId}`);
+    const response = await fetch(`${API_ENDPOINT}/project/${projectId}`);
     
     if (!response.ok) {
+      if (response.status === 404) {
+        throw new Error('Project not found');
+      }
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
@@ -392,7 +175,20 @@ export const fetchProjectDetailDataApi = async (projectId: string): Promise<Proj
 
 // Main service function
 export const fetchProjectDetailData = async (projectId: string): Promise<ProjectDetailData> => {
-  return USE_MOCK_DATA ? fetchProjectDetailDataMock(projectId) : fetchProjectDetailDataApi(projectId);
+  if (USE_MOCK_DATA) {
+    return fetchProjectDetailDataMock(projectId);
+  }
+  
+  try {
+    return await fetchProjectDetailDataApi(projectId);
+  } catch (error) {
+    // Fallback to mock data if API fails in development
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('API failed, falling back to mock data:', error);
+      return fetchProjectDetailDataMock(projectId);
+    }
+    throw error;
+  }
 };
 
 // Data source helper
@@ -400,11 +196,217 @@ export const getCurrentDataSource = () => {
   return USE_MOCK_DATA ? 'mock' : 'api';
 };
 
-// Export available functions for external use
+// Additional service functions for CRUD operations
 export const projectDetailService = {
+  // Get project detail by project ID
   fetchProjectDetailData,
   fetchProjectDetailDataMock,
   fetchProjectDetailDataApi,
   getCurrentDataSource,
-  mockData: mockProjectDetailData
+  mockData: mockProjectDetailData,
+
+  // Get all project details with filtering
+  async getAllProjectDetails(filters?: {
+    category?: string;
+    subCategory?: string;
+    projectStatus?: string;
+    page?: number;
+    limit?: number;
+  }): Promise<ProjectDetailData[]> {
+    if (USE_MOCK_DATA) {
+      await delay(300);
+      return [mockProjectDetailData];
+    }
+
+    try {
+      const queryParams = new URLSearchParams();
+      if (filters) {
+        Object.entries(filters).forEach(([key, value]) => {
+          if (value !== undefined) {
+            queryParams.append(key, value.toString());
+          }
+        });
+      }
+      
+      const response = await fetch(`${API_ENDPOINT}?${queryParams}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data.success ? data.data : [];
+    } catch (error) {
+      console.error('Error fetching project details:', error);
+      if (process.env.NODE_ENV === 'development') {
+        return [mockProjectDetailData];
+      }
+      return [];
+    }
+  },
+
+  // Create project detail
+  async createProjectDetail(projectData: Omit<ProjectDetailData, 'id'>): Promise<ProjectDetailData | null> {
+    if (USE_MOCK_DATA) {
+      await delay(1000);
+      return { ...projectData, id: `project-${Date.now()}` };
+    }
+
+    try {
+      const response = await fetch(API_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(projectData),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data.success ? data.data : null;
+    } catch (error) {
+      console.error('Error creating project detail:', error);
+      return null;
+    }
+  },
+
+  // Update project detail
+  async updateProjectDetail(id: string, projectData: Partial<ProjectDetailData>): Promise<ProjectDetailData | null> {
+    if (USE_MOCK_DATA) {
+      await delay(1000);
+      return { ...mockProjectDetailData, ...projectData, id };
+    }
+
+    try {
+      const response = await fetch(`${API_ENDPOINT}/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(projectData),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data.success ? data.data : null;
+    } catch (error) {
+      console.error('Error updating project detail:', error);
+      return null;
+    }
+  },
+
+  // Delete project detail
+  async deleteProjectDetail(id: string): Promise<boolean> {
+    if (USE_MOCK_DATA) {
+      await delay(500);
+      return true;
+    }
+
+    try {
+      const response = await fetch(`${API_ENDPOINT}/${id}`, {
+        method: 'DELETE',
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data.success;
+    } catch (error) {
+      console.error('Error deleting project detail:', error);
+      return false;
+    }
+  },
+
+  // Get project categories
+  async getProjectCategories(): Promise<string[]> {
+    if (USE_MOCK_DATA) {
+      await delay(200);
+      return ['house-normal', 'house-full', 'apartment', 'office', 'commercial'];
+    }
+
+    try {
+      const response = await fetch(`${API_ENDPOINT}/util/categories`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data.success ? data.data : [];
+    } catch (error) {
+      console.error('Error fetching project categories:', error);
+      return ['house-normal', 'house-full', 'apartment', 'office', 'commercial'];
+    }
+  },
+
+  // Get project subcategories
+  async getProjectSubCategories(category?: string): Promise<string[]> {
+    if (USE_MOCK_DATA) {
+      await delay(200);
+      return ['Nhà Ống', 'Nhà Biệt Thự', 'Căn Hộ', 'Văn Phòng'];
+    }
+
+    try {
+      const queryParams = new URLSearchParams();
+      if (category) {
+        queryParams.append('category', category);
+      }
+      
+      const response = await fetch(`${API_ENDPOINT}/util/subcategories?${queryParams}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data.success ? data.data : [];
+    } catch (error) {
+      console.error('Error fetching project subcategories:', error);
+      return ['Nhà Ống', 'Nhà Biệt Thự', 'Căn Hộ', 'Văn Phòng'];
+    }
+  },
+
+  // Search project details
+  async searchProjectDetails(query: string, filters?: {
+    category?: string;
+    subCategory?: string;
+    page?: number;
+    limit?: number;
+  }): Promise<ProjectDetailData[]> {
+    if (USE_MOCK_DATA) {
+      await delay(300);
+      return query.toLowerCase().includes('nhà phố') ? [mockProjectDetailData] : [];
+    }
+
+    try {
+      const queryParams = new URLSearchParams({ q: query });
+      if (filters) {
+        Object.entries(filters).forEach(([key, value]) => {
+          if (value !== undefined) {
+            queryParams.append(key, value.toString());
+          }
+        });
+      }
+      
+      const response = await fetch(`${API_ENDPOINT}/search/query?${queryParams}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data.success ? data.data : [];
+    } catch (error) {
+      console.error('Error searching project details:', error);
+      return [];
+    }
+  }
 }; 

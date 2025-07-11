@@ -19,6 +19,54 @@
   font-family: 'Barlow', sans-serif;
 }
 
+/* Embedded HTML content styles */
+.embedded-html-content {
+  line-height: 1.6;
+  font-family: var(--primary-font);
+}
+
+.embedded-html-content h3 {
+  color: #1b3025 !important;
+  margin-top: 2rem !important;
+  margin-bottom: 1rem !important;
+  font-weight: 600;
+}
+
+.embedded-html-content p {
+  line-height: 1.6 !important;
+  color: #333 !important;
+  margin-bottom: 1rem !important;
+}
+
+.embedded-html-content ul {
+  line-height: 1.6 !important;
+  color: #555 !important;
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.embedded-html-content li {
+  margin-bottom: 0.5rem !important;
+  color: #555 !important;
+}
+
+.embedded-html-content strong {
+  color: #1b3025 !important;
+  font-weight: 600;
+}
+
+.embedded-html-content em {
+  color: #666 !important;
+  font-style: italic;
+}
+
+.embedded-html-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 /* Project Hero Section */
 .project-detail-page-dynamic .project-hero {
   position: relative;

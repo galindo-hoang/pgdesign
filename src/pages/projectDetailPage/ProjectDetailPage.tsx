@@ -52,7 +52,7 @@ const ProjectDetailPage: React.FC = () => {
     return <div className="blank-screen"></div>;
   }
 
-  // Render the project detail layout as JSX components
+  // Render hybrid layout: JSX structure with embedded HTML content in main area
   return (
     <div className="project-detail-page-dynamic">
       {/* Hero Section */}
@@ -75,56 +75,13 @@ const ProjectDetailPage: React.FC = () => {
       {/* Project Content */}
       <div className="project-content">
         <div className="content-grid">
-          {/* Main Content */}
+                    {/* Main Content */}
           <div className="main-content">
             <h2>Thông tin chi tiết dự án</h2>
-            <p>
-              Đây là dự án nhà phố hiện đại được thiết kế với phong cách tối giản nhưng không kém phần sang trọng. 
-              Công trình được hoàn thành với chất lượng cao và sự hài lòng của khách hàng.
-            </p>
-            
-            <h3>Đặc điểm nổi bật</h3>
-            <ul>
-              <li>Thiết kế mặt tiền hiện đại với các đường nét sạch sẽ</li>
-              <li>Tối ưu hóa ánh sáng tự nhiên cho toàn bộ không gian</li>
-              <li>Sử dụng vật liệu cao cấp và thân thiện với môi trường</li>
-              <li>Bố trí không gian thông minh, tận dụng tối đa diện tích</li>
-            </ul>
-            
-            <h3>Không gian chức năng</h3>
-            <p><strong>Tầng 1:</strong> Phòng khách, phòng bếp, phòng ăn và khu vực tiếp khách</p>
-            <p><strong>Tầng 2:</strong> Phòng ngủ chính, phòng ngủ khách và phòng tắm</p>
-            <p><strong>Tầng 3:</strong> Phòng làm việc, khu vực thư giãn và sân thượng</p>
-            
-            <div className="project-gallery">
-              <h3>Hình ảnh dự án</h3>
-              <div className="image-grid">
-                {projectData.projectImages?.map((image, index) => (
-                                     <img 
-                     key={index}
-                     src={image} 
-                     alt={`Project view ${index + 1}`}
-                   />
-                ))}
-              </div>
-            </div>
-            
-            <h3>Vật liệu sử dụng</h3>
-            <ul>
-              <li>Gạch ốp lát: Granite cao cấp</li>
-              <li>Cửa sổ: Nhôm kính cường lực</li>
-              <li>Sơn: Sơn nước cao cấp chống thấm</li>
-              <li>Hệ thống điện: Schneider Electric</li>
-              <li>Cửa gỗ: Gỗ công nghiệp MDF chống ẩm</li>
-              <li>Sàn gỗ: Sàn gỗ công nghiệp cao cấp</li>
-            </ul>
-            
-            <p>
-              <em>
-                Dự án được hoàn thành vào tháng 12/2023 với sự hài lòng cao của khách hàng. 
-                Đây là minh chứng cho chất lượng và uy tín của PG Design trong lĩnh vực thiết kế và thi công.
-              </em>
-            </p>
+            <div 
+              className="embedded-html-content"
+              dangerouslySetInnerHTML={{ __html: projectData.htmlContent }}
+            />
           </div>
           
           {/* Sidebar */}
