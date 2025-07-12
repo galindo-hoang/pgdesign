@@ -24,7 +24,7 @@ const ProjectDetailPage: React.FC = () => {
         setIsLoading(true);
         setError(null);
         
-        const data = await fetchProjectDetailData(projectId);
+        const data = await fetchProjectDetailData("1");
         setProjectData(data);
       } catch (err: any) {
         console.error('Error loading project detail data:', err);

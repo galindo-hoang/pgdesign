@@ -6,7 +6,7 @@ import { ProjectDetailData, ApiResponse } from '../types/projectDetailTypes';
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002';
 const API_VERSION = 'v1';
 const API_ENDPOINT = `${API_BASE_URL}/api/${API_VERSION}/projectdetail`;
-const USE_MOCK_DATA = process.env.NODE_ENV === 'development' && !process.env.REACT_APP_USE_REAL_API;
+const USE_MOCK_DATA = false;
 
 // Mock project detail data - Project 1
 const mockProjectDetailData: ProjectDetailData = {
@@ -149,7 +149,7 @@ export const fetchProjectDetailDataMock = async (projectId: string): Promise<Pro
 // Real API functions
 export const fetchProjectDetailDataApi = async (projectId: string): Promise<ProjectDetailData> => {
   try {
-    const response = await fetch(`${API_ENDPOINT}/project/${projectId}`);
+    const response = await fetch(`${API_ENDPOINT}/${projectId}`);
     
     if (!response.ok) {
       if (response.status === 404) {

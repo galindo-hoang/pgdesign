@@ -113,7 +113,7 @@
 /* --- Responsive Adjustments --- */
 @media (max-width: 768px) {
   .wp-main-headline {
-    font-size: 40px;
+    font-size: 28px;
   }
 
   .wp-tabs {

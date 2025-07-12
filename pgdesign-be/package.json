@@ -14,7 +14,9 @@
     "migrate:make": "knex migrate:make",
     "seed:make": "knex seed:make",
     "upload:images": "node scripts/uploadImages.js",
-    "public:urls": "node scripts/updateToPublicUrls.js"
+    "public:urls": "node scripts/updateToPublicUrls.js",
+    "seed:project-page": "node scripts/seedProjectPageFromMock.js",
+    "seed:subcategories": "node scripts/seedProjectSubCategoriesFromMock.js"
   },
   "dependencies": {
     "compression": "^1.7.4",

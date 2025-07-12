@@ -6,7 +6,7 @@ export class StatsSectionModel extends BaseModel {
   private statsItemsModel: BaseModel;
 
   constructor() {
-    super('stats_section_data');
+    super('stats_header');
     this.statsItemsModel = new BaseModel('stats_items');
   }
 
@@ -18,7 +18,7 @@ export class StatsSectionModel extends BaseModel {
     // Get stats items
     const statsItems = await db('stats_items')
       .where({ 
-        stats_section_id: result.id,
+        stats_header_id: result.id,
         is_active: true 
       })
       .orderBy('display_order', 'asc')
@@ -76,7 +76,7 @@ export class StatsSectionModel extends BaseModel {
       // Insert stats items
       if (statsItems.length > 0) {
         const statsItemsData = statsItems.map((item, index) => ({
-          stats_section_id: statsSectionId,
+          stats_header_id: statsSectionId,
           icon_name: item.iconName,
           icon_url: item.iconUrl,
           target_value: item.targetValue,
@@ -141,12 +141,12 @@ export class StatsSectionModel extends BaseModel {
       // Update stats items if provided
       if (statsItems !== undefined) {
         await trx('stats_items')
-          .where({ stats_section_id: id })
+          .where({ stats_header_id: id })
           .update({ is_active: false });
 
         if (statsItems.length > 0) {
           const statsItemsData = statsItems.map((item, index) => ({
-            stats_section_id: id,
+            stats_header_id: id,
             icon_name: item.iconName,
             icon_url: item.iconUrl,
             target_value: item.targetValue,

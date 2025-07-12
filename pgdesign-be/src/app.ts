@@ -27,6 +27,8 @@ app.use(helmet({
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:3001',
+  'http://localhost:3002', // Backend self-reference
+  'http://localhost:3003', // WebAdmin
   process.env.CORS_ORIGIN
 ].filter((origin): origin is string => typeof origin === 'string');
 

@@ -24,6 +24,8 @@ app.use((0, helmet_1.default)({
 const allowedOrigins = [
     'http://localhost:3000',
     'http://localhost:3001',
+    'http://localhost:3002',
+    'http://localhost:3003',
     process.env.CORS_ORIGIN
 ].filter((origin) => typeof origin === 'string');
 app.use((0, cors_1.default)({

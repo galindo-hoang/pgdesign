@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./SolutionSection.css";
 
 interface SolutionItemData {
@@ -20,6 +21,12 @@ interface SolutionSectionProps {
 }
 
 const SolutionSection: React.FC<SolutionSectionProps> = ({header,solutions}) => {
+  const navigate = useNavigate();
+
+  const handleDetailsClick = () => {
+    navigate('/service');
+  };
+
   return (
     <section className="solutions-section">
       <h2 className="solutions-main-headline">{header.mainHeadline}</h2>
@@ -37,9 +44,12 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({header,solutions}) => 
               {/* Overlay for gradient/text readability */}
               <div className="image-overlay">
                 <div className="solution-info">
-                  <a href={solution.link} className="solution-details-link">
+                  <button 
+                    onClick={handleDetailsClick} 
+                    className="solution-details-link"
+                  >
                     Xem chi tiết
-                  </a>
+                  </button>
                   <div className="solution-text-content">
                     <p className="solution-category">{solution.category}</p>
                     <h4 className="solution-title">{solution.title}</h4>

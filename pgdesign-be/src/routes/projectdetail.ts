@@ -19,19 +19,13 @@ const router: Router = Router();
  * - page: Page number for pagination
  * - limit: Items per page for pagination
  */
-router.get(
-  '/',
-  ProjectDetailController.getAllProjectDetails
-);
+router.get('/',ProjectDetailController.getAllProjectDetails);
 
 /**
  * Get project detail by ID
  * GET /api/v1/projectdetail/:id
  */
-router.get(
-  '/:id',
-  ProjectDetailController.getProjectDetailById
-);
+router.get('/:id',ProjectDetailController.getProjectDetailById);
 
 /**
  * Get project detail by project ID
@@ -117,20 +111,12 @@ router.get(
  * Bulk update project details
  * PUT /api/v1/projectdetail/bulk
  */
-router.put(
-  '/bulk/update',
-  validateContentType,
-  ProjectDetailController.bulkUpdateProjectDetails
-);
+router.put('/bulk/update',validateContentType,ProjectDetailController.bulkUpdateProjectDetails);
 
 /**
  * Bulk delete project details
  * DELETE /api/v1/projectdetail/bulk
  */
-router.delete(
-  '/bulk/delete',
-  validateContentType,
-  ProjectDetailController.bulkDeleteProjectDetails
-);
+router.delete('/bulk/delete',validateContentType,ProjectDetailController.bulkDeleteProjectDetails);
 
 export default router; 

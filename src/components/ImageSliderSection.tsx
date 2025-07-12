@@ -1,5 +1,6 @@
 // src/components/ImageSlider.tsx
 import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "./ImageSliderSection.css";
 
@@ -18,7 +19,8 @@ interface ImageSliderProps {
 }
 
 const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides }) => {
-  const sliderRef = useRef<Slider>(null); 
+  const sliderRef = useRef<Slider>(null);
+  const navigate = useNavigate(); 
   
   if (!slides || slides.length === 0) {
     return (
@@ -75,10 +77,9 @@ const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides }) => {
   };
 
   // Click handler for each slide
-  const handleSlideClick = (index: number) => {
-    if (sliderRef.current) {
-      sliderRef.current.slickGoTo(index);
-    }
+  const handleSlideClick = (slide: SlideData) => {
+    // Navigate to project detail page using the slide's ID
+    navigate(`/project-detail/${slide.id}`);
   };
 
   return (
@@ -88,7 +89,15 @@ const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides }) => {
           <div
             key={slide.id}
             className="slide-card-wrapper"
-            onClick={() => handleSlideClick(index)} // Add onClick handler
+            onClick={() => handleSlideClick(slide)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleSlideClick(slide);
+              }
+            }}
           >
             <div className="slide-card">
               <div className="slide-image-container">

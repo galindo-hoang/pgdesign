@@ -8,7 +8,7 @@ const database_1 = __importDefault(require("../config/database"));
 const BaseModel_1 = require("./BaseModel");
 class StatsSectionModel extends BaseModel_1.BaseModel {
     constructor() {
-        super('stats_section_data');
+        super('stats_header');
         this.statsItemsModel = new BaseModel_1.BaseModel('stats_items');
     }
     async getActiveStatsSection() {
@@ -17,7 +17,7 @@ class StatsSectionModel extends BaseModel_1.BaseModel {
             return null;
         const statsItems = await (0, database_1.default)('stats_items')
             .where({
-            stats_section_id: result.id,
+            stats_header_id: result.id,
             is_active: true
         })
             .orderBy('display_order', 'asc')
@@ -61,7 +61,7 @@ class StatsSectionModel extends BaseModel_1.BaseModel {
             const [statsSectionId] = await trx(this.tableName).insert(insertData);
             if (statsItems.length > 0) {
                 const statsItemsData = statsItems.map((item, index) => ({
-                    stats_section_id: statsSectionId,
+                    stats_header_id: statsSectionId,
                     icon_name: item.iconName,
                     icon_url: item.iconUrl,
                     target_value: item.targetValue,
@@ -117,11 +117,11 @@ class StatsSectionModel extends BaseModel_1.BaseModel {
             }
             if (statsItems !== undefined) {
                 await trx('stats_items')
-                    .where({ stats_section_id: id })
+                    .where({ stats_header_id: id })
                     .update({ is_active: false });
                 if (statsItems.length > 0) {
                     const statsItemsData = statsItems.map((item, index) => ({
-                        stats_section_id: id,
+                        stats_header_id: id,
                         icon_name: item.iconName,
                         icon_url: item.iconUrl,
                         target_value: item.targetValue,

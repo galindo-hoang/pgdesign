@@ -40,6 +40,8 @@ router.delete('/solution/:id', HomepageController.deleteSolutionData);
 // WORKFLOW SECTION ROUTES
 router.get('/workflow', HomepageController.getWorkflowData);
 router.post('/workflow', HomepageController.createWorkflowData);
+// TODO: Add updateWorkflowData method to controller
+// router.put('/workflow/:id', HomepageController.updateWorkflowData);
 
 // PROJECT DIARY SECTION ROUTES
 router.get('/project-diary', HomepageController.getProjectDiaryData);

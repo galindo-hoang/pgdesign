@@ -1,235 +1,3 @@
-// import {
-//   HomePageData,
-//   HeroData,
-//   AboutData,
-//   ImageSlideData,
-//   StatsData,
-//   SolutionData,
-//   WorkflowData,
-//   ProjectDiaryData,
-//   TestimonialData,
-//   ConsultationFormData
-// } from '../types/homePageTypes';
-
-// // API Configuration
-// const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
-// const API_TIMEOUT = 10000; // 10 seconds
-
-// // Error handling utility
-// const handleApiError = (error: any, section: string) => {
-//   console.error(`Error fetching ${section} data:`, error);
-//   throw new Error(`Failed to fetch ${section} data. Please try again later.`);
-// };
-
-// // API Functions for each section
-// export const fetchHeroData = async (): Promise<HeroData> => {
-//   try {
-//     const response = await fetch(`${API_BASE_URL}/homepage/hero`);
-//     const data = await response.json();
-    
-//     console.log(`HeroData: ${JSON.stringify(data)}`);
-//     if (!response.ok) {
-//       throw new Error(data.error || 'Failed to fetch hero data');
-//     }
-    
-//     return data.data;
-//   } catch (error) {
-//     handleApiError(error, 'hero');
-//     throw error;
-//   }
-// };
-
-// export const fetchAboutData = async (): Promise<AboutData> => {
-//   try {
-//     const response = await fetch(`${API_BASE_URL}/homepage/about`);
-//     const data = await response.json();
-    
-//     console.log(`AboutData: ${JSON.stringify(data)}`);
-//     if (!response.ok) {
-//       throw new Error(data.error || 'Failed to fetch about data');
-//     }
-    
-//     return data.data;
-//   } catch (error) {
-//     handleApiError(error, 'about');
-//     throw error;
-//   }
-// };
-
-// export const fetchImageSliderData = async (): Promise<ImageSlideData[]> => {
-//   try {
-//     const response = await fetch(`${API_BASE_URL}/homepage/image-slider`);
-//     const data = await response.json();
-
-//     console.log(`ImageSlideData: ${JSON.stringify(data)}`);
-//     if (!response.ok) {
-//       throw new Error(data.error || 'Failed to fetch image slider data');
-//     }
-    
-//     return data.data;
-//   } catch (error) {
-//     handleApiError(error, 'image slider');
-//     throw error;
-//   }
-// };
-
-// export const fetchStatsData = async (): Promise<StatsData> => {
-//   try {
-//     const response = await fetch(`${API_BASE_URL}/homepage/stats`);
-//     const data = await response.json();
-    
-//     console.log(`StatsData: ${JSON.stringify(data)}`);
-//     if (!response.ok) {
-//       throw new Error(data.error || 'Failed to fetch stats data');
-//     }
-    
-//     return data.data;
-//   } catch (error) {
-//     handleApiError(error, 'stats');
-//     throw error;
-//   }
-// };
-
-// export const fetchSolutionData = async (): Promise<SolutionData> => {
-//   try {
-//     const response = await fetch(`${API_BASE_URL}/homepage/solution`);
-//     const data = await response.json();
-    
-//     console.log(`SolutionData: ${JSON.stringify(data)}`);
-//     if (!response.ok) {
-//       throw new Error(data.error || 'Failed to fetch solution data');
-//     }
-    
-//     return data.data;
-//   } catch (error) {
-//     handleApiError(error, 'solution');
-//     throw error;
-//   }
-// };
-
-// export const fetchWorkflowData = async (): Promise<WorkflowData> => {
-//   try {
-//     const response = await fetch(`${API_BASE_URL}/homepage/workflow`);
-//     const data = await response.json();
-    
-//     console.log(`WorkflowData: ${JSON.stringify(data)}`);
-//     if (!response.ok) {
-//       throw new Error(data.error || 'Failed to fetch workflow data');
-//     }
-    
-//     return data.data;
-//   } catch (error) {
-//     handleApiError(error, 'workflow');
-//     throw error;
-//   }
-// };
-
-// export const fetchProjectDiaryData = async (): Promise<ProjectDiaryData> => {
-//   try {
-//     const response = await fetch(`${API_BASE_URL}/homepage/project-diary`);
-//     const data = await response.json();
-    
-//     console.log(`ProjectDiaryData: ${JSON.stringify(data)}`);
-//     if (!response.ok) {
-//       throw new Error(data.error || 'Failed to fetch project diary data');
-//     }
-    
-//     return data.data;
-//   } catch (error) {
-//     handleApiError(error, 'project diary');
-//     throw error;
-//   }
-// };
-
-// export const fetchTestimonialData = async (): Promise<TestimonialData> => {
-//   try {
-//     const response = await fetch(`${API_BASE_URL}/homepage/testimonials`);
-//     const data = await response.json();
-
-//     console.log(`TestimonialData: ${JSON.stringify(data)}`);
-//     if (!response.ok) {
-//       throw new Error(data.error || 'Failed to fetch testimonial data');
-//     }
-    
-//     return data.data;
-//   } catch (error) {
-//     handleApiError(error, 'testimonials');
-//     throw error;
-//   }
-// };
-
-// export const fetchConsultationFormData = async (): Promise<ConsultationFormData> => {
-//   try {
-//     const response = await fetch(`${API_BASE_URL}/homepage/consultation-form`);
-//     const data = await response.json();
-    
-//     console.log(`ConsultationFormData: ${JSON.stringify(data)}`);
-//     if (!response.ok) {
-//       throw new Error(data.error || 'Failed to fetch consultation form data');
-//     }
-    
-//     return data.data;
-//   } catch (error) {
-//     handleApiError(error, 'consultation form');
-//     throw error;
-//   }
-// };
-
-// // Main function to fetch all homepage data
-// export const fetchHomePageData = async (): Promise<HomePageData> => {
-//   try {
-//     // Fetch all data in parallel for better performance
-//     const [
-//       hero,
-//       about,
-//       imageSlider,
-//       stats,
-//       solution,
-//       workflow,
-//       projectDiary,
-//       testimonials,
-//       consultationForm
-//     ] = await Promise.all([
-//       fetchHeroData(),
-//       fetchAboutData(),
-//       fetchImageSliderData(),
-//       fetchStatsData(),
-//       fetchSolutionData(),
-//       fetchWorkflowData(),
-//       fetchProjectDiaryData(),
-//       fetchTestimonialData(),
-//       fetchConsultationFormData()
-//     ]);
-
-//     return {
-//       hero,
-//       about,
-//       imageSlider,
-//       stats,
-//       solution,
-//       workflow,
-//       projectDiary,
-//       testimonials,
-//       consultationForm
-//     };
-//   } catch (error) {
-//     handleApiError(error, 'homepage');
-//     throw error;
-//   }
-// };
-
-// // Utility function to check API health
-// export const checkApiHealth = async (): Promise<boolean> => {
-//   try {
-//     const response = await fetch(`${API_BASE_URL}/health`);
-//     return response.ok;
-//   } catch (error) {
-//     console.error('API health check failed:', error);
-//     return false;
-//   }
-// };
-
-
 import {
   HomePageData,
   HeroData,
@@ -268,8 +36,11 @@ import projectImg from "../assets/images/diary-image-3.jpg";
 import qualityImg from "../assets/images/diary-image-4.jpg";
 
 // API Configuration
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
 const API_TIMEOUT = 10000; // 10 seconds
+
+// Feature flag for mock data
+const USE_MOCK_DATA = false;
 
 // Utility function to simulate API delay
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -283,22 +54,37 @@ const handleApiError = (error: any, section: string) => {
 // API Functions for each section
 export const fetchHeroData = async (): Promise<HeroData> => {
   try {
-    // Simulate API call
-    await delay(500);
-    
-    // In real implementation, this would be:
-    // const response = await fetch(`${API_BASE_URL}/hero`);
-    // return await response.json();
-    
-    return {
-      images: [
-        thumbIntro,
-        thumbIntro1,
-        thumbIntro2,
-        thumbIntro3,
-        thumbIntro,
-      ]
-    };
+    if (USE_MOCK_DATA) {
+      // Use mock data
+      await delay(500);
+      return {
+        images: [
+          thumbIntro,
+          thumbIntro1,
+          thumbIntro2,
+          thumbIntro3,
+          thumbIntro,
+        ]
+      };
+    } else {
+      // Make real API call
+      const response = await fetch(`${API_BASE_URL}/homepage/hero`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        signal: AbortSignal.timeout(API_TIMEOUT),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return {
+        images: data.data.images || []
+      };
+    }
   } catch (error) {
     handleApiError(error, 'hero');
     throw error;
@@ -307,13 +93,35 @@ export const fetchHeroData = async (): Promise<HeroData> => {
 
 export const fetchAboutData = async (): Promise<AboutData> => {
   try {
-    await delay(300);
-    
-    return {
-      headline: "MỖI THIẾT KẾ LÀ MỘT CÂU CHUYỆN",
-      subHeadline: "MỖI CÔNG TRÌNH LÀ MỘT DẤU ẤN",
-      description: "Thành lập từ năm 2022, PG là đội ngũ kiến trúc sư trẻ đầy đam mê và nhiệt huyết, hoạt động chuyên sâu trong lĩnh vực Kiến trúc - Xây dựng - Nội thất. Chúng tôi mang đến giải pháp toàn diện từ thiết kế ý tưởng đến thi công hoàn thiện, giúp khách hàng tối ưu không gian sống, tiết kiệm thời gian và chi phí, nhưng vẫn đảm bảo thẩm mỹ và công năng."
-    };
+    if (USE_MOCK_DATA) {
+      // Use mock data
+      await delay(300);
+      return {
+        headline: "MỖI THIẾT KẾ LÀ MỘT CÂU CHUYỆN",
+        subHeadline: "MỖI CÔNG TRÌNH LÀ MỘT DẤU ẤN",
+        description: "Thành lập từ năm 2022, PG là đội ngũ kiến trúc sư trẻ đầy đam mê và nhiệt huyết, hoạt động chuyên sâu trong lĩnh vực Kiến trúc - Xây dựng - Nội thất. Chúng tôi mang đến giải pháp toàn diện từ thiết kế ý tưởng đến thi công hoàn thiện, giúp khách hàng tối ưu không gian sống, tiết kiệm thời gian và chi phí, nhưng vẫn đảm bảo thẩm mỹ và công năng."
+      };
+    } else {
+      // Make real API call
+      const response = await fetch(`${API_BASE_URL}/homepage/about`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        signal: AbortSignal.timeout(API_TIMEOUT),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return {
+        headline: data.data.headline || '',
+        subHeadline: data.data.sub_headline || '',
+        description: data.data.description || ''
+      };
+    }
   } catch (error) {
     handleApiError(error, 'about');
     throw error;
@@ -322,45 +130,69 @@ export const fetchAboutData = async (): Promise<AboutData> => {
 
 export const fetchImageSliderData = async (): Promise<ImageSlideData[]> => {
   try {
-    await delay(400);
-    
-    return [
-      {
-        id: 1,
-        imageUrl: thumbIntro1,
-        title: "NHÀ ANH TRẠCH",
-        subtitle: "Thi công nội thất nhà phố",
-        size: "180m2",
-      },
-      {
-        id: 2,
-        imageUrl: thumbIntro2,
-        title: "ANH MỸ - OPAL GARDEN",
-        subtitle: "Thi công nội thất căn hộ",
-        size: "180m2",
-      },
-      {
-        id: 3,
-        imageUrl: thumbIntro3,
-        title: "SKY LINKED VILLA",
-        subtitle: "Thi công nội thất biệt thự",
-        size: "180m2",
-      },
-      {
-        id: 4,
-        imageUrl: thumbIntro,
-        title: "DỰ ÁN MỚI 1",
-        subtitle: "Thi công nội thất chung cư",
-        size: "120m2",
-      },
-      {
-        id: 5,
-        imageUrl: thumbIntro1,
-        title: "DỰ ÁN MỚI 2",
-        subtitle: "Thi công nội thất văn phòng",
-        size: "300m2",
-      },
-    ];
+    if (USE_MOCK_DATA) {
+      // Use mock data
+      await delay(400);
+      return [
+        {
+          id: 1,
+          imageUrl: thumbIntro1,
+          title: "NHÀ ANH TRẠCH",
+          subtitle: "Thi công nội thất nhà phố",
+          size: "180m2",
+        },
+        {
+          id: 2,
+          imageUrl: thumbIntro2,
+          title: "ANH MỸ - OPAL GARDEN",
+          subtitle: "Thi công nội thất căn hộ",
+          size: "180m2",
+        },
+        {
+          id: 3,
+          imageUrl: thumbIntro3,
+          title: "SKY LINKED VILLA",
+          subtitle: "Thi công nội thất biệt thự",
+          size: "180m2",
+        },
+        {
+          id: 4,
+          imageUrl: thumbIntro,
+          title: "DỰ ÁN MỚI 1",
+          subtitle: "Thi công nội thất chung cư",
+          size: "120m2",
+        },
+        {
+          id: 5,
+          imageUrl: thumbIntro1,
+          title: "DỰ ÁN MỚI 2",
+          subtitle: "Thi công nội thất văn phòng",
+          size: "300m2",
+        },
+      ];
+    } else {
+      // Make real API call
+      const response = await fetch(`${API_BASE_URL}/homepage/image-slider`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        signal: AbortSignal.timeout(API_TIMEOUT),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data.data.map((slide: any) => ({
+        id: slide.id,
+        imageUrl: slide.image_url || '',
+        title: slide.title || '',
+        subtitle: slide.subtitle || '',
+        size: slide.size || ''
+      }));
+    }
   } catch (error) {
     handleApiError(error, 'image slider');
     throw error;
@@ -369,57 +201,91 @@ export const fetchImageSliderData = async (): Promise<ImageSlideData[]> => {
 
 export const fetchStatsData = async (): Promise<StatsData> => {
   try {
-    await delay(350);
-    
-    return {
-      header: {
-        mainHeadline: "THÀNH TỰU CỦA CHÚNG TÔI",
-        subHeadline: "Những con số ấn tượng",
-        description: "Với nhiều năm kinh nghiệm trong lĩnh vực thiết kế kiến trúc và nội thất, chúng tôi tự hào mang đến những giải pháp tối ưu cho mọi không gian sống."
-      },
-      items: [
-        {
-          id: 1,
-          icon: BriefcaseIcon,
-          targetValue: 5,
-          label: "Kinh nghiệm",
-          suffix: "+ năm",
-          description: "Kinh nghiệm",
-          backgroundImage: experienceImg,
-          category: "experience"
+    if (USE_MOCK_DATA) {
+      // Use mock data
+      await delay(350);
+      return {
+        header: {
+          mainHeadline: "THÀNH TỰU CỦA CHÚNG TÔI",
+          subHeadline: "Những con số ấn tượng",
+          description: "Với nhiều năm kinh nghiệm trong lĩnh vực thiết kế kiến trúc và nội thất, chúng tôi tự hào mang đến những giải pháp tối ưu cho mọi không gian sống."
         },
-        {
-          id: 2,
-          icon: HandshakeIcon,
-          targetValue: 500,
-          label: "Khách hàng",
-          suffix: "+",
-          description: "Tin tưởng & hài lòng",
-          backgroundImage: customerImg,
-          category: "customers"
+        items: [
+          {
+            id: 1,
+            icon: BriefcaseIcon,
+            targetValue: 5,
+            label: "Kinh nghiệm",
+            suffix: "+ năm",
+            description: "Kinh nghiệm",
+            backgroundImage: experienceImg,
+            category: "experience"
+          },
+          {
+            id: 2,
+            icon: HandshakeIcon,
+            targetValue: 500,
+            label: "Khách hàng",
+            suffix: "+",
+            description: "Tin tưởng & hài lòng",
+            backgroundImage: customerImg,
+            category: "customers"
+          },
+          {
+            id: 3,
+            icon: DesignIcon,
+            targetValue: 450,
+            label: "Dự án",
+            suffix: "+",
+            description: "Thiết kế hoàn thành",
+            backgroundImage: projectImg,
+            category: "projects"
+          },
+          {
+            id: 4,
+            icon: GearIcon,
+            targetValue: 98,
+            label: "Chất lượng",
+            suffix: "%",
+            description: "Cam kết hoàn hảo",
+            backgroundImage: qualityImg,
+            category: "quality"
+          },
+        ]
+      };
+    } else {
+      // Make real API call
+      const response = await fetch(`${API_BASE_URL}/homepage/stats`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        {
-          id: 3,
-          icon: DesignIcon,
-          targetValue: 450,
-          label: "Dự án",
-          suffix: "+",
-          description: "Thiết kế hoàn thành",
-          backgroundImage: projectImg,
-          category: "projects"
+        signal: AbortSignal.timeout(API_TIMEOUT),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return {
+        header: {
+          mainHeadline: data.data.header.main_headline || '',
+          subHeadline: data.data.header.sub_headline || '',
+          description: data.data.header.description || ''
         },
-        {
-          id: 4,
-          icon: GearIcon,
-          targetValue: 98,
-          label: "Chất lượng",
-          suffix: "%",
-          description: "Cam kết hoàn hảo",
-          backgroundImage: qualityImg,
-          category: "quality"
-        },
-      ]
-    };
+        items: data.data.items.map((item: any) => ({
+          id: item.id,
+          icon: BriefcaseIcon, // Keep using default icons since backend doesn't provide components
+          targetValue: item.targetValue || 0,
+          label: item.label || '',
+          suffix: item.suffix || '',
+          description: item.description || '',
+          backgroundImage: item.backgroundImageUrl || experienceImg,
+          category: item.category || ''
+        }))
+      };
+    }
   } catch (error) {
     handleApiError(error, 'stats');
     throw error;
@@ -428,44 +294,74 @@ export const fetchStatsData = async (): Promise<StatsData> => {
 
 export const fetchSolutionData = async (): Promise<SolutionData> => {
   try {
-    await delay(300);
-    
-    return {
-      header: {
-        mainHeadline: "GIẢI PHÁP KHÔNG GIAN",
-        subHeadline: "DÀNH RIÊNG CHO BẠN"
-      },
-      solutions: [
-        {
-          id: 1,
-          imageUrl: solutionImg1,
-          category: "Dịch vụ",
-          title: "Thiết kế kiến trúc",
-          link: "/services/architecture-design",
+    if (USE_MOCK_DATA) {
+      // Use mock data
+      await delay(300);
+      return {
+        header: {
+          mainHeadline: "GIẢI PHÁP KHÔNG GIAN",
+          subHeadline: "DÀNH RIÊNG CHO BẠN"
         },
-        {
-          id: 2,
-          imageUrl: solutionImg2,
-          category: "Dịch vụ",
-          title: "Thiết kế nội thất",
-          link: "/services/interior-design",
+        solutions: [
+          {
+            id: 1,
+            imageUrl: solutionImg1,
+            category: "Dịch vụ",
+            title: "Thiết kế kiến trúc",
+            link: "/services/architecture-design",
+          },
+          {
+            id: 2,
+            imageUrl: solutionImg2,
+            category: "Dịch vụ",
+            title: "Thiết kế nội thất",
+            link: "/services/interior-design",
+          },
+          {
+            id: 3,
+            imageUrl: solutionImg3,
+            category: "Dịch vụ",
+            title: "Thi công hoàn thiện",
+            link: "/services/construction",
+          },
+          {
+            id: 4,
+            imageUrl: solutionImg4,
+            category: "Dịch vụ",
+            title: "Thi công trọn gói",
+            link: "/services/full-package",
+          },
+        ]
+      };
+    } else {
+      // Make real API call
+      const response = await fetch(`${API_BASE_URL}/homepage/solution`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        {
-          id: 3,
-          imageUrl: solutionImg3,
-          category: "Dịch vụ",
-          title: "Thi công hoàn thiện",
-          link: "/services/construction",
+        signal: AbortSignal.timeout(API_TIMEOUT),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return {
+        header: {
+          mainHeadline: data.data.header.main_headline || '',
+          subHeadline: data.data.header.sub_headline || ''
         },
-        {
-          id: 4,
-          imageUrl: solutionImg4,
-          category: "Dịch vụ",
-          title: "Thi công trọn gói",
-          link: "/services/full-package",
-        },
-      ]
-    };
+        solutions: data.data.solutions.map((solution: any) => ({
+          id: solution.id,
+          imageUrl: solution.image_url || '',
+          category: solution.category || '',
+          title: solution.title || '',
+          link: solution.link || ''
+        }))
+      };
+    }
   } catch (error) {
     handleApiError(error, 'solution');
     throw error;
@@ -474,25 +370,51 @@ export const fetchSolutionData = async (): Promise<SolutionData> => {
 
 export const fetchWorkflowData = async (): Promise<WorkflowData> => {
   try {
-    await delay(250);
-    
-    return {
-      title: "QUY TRÌNH LÀM VIỆC",
-      workflows: [
-        {
-          id: 'design',
-          icon: DesignProcessIcon,
-          title: 'QUY TRÌNH THIẾT KẾ',
-          diagram: WorkProcessFlowDiagram1
+    if (USE_MOCK_DATA) {
+      // Use mock data
+      await delay(250);
+      return {
+        title: "QUY TRÌNH LÀM VIỆC",
+        workflows: [
+          {
+            id: 'design',
+            icon: DesignProcessIcon,
+            title: 'QUY TRÌNH THIẾT KẾ',
+            diagram: WorkProcessFlowDiagram1
+          },
+          {
+            id: 'construction',
+            icon: ConstructionProcessIcon,
+            title: 'QUY TRÌNH THI CÔNG',
+            diagram: WorkProcessFlowDiagram2
+          }
+        ]
+      };
+    } else {
+      // Make real API call
+      const response = await fetch(`${API_BASE_URL}/homepage/workflow`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        {
-          id: 'construction',
-          icon: ConstructionProcessIcon,
-          title: 'QUY TRÌNH THI CÔNG',
-          diagram: WorkProcessFlowDiagram2
-        }
-      ]
-    };
+        signal: AbortSignal.timeout(API_TIMEOUT),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return {
+        title: data.data.main.title || '',
+        workflows: data.data.tabs.map((tab: any) => ({
+          id: tab.workflow_key || '',
+          icon: tab.workflow_key === 'design' ? DesignProcessIcon : ConstructionProcessIcon,
+          title: tab.title || '',
+          diagram: tab.workflow_key === 'design' ? WorkProcessFlowDiagram1 : WorkProcessFlowDiagram2
+        }))
+      };
+    }
   } catch (error) {
     handleApiError(error, 'workflow');
     throw error;
@@ -501,21 +423,45 @@ export const fetchWorkflowData = async (): Promise<WorkflowData> => {
 
 export const fetchProjectDiaryData = async (): Promise<ProjectDiaryData> => {
   try {
-    await delay(200);
-    
-    return {
-      title: "NHẬT KÝ HÀNH TRÌNH",
-      images: [
-        { src: thumbIntro1, alt: "People presenting something at a table" },
-        { src: thumbIntro2, alt: "People inspecting a room in construction" },
-        { src: thumbIntro3, alt: "Construction workers reviewing plans" },
-        { src: solutionImg1, alt: "Stylish kitchen interior" },
-        { src: solutionImg2, alt: "Person using a tablet at a desk" },
-        { src: solutionImg3, alt: "Modern living room interior" },
-        { src: solutionImg4, alt: "Team standing in front of a house design" },
-        { src: thumbIntro, alt: "Worker installing a window" },
-      ]
-    };
+    if (USE_MOCK_DATA) {
+      // Use mock data
+      await delay(200);
+      return {
+        title: "NHẬT KÝ HÀNH TRÌNH",
+        images: [
+          { src: thumbIntro1, alt: "People presenting something at a table" },
+          { src: thumbIntro2, alt: "People inspecting a room in construction" },
+          { src: thumbIntro3, alt: "Construction workers reviewing plans" },
+          { src: solutionImg1, alt: "Stylish kitchen interior" },
+          { src: solutionImg2, alt: "Person using a tablet at a desk" },
+          { src: solutionImg3, alt: "Modern living room interior" },
+          { src: solutionImg4, alt: "Team standing in front of a house design" },
+          { src: thumbIntro, alt: "Worker installing a window" },
+        ]
+      };
+    } else {
+      // Make real API call
+      const response = await fetch(`${API_BASE_URL}/homepage/project-diary`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        signal: AbortSignal.timeout(API_TIMEOUT),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return {
+        title: data.data.main.title || '',
+        images: data.data.images.map((image: any) => ({
+          src: image.image_url || '',
+          alt: image.image_alt || ''
+        }))
+      };
+    }
   } catch (error) {
     handleApiError(error, 'project diary');
     throw error;
@@ -524,41 +470,69 @@ export const fetchProjectDiaryData = async (): Promise<ProjectDiaryData> => {
 
 export const fetchTestimonialData = async (): Promise<TestimonialData> => {
   try {
-    await delay(300);
-    
-    return {
-      header: {
-        mainHeadline: "CẢM NHẬN KHÁCH HÀNG",
-        subHeadline: "VỀ PG DESIGN"
-      },
-      testimonials: [
-        {
-          name: "CHỊ NHI",
-          project: "CHUNG CƯ CITY GATES - Q1",
-          text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.",
+    if (USE_MOCK_DATA) {
+      // Use mock data
+      await delay(300);
+      return {
+        header: {
+          mainHeadline: "CẢM NHẬN KHÁCH HÀNG",
+          subHeadline: "VỀ PG DESIGN"
         },
-        {
-          name: "ANH BÌNH",
-          project: "CHUNG CƯ CITY GATES - Q1",
-          text: "Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.",
+        testimonials: [
+          {
+            name: "CHỊ NHI",
+            project: "CHUNG CƯ CITY GATES - Q1",
+            text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.",
+          },
+          {
+            name: "ANH BÌNH",
+            project: "CHUNG CƯ CITY GATES - Q1",
+            text: "Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.",
+          },
+          {
+            name: "CHỊ LAN",
+            project: "DỰ ÁN BIỆT THỰ ĐÀ LẠT - Q1",
+            text: "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim.",
+          },
+          {
+            name: "ANH THỊNH",
+            project: "NHÀ PHỐ QUẬN 7 - Q1",
+            text: "Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius.",
+          },
+          {
+            name: "CHỊ MAI",
+            project: "CĂN HỘ CAO CẤP - Q8",
+            text: "Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.",
+          },
+        ]
+      };
+    } else {
+      // Make real API call
+      const response = await fetch(`${API_BASE_URL}/homepage/testimonials`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        {
-          name: "CHỊ LAN",
-          project: "DỰ ÁN BIỆT THỰ ĐÀ LẠT - Q1",
-          text: "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim.",
+        signal: AbortSignal.timeout(API_TIMEOUT),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return {
+        header: {
+          mainHeadline: data.data.header.main_headline || '',
+          subHeadline: data.data.header.sub_headline || ''
         },
-        {
-          name: "ANH THỊNH",
-          project: "NHÀ PHỐ QUẬN 7 - Q1",
-          text: "Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius.",
-        },
-        {
-          name: "CHỊ MAI",
-          project: "CĂN HỘ CAO CẤP - Q8",
-          text: "Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.",
-        },
-      ]
-    };
+        testimonials: data.data.testimonials.map((testimonial: any) => ({
+          name: testimonial.name || '',
+          project: testimonial.project || '',
+          text: testimonial.text || ''
+        }))
+      };
+    }
   } catch (error) {
     handleApiError(error, 'testimonials');
     throw error;
@@ -567,23 +541,47 @@ export const fetchTestimonialData = async (): Promise<TestimonialData> => {
 
 export const fetchConsultationFormData = async (): Promise<ConsultationFormData> => {
   try {
-    await delay(150);
-    
-    return {
-      title: "ĐĂNG KÝ TƯ VẤN",
-      projectTypes: [
-        "-- Chọn loại công trình --",
-        "Nhà Phố - Căn hộ",
-        "Nhà hàng - Khách sạn",
-        "Quán Cafe",
-        "Văn phòng",
-        "Biệt thự",
-        "Shophouse",
-      ],
-      minInvestment: 100,
-      maxInvestment: 10000,
-      stepInvestment: 100
-    };
+    if (USE_MOCK_DATA) {
+      // Use mock data
+      await delay(150);
+      return {
+        title: "ĐĂNG KÝ TƯ VẤN",
+        projectTypes: [
+          "-- Chọn loại công trình --",
+          "Nhà Phố - Căn hộ",
+          "Nhà hàng - Khách sạn",
+          "Quán Cafe",
+          "Văn phòng",
+          "Biệt thự",
+          "Shophouse",
+        ],
+        minInvestment: 100,
+        maxInvestment: 10000,
+        stepInvestment: 100
+      };
+    } else {
+      // Make real API call
+      const response = await fetch(`${API_BASE_URL}/homepage/consultation-form`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        signal: AbortSignal.timeout(API_TIMEOUT),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return {
+        title: data.data.main.title || '',
+        projectTypes: data.data.projectTypes.map((type: any) => type.name || ''),
+        minInvestment: data.data.main.min_investment || 100,
+        maxInvestment: data.data.main.max_investment || 10000,
+        stepInvestment: data.data.main.step_investment || 100
+      };
+    }
   } catch (error) {
     handleApiError(error, 'consultation form');
     throw error;
@@ -593,40 +591,140 @@ export const fetchConsultationFormData = async (): Promise<ConsultationFormData>
 // Main function to fetch all homepage data
 export const fetchHomePageData = async (): Promise<HomePageData> => {
   try {
-    // Fetch all data in parallel for better performance
-    const [
-      hero,
-      about,
-      imageSlider,
-      stats,
-      solution,
-      workflow,
-      projectDiary,
-      testimonials,
-      consultationForm
-    ] = await Promise.all([
-      fetchHeroData(),
-      fetchAboutData(),
-      fetchImageSliderData(),
-      fetchStatsData(),
-      fetchSolutionData(),
-      fetchWorkflowData(),
-      fetchProjectDiaryData(),
-      fetchTestimonialData(),
-      fetchConsultationFormData()
-    ]);
+    if (USE_MOCK_DATA) {
+      // Use mock data - fetch all data in parallel for better performance
+      const [
+        hero,
+        about,
+        imageSlider,
+        stats,
+        solution,
+        workflow,
+        projectDiary,
+        testimonials,
+        consultationForm
+      ] = await Promise.all([
+        fetchHeroData(),
+        fetchAboutData(),
+        fetchImageSliderData(),
+        fetchStatsData(),
+        fetchSolutionData(),
+        fetchWorkflowData(),
+        fetchProjectDiaryData(),
+        fetchTestimonialData(),
+        fetchConsultationFormData()
+      ]);
 
-    return {
-      hero,
-      about,
-      imageSlider,
-      stats,
-      solution,
-      workflow,
-      projectDiary,
-      testimonials,
-      consultationForm
-    };
+      return {
+        hero,
+        about,
+        imageSlider,
+        stats,
+        solution,
+        workflow,
+        projectDiary,
+        testimonials,
+        consultationForm
+      };
+    } else {
+      // Make real API call to get all data at once
+      const response = await fetch(`${API_BASE_URL}/homepage`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        signal: AbortSignal.timeout(API_TIMEOUT),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      const apiData = data.data;
+      
+      return {
+        hero: {
+          images: apiData.hero.images || []
+        },
+        about: {
+          headline: apiData.about.headline || '',
+          subHeadline: apiData.about.sub_headline || '',
+          description: apiData.about.description || ''
+        },
+        imageSlider: apiData.imageSlider.map((slide: any) => ({
+          id: slide.id,
+          imageUrl: slide.image_url || '',
+          title: slide.title || '',
+          subtitle: slide.subtitle || '',
+          size: slide.size || ''
+        })),
+        stats: {
+          header: {
+            mainHeadline: apiData.stats.header.main_headline || '',
+            subHeadline: apiData.stats.header.sub_headline || '',
+            description: apiData.stats.header.description || ''
+          },
+          items: apiData.stats.items.map((item: any) => ({
+            id: item.id,
+            icon: BriefcaseIcon,
+            targetValue: item.targetValue || 0,
+            label: item.label || '',
+            suffix: item.suffix || '',
+            description: item.description || '',
+            backgroundImage: item.backgroundImageUrl || experienceImg,
+            category: item.category || ''
+          }))
+        },
+        solution: {
+          header: {
+            mainHeadline: apiData.solution.header.main_headline || '',
+            subHeadline: apiData.solution.header.sub_headline || ''
+          },
+          solutions: apiData.solution.solutions.map((solution: any) => ({
+            id: solution.id,
+            imageUrl: solution.image_url || '',
+            category: solution.category || '',
+            title: solution.title || '',
+            link: solution.link || ''
+          }))
+        },
+        workflow: {
+          title: apiData.workflow.main.title || '',
+          workflows: apiData.workflow.tabs.map((tab: any) => ({
+            id: tab.workflow_key || '',
+            icon: tab.workflow_key === 'design' ? DesignProcessIcon : ConstructionProcessIcon,
+            title: tab.title || '',
+            diagram: tab.workflow_key === 'design' ? WorkProcessFlowDiagram1 : WorkProcessFlowDiagram2
+          }))
+        },
+        projectDiary: {
+          title: apiData.projectDiary.main.title || '',
+          images: apiData.projectDiary.images.map((image: any) => ({
+            src: image.image_url || '',
+            alt: image.image_alt || ''
+          }))
+        },
+        testimonials: {
+          header: {
+            mainHeadline: apiData.testimonials.header.main_headline || '',
+            subHeadline: apiData.testimonials.header.sub_headline || ''
+          },
+          testimonials: apiData.testimonials.testimonials.map((testimonial: any) => ({
+            name: testimonial.name || '',
+            project: testimonial.project || '',
+            text: testimonial.text || ''
+          }))
+        },
+        consultationForm: {
+          title: apiData.consultationForm.main.title || '',
+          projectTypes: apiData.consultationForm.projectTypes.map((type: any) => type.name || ''),
+          minInvestment: apiData.consultationForm.main.min_investment || 100,
+          maxInvestment: apiData.consultationForm.main.max_investment || 10000,
+          stepInvestment: apiData.consultationForm.main.step_investment || 100
+        }
+      };
+    }
   } catch (error) {
     handleApiError(error, 'homepage');
     throw error;
@@ -636,10 +734,21 @@ export const fetchHomePageData = async (): Promise<HomePageData> => {
 // Utility function to check API health
 export const checkApiHealth = async (): Promise<boolean> => {
   try {
-    // const response = await fetch(`${API_BASE_URL}/health`);
-    // return response.ok;
-    await delay(100);
-    return true;
+    if (USE_MOCK_DATA) {
+      // Mock health check
+      await delay(100);
+      return true;
+    } else {
+      // Real API health check
+      const response = await fetch(`${API_BASE_URL}/health`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        signal: AbortSignal.timeout(API_TIMEOUT),
+      });
+      return response.ok;
+    }
   } catch (error) {
     console.error('API health check failed:', error);
     return false;
