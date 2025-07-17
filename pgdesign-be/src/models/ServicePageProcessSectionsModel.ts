@@ -73,6 +73,7 @@ export class ServicePageProcessSectionsModel extends BaseModel {
         title: data.title,
         description: data.description,
         note: data.note || '',
+        image_url: data.imageUrl || null,
         is_active: true
       };
 
@@ -103,6 +104,7 @@ export class ServicePageProcessSectionsModel extends BaseModel {
       if (data.title !== undefined) updateData.title = data.title;
       if (data.description !== undefined) updateData.description = data.description;
       if (data.note !== undefined) updateData.note = data.note;
+      if (data.imageUrl !== undefined) updateData.image_url = data.imageUrl;
 
       if (Object.keys(updateData).length === 0) {
         throw new Error('No fields to update');

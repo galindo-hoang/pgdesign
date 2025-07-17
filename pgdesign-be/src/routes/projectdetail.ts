@@ -74,6 +74,12 @@ router.delete(
   ProjectDetailController.hardDeleteProjectDetail
 );
 
+/**
+ * Toggle homepage status for a project
+ * PUT /api/v1/projectdetail/:id/homepage-status
+ */
+router.put('/:id/homepage-status', ProjectDetailController.toggleHomepageStatus);
+
 // ===== UTILITY ENDPOINTS =====
 
 /**

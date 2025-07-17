@@ -230,6 +230,22 @@ class ProjectPageController {
             };
             res.json(response);
         });
+        this.getProjectCategoryById = (0, errorHandler_1.asyncHandler)(async (req, res) => {
+            const { id } = req.params;
+            if (!id) {
+                throw (0, errorHandler_1.createError)('ID parameter is required', 400);
+            }
+            const category = await ProjectCategoriesModel_1.default.getProjectCategoryById(id);
+            if (!category) {
+                throw (0, errorHandler_1.createError)('Project category not found', 404);
+            }
+            const response = {
+                success: true,
+                data: category,
+                message: 'Project category retrieved successfully'
+            };
+            res.json(response);
+        });
     }
 }
 exports.ProjectPageController = ProjectPageController;

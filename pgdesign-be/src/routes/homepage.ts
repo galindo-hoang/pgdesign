@@ -1,55 +1,32 @@
 import { Router } from 'express';
-import HomepageController from '../controllers/HomepageController';
+import { HomepageController } from '../controllers/HomepageController';
 
 const router: Router = Router();
+const homepageController = new HomepageController();
 
-// Get all homepage data
-router.get('/', HomepageController.getHomepageData);
+// MAIN ROUTES
+router.get('/', homepageController.getHomepageData);
 
-// HERO SECTION ROUTES
-router.get('/hero', HomepageController.getHeroData);
-router.post('/hero', HomepageController.createHeroData);
-router.put('/hero/:id', HomepageController.updateHeroData);
-router.delete('/hero/:id', HomepageController.deleteHeroData);
+// SECTION-SPECIFIC ROUTES
+router.get('/hero', homepageController.getHeroData);
+router.get('/about', homepageController.getAboutData);
+router.get('/image-slider', homepageController.getImageSliderData);
+router.get('/homepage-projects', homepageController.getHomepageProjects); // New route
+router.get('/stats', homepageController.getStatsData);
+router.get('/solution', homepageController.getSolutionData);
+router.get('/workflow', homepageController.getWorkflowData);
+router.get('/project-diary', homepageController.getProjectDiaryData);
+router.get('/testimonials', homepageController.getTestimonialData);
+router.get('/consultation-form', homepageController.getConsultationFormData);
 
-// ABOUT SECTION ROUTES
-router.get('/about', HomepageController.getAboutData);
-router.post('/about', HomepageController.createAboutData);
-router.put('/about/:id', HomepageController.updateAboutData);
-router.delete('/about/:id', HomepageController.deleteAboutData);
-
-// IMAGE SLIDER ROUTES
-router.get('/image-slider', HomepageController.getImageSliderData);
-router.post('/image-slider', HomepageController.createImageSlide);
-router.put('/image-slider/:id', HomepageController.updateImageSlide);
-router.delete('/image-slider/:id', HomepageController.deleteImageSlide);
-router.post('/image-slider/reorder', HomepageController.reorderImageSlides);
-
-// STATS SECTION ROUTES
-router.get('/stats', HomepageController.getStatsData);
-router.post('/stats', HomepageController.createStatsData);
-router.put('/stats/:id', HomepageController.updateStatsData);
-router.delete('/stats/:id', HomepageController.deleteStatsData);
-
-// SOLUTION SECTION ROUTES
-router.get('/solution', HomepageController.getSolutionData);
-router.post('/solution', HomepageController.createSolutionData);
-router.put('/solution/:id', HomepageController.updateSolutionData);
-router.delete('/solution/:id', HomepageController.deleteSolutionData);
-
-// WORKFLOW SECTION ROUTES
-router.get('/workflow', HomepageController.getWorkflowData);
-router.post('/workflow', HomepageController.createWorkflowData);
-// TODO: Add updateWorkflowData method to controller
-// router.put('/workflow/:id', HomepageController.updateWorkflowData);
-
-// PROJECT DIARY SECTION ROUTES
-router.get('/project-diary', HomepageController.getProjectDiaryData);
-
-// TESTIMONIAL SECTION ROUTES
-router.get('/testimonials', HomepageController.getTestimonialData);
-
-// CONSULTATION FORM SECTION ROUTES
-router.get('/consultation-form', HomepageController.getConsultationFormData);
+// EDIT/UPDATE ROUTES
+router.put('/hero/:id', homepageController.updateHeroData);
+router.put('/about/:id', homepageController.updateAboutData);
+router.put('/stats/:id', homepageController.updateStatsData);
+router.put('/solution/:id', homepageController.updateSolutionData);
+router.put('/workflow/:id', homepageController.updateWorkflowData);
+router.put('/project-diary/:id', homepageController.updateProjectDiaryData);
+router.put('/testimonials/:id', homepageController.updateTestimonialData);
+router.put('/consultation-form/:id', homepageController.updateConsultationFormData);
 
 export default router; 

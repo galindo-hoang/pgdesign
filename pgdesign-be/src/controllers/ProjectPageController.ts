@@ -324,6 +324,29 @@ export class ProjectPageController {
 
     res.json(response);
   });
+
+  // Get a single project category by ID (either category_id or id)
+  getProjectCategoryById = asyncHandler(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    
+    if (!id) {
+      throw createError('ID parameter is required', 400);
+    }
+    
+    const category = await ProjectCategoriesModel.getProjectCategoryById(id);
+    
+    if (!category) {
+      throw createError('Project category not found', 404);
+    }
+    
+    const response: ApiResponse<any> = {
+      success: true,
+      data: category,
+      message: 'Project category retrieved successfully'
+    };
+
+    res.json(response);
+  });
 }
 
 const projectPageController = new ProjectPageController();

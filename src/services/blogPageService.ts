@@ -25,7 +25,7 @@ const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api
 const API_TIMEOUT = 10000; // 10 seconds
 
 // Configuration for data source (can be controlled via environment variable)
-const USE_MOCK_DATA = process.env.REACT_APP_USE_MOCK_DATA === 'true';
+const USE_MOCK_DATA = true;
 
 // ========== MOCK DATA ==========
 

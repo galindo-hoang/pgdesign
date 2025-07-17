@@ -241,6 +241,34 @@ export class ProjectDetailController {
     res.json(response);
   });
 
+  // Toggle homepage status
+  toggleHomepageStatus = asyncHandler(async (req: Request, res: Response): Promise<void> => {
+    const id = parseInt(req.params.id);
+    const { isOnHomePage } = req.body;
+
+    if (isNaN(id)) {
+      throw createError('Invalid project detail ID', 400);
+    }
+
+    if (typeof isOnHomePage !== 'boolean') {
+      throw createError('isOnHomePage must be a boolean value', 400);
+    }
+
+    const updatedProject = await ProjectDetailModel.toggleHomepageStatus(id, isOnHomePage);
+
+    if (!updatedProject) {
+      throw createError('Project detail not found', 404);
+    }
+
+    const response: ApiResponse<ProjectDetailData> = {
+      success: true,
+      data: updatedProject,
+      message: `Project ${isOnHomePage ? 'added to' : 'removed from'} homepage successfully`
+    };
+
+    res.json(response);
+  });
+
   // ===== UTILITY ENDPOINTS =====
 
   /**

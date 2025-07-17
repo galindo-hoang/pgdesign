@@ -2,131 +2,149 @@
 import axios from 'axios';
 
 // Backend API base URL
-const API_BASE_URL = 'http://localhost:3002/api/v1/homepage';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
 
-// Create axios instance with default config
-const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-// Type definitions based on the homepage data structure
+// Enhanced interfaces for homepage admin
 export interface HeroData {
-  id?: number;
+  id: number;
   title: string;
   subtitle: string;
   images: string[];
-  createdAt?: string;
-  updatedAt?: string;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface AboutData {
-  id?: number;
+  id: number;
   headline: string;
   subHeadline: string;
   description: string;
-  createdAt?: string;
-  updatedAt?: string;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface ImageSlideData {
-  id?: number;
+  id: number;
   imageUrl: string;
   title: string;
   subtitle: string;
   size: string;
-  displayOrder?: number;
-  createdAt?: string;
-  updatedAt?: string;
+  displayOrder: number;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface StatItemData {
+  id: number;
+  icon: string;
+  targetValue: number;
+  label: string;
+  suffix: string;
+  description: string;
+  backgroundImage: string;
+  category: string;
+  displayOrder: number;
 }
 
 export interface StatsData {
-  id?: number;
+  id: number;
   header: {
     mainHeadline: string;
     subHeadline: string;
     description: string;
   };
-  items: Array<{
-    id: number;
-    targetValue: number;
-    label: string;
-    suffix: string;
-    description: string;
-    iconName: string;
-    backgroundImageUrl: string;
-    category: string;
-  }>;
-  createdAt?: string;
-  updatedAt?: string;
+  items: StatItemData[];
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface SolutionItemData {
+  id: number;
+  imageUrl: string;
+  category: string;
+  title: string;
+  link: string;
+  displayOrder: number;
 }
 
 export interface SolutionData {
-  id?: number;
+  id: number;
   header: {
     mainHeadline: string;
     subHeadline: string;
   };
-  solutions: Array<{
-    id: number;
-    imageUrl: string;
-    category: string;
-    title: string;
-    link: string;
-  }>;
-  createdAt?: string;
-  updatedAt?: string;
+  solutions: SolutionItemData[];
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface WorkflowStepData {
+  id: string;
+  step: number;
+  title: string;
+  description: string;
+  icon: string;
+  diagram: string;
 }
 
 export interface WorkflowData {
-  id?: number;
+  id: number;
   title: string;
-  workflows: Array<{
-    id: number;
-    iconName: string;
-    title: string;
-    description: string;
-    step: number;
-  }>;
-  createdAt?: string;
-  updatedAt?: string;
+  workflows: WorkflowStepData[];
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface ProjectDiaryData {
-  id?: number;
+  id: number;
   title: string;
   images: string[];
-  createdAt?: string;
-  updatedAt?: string;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface TestimonialItemData {
+  id: number;
+  customerName: string;
+  customerAvatar: string;
+  content: string;
+  rating: number;
+  projectType: string;
+  displayOrder: number;
 }
 
 export interface TestimonialData {
-  id?: number;
+  id: number;
   header: {
     mainHeadline: string;
     subHeadline: string;
     description: string;
   };
-  testimonials: Array<{
-    id: number;
-    customerName: string;
-    customerAvatar: string;
-    content: string;
-    rating: number;
-  }>;
-  createdAt?: string;
-  updatedAt?: string;
+  testimonials: TestimonialItemData[];
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface ConsultationFormData {
-  id?: number;
+  id: number;
   title: string;
   description: string;
   ctaText: string;
-  createdAt?: string;
-  updatedAt?: string;
+  projectTypes: string[];
+  minInvestment: number;
+  maxInvestment: number;
+  stepInvestment: number;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface HomepageData {
@@ -139,6 +157,18 @@ export interface HomepageData {
   projectDiary: ProjectDiaryData;
   testimonials: TestimonialData;
   consultationForm: ConsultationFormData;
+}
+
+export interface UploadResponse {
+  success: boolean;
+  data?: {
+    url: string;
+    filename: string;
+    originalName: string;
+    size: number;
+    mimeType: string;
+  };
+  error?: string;
 }
 
 // API Response wrapper
@@ -160,258 +190,409 @@ const handleApiError = (error: any): never => {
   }
 };
 
-// Homepage Admin Service Class
+// Data transformation helpers
+const transformImageSlideData = (backendData: any): ImageSlideData => {
+  return {
+    id: backendData.id,
+    imageUrl: backendData.image_url,
+    title: backendData.title,
+    subtitle: backendData.subtitle,
+    size: backendData.size,
+    displayOrder: backendData.display_order,
+    isActive: backendData.is_active,
+    createdAt: new Date(backendData.created_at),
+    updatedAt: new Date(backendData.updated_at)
+  };
+};
+
+const transformWorkflowData = (backendData: any): WorkflowData => {
+  return {
+    id: backendData.main?.id || 0,
+    title: backendData.main?.title || '',
+    workflows: (backendData.tabs || []).map((tab: any) => ({
+      id: tab.id?.toString() || '',
+      step: tab.display_order + 1,
+      title: tab.title || '',
+      description: tab.workflow_key || '',
+      icon: tab.icon_url || '',
+      diagram: tab.diagram_url || ''
+    })),
+    isActive: backendData.main?.is_active || false,
+    createdAt: new Date(backendData.main?.created_at || Date.now()),
+    updatedAt: new Date(backendData.main?.updated_at || Date.now())
+  };
+};
+
+const transformProjectDiaryData = (backendData: any): ProjectDiaryData => {
+  return {
+    id: backendData.main?.id || 0,
+    title: backendData.main?.title || '',
+    images: (backendData.images || []).map((img: any) => img.image_url || ''),
+    isActive: backendData.main?.is_active || false,
+    createdAt: new Date(backendData.main?.created_at || Date.now()),
+    updatedAt: new Date(backendData.main?.updated_at || Date.now())
+  };
+};
+
+const transformConsultationFormData = (backendData: any): ConsultationFormData => {
+  return {
+    id: backendData.main?.id || 0,
+    title: backendData.main?.title || '',
+    description: backendData.main?.description || '',
+    ctaText: backendData.main?.cta_text || '',
+    projectTypes: (backendData.projectTypes || []).map((type: any) => type.name || ''),
+    minInvestment: backendData.main?.min_investment || 0,
+    maxInvestment: backendData.main?.max_investment || 0,
+    stepInvestment: backendData.main?.step_investment || 0,
+    isActive: backendData.main?.is_active || false,
+    createdAt: new Date(backendData.main?.created_at || Date.now()),
+    updatedAt: new Date(backendData.main?.updated_at || Date.now())
+  };
+};
+
 class HomepageAdminService {
-  // Get all homepage data
-  async getAllHomepageData(): Promise<HomepageData> {
+  private baseURL = API_BASE_URL;
+
+  // Generic API call handler
+  private async apiCall<T>(
+    endpoint: string,
+    options: RequestInit = {}
+  ): Promise<T> {
+    const url = `${this.baseURL}${endpoint}`;
+    
+    const defaultOptions: RequestInit = {
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
+      ...options,
+    };
+
     try {
-      const response = await api.get<ApiResponse<HomepageData>>('');
-      if (response.data.success) {
-        return response.data.data;
+      const response = await fetch(url, defaultOptions);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-      throw new Error(response.data.error || 'Failed to fetch homepage data');
+      
+      const result = await response.json();
+      return result;
     } catch (error) {
-      return handleApiError(error);
+      console.error(`API call failed for ${endpoint}:`, error);
+      throw error;
     }
   }
 
-  // HERO SECTION METHODS
-  async getHeroData(): Promise<HeroData> {
+  // File upload methods
+  async uploadFile(file: File, section: string): Promise<UploadResponse> {
+    const formData = new FormData();
+    formData.append('image', file);  // Backend expects 'image' field name
+    formData.append('folder', section);  // Backend expects 'folder' instead of 'section'
+
     try {
-      const response = await api.get<ApiResponse<HeroData>>('/hero');
-      if (response.data.success) {
-        return response.data.data;
+      const response = await fetch(`${this.baseURL}/upload/image`, {  // Use correct endpoint
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(`Upload failed: ${response.status} - ${errorData.message || response.statusText}`);
       }
-      throw new Error(response.data.error || 'Failed to fetch hero data');
+
+      const result = await response.json();
+      
+      // Transform backend response to match our interface
+      return {
+        success: result.success,
+        data: result.data ? {
+          url: result.data.url,
+          filename: result.data.filename,
+          originalName: result.data.filename,
+          size: result.data.size,
+          mimeType: result.data.mimetype
+        } : undefined,
+        error: result.success ? undefined : result.message
+      };
     } catch (error) {
-      return handleApiError(error);
+      console.error('File upload error:', error);
+      throw error;
     }
+  }
+
+  // Multiple file upload
+  async uploadFiles(files: File[], section: string): Promise<UploadResponse[]> {
+    const formData = new FormData();
+    files.forEach(file => formData.append('images', file));  // Backend expects 'images' field name
+    formData.append('folder', section);
+
+    try {
+      const response = await fetch(`${this.baseURL}/upload/images`, {  // Use correct endpoint
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(`Upload failed: ${response.status} - ${errorData.message || response.statusText}`);
+      }
+
+      const result = await response.json();
+      
+      // Transform backend response to match our interface
+      if (result.success && result.data && result.data.urls) {
+        return result.data.urls.map((url: string, index: number) => ({
+          success: true,
+          data: {
+            url: url,
+            filename: result.data.files?.[index]?.filename || 'unknown',
+            originalName: result.data.files?.[index]?.filename || 'unknown',
+            size: result.data.files?.[index]?.size || 0,
+            mimeType: result.data.files?.[index]?.mimetype || 'unknown'
+          }
+        }));
+      } else {
+        throw new Error('Invalid response format');
+      }
+    } catch (error) {
+      console.error('Multiple files upload error:', error);
+      throw error;
+    }
+  }
+
+  // Delete file
+  async deleteFile(fileUrl: string): Promise<boolean> {
+    try {
+      const response = await fetch(`${this.baseURL}/upload/file`, {  // Use correct endpoint
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url: fileUrl }),  // Backend expects { url: string }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(`Delete failed: ${response.status} - ${errorData.message || response.statusText}`);
+      }
+
+      const result = await response.json();
+      return result.success;
+    } catch (error) {
+      console.error('File delete error:', error);
+      return false;
+    }
+  }
+
+  // Get all homepage data
+  async getAllHomepageData(): Promise<HomepageData> {
+    const response = await this.apiCall<any>('/homepage');
+    
+    // Transform all sections from backend format to frontend format
+    const transformedData = {
+      ...response,
+      imageSlider: Array.isArray(response.imageSlider) 
+        ? response.imageSlider.map(transformImageSlideData)
+        : [],
+      workflow: response.workflow ? transformWorkflowData(response.workflow) : {
+        id: 0,
+        title: '',
+        workflows: [],
+        isActive: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      projectDiary: response.projectDiary ? transformProjectDiaryData(response.projectDiary) : {
+        id: 0,
+        title: '',
+        images: [],
+        isActive: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      consultationForm: response.consultationForm ? transformConsultationFormData(response.consultationForm) : {
+        id: 0,
+        title: '',
+        description: '',
+        ctaText: '',
+        projectTypes: [],
+        minInvestment: 0,
+        maxInvestment: 0,
+        stepInvestment: 0,
+        isActive: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    };
+    
+    return transformedData;
+  }
+
+  // Hero Section
+  async getHeroData(): Promise<HeroData> {
+    return this.apiCall<HeroData>('/homepage/hero');
   }
 
   async updateHeroData(id: number, data: Partial<HeroData>): Promise<HeroData> {
-    try {
-      const response = await api.put<ApiResponse<HeroData>>(`/hero/${id}`, data);
-      if (response.data.success) {
-        return response.data.data;
-      }
-      throw new Error(response.data.error || 'Failed to update hero data');
-    } catch (error) {
-      return handleApiError(error);
-    }
+    return this.apiCall<HeroData>(`/homepage/hero/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
   }
 
-  async createHeroData(data: Omit<HeroData, 'id'>): Promise<HeroData> {
-    try {
-      const response = await api.post<ApiResponse<HeroData>>('/hero', data);
-      if (response.data.success) {
-        return response.data.data;
-      }
-      throw new Error(response.data.error || 'Failed to create hero data');
-    } catch (error) {
-      return handleApiError(error);
-    }
-  }
-
-  // ABOUT SECTION METHODS
+  // About Section
   async getAboutData(): Promise<AboutData> {
-    try {
-      const response = await api.get<ApiResponse<AboutData>>('/about');
-      if (response.data.success) {
-        return response.data.data;
-      }
-      throw new Error(response.data.error || 'Failed to fetch about data');
-    } catch (error) {
-      return handleApiError(error);
-    }
+    return this.apiCall<AboutData>('/homepage/about');
   }
 
   async updateAboutData(id: number, data: Partial<AboutData>): Promise<AboutData> {
-    try {
-      const response = await api.put<ApiResponse<AboutData>>(`/about/${id}`, data);
-      if (response.data.success) {
-        return response.data.data;
-      }
-      throw new Error(response.data.error || 'Failed to update about data');
-    } catch (error) {
-      return handleApiError(error);
-    }
+    return this.apiCall<AboutData>(`/homepage/about/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
   }
 
-  // IMAGE SLIDER METHODS
+  // Image Slider
   async getImageSliderData(): Promise<ImageSlideData[]> {
-    try {
-      const response = await api.get<ApiResponse<ImageSlideData[]>>('/image-slider');
-      if (response.data.success) {
-        return response.data.data;
-      }
-      throw new Error(response.data.error || 'Failed to fetch image slider data');
-    } catch (error) {
-      return handleApiError(error);
-    }
+    return this.apiCall<ImageSlideData[]>('/homepage/image-slider');
   }
 
-  async createImageSlide(data: Omit<ImageSlideData, 'id'>): Promise<ImageSlideData> {
-    try {
-      const response = await api.post<ApiResponse<ImageSlideData>>('/image-slider', data);
-      if (response.data.success) {
-        return response.data.data;
-      }
-      throw new Error(response.data.error || 'Failed to create image slide');
-    } catch (error) {
-      return handleApiError(error);
-    }
+  async createImageSlide(data: Partial<ImageSlideData>): Promise<ImageSlideData> {
+    return this.apiCall<ImageSlideData>('/homepage/image-slider', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
   }
 
   async updateImageSlide(id: number, data: Partial<ImageSlideData>): Promise<ImageSlideData> {
+    return this.apiCall<ImageSlideData>(`/homepage/image-slider/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async deleteImageSlide(id: number): Promise<boolean> {
     try {
-      const response = await api.put<ApiResponse<ImageSlideData>>(`/image-slider/${id}`, data);
-      if (response.data.success) {
-        return response.data.data;
-      }
-      throw new Error(response.data.error || 'Failed to update image slide');
+      await this.apiCall(`/homepage/image-slider/${id}`, { method: 'DELETE' });
+      return true;
     } catch (error) {
-      return handleApiError(error);
+      return false;
     }
   }
 
-  async deleteImageSlide(id: number): Promise<void> {
-    try {
-      const response = await api.delete<ApiResponse<void>>(`/image-slider/${id}`);
-      if (!response.data.success) {
-        throw new Error(response.data.error || 'Failed to delete image slide');
-      }
-    } catch (error) {
-      handleApiError(error);
-    }
-  }
-
-  async reorderImageSlides(slideIds: number[]): Promise<void> {
-    try {
-      const response = await api.post<ApiResponse<void>>('/image-slider/reorder', { slideIds });
-      if (!response.data.success) {
-        throw new Error(response.data.error || 'Failed to reorder image slides');
-      }
-    } catch (error) {
-      handleApiError(error);
-    }
-  }
-
-  // STATS SECTION METHODS
+  // Stats Section
   async getStatsData(): Promise<StatsData> {
-    try {
-      const response = await api.get<ApiResponse<StatsData>>('/stats');
-      if (response.data.success) {
-        return response.data.data;
-      }
-      throw new Error(response.data.error || 'Failed to fetch stats data');
-    } catch (error) {
-      return handleApiError(error);
-    }
+    return this.apiCall<StatsData>('/homepage/stats');
   }
 
   async updateStatsData(id: number, data: Partial<StatsData>): Promise<StatsData> {
-    try {
-      const response = await api.put<ApiResponse<StatsData>>(`/stats/${id}`, data);
-      if (response.data.success) {
-        return response.data.data;
-      }
-      throw new Error(response.data.error || 'Failed to update stats data');
-    } catch (error) {
-      return handleApiError(error);
-    }
+    return this.apiCall<StatsData>(`/homepage/stats/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
   }
 
-  // SOLUTION SECTION METHODS
+  async updateStatsItem(id: number, data: Partial<StatItemData>): Promise<StatItemData> {
+    return this.apiCall<StatItemData>(`/homepage/stats/item/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  }
+
+  // Solution Section
   async getSolutionData(): Promise<SolutionData> {
-    try {
-      const response = await api.get<ApiResponse<SolutionData>>('/solution');
-      if (response.data.success) {
-        return response.data.data;
-      }
-      throw new Error(response.data.error || 'Failed to fetch solution data');
-    } catch (error) {
-      return handleApiError(error);
-    }
+    return this.apiCall<SolutionData>('/homepage/solution');
   }
 
   async updateSolutionData(id: number, data: Partial<SolutionData>): Promise<SolutionData> {
-    try {
-      const response = await api.put<ApiResponse<SolutionData>>(`/solution/${id}`, data);
-      if (response.data.success) {
-        return response.data.data;
-      }
-      throw new Error(response.data.error || 'Failed to update solution data');
-    } catch (error) {
-      return handleApiError(error);
-    }
+    return this.apiCall<SolutionData>(`/homepage/solution/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
   }
 
-  // WORKFLOW SECTION METHODS
+  async updateSolutionItem(id: number, data: Partial<SolutionItemData>): Promise<SolutionItemData> {
+    return this.apiCall<SolutionItemData>(`/homepage/solution/item/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  }
+
+  // Workflow Section
   async getWorkflowData(): Promise<WorkflowData> {
-    try {
-      const response = await api.get<ApiResponse<WorkflowData>>('/workflow');
-      if (response.data.success) {
-        return response.data.data;
-      }
-      throw new Error(response.data.error || 'Failed to fetch workflow data');
-    } catch (error) {
-      return handleApiError(error);
-    }
+    return this.apiCall<WorkflowData>('/homepage/workflow');
   }
 
-  // TODO: Backend route doesn't exist yet - uncomment when PUT /workflow/:id is implemented
-  // async updateWorkflowData(id: number, data: Partial<WorkflowData>): Promise<WorkflowData> {
-  //   try {
-  //     const response = await api.put<ApiResponse<WorkflowData>>(`/workflow/${id}`, data);
-  //     if (response.data.success) {
-  //       return response.data.data;
-  //     }
-  //     throw new Error(response.data.error || 'Failed to update workflow data');
-  //   } catch (error) {
-  //     return handleApiError(error);
-  //   }
-  // }
+  async updateWorkflowData(id: number, data: Partial<WorkflowData>): Promise<WorkflowData> {
+    return this.apiCall<WorkflowData>(`/homepage/workflow/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  }
 
-  // PROJECT DIARY METHODS
+  // Project Diary Section
   async getProjectDiaryData(): Promise<ProjectDiaryData> {
-    try {
-      const response = await api.get<ApiResponse<ProjectDiaryData>>('/project-diary');
-      if (response.data.success) {
-        return response.data.data;
-      }
-      throw new Error(response.data.error || 'Failed to fetch project diary data');
-    } catch (error) {
-      return handleApiError(error);
-    }
+    return this.apiCall<ProjectDiaryData>('/homepage/project-diary');
   }
 
-  // TESTIMONIAL METHODS
+  async updateProjectDiaryData(id: number, data: Partial<ProjectDiaryData>): Promise<ProjectDiaryData> {
+    return this.apiCall<ProjectDiaryData>(`/homepage/project-diary/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  }
+
+  // Testimonials Section
   async getTestimonialData(): Promise<TestimonialData> {
-    try {
-      const response = await api.get<ApiResponse<TestimonialData>>('/testimonials');
-      if (response.data.success) {
-        return response.data.data;
-      }
-      throw new Error(response.data.error || 'Failed to fetch testimonial data');
-    } catch (error) {
-      return handleApiError(error);
-    }
+    return this.apiCall<TestimonialData>('/homepage/testimonials');
   }
 
-  // CONSULTATION FORM METHODS
+  async updateTestimonialData(id: number, data: Partial<TestimonialData>): Promise<TestimonialData> {
+    return this.apiCall<TestimonialData>(`/homepage/testimonials/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async updateTestimonialItem(id: number, data: Partial<TestimonialItemData>): Promise<TestimonialItemData> {
+    return this.apiCall<TestimonialItemData>(`/homepage/testimonials/item/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  }
+
+  // Consultation Form Section
   async getConsultationFormData(): Promise<ConsultationFormData> {
+    return this.apiCall<ConsultationFormData>('/homepage/consultation-form');
+  }
+
+  async updateConsultationFormData(id: number, data: Partial<ConsultationFormData>): Promise<ConsultationFormData> {
+    return this.apiCall<ConsultationFormData>(`/homepage/consultation-form/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  }
+
+  // Bulk operations
+  async bulkUploadImages(files: File[], section: string): Promise<UploadResponse[]> {
+    return this.uploadFiles(files, section);
+  }
+
+  async bulkDeleteFiles(fileUrls: string[]): Promise<boolean[]> {
+    const deletePromises = fileUrls.map(url => this.deleteFile(url));
+    return Promise.all(deletePromises);
+  }
+
+  // Health check
+  async healthCheck(): Promise<boolean> {
     try {
-      const response = await api.get<ApiResponse<ConsultationFormData>>('/consultation-form');
-      if (response.data.success) {
-        return response.data.data;
-      }
-      throw new Error(response.data.error || 'Failed to fetch consultation form data');
+      await this.apiCall('/health');
+      return true;
     } catch (error) {
-      return handleApiError(error);
+      return false;
     }
   }
 }
 
-// Export singleton instance
-export const homepageAdminService = new HomepageAdminService();
+const homepageAdminService = new HomepageAdminService();
 export default homepageAdminService; 

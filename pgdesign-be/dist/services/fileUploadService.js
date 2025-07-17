@@ -124,7 +124,12 @@ class FileUploadService {
     }
     async getFileUrl(objectName) {
         try {
-            return await minio_1.default.presignedGetObject(minio_1.bucketName, objectName, 7 * 24 * 60 * 60);
+            const endpoint = process.env.MINIO_ENDPOINT || 'localhost';
+            const port = process.env.MINIO_PORT || '9000';
+            const useSSL = process.env.MINIO_USE_SSL === 'true';
+            const protocol = useSSL ? 'https' : 'http';
+            const publicEndpoint = process.env.MINIO_PUBLIC_ENDPOINT || `${endpoint}:${port}`;
+            return `${protocol}://${publicEndpoint}/${minio_1.bucketName}/${objectName}`;
         }
         catch (error) {
             console.error('Error getting file URL:', error);

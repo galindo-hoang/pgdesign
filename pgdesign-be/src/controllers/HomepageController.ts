@@ -12,15 +12,17 @@ import WorkflowModel from '../models/WorkflowModel';
 import ProjectDiaryModel from '../models/ProjectDiaryModel';
 import TestimonialModel from '../models/TestimonialModel';
 import ConsultationFormModel from '../models/ConsultationFormModel';
+import { ProjectDetailModel } from '../models/ProjectDetailModel';
 
 export class HomepageController {
-  
+  private projectDetailModel = new ProjectDetailModel();
+
   // Get all homepage data
   getHomepageData = asyncHandler(async (req: Request, res: Response) => {
     const [
       hero,
       about,
-      imageSlider,
+      homepageProjects, // Use projects instead of imageSlider
       stats,
       solution,
       workflow,
@@ -30,7 +32,7 @@ export class HomepageController {
     ] = await Promise.all([
       HeroModel.getHeroWithImages(),
       AboutModel.getActiveAbout(),
-      ImageSliderModel.getAllSlides(),
+      this.projectDetailModel.getHomepageProjects(), // Get projects marked for homepage
       StatsModel.getStatsWithItems(),
       SolutionModel.getSolutionWithItems(),
       WorkflowModel.getWorkflowWithTabs(),
@@ -39,12 +41,26 @@ export class HomepageController {
       ConsultationFormModel.getConsultationFormWithProjectTypes()
     ]);
 
+    // Transform projects to image slider format for backward compatibility
+    const imageSlider = homepageProjects.map(project => ({
+      id: project.id,
+      image_url: project.thumbnailImage || '/images/default-project.jpg',
+      image_alt: project.title,
+      title: project.title,
+      subtitle: project.subCategory || project.category,
+      size: project.area,
+      display_order: 0,
+      is_active: true,
+      created_at: project.createdAt,
+      updated_at: project.updatedAt
+    }));
+
     const response: ApiResponse<any> = {
       success: true,
       data: {
         hero,
         about,
-        imageSlider,
+        imageSlider, // Return in the expected format
         stats,
         solution,
         workflow,
@@ -52,6 +68,18 @@ export class HomepageController {
         testimonials,
         consultationForm
       }
+    };
+
+    res.json(response);
+  });
+
+  // Get homepage projects (new endpoint)
+  getHomepageProjects = asyncHandler(async (req: Request, res: Response) => {
+    const projects = await this.projectDetailModel.getHomepageProjects();
+    
+    const response: ApiResponse<any> = {
+      success: true,
+      data: projects
     };
 
     res.json(response);
@@ -206,11 +234,25 @@ export class HomepageController {
 
   // IMAGE SLIDER ENDPOINTS
   getImageSliderData = asyncHandler(async (req: Request, res: Response) => {
-    const slides = await ImageSliderModel.getAllSlides();
+    const projects = await this.projectDetailModel.getHomepageProjects();
+    
+    // Transform projects to image slider format
+    const imageSlider = projects.map(project => ({
+      id: project.id,
+      image_url: project.thumbnailImage || '/images/default-project.jpg',
+      image_alt: project.title,
+      title: project.title,
+      subtitle: project.subCategory || project.category,
+      size: project.area,
+      display_order: 0,
+      is_active: true,
+      created_at: project.createdAt,
+      updated_at: project.updatedAt
+    }));
     
     const response: ApiResponse<any> = {
       success: true,
-      data: slides
+      data: imageSlider
     };
 
     res.json(response);

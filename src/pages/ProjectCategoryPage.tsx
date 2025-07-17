@@ -4,25 +4,22 @@ import "./ProjectCategoryPage.css";
 import ProjectItemCard from "../components/ProjectItemCard";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { 
-  CategoryData, 
-  ProjectCategoryPageData,
-  ProjectItem
+  ProjectCategory,
+  ProjectDetail
 } from "../types/projectCategoryPageTypes";
 import { 
-  fetchCategoryData, 
-  fetchProjectCategoryPageData 
-} from "../services/projectCategoryPageService";
+  fetchCategoryWithSubCategories 
+} from "../services/projectCategoryService";
 
 interface ProjectCategoryPageProps {
   // No props needed as we'll use the service
 }
 
-// This component now uses dynamic data from the service
+// This component now uses dynamic data from the service with categoryId parameter
 
 const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
-  const [categoryData, setCategoryData] = useState<CategoryData | null>(null);
-  const [pageData, setPageData] = useState<ProjectCategoryPageData | null>(null);
+  const [categoryData, setCategoryData] = useState<ProjectCategory | null>(null);
   const [activeSubCategory, setActiveSubCategory] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -33,17 +30,13 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
         setIsLoading(true);
         setError(null);
 
-        // Load page data first to get default hero image
-        const pageDataResult = await fetchProjectCategoryPageData();
-        setPageData(pageDataResult);
-
-        // Load specific category data if categoryId exists
+        // Load category with subcategories if categoryId exists
         if (categoryId) {
-          const categoryResult = await fetchCategoryData(categoryId);
+          const categoryResult = await fetchCategoryWithSubCategories(categoryId);
           if (categoryResult) {
             setCategoryData(categoryResult);
             if (categoryResult.subCategories.length > 0) {
-              setActiveSubCategory(categoryResult.subCategories[0].id);
+              setActiveSubCategory(categoryResult.subCategories[0].subCategoryId);
             }
           }
         }
@@ -58,7 +51,7 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
     loadData();
   }, [categoryId]);
 
-  const handleProjectClick = (project: ProjectItem) => {
+  const handleProjectClick = (project: ProjectDetail) => {
     // Navigate to detailed project page
     console.log("Navigate to project:", project);
     // You can implement navigation to detailed project page here
@@ -94,11 +87,11 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
   }
 
   const activeSubCategoryData = categoryData.subCategories.find(
-    sub => sub.id === activeSubCategory
+    sub => sub.subCategoryId === activeSubCategory
   );
 
-  // Get hero image from category data or fallback to page default
-  const heroImage = categoryData.heroImage || pageData?.defaultHeroImage || '/assets/images/diary-image-1.jpg';
+  // Get hero image from category data or fallback to default
+  const heroImage = categoryData.heroImageUrl || '/assets/images/diary-image-1.jpg';
 
   return (
     <div className="project-category-page">
@@ -123,15 +116,16 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
       <div className="subcategory-navigation">
         <div className="subcategory-nav-container">
           {categoryData.subCategories.map((subCategory) => (
-            <button
-              key={subCategory.id}
-              className={`subcategory-nav-item ${
-                activeSubCategory === subCategory.id ? "active" : ""
-              }`}
-              onClick={() => setActiveSubCategory(subCategory.id)}
-            >
-              {subCategory.title}
-            </button>
+            <div key={subCategory.id} className="subcategory-nav-wrapper">
+              <button
+                className={`subcategory-nav-item ${
+                  activeSubCategory === subCategory.subCategoryId ? "active" : ""
+                }`}
+                onClick={() => setActiveSubCategory(subCategory.subCategoryId)}
+              >
+                {subCategory.title}
+              </button>
+            </div>
           ))}
         </div>
       </div>
@@ -148,13 +142,30 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
 
           {/* Project Grid */}
           <div className="projects-grid">
-            {activeSubCategoryData.projects.map((project) => (
-              <ProjectItemCard
-                key={project.id}
-                project={project}
-                onClick={handleProjectClick}
-              />
-            ))}
+            {activeSubCategoryData.projects.map((projectDetail) => {
+              // Transform ProjectDetail to ProjectItem format for compatibility
+              const projectItem = {
+                id: projectDetail.projectId,
+                title: projectDetail.title,
+                thumbnailImage: projectDetail.thumbnailImage || '/assets/images/default-project.jpg',
+                clientName: projectDetail.clientName,
+                area: projectDetail.area,
+                constructionDate: projectDetail.constructionDate,
+                address: projectDetail.address,
+                description: projectDetail.description || '',
+                category: projectDetail.category,
+                subCategory: projectDetail.subCategory,
+                style: projectDetail.style || 'Modern'
+              };
+              
+              return (
+                <ProjectItemCard
+                  key={projectDetail.id}
+                  project={projectItem}
+                  onClick={(project) => handleProjectClick(projectDetail)}
+                />
+              );
+            })}
           </div>
         </div>
       )}

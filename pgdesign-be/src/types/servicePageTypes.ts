@@ -30,6 +30,7 @@ export interface ServicePageProcessSectionEntity {
   title: string;
   description: string;
   note: string;
+  image_url: string;
   is_active: boolean;
   created_at?: Date;
   updated_at?: Date;
@@ -67,6 +68,7 @@ export interface ServiceProcessData {
   title: string;
   description: string;
   note: string;
+  imageUrl: string;
 }
 
 export interface ConstructionServiceData {
@@ -114,6 +116,7 @@ export interface CreateProcessSectionInput {
   title: string;
   description: string;
   note?: string;
+  imageUrl?: string;
 }
 
 export interface UpdateProcessSectionInput extends Partial<Omit<CreateProcessSectionInput, 'processNumber'>> {}

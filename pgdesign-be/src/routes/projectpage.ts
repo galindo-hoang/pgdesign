@@ -42,6 +42,9 @@ router.delete('/stats-section/:id', projectPageController.deleteStatsSectionData
 // GET /api/v1/projectpage/project-categories - Get project categories data
 router.get('/project-categories', projectPageController.getProjectCategoriesData);
 
+// GET /api/v1/projectpage/categories/:id - Get single project category by ID (category_id or id)
+router.get('/categories/:id', projectPageController.getProjectCategoryById);
+
 // POST /api/v1/projectpage/project-categories - Create project categories data
 router.post('/project-categories', validateContentType, projectPageController.createProjectCategoriesData);
 

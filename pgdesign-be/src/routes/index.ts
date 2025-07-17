@@ -6,6 +6,8 @@ import servicepageRoutes from './servicepage';
 import consultationRoutes from './consultation';
 import projectdetailRoutes from './projectdetail';
 import blogpageRoutes from './blogpage';
+import projectsubcategoriesRoutes from './projectsubcategories';
+import uploadRoutes from './upload';
 
 const router: Router = Router();
 
@@ -32,6 +34,12 @@ router.use(`/${API_VERSION}/projectdetail`, projectdetailRoutes);
 
 // Blog page routes
 router.use(`/${API_VERSION}/blogpage`, blogpageRoutes);
+
+// Project subcategories routes
+router.use(`/${API_VERSION}/projectsubcategories`, projectsubcategoriesRoutes);
+
+// Upload routes
+router.use(`/${API_VERSION}/upload`, uploadRoutes);
 
 // Health check
 router.get('/health', (req, res) => {

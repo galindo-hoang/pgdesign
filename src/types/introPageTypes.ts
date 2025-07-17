@@ -50,7 +50,7 @@ export interface CommitmentsData {
 export interface CommitmentItem {
   id?: number;
   iconName: string;
-  iconUrl: React.ElementType;
+  iconUrl: string;
   title: string;
   description: string;
   displayOrder?: number;

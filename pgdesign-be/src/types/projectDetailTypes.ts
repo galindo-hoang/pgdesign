@@ -30,6 +30,9 @@ export interface ProjectDetailData {
   metaDescription?: string | undefined;
   tags?: string[] | undefined;
   
+  // Homepage display control
+  isOnHomePage?: boolean;
+  
   // Admin managed content
   isActive?: boolean;
   createdAt?: string;
@@ -74,22 +77,23 @@ export interface CreateProjectDetailRequest {
   metaTitle?: string | undefined;
   metaDescription?: string | undefined;
   tags?: string[] | undefined;
+  isOnHomePage?: boolean;
   projectSpecs?: Omit<ProjectSpecification, 'id' | 'projectDetailId' | 'createdAt' | 'updatedAt'>[] | undefined;
 }
 
 export interface UpdateProjectDetailRequest {
-  projectId?: string;
-  title?: string;
-  clientName?: string;
-  area?: string;
-  constructionDate?: string;
-  address?: string;
+  projectId?: string | undefined;
+  title?: string | undefined;
+  clientName?: string | undefined;
+  area?: string | undefined;
+  constructionDate?: string | undefined;
+  address?: string | undefined;
   description?: string | undefined;
-  category?: string;
-  subCategory?: string;
+  category?: string | undefined;
+  subCategory?: string | undefined;
   style?: string | undefined;
   thumbnailImage?: string | undefined;
-  htmlContent?: string;
+  htmlContent?: string | undefined;
   projectImages?: string[] | undefined;
   projectStatus?: string | undefined;
   projectBudget?: string | undefined;
@@ -99,6 +103,7 @@ export interface UpdateProjectDetailRequest {
   metaTitle?: string | undefined;
   metaDescription?: string | undefined;
   tags?: string[] | undefined;
+  isOnHomePage?: boolean;
   projectSpecs?: Omit<ProjectSpecification, 'id' | 'projectDetailId' | 'createdAt' | 'updatedAt'>[] | undefined;
 }
 
@@ -126,6 +131,7 @@ export interface ProjectDetailRow {
   meta_title?: string | null;
   meta_description?: string | null;
   tags?: string | null; // JSON string
+  is_on_homepage: boolean;
   is_active: boolean;
   created_at: string;
   updated_at: string;

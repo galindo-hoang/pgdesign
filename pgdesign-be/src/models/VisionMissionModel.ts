@@ -13,27 +13,36 @@ export class VisionMissionModel extends BaseModel {
   }
 
   async getActiveVisionMission(): Promise<VisionMissionData | null> {
-    const result = await this.findOneByCondition({ is_active: true });
+    // Get vision mission data with mission items and core values in parallel
+    const [result, missionItems, coreValues] = await Promise.all([
+      this.findOneByCondition({ is_active: true }),
+      
+      // Optimized query for mission items
+      db('mission_items')
+        .where({ is_active: true })
+        .whereExists(function() {
+          this.select('*')
+            .from('vision_mission_data')
+            .whereRaw('vision_mission_data.id = mission_items.vision_mission_id')
+            .where('vision_mission_data.is_active', true);
+        })
+        .orderBy('display_order', 'asc')
+        .select('item_text'),
+        
+      // Optimized query for core values
+      db('core_values')
+        .where({ is_active: true })
+        .whereExists(function() {
+          this.select('*')
+            .from('vision_mission_data')
+            .whereRaw('vision_mission_data.id = core_values.vision_mission_id')
+            .where('vision_mission_data.is_active', true);
+        })
+        .orderBy('display_order', 'asc')
+        .select('id', 'title', 'description', 'display_order')
+    ]);
 
     if (!result) return null;
-
-    // Get mission items
-    const missionItems = await db('mission_items')
-      .where({ 
-        vision_mission_id: result.id,
-        is_active: true 
-      })
-      .orderBy('display_order', 'asc')
-      .select('item_text');
-
-    // Get core values
-    const coreValues = await db('core_values')
-      .where({ 
-        vision_mission_id: result.id,
-        is_active: true 
-      })
-      .orderBy('display_order', 'asc')
-      .select('id', 'title', 'description', 'display_order');
 
     return {
       id: result.id,

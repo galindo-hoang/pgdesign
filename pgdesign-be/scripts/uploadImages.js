@@ -6,22 +6,22 @@ require('dotenv').config();
 
 // MinIO configuration
 const minioClient = new Client({
-  endPoint: 'localhost',
-  port: 9000,
-  useSSL: false,
-  accessKey: 'minioadmin',
-  secretKey: 'minioadmin',
+  endPoint: process.env.MINIO_ENDPOINT || 'localhost',
+  port: parseInt(process.env.MINIO_PORT || '9000'),
+  useSSL: process.env.MINIO_USE_SSL === 'true',
+  accessKey: process.env.MINIO_ACCESS_KEY || 'minioadmin',
+  secretKey: process.env.MINIO_SECRET_KEY || 'minioadmin',
 });
 
-const bucketName = 'pgdesign-assets';
+const bucketName = process.env.MINIO_BUCKET_NAME || 'pgdesign-assets';
 
 // MySQL configuration
 const dbConfig = {
-  host: 'localhost',
-  port: 3306,
-  user: 'pgdesign',
-  password: 'pgdesignpassword',
-  database: 'pgdesign_dev'
+  host: process.env.DB_HOST || 'localhost',
+  port: parseInt(process.env.DB_PORT || '3306'),
+  user: process.env.DB_USER || 'pgdesign',
+  password: process.env.DB_PASSWORD || 'pgdesignpassword',
+  database: process.env.DB_NAME || 'pgdesign_dev'
 };
 
 // Image folder path
@@ -35,6 +35,9 @@ async function initializeBucket() {
     if (!exists) {
       await minioClient.makeBucket(bucketName, 'us-east-1');
       console.log(`✅ Bucket '${bucketName}' created`);
+      
+      // Set bucket policy to public-read
+      await setBucketPublic();
     } else {
       console.log(`✅ Bucket '${bucketName}' already exists`);
     }
@@ -44,10 +47,42 @@ async function initializeBucket() {
   }
 }
 
+async function setBucketPublic() {
+  try {
+    // Set bucket policy to public-read
+    const policy = {
+      Version: '2012-10-17',
+      Statement: [
+        {
+          Effect: 'Allow',
+          Principal: '*',
+          Action: ['s3:GetObject'],
+          Resource: [`arn:aws:s3:::${bucketName}/*`]
+        }
+      ]
+    };
+
+    await minioClient.setBucketPolicy(bucketName, JSON.stringify(policy));
+    console.log('✅ Bucket policy set to public-read');
+  } catch (error) {
+    console.error('❌ Error setting bucket policy:', error);
+  }
+}
+
 async function uploadFile(filePath, objectName) {
   try {
     await minioClient.fPutObject(bucketName, objectName, filePath);
-    const url = await minioClient.presignedGetObject(bucketName, objectName, 7 * 24 * 60 * 60); // 7 days
+    
+    // Generate public URL instead of presigned URL
+    const endpoint = process.env.MINIO_ENDPOINT || 'localhost';
+    const port = process.env.MINIO_PORT || '9000';
+    const useSSL = process.env.MINIO_USE_SSL === 'true';
+    const protocol = useSSL ? 'https' : 'http';
+    
+    // For production, use the public endpoint
+    const publicEndpoint = process.env.MINIO_PUBLIC_ENDPOINT || `${endpoint}:${port}`;
+    const url = `${protocol}://${publicEndpoint}/${bucketName}/${objectName}`;
+    
     console.log(`✅ Uploaded: ${objectName} -> ${url}`);
     return url;
   } catch (error) {

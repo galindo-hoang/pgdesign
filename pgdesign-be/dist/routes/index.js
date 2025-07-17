@@ -11,6 +11,8 @@ const servicepage_1 = __importDefault(require("./servicepage"));
 const consultation_1 = __importDefault(require("./consultation"));
 const projectdetail_1 = __importDefault(require("./projectdetail"));
 const blogpage_1 = __importDefault(require("./blogpage"));
+const projectsubcategories_1 = __importDefault(require("./projectsubcategories"));
+const upload_1 = __importDefault(require("./upload"));
 const router = (0, express_1.Router)();
 const API_VERSION = 'v1';
 router.use(`/${API_VERSION}/homepage`, homepage_1.default);
@@ -20,6 +22,8 @@ router.use(`/${API_VERSION}/servicepage`, servicepage_1.default);
 router.use(`/${API_VERSION}/consultation`, consultation_1.default);
 router.use(`/${API_VERSION}/projectdetail`, projectdetail_1.default);
 router.use(`/${API_VERSION}/blogpage`, blogpage_1.default);
+router.use(`/${API_VERSION}/projectsubcategories`, projectsubcategories_1.default);
+router.use(`/${API_VERSION}/upload`, upload_1.default);
 router.get('/health', (req, res) => {
     res.json({
         status: 'OK',

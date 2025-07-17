@@ -8,13 +8,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 
 // Import intro page service and types
 import { fetchIntroPageData } from "../../services/introPageService";
-import {
-  IntroPageData,
-  AboutIntroData,
-  VisionMissionData,
-  CommitmentsData,
-  TeamData
-} from "../../types/introPageTypes";
+import { IntroPageData } from "../../types/introPageTypes";
 
 const IntroPage: React.FC = () => {
   const [introPageData, setIntroPageData] = useState<IntroPageData | null>(null);
@@ -92,8 +86,7 @@ const IntroPage: React.FC = () => {
   const commitmentsData = {
     title: introPageData.commitments.title,
     commitments: introPageData.commitments.commitments.map(commitment => ({
-      // icon: () => <img src={commitment.iconUrl} alt={commitment.iconName} />,
-      icon: commitment.iconUrl,
+      icon: () => <img src={commitment.iconUrl} alt={commitment.iconName} className="commitment-icon-img" />,
       title: commitment.title,
       description: commitment.description
     }))

@@ -13,27 +13,36 @@ export class TeamModel extends BaseModel {
   }
 
   async getActiveTeam(): Promise<TeamData | null> {
-    const result = await this.findOneByCondition({ is_active: true });
+    // Get team data, board directors, and team members in parallel
+    const [result, boardDirectors, teamMembers] = await Promise.all([
+      this.findOneByCondition({ is_active: true }),
+      
+      // Optimized query for board directors
+      db('board_directors')
+        .where({ is_active: true })
+        .whereExists(function() {
+          this.select('*')
+            .from('team_data')
+            .whereRaw('team_data.id = board_directors.team_id')
+            .where('team_data.is_active', true);
+        })
+        .orderBy('display_order', 'asc')
+        .select('id', 'name', 'title', 'image_url', 'display_order'),
+        
+      // Optimized query for team members
+      db('team_members')
+        .where({ is_active: true })
+        .whereExists(function() {
+          this.select('*')
+            .from('team_data')
+            .whereRaw('team_data.id = team_members.team_id')
+            .where('team_data.is_active', true);
+        })
+        .orderBy('display_order', 'asc')
+        .select('id', 'name', 'title', 'image_url', 'display_order')
+    ]);
 
     if (!result) return null;
-
-    // Get board directors
-    const boardDirectors = await db('board_directors')
-      .where({ 
-        team_id: result.id,
-        is_active: true 
-      })
-      .orderBy('display_order', 'asc')
-      .select('id', 'name', 'title', 'image_url', 'display_order');
-
-    // Get team members
-    const teamMembers = await db('team_members')
-      .where({ 
-        team_id: result.id,
-        is_active: true 
-      })
-      .orderBy('display_order', 'asc')
-      .select('id', 'name', 'title', 'image_url', 'display_order');
 
     return {
       id: result.id,

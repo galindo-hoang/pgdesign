@@ -15,11 +15,25 @@ export class AboutProjectModel extends BaseModel {
       id: result.id,
       title: result.title,
       subtitle: result.subtitle,
-      backgroundImageUrl: result.background_image_url,
+      backgroundImageUrl: this.getFullImageUrl(result.background_image_url),
       isActive: result.is_active,
       createdAt: result.created_at,
       updatedAt: result.updated_at
     };
+  }
+
+  // Helper method to convert relative paths to full MinIO URLs
+  private getFullImageUrl(relativeUrl: string): string {
+    if (!relativeUrl) return '';
+    
+    // If already a full URL, return as is
+    if (relativeUrl.startsWith('http')) {
+      return relativeUrl;
+    }
+    
+    // Convert relative path to full MinIO URL
+    const baseUrl = 'http://localhost:9000/pgdesign-assets';
+    return `${baseUrl}${relativeUrl}`;
   }
 
   async createOrUpdateAboutProject(data: AboutProjectData): Promise<AboutProjectData> {

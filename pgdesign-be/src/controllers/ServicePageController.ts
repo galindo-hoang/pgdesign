@@ -72,7 +72,8 @@ export class ServicePageController {
           processNumber: processSection1.process_number,
           title: processSection1.title,
           description: processSection1.description,
-          note: processSection1.note
+          note: processSection1.note,
+          imageUrl: processSection1.image_url
         } : this.getDefaultProcessSection(1),
         constructionSection1: constructionSection1 ? {
           titleLeft: constructionSection1.title_left,
@@ -84,7 +85,8 @@ export class ServicePageController {
           processNumber: processSection2.process_number,
           title: processSection2.title,
           description: processSection2.description,
-          note: processSection2.note
+          note: processSection2.note,
+          imageUrl: processSection2.image_url
         } : this.getDefaultProcessSection(2),
         constructionSection2: constructionSection2 ? {
           titleLeft: constructionSection2.title_left,
@@ -96,7 +98,8 @@ export class ServicePageController {
           processNumber: processSection3.process_number,
           title: processSection3.title,
           description: processSection3.description,
-          note: processSection3.note
+          note: processSection3.note,
+          imageUrl: processSection3.image_url
         } : this.getDefaultProcessSection(3),
         constructionSection3: constructionSection3 ? {
           titleLeft: constructionSection3.title_left,
@@ -108,7 +111,8 @@ export class ServicePageController {
           processNumber: processSection4.process_number,
           title: processSection4.title,
           description: processSection4.description,
-          note: processSection4.note
+          note: processSection4.note,
+          imageUrl: processSection4.image_url
         } : this.getDefaultProcessSection(4),
         constructionSection4: constructionSection4 ? {
           titleLeft: constructionSection4.title_left,
@@ -123,6 +127,8 @@ export class ServicePageController {
         message: 'Service page data retrieved successfully',
         data: servicePageData
       };
+
+      console.log('DEBUG: servicePageData:', JSON.stringify(response));
 
       res.json(response);
     } catch (error) {
@@ -536,25 +542,29 @@ export class ServicePageController {
         processNumber: 1,
         title: "THI CÔNG PHẦN THÔ HOẶC TRỌN GÓI HOÀN THIỆN",
         description: "PG Design đảm nhận toàn bộ quy trình xây dựng từ phần thô đến hoàn thiện công trình.",
-        note: "Không bao gồm thi công đồ nội thất rời"
+        note: "Không bao gồm thi công đồ nội thất rời",
+        imageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-7.jpg"
       },
       2: {
         processNumber: 2,
         title: "THI CÔNG NỘI THẤT",
         description: "PG Design đồng hành cùng bạn từ khâu hoàn thiện công trình, thi công nội thất đến cải tạo lại toàn bộ không gian sống.",
-        note: ""
+        note: "",
+        imageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-7.jpg"
       },
       3: {
         processNumber: 3,
         title: "THIẾT KẾ KIẾN TRÚC & NỘI THẤT",
         description: "Từ khái niệm không gian đến bản vẽ chi tiết, PG Design kiến tạo nên những thiết kế vừa chuẩn công năng, vừa đậm chất thẩm mỹ.",
-        note: ""
+        note: "",
+        imageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-7.jpg"
       },
       4: {
         processNumber: 4,
         title: "CẢI TẠO SỬA CHỮA HOẶC DỰ ÁN ĐÃ CÓ BẢN VẼ",
         description: "PG Design nhận thi công các công trình đã có bản vẽ kiến trúc hoặc nội thất.",
-        note: ""
+        note: "",
+        imageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-7.jpg"
       }
     };
 

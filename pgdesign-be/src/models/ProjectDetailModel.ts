@@ -140,6 +140,31 @@ export class ProjectDetailModel extends BaseModel {
     return errors;
   }
 
+  // Add new method to get projects for homepage
+  async getHomepageProjects(): Promise<ProjectDetailData[]> {
+    const rows: ProjectDetailRow[] = await db(this.tableName)
+      .select('*')
+      .where({ is_on_homepage: true, is_active: true })
+      .orderBy('created_at', 'desc')
+      .limit(10); // Limit to 10 projects for homepage
+
+    return rows.map(row => this.transformRowToData(row));
+  }
+
+  // Add method to toggle homepage status
+  async toggleHomepageStatus(id: number, isOnHomePage: boolean): Promise<ProjectDetailData | null> {
+    const updated = await db(this.tableName)
+      .where({ id })
+      .update({
+        is_on_homepage: isOnHomePage,
+        updated_at: new Date()
+      });
+
+    if (updated === 0) return null;
+
+    return this.getById(id);
+  }
+
   // ===== TRANSFORMATION METHODS =====
 
   private transformRowToData(row: ProjectDetailRow, specifications?: ProjectSpecificationRow[]): ProjectDetailData {
@@ -183,6 +208,7 @@ export class ProjectDetailModel extends BaseModel {
       metaTitle: row.meta_title || undefined,
       metaDescription: row.meta_description || undefined,
       tags: tags,
+      isOnHomePage: row.is_on_homepage || false,
       isActive: row.is_active,
       createdAt: row.created_at,
       updatedAt: row.updated_at,
@@ -205,31 +231,30 @@ export class ProjectDetailModel extends BaseModel {
   }
 
   private transformDataToRow(data: CreateProjectDetailRequest | UpdateProjectDetailRequest): Partial<ProjectDetailRow> {
-    const row: Partial<ProjectDetailRow> = {};
-
-    if (data.projectId !== undefined) row.project_id = data.projectId;
-    if (data.title !== undefined) row.title = data.title;
-    if (data.clientName !== undefined) row.client_name = data.clientName;
-    if (data.area !== undefined) row.area = data.area;
-    if (data.constructionDate !== undefined) row.construction_date = data.constructionDate;
-    if (data.address !== undefined) row.address = data.address;
-    if (data.description !== undefined) row.description = data.description;
-    if (data.category !== undefined) row.category = data.category;
-    if (data.subCategory !== undefined) row.sub_category = data.subCategory;
-    if (data.style !== undefined) row.style = data.style;
-    if (data.thumbnailImage !== undefined) row.thumbnail_image = data.thumbnailImage;
-    if (data.htmlContent !== undefined) row.html_content = data.htmlContent;
-    if (data.projectImages !== undefined) row.project_images = JSON.stringify(data.projectImages);
-    if (data.projectStatus !== undefined) row.project_status = data.projectStatus;
-    if (data.projectBudget !== undefined) row.project_budget = data.projectBudget;
-    if (data.completionDate !== undefined) row.completion_date = data.completionDate;
-    if (data.architectName !== undefined) row.architect_name = data.architectName;
-    if (data.contractorName !== undefined) row.contractor_name = data.contractorName;
-    if (data.metaTitle !== undefined) row.meta_title = data.metaTitle;
-    if (data.metaDescription !== undefined) row.meta_description = data.metaDescription;
-    if (data.tags !== undefined) row.tags = JSON.stringify(data.tags);
-
-    return row;
+    return {
+      project_id: data.projectId,
+      title: data.title,
+      client_name: data.clientName,
+      area: data.area,
+      construction_date: data.constructionDate,
+      address: data.address,
+      description: data.description || null,
+      category: data.category,
+      sub_category: data.subCategory,
+      style: data.style || null,
+      thumbnail_image: data.thumbnailImage || null,
+      html_content: data.htmlContent,
+      project_images: data.projectImages ? JSON.stringify(data.projectImages) : null,
+      project_status: data.projectStatus || null,
+      project_budget: data.projectBudget || null,
+      completion_date: data.completionDate || null,
+      architect_name: data.architectName || null,
+      contractor_name: data.contractorName || null,
+      meta_title: data.metaTitle || null,
+      meta_description: data.metaDescription || null,
+      tags: data.tags ? JSON.stringify(data.tags) : null,
+      is_on_homepage: data.isOnHomePage || false
+    };
   }
 
   // ===== MAIN CRUD METHODS =====

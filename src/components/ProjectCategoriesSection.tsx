@@ -25,16 +25,18 @@ const ProjectCategoriesSection: React.FC<ProjectCategoriesSectionProps> = ({
   header,
   categories
 }) => {
+  console.log(JSON.stringify(categories));
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleCategoryClick = (categoryId: string) => {
+    console.log(categoryId);
     setSelectedCategory(selectedCategory === categoryId ? null : categoryId);
   };
 
   const handleViewMore = (e: React.MouseEvent, navigationPath: string) => {
     e.stopPropagation();
-    
+    alert(navigationPath);
     navigate(navigationPath);
   };
 

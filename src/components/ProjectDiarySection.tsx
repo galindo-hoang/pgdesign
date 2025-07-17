@@ -2,17 +2,6 @@ import React from "react";
 import "./ProjectDiarySection.css";
 import Masonry from "react-masonry-css";
 
-// Import your images. Replace with actual paths to your images.
-// For demonstration, I'll use placeholder names.
-import image1 from "../assets/images/diary-image-1.jpg"; // Top left, people with bags
-import image2 from "../assets/images/diary-image-2.jpg"; // Top middle, people looking at a room
-import image3 from "../assets/images/diary-image-3.jpg"; // Top right, construction workers
-import image4 from "../assets/images/diary-image-4.jpg"; // Middle left, kitchen
-import image5 from "../assets/images/diary-image-5.jpg"; // Middle middle, person on tablet
-import image6 from "../assets/images/diary-image-6.jpg"; // Middle right, living room
-import image7 from "../assets/images/diary-image-7.jpg"; // Bottom left, people in front of house
-import image8 from "../assets/images/diary-image-8.jpg"; // Bottom right, worker installing window
-
 interface DiaryImage {
   src: string;
   alt: string;

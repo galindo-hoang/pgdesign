@@ -15,7 +15,7 @@ export class StatsSectionModel extends BaseModel {
 
     if (!result) return null;
 
-    // Get stats items
+    // Get stats items - use correct foreign key reference
     const statsItems = await db('stats_items')
       .where({ 
         stats_header_id: result.id,
@@ -35,12 +35,12 @@ export class StatsSectionModel extends BaseModel {
       statsItems: statsItems.map((item: any) => ({
         id: item.id,
         iconName: item.icon_name,
-        iconUrl: item.icon_url,
+        iconUrl: this.getFullImageUrl(item.icon_url),
         targetValue: item.target_value,
         label: item.label,
         suffix: item.suffix,
         description: item.description,
-        backgroundImageUrl: item.background_image_url,
+        backgroundImageUrl: this.getFullImageUrl(item.background_image_url),
         category: item.category,
         displayOrder: item.display_order
       })),
@@ -48,6 +48,20 @@ export class StatsSectionModel extends BaseModel {
       createdAt: result.created_at,
       updatedAt: result.updated_at
     };
+  }
+
+  // Helper method to convert relative paths to full MinIO URLs
+  private getFullImageUrl(relativeUrl: string): string {
+    if (!relativeUrl) return '';
+    
+    // If already a full URL, return as is
+    if (relativeUrl.startsWith('http')) {
+      return relativeUrl;
+    }
+    
+    // Convert relative path to full MinIO URL
+    const baseUrl = 'http://localhost:9000/pgdesign-assets';
+    return `${baseUrl}${relativeUrl}`;
   }
 
   async createStatsSectionWithItems(

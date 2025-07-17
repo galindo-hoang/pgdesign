@@ -13,6 +13,7 @@ export declare class ProjectPageController {
     createProjectCategoriesData: (req: Request, res: Response, next: import("express").NextFunction) => void;
     updateProjectCategoriesData: (req: Request, res: Response, next: import("express").NextFunction) => void;
     deleteProjectCategoriesData: (req: Request, res: Response, next: import("express").NextFunction) => void;
+    getProjectCategoryById: (req: Request, res: Response, next: import("express").NextFunction) => void;
 }
 declare const projectPageController: ProjectPageController;
 export default projectPageController;

@@ -22,6 +22,18 @@ import { ReactComponent as WorkProcessFlowDiagram1 } from "../assets/icons/work-
 import { ReactComponent as WorkProcessFlowDiagram2 } from "../assets/icons/work-process-flow-diagram-2.svg";
 
 // Import images
+import hero1 from "../assets/images/homepage/hero1.jpg";
+import hero2 from "../assets/images/homepage/hero2.jpg";
+import hero3 from "../assets/images/homepage/hero3.jpg";
+import hero4 from "../assets/images/homepage/hero4.jpg";
+import projectDiary1 from "../assets/images/homepage/projectdiary1.jpg";
+import projectDiary2 from "../assets/images/homepage/projectdiary2.jpg";
+import projectDiary3 from "../assets/images/homepage/projectdiary3.jpg";
+import projectDiary4 from "../assets/images/homepage/projectdiary4.jpg";
+import projectDiary5 from "../assets/images/homepage/projectdiary5.jpg";
+import projectDiary6 from "../assets/images/homepage/projectdiary6.jpg";
+import projectDiary7 from "../assets/images/homepage/projectdiary7.jpg";
+import projectDiary8 from "../assets/images/homepage/projectdiary8.jpg";
 import thumbIntro from "../assets/images/thumb-intro.jpg";
 import thumbIntro1 from "../assets/images/diary-image-1.jpg";
 import thumbIntro2 from "../assets/images/diary-image-2.jpg";
@@ -40,7 +52,7 @@ const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api
 const API_TIMEOUT = 10000; // 10 seconds
 
 // Feature flag for mock data
-const USE_MOCK_DATA = false;
+const USE_MOCK_DATA = true;
 
 // Utility function to simulate API delay
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -59,11 +71,10 @@ export const fetchHeroData = async (): Promise<HeroData> => {
       await delay(500);
       return {
         images: [
-          thumbIntro,
-          thumbIntro1,
-          thumbIntro2,
-          thumbIntro3,
-          thumbIntro,
+          hero1,
+          hero2,
+          hero3,
+          hero4
         ]
       };
     } else {
@@ -429,14 +440,14 @@ export const fetchProjectDiaryData = async (): Promise<ProjectDiaryData> => {
       return {
         title: "NHẬT KÝ HÀNH TRÌNH",
         images: [
-          { src: thumbIntro1, alt: "People presenting something at a table" },
-          { src: thumbIntro2, alt: "People inspecting a room in construction" },
-          { src: thumbIntro3, alt: "Construction workers reviewing plans" },
-          { src: solutionImg1, alt: "Stylish kitchen interior" },
-          { src: solutionImg2, alt: "Person using a tablet at a desk" },
-          { src: solutionImg3, alt: "Modern living room interior" },
-          { src: solutionImg4, alt: "Team standing in front of a house design" },
-          { src: thumbIntro, alt: "Worker installing a window" },
+          { src: projectDiary1, alt: "People presenting something at a table" },
+          { src: projectDiary2, alt: "People inspecting a room in construction" },
+          { src: projectDiary3, alt: "Construction workers reviewing plans" },
+          { src: projectDiary4, alt: "Stylish kitchen interior" },
+          { src: projectDiary5, alt: "Person using a tablet at a desk" },
+          { src: projectDiary6, alt: "Modern living room interior" },
+          { src: projectDiary7, alt: "Team standing in front of a house design" },
+          { src: projectDiary8, alt: "Worker installing a window" },
         ]
       };
     } else {

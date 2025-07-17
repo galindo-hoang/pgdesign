@@ -198,7 +198,7 @@ Once the backend is ready, update `src/services/projectCategoryPageService.ts`:
 const USE_MOCK_DATA = true;
 
 // To this:
-const USE_MOCK_DATA = false;
+const USE_MOCK_DATA = true;
 ```
 
 ### **API Endpoints for Frontend**

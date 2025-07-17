@@ -9,8 +9,10 @@ import {
 } from '../types/projectPageTypes';
 
 // Import asset images
-import thumbIntro from "../assets/images/thumb-intro.jpg";
+import hero from "../assets/images/projectpage/hero.jpg";
 import diaryImage1 from "../assets/images/diary-image-1.jpg";
+import department from "../assets/images/projectpage/department.jpg";
+import houseNormal from "../assets/images/projectpage/house-normal.jpg";
 import diaryImage2 from "../assets/images/diary-image-2.jpg";
 import diaryImage3 from "../assets/images/diary-image-3.jpg";
 import diaryImage4 from "../assets/images/diary-image-4.jpg";
@@ -35,7 +37,7 @@ const mockAboutProjectData: AboutProjectData = {
   id: 1,
   title: 'Dự án',
   subtitle: 'PG DESIGN',
-  backgroundImageUrl: thumbIntro,
+  backgroundImageUrl: hero,
   isActive: true,
   createdAt: new Date(),
   updatedAt: new Date()
@@ -112,7 +114,7 @@ const mockProjectCategories: ProjectCategory[] = [
     categoryId: 'house-normal',
     title: 'NHÀ PHỐ',
     projectCount: 45,
-    backgroundImageUrl: diaryImage1,
+    backgroundImageUrl: houseNormal,
     navigationPath: '/projects/house-normal',
     displayOrder: 0
   },
@@ -121,7 +123,7 @@ const mockProjectCategories: ProjectCategory[] = [
     categoryId: 'house-full',
     title: 'Xây nhà trọn gói',
     projectCount: 32,
-    backgroundImageUrl: diaryImage2,
+    backgroundImageUrl: department,
     navigationPath: '/projects/house-full',
     displayOrder: 1
   },

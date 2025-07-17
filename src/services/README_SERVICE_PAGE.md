@@ -1,84 +1,85 @@
-# Service Page Service Implementation
+# Service Page Service Documentation
 
 ## Overview
-The Service Page now uses dynamic data through the `servicePageService` instead of static data hardcoded in the component.
+The `servicePageService.ts` provides functionality to fetch service page data either from API endpoints or from mock data, controlled by environment variables.
 
-## Architecture
+## Environment Configuration
 
-### Files Created
-1. **src/types/servicePageTypes.ts** - TypeScript interfaces for service page data
-2. **src/services/servicePageService.ts** - Service layer for fetching service page data
-3. **src/services/README_SERVICE_PAGE.md** - This documentation file
+### USE_MOCK_DATA Flag
+You can control the data source using the `REACT_APP_USE_MOCK_DATA` environment variable:
 
-### Files Modified
-1. **src/pages/servicePage/ServicePage.tsx** - Updated to use dynamic data with fallback
+#### To use Mock Data:
+```bash
+# In your .env file
+REACT_APP_USE_MOCK_DATA=true
+```
 
-## Type Definitions
+#### To use API Data:
+```bash
+# In your .env file
+REACT_APP_USE_MOCK_DATA=false
+# OR simply don't set the variable (defaults to API)
+```
 
-### ServicePageData
-Main interface containing all service page data:
-- `heroContent`: Hero section content
-- `services`: Array of service items
-- `processSection1-4`: Data for the 4 service process sections
-- `constructionSection1-4`: Data for the 4 construction service sections
+### API Configuration
+```bash
+# Base URL for API endpoints (optional)
+REACT_APP_API_URL=http://localhost:3002/api
+```
 
-### Individual Types
-- `HeroContent`: Hero section data (title, brand, description, image)
-- `ServiceItem`: Individual service cards
-- `ServiceProcessData`: Process section data
-- `ConstructionServiceData`: Construction service section data
+## Data Flow
 
-## Service Functions
+### When USE_MOCK_DATA=true:
+1. Service immediately returns mock data
+2. No API calls are made
+3. Faster loading for development/testing
 
-### Individual Fetch Functions
-- `fetchHeroContentData()`: Fetches hero section data
-- `fetchServicesData()`: Fetches services array
-- `fetchProcessSection1Data()` - `fetchProcessSection4Data()`: Fetches process sections
-- `fetchConstructionSection1Data()` - `fetchConstructionSection4Data()`: Fetches construction sections
+### When USE_MOCK_DATA=false (default):
+1. Service attempts to fetch data from API
+2. If API call fails, automatically falls back to mock data
+3. Console logs indicate whether data came from API or fallback
 
-### Main Function
-- `fetchServicePageData()`: Fetches all service page data in parallel
+## Available Functions
 
-## Implementation Features
+### Main Data Fetching
+- `fetchServicePageData()`: Main function that respects the USE_MOCK_DATA flag
 
-### 1. Dynamic Data Loading
-- Uses async/await for data fetching
-- Parallel loading of all sections for better performance
-- Simulated API delays for realistic behavior
+### Utility Functions
+- `isUsingMockData()`: Returns boolean indicating if mock data is being used
+- `getDataSourceInfo()`: Returns configuration info for debugging
+- `checkApiHealth()`: Checks if API endpoint is responding
 
-### 2. Error Handling
-- Comprehensive error handling for each section
-- Fallback to mock data when API fails
-- Loading states and error messages
+### Individual Section Fetchers (Mock Data)
+- `fetchHeroContentData()`
+- `fetchServicesData()`
+- `fetchProcessSection1Data()` through `fetchProcessSection4Data()`
+- `fetchConstructionSection1Data()` through `fetchConstructionSection4Data()`
 
-### 3. Mock Data Fallback
-- Complete mock data structure preserved
-- Automatic fallback when service fails
-- Maintains same functionality as before
+## Usage Example
 
-### 4. Loading States
-- Loading spinner during data fetch
-- Error display with retry option
-- Graceful degradation
+```typescript
+import { 
+  fetchServicePageData, 
+  isUsingMockData, 
+  getDataSourceInfo 
+} from '../services/servicePageService';
 
-## Usage
+// Check current configuration
+console.log('Data source info:', getDataSourceInfo());
+console.log('Using mock data:', isUsingMockData());
 
-The ServicePage component now:
-1. Shows loading spinner during data fetch
-2. Displays error message if data fetch fails completely
-3. Uses fetched data or falls back to mock data
-4. Maintains the same UI/UX as before
+// Fetch data (respects USE_MOCK_DATA flag)
+const serviceData = await fetchServicePageData();
+```
 
-## API Integration
+## Development Tips
 
-When real API is available, update the service functions to:
-1. Replace mock data with actual fetch calls
-2. Update API endpoints in the service functions
-3. Adjust error handling as needed
+1. **For Development**: Set `REACT_APP_USE_MOCK_DATA=true` for faster iteration
+2. **For Testing API**: Set `REACT_APP_USE_MOCK_DATA=false` to test API integration
+3. **For Production**: Ensure `REACT_APP_USE_MOCK_DATA` is not set or set to `false`
 
-## Migration Notes
-
-- All original static data is preserved as mock data
-- Component behavior remains identical
-- Ready for real API integration
-- No breaking changes to existing functionality 
+## Console Logging
+The service provides helpful console logs to indicate:
+- Whether mock data or API is being used
+- API call success/failure
+- Fallback to mock data when API fails 

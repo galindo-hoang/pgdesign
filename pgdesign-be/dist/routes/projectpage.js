@@ -17,6 +17,7 @@ router.post('/stats-section', validateContentType_1.validateContentType, Project
 router.put('/stats-section/:id', validateContentType_1.validateContentType, ProjectPageController_1.default.updateStatsSectionData);
 router.delete('/stats-section/:id', ProjectPageController_1.default.deleteStatsSectionData);
 router.get('/project-categories', ProjectPageController_1.default.getProjectCategoriesData);
+router.get('/categories/:id', ProjectPageController_1.default.getProjectCategoryById);
 router.post('/project-categories', validateContentType_1.validateContentType, ProjectPageController_1.default.createProjectCategoriesData);
 router.put('/project-categories/:id', validateContentType_1.validateContentType, ProjectPageController_1.default.updateProjectCategoriesData);
 router.delete('/project-categories/:id', ProjectPageController_1.default.deleteProjectCategoriesData);

@@ -19,6 +19,7 @@ export interface ServiceProcessData {
   title: string;
   description: string;
   note: string;
+  imageUrl: string;
 }
 
 export interface ConstructionServiceData {

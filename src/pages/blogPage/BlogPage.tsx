@@ -18,8 +18,6 @@ import {
 // Import LoadingSpinner component
 import LoadingSpinner from "../../components/LoadingSpinner";
 
-// Import sample images as fallback
-import consultationImage from "../../assets/images/thumb-intro.jpg";
 
 const BlogPage: React.FC = () => {
   // State management
@@ -35,8 +33,6 @@ const BlogPage: React.FC = () => {
       try {
         setIsLoading(true);
         setError(null);
-
-        console.log(`Loading blog page data from ${getCurrentDataSource()} source...`);
         
         const data = await fetchBlogPageData();
         setBlogData(data);
@@ -280,7 +276,7 @@ const BlogPage: React.FC = () => {
           </div>
           <div className="cta-image">
             <img 
-              src={blogData.consultationCTA?.imageUrl || consultationImage} 
+              src={blogData.consultationCTA?.imageUrl} 
               alt="Interior Design Consultation" 
               className="consultation-image"
             />

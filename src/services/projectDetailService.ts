@@ -6,7 +6,7 @@ import { ProjectDetailData, ApiResponse } from '../types/projectDetailTypes';
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002';
 const API_VERSION = 'v1';
 const API_ENDPOINT = `${API_BASE_URL}/api/${API_VERSION}/projectdetail`;
-const USE_MOCK_DATA = false;
+const USE_MOCK_DATA = true;
 
 // Mock project detail data - Project 1
 const mockProjectDetailData: ProjectDetailData = {

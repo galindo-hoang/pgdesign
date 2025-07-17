@@ -15,7 +15,6 @@ import {
   BlogPageFilters,
   BlogHeroEntity,
   BlogProjectItemEntity,
-  ContentSectionEntity,
   ConsultationCTAEntity,
   DesignStyleEntity,
   ImportantFactorEntity,
@@ -25,9 +24,7 @@ import {
   CreateBlogProjectItemRequest,
   UpdateBlogProjectItemRequest,
   CreateContentSectionRequest,
-  UpdateContentSectionRequest,
   CreateConsultationCTARequest,
-  UpdateConsultationCTARequest,
   BulkUpdateRequest,
   BulkDeleteRequest,
   BlogPageSearchFilters

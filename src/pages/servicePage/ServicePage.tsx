@@ -70,6 +70,7 @@ const ServicePage: React.FC = () => {
         title={serviceData.processSection1.title}
         description={serviceData.processSection1.description}
         note={serviceData.processSection1.note}
+        imageUrl={serviceData.processSection1.imageUrl}
       />
       <ConstructionServicesSection 
         titleLeft={serviceData.constructionSection1.titleLeft}
@@ -82,6 +83,7 @@ const ServicePage: React.FC = () => {
         title={serviceData.processSection2.title}
         description={serviceData.processSection2.description}
         note={serviceData.processSection2.note}
+        imageUrl={serviceData.processSection2.imageUrl}
       />
       <ConstructionServicesSection 
         titleLeft={serviceData.constructionSection2.titleLeft}
@@ -94,6 +96,7 @@ const ServicePage: React.FC = () => {
         title={serviceData.processSection3.title}
         description={serviceData.processSection3.description}
         note={serviceData.processSection3.note}
+        imageUrl={serviceData.processSection3.imageUrl}
       />
       <ConstructionServicesSection 
         titleLeft={serviceData.constructionSection3.titleLeft}
@@ -106,6 +109,7 @@ const ServicePage: React.FC = () => {
         title={serviceData.processSection4.title}
         description={serviceData.processSection4.description}
         note={serviceData.processSection4.note}
+        imageUrl={serviceData.processSection4.imageUrl}
       />
       <ConstructionServicesSection 
         titleLeft={serviceData.constructionSection4.titleLeft}

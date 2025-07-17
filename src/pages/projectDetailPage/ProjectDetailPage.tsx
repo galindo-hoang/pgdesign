@@ -96,7 +96,7 @@ const ProjectDetailPage: React.FC = () => {
                 <strong>Diện tích:</strong>
                 <span>{projectData.area}</span>
               </div>
-              <div className="info-item">
+              {/* <div className="info-item">
                 <strong>Địa chỉ:</strong>
                 <span>{projectData.address}</span>
               </div>
@@ -109,7 +109,7 @@ const ProjectDetailPage: React.FC = () => {
                   <strong>Ngày hoàn thành:</strong>
                   <span>{new Date(projectData.completionDate).toLocaleDateString('vi-VN')}</span>
                 </div>
-              )}
+              )} */}
               {projectData.projectStatus && (
                 <div className="info-item">
                   <strong>Trạng thái:</strong>

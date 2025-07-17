@@ -30,6 +30,26 @@ export interface ProjectSubCategoryFilters {
   isActive?: boolean;
 }
 
+export interface ProjectOverviewData {
+  id: number;
+  projectId: string;
+  title: string;
+  clientName: string;
+  area: string;
+  address: string;
+  thumbnailImage?: string;
+  constructionDate: string;
+  projectStatus?: string;
+  createdAt: Date;
+}
+
+export interface ProjectSubCategoryWithProjectOverview extends ProjectSubCategory {
+  projectsOverview: {
+    totalProjects: number;
+    projects: ProjectOverviewData[];
+  };
+}
+
 export class ProjectSubCategoriesModel extends BaseModel {
   constructor() {
     super('project_sub_categories');
@@ -153,6 +173,36 @@ export class ProjectSubCategoriesModel extends BaseModel {
     return row ? this.transformRowToData(row) : null;
   }
 
+  // Get subcategory by sub_category_id only (globally unique)
+  async getBySubCategoryIdOnly(subCategoryId: string): Promise<ProjectSubCategory | null> {
+    const row = await db(this.tableName)
+      .select('*')
+      .where('sub_category_id', subCategoryId)
+      .where('is_active', true)
+      .first();
+
+    return row ? this.transformRowToData(row) : null;
+  }
+
+  // Update subcategory by sub_category_id
+  async updateBySubCategoryId(subCategoryId: string, data: Partial<ProjectSubCategory>): Promise<ProjectSubCategory | null> {
+    const updateData = {
+      ...this.transformDataToRow(data),
+      updated_at: new Date()
+    };
+
+    const updated = await db(this.tableName)
+      .where('sub_category_id', subCategoryId)
+      .where('is_active', true)
+      .update(updateData);
+
+    if (!updated) {
+      return null;
+    }
+
+    return await this.getBySubCategoryIdOnly(subCategoryId);
+  }
+
   // Get subcategory by ID
   async getById(id: number): Promise<ProjectSubCategory | null> {
     const row = await db(this.tableName)
@@ -164,7 +214,7 @@ export class ProjectSubCategoriesModel extends BaseModel {
   }
 
   // Create new subcategory
-  async create(data: Omit<ProjectSubCategory, 'id' | 'createdAt' | 'updatedAt'>): Promise<ProjectSubCategory> {
+  override async create(data: Omit<ProjectSubCategory, 'id' | 'createdAt' | 'updatedAt'>): Promise<ProjectSubCategory> {
     const insertData = {
       ...this.transformDataToRow(data),
       created_at: new Date(),
@@ -173,7 +223,7 @@ export class ProjectSubCategoriesModel extends BaseModel {
 
     const [id] = await db(this.tableName).insert(insertData);
     
-    const created = await this.getById(id);
+    const created = await this.getById(id as number);
     if (!created) {
       throw new Error('Failed to create subcategory');
     }
@@ -182,7 +232,7 @@ export class ProjectSubCategoriesModel extends BaseModel {
   }
 
   // Update subcategory
-  async update(id: number, data: Partial<ProjectSubCategory>): Promise<ProjectSubCategory | null> {
+  override async update(id: number, data: Partial<ProjectSubCategory>): Promise<ProjectSubCategory | null> {
     const updateData = {
       ...this.transformDataToRow(data),
       updated_at: new Date()
@@ -200,7 +250,7 @@ export class ProjectSubCategoriesModel extends BaseModel {
   }
 
   // Delete subcategory (soft delete)
-  async delete(id: number): Promise<boolean> {
+  override async delete(id: number): Promise<boolean> {
     const updated = await db(this.tableName)
       .where({ id })
       .update({ 
@@ -239,6 +289,69 @@ export class ProjectSubCategoriesModel extends BaseModel {
     });
     
     return grouped;
+  }
+
+  // Get subcategories with project details overview by category ID
+  async getSubCategoriesWithProjectOverview(categoryId: string): Promise<ProjectSubCategoryWithProjectOverview[]> {
+    // First get all subcategories for the category
+    const subcategories = await this.getByCategoryId(categoryId);
+    
+    // For each subcategory, get project details overview
+    const subcategoriesWithOverview = await Promise.all(
+      subcategories.map(async (subcategory) => {
+        // Get project details count and basic info for this subcategory
+        const projectsOverview = await db('project_details')
+          .select([
+            'id',
+            'project_id',
+            'title',
+            'client_name',
+            'area',
+            'address',
+            'thumbnail_image',
+            'construction_date',
+            'project_status',
+            'created_at'
+          ])
+          .where('project_sub_category_id', subcategory.id)
+          .where('is_active', true)
+          .orderBy('created_at', 'desc')
+          .limit(10); // Limit to first 10 projects for overview
+
+        // Get total count
+        const totalCountResult = await db('project_details')
+          .count('* as count')
+          .where('project_sub_category_id', subcategory.id)
+          .where('is_active', true)
+          .first();
+
+        const totalProjects = totalCountResult ? parseInt(totalCountResult.count as string) : 0;
+
+        // Transform project data
+        const projectsData = projectsOverview.map(project => ({
+          id: project.id,
+          projectId: project.project_id,
+          title: project.title,
+          clientName: project.client_name,
+          area: project.area,
+          address: project.address,
+          thumbnailImage: project.thumbnail_image,
+          constructionDate: project.construction_date,
+          projectStatus: project.project_status,
+          createdAt: project.created_at
+        }));
+
+        return {
+          ...subcategory,
+          projectsOverview: {
+            totalProjects,
+            projects: projectsData
+          }
+        };
+      })
+    );
+
+    return subcategoriesWithOverview;
   }
 
   // Validation methods
@@ -301,4 +414,6 @@ export class ProjectSubCategoriesModel extends BaseModel {
 
     return errors;
   }
-} 
+}
+
+export default new ProjectSubCategoriesModel(); 

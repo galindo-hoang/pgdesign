@@ -37,7 +37,7 @@ export class ProjectCategoriesModel extends BaseModel {
         categoryId: category.category_id,
         title: category.title,
         projectCount: category.project_count,
-        backgroundImageUrl: category.background_image_url,
+        backgroundImageUrl: this.getFullImageUrl(category.background_image_url),
         navigationPath: category.navigation_path,
         displayOrder: category.display_order
       })),
@@ -45,6 +45,20 @@ export class ProjectCategoriesModel extends BaseModel {
       createdAt: result.created_at,
       updatedAt: result.updated_at
     };
+  }
+
+  // Helper method to convert relative paths to full MinIO URLs
+  private getFullImageUrl(relativeUrl: string): string {
+    if (!relativeUrl) return '';
+    
+    // If already a full URL, return as is
+    if (relativeUrl.startsWith('http')) {
+      return relativeUrl;
+    }
+    
+    // Convert relative path to full MinIO URL
+    const baseUrl = 'http://localhost:9000/pgdesign-assets';
+    return `${baseUrl}${relativeUrl}`;
   }
 
   async createProjectCategoriesWithItems(
@@ -207,6 +221,41 @@ export class ProjectCategoriesModel extends BaseModel {
     }
 
     return errors;
+  }
+
+  // Get a single project category by ID (either category_id or id)
+  async getProjectCategoryById(id: string): Promise<ProjectCategory | null> {
+    let categoryRow;
+    
+    // First try to find by category_id
+    categoryRow = await db('project_categories')
+      .where({ 
+        category_id: id,
+        is_active: true 
+      })
+      .first();
+    
+    // If not found by category_id, try by id (numeric)
+    if (!categoryRow && !isNaN(parseInt(id))) {
+      categoryRow = await db('project_categories')
+        .where({ 
+          id: parseInt(id),
+          is_active: true 
+        })
+        .first();
+    }
+    
+    if (!categoryRow) return null;
+
+    return {
+      id: categoryRow.id,
+      categoryId: categoryRow.category_id,
+      title: categoryRow.title,
+      projectCount: categoryRow.project_count,
+      backgroundImageUrl: categoryRow.background_image_url,
+      navigationPath: categoryRow.navigation_path,
+      displayOrder: categoryRow.display_order
+    };
   }
 }
 

@@ -1,19 +1,20 @@
 import React, { useRef, useEffect, useState } from "react";
 import "./ServiceProcessSection.css";
-import constructionImage from "../assets/images/diary-image-7.jpg";
 
 interface ServiceProcessSectionProps {
   processNumber: number;
   title: string;
   description: string;
   note: string;
+  imageUrl: string;
 }
 
 const ServiceProcessSection: React.FC<ServiceProcessSectionProps> = ({
   processNumber,
   title,
   description,
-  note
+  note,
+  imageUrl
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
@@ -53,7 +54,7 @@ const ServiceProcessSection: React.FC<ServiceProcessSectionProps> = ({
     >
       <div 
         className="service-process-background"
-        style={{ backgroundImage: `url(${constructionImage})` }}
+        style={{ backgroundImage: `url(${imageUrl})` }}
       >
         <div className="service-process-overlay">
           <div className="service-process-number">
@@ -78,4 +79,4 @@ const ServiceProcessSection: React.FC<ServiceProcessSectionProps> = ({
   );
 };
 
-export default ServiceProcessSection ;
+export default ServiceProcessSection;

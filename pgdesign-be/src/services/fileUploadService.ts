@@ -87,7 +87,16 @@ export class FileUploadService {
 
   async getFileUrl(objectName: string): Promise<string> {
     try {
-      return await minioClient.presignedGetObject(bucketName, objectName, 7 * 24 * 60 * 60); // 7 days
+      // Generate public URL instead of presigned URL
+      const endpoint = process.env.MINIO_ENDPOINT || 'localhost';
+      const port = process.env.MINIO_PORT || '9000';
+      const useSSL = process.env.MINIO_USE_SSL === 'true';
+      const protocol = useSSL ? 'https' : 'http';
+      
+      // For production, use the public endpoint
+      const publicEndpoint = process.env.MINIO_PUBLIC_ENDPOINT || `${endpoint}:${port}`;
+      
+      return `${protocol}://${publicEndpoint}/${bucketName}/${objectName}`;
     } catch (error) {
       console.error('Error getting file URL:', error);
       throw createError('Failed to get file URL', 500);

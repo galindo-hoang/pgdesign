@@ -169,6 +169,34 @@ class ProjectCategoriesModel extends BaseModel_1.BaseModel {
         }
         return errors;
     }
+    async getProjectCategoryById(id) {
+        let categoryRow;
+        categoryRow = await (0, database_1.default)('project_categories')
+            .where({
+            category_id: id,
+            is_active: true
+        })
+            .first();
+        if (!categoryRow && !isNaN(parseInt(id))) {
+            categoryRow = await (0, database_1.default)('project_categories')
+                .where({
+                id: parseInt(id),
+                is_active: true
+            })
+                .first();
+        }
+        if (!categoryRow)
+            return null;
+        return {
+            id: categoryRow.id,
+            categoryId: categoryRow.category_id,
+            title: categoryRow.title,
+            projectCount: categoryRow.project_count,
+            backgroundImageUrl: categoryRow.background_image_url,
+            navigationPath: categoryRow.navigation_path,
+            displayOrder: categoryRow.display_order
+        };
+    }
 }
 exports.ProjectCategoriesModel = ProjectCategoriesModel;
 exports.default = new ProjectCategoriesModel();

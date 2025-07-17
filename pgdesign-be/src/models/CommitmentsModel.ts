@@ -11,18 +11,24 @@ export class CommitmentsModel extends BaseModel {
   }
 
   async getActiveCommitments(): Promise<CommitmentsData | null> {
-    const result = await this.findOneByCondition({ is_active: true });
+    // Get commitments data and commitment items in parallel
+    const [result, commitmentItems] = await Promise.all([
+      this.findOneByCondition({ is_active: true }),
+      
+      // Optimized query for commitment items
+      db('commitment_items')
+        .where({ is_active: true })
+        .whereExists(function() {
+          this.select('*')
+            .from('commitments_data')
+            .whereRaw('commitments_data.id = commitment_items.commitments_id')
+            .where('commitments_data.is_active', true);
+        })
+        .orderBy('display_order', 'asc')
+        .select('id', 'icon_name', 'icon_url', 'title', 'description', 'display_order')
+    ]);
 
     if (!result) return null;
-
-    // Get commitment items
-    const commitmentItems = await db('commitment_items')
-      .where({ 
-        commitments_id: result.id,
-        is_active: true 
-      })
-      .orderBy('display_order', 'asc')
-      .select('id', 'icon_name', 'icon_url', 'title', 'description', 'display_order');
 
     return {
       id: result.id,

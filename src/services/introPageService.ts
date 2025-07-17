@@ -6,20 +6,9 @@ import {
   TeamData,
   ApiResponse
 } from '../types/introPageTypes';
+import hero from '../assets/images/intropage/hero.png'
+import mission from '../assets/images/intropage/mission.jpg'
 import backgroundImage from '../assets/images/thumb-intro.jpg'
-import missionImage from '../assets/images/vision-mission-section.jpg'
-
-
-
-// Import your SVG icons as React Components
-import { ReactComponent as DirectExecutionIcon } from "../assets/icons/direct-execution-icon.svg";
-import { ReactComponent as QualityMaterialsIcon } from "../assets/icons/quality-materials-icon.svg";
-import { ReactComponent as ClearPricingIcon } from "../assets/icons/clear-pricing-icon.svg";
-import { ReactComponent as TimelyDeliveryIcon } from "../assets/icons/timely-delivery-icon.svg";
-import { ReactComponent as ReasonablePriceIcon } from "../assets/icons/reasonable-price-icon.svg";
-import { ReactComponent as PostHandoverWarrantyIcon } from "../assets/icons/post-handover-warranty-icon.svg";
-
-
 
 // API Configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
@@ -40,7 +29,7 @@ const mockAboutIntroData: AboutIntroData = {
     'Là đơn vị chuyên nghiệp trong lĩnh vực thiết kế kiến trúc, nội thất và thi công trọn gói. Với đội ngũ thiết kế và thi công giàu kinh nghiệm, chúng tôi cam kết mang đến những công trình chất lượng cao, đúng tiến độ và phản ánh rõ rệt tính cách của từng khách hàng.',
     'PG Design không chỉ tạo ra những không gian sống và làm việc thẩm mỹ, mà còn góp phần xây dựng bản sắc riêng cho mỗi công trình thông qua thiết kế cá nhân hóa và có chiều sâu, gắn liền với phong cách sống và định hướng thương hiệu của khách hàng. Đây chính là cách chúng tôi mang đến giá trị vượt lên trên vẻ đẹp bề mặt - một không gian có hồn và có ý nghĩa.'
   ],
-  backgroundImage: backgroundImage,
+  backgroundImage: hero,
   isActive: true,
   createdAt: new Date(),
   updatedAt: new Date()
@@ -49,7 +38,7 @@ const mockAboutIntroData: AboutIntroData = {
 // Mock Vision Mission Data
 const mockVisionMissionData: VisionMissionData = {
   id: 1,
-  image: missionImage,
+  image: mission,
   vision: {
     title: 'TẦM NHÌN',
     paragraphs: [
@@ -108,7 +97,7 @@ const mockCommitmentsData: CommitmentsData = {
     {
       id: 1,
       iconName: 'direct-execution-icon',
-      iconUrl: DirectExecutionIcon,
+      iconUrl: 'http://localhost:9000/pgdesign-assets/icons/direct-execution-icon.svg',
       title: 'KHÔNG KHOÁN THẦU',
       description: 'PG Design cam kết trực tiếp đảm nhận từ khâu thiết kế đến thi công, không giao khoán cho bên thứ ba.',
       displayOrder: 0
@@ -116,7 +105,7 @@ const mockCommitmentsData: CommitmentsData = {
     {
       id: 2,
       iconName: 'quality-materials-icon',
-      iconUrl: QualityMaterialsIcon,
+      iconUrl: 'http://localhost:9000/pgdesign-assets/icons/quality-materials-icon.svg',
       title: 'VẬT TƯ ĐẠT CHUẨN',
       description: 'Chúng tôi sử dụng vật liệu chính hãng, rõ nguồn gốc, đảm bảo độ bền và tính thẩm mỹ cho công trình.',
       displayOrder: 1
@@ -124,7 +113,7 @@ const mockCommitmentsData: CommitmentsData = {
     {
       id: 3,
       iconName: 'clear-pricing-icon',
-      iconUrl: ClearPricingIcon,
+      iconUrl: 'http://localhost:9000/pgdesign-assets/icons/clear-pricing-icon.svg',
       title: 'CHI PHÍ MINH BẠCH',
       description: 'Mọi hạng mục đều được minh bạch trong báo giá. Cam kết không để khách hàng lo lắng về chi phí phát sinh bất ngờ.',
       displayOrder: 2
@@ -132,7 +121,7 @@ const mockCommitmentsData: CommitmentsData = {
     {
       id: 4,
       iconName: 'timely-delivery-icon',
-      iconUrl: TimelyDeliveryIcon,
+      iconUrl: 'http://localhost:9000/pgdesign-assets/icons/timely-delivery-icon.svg',
       title: 'THI CÔNG ĐÚNG TIẾN ĐỘ',
       description: 'Chúng tôi đặt uy tín lên hàng đầu, bằng việc thực hiện công trình đúng tiến độ đã thống nhất với khách hàng.',
       displayOrder: 3
@@ -140,7 +129,7 @@ const mockCommitmentsData: CommitmentsData = {
     {
       id: 5,
       iconName: 'reasonable-price-icon',
-      iconUrl: ReasonablePriceIcon,
+      iconUrl: 'http://localhost:9000/pgdesign-assets/icons/reasonable-price-icon.svg',
       title: 'GIÁ HỢP LÝ - TỐI ƯU NGÂN SÁCH',
       description: 'Chi phí thiết kế và thi công được tính toán hợp lý, mang lại giá trị cao nhất cho mỗi đồng đầu tư của khách hàng.',
       displayOrder: 4
@@ -148,7 +137,7 @@ const mockCommitmentsData: CommitmentsData = {
     {
       id: 6,
       iconName: 'post-handover-warranty-icon',
-      iconUrl: PostHandoverWarrantyIcon,
+      iconUrl: 'http://localhost:9000/pgdesign-assets/icons/post-handover-warranty-icon.svg',
       title: 'CAM KẾT BẢO HÀNH',
       description: 'Sau khi bàn giao, PG Design vẫn luôn đồng hành cùng khách hàng thông qua chính sách bảo hành chuyên nghiệp và chu đáo.',
       displayOrder: 5
@@ -357,25 +346,16 @@ export const fetchTeamDataApi = async (): Promise<TeamData> => {
 // Main function to fetch all intro page data from API
 export const fetchIntroPageDataApi = async (): Promise<IntroPageData> => {
   try {
-    // Fetch all data in parallel for better performance
-    const [
-      aboutIntro,
-      visionMission,
-      commitments,
-      team
-    ] = await Promise.all([
-      fetchAboutIntroDataApi(),
-      fetchVisionMissionDataApi(),
-      fetchCommitmentsDataApi(),
-      fetchTeamDataApi()
-    ]);
-
-    return {
-      aboutIntro,
-      visionMission,
-      commitments,
-      team
-    };
+    // Use the single optimized endpoint that fetches all data in parallel on the backend
+    const response = await fetch(`${API_BASE_URL}/intropage`);
+    const data: ApiResponse<IntroPageData> = await response.json();
+    
+    console.log(`IntroPageData from optimized API: ${JSON.stringify(data)}`);
+    if (!response.ok) {
+      throw new Error(data.error || 'Failed to fetch intro page data');
+    }
+    
+    return data.data!;
   } catch (error) {
     handleApiError(error, 'intro page');
     throw error;
