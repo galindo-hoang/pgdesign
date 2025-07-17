@@ -3,6 +3,7 @@ import { AboutProjectData } from '../types/projectPageTypes';
 export declare class AboutProjectModel extends BaseModel {
     constructor();
     getActiveAboutProject(): Promise<AboutProjectData | null>;
+    private getFullImageUrl;
     createOrUpdateAboutProject(data: AboutProjectData): Promise<AboutProjectData>;
     updateByCondition(condition: any, updateData: any): Promise<boolean>;
     insert(data: any): Promise<any>;

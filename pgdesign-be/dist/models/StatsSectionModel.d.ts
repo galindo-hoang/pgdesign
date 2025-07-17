@@ -4,6 +4,7 @@ export declare class StatsSectionModel extends BaseModel {
     private statsItemsModel;
     constructor();
     getActiveStatsSection(): Promise<StatsSectionData | null>;
+    private getFullImageUrl;
     createStatsSectionWithItems(data: StatsSectionData, statsItems?: StatsItem[]): Promise<StatsSectionData>;
     updateStatsSectionWithItems(id: number, data: Partial<StatsSectionData>, statsItems?: StatsItem[]): Promise<StatsSectionData | null>;
     validateStatsSectionData(data: any): Promise<string[]>;

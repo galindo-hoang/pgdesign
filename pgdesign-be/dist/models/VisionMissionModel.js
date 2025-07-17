@@ -13,23 +13,31 @@ class VisionMissionModel extends BaseModel_1.BaseModel {
         this.coreValuesModel = new BaseModel_1.BaseModel('core_values');
     }
     async getActiveVisionMission() {
-        const result = await this.findOneByCondition({ is_active: true });
+        const [result, missionItems, coreValues] = await Promise.all([
+            this.findOneByCondition({ is_active: true }),
+            (0, database_1.default)('mission_items')
+                .where({ is_active: true })
+                .whereExists(function () {
+                this.select('*')
+                    .from('vision_mission_data')
+                    .whereRaw('vision_mission_data.id = mission_items.vision_mission_id')
+                    .where('vision_mission_data.is_active', true);
+            })
+                .orderBy('display_order', 'asc')
+                .select('item_text'),
+            (0, database_1.default)('core_values')
+                .where({ is_active: true })
+                .whereExists(function () {
+                this.select('*')
+                    .from('vision_mission_data')
+                    .whereRaw('vision_mission_data.id = core_values.vision_mission_id')
+                    .where('vision_mission_data.is_active', true);
+            })
+                .orderBy('display_order', 'asc')
+                .select('id', 'title', 'description', 'display_order')
+        ]);
         if (!result)
             return null;
-        const missionItems = await (0, database_1.default)('mission_items')
-            .where({
-            vision_mission_id: result.id,
-            is_active: true
-        })
-            .orderBy('display_order', 'asc')
-            .select('item_text');
-        const coreValues = await (0, database_1.default)('core_values')
-            .where({
-            vision_mission_id: result.id,
-            is_active: true
-        })
-            .orderBy('display_order', 'asc')
-            .select('id', 'title', 'description', 'display_order');
         return {
             id: result.id,
             image: result.image_url,

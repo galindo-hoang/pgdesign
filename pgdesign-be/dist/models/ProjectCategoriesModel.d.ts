@@ -4,6 +4,7 @@ export declare class ProjectCategoriesModel extends BaseModel {
     private projectCategoriesItemsModel;
     constructor();
     getActiveProjectCategories(): Promise<ProjectCategoriesData | null>;
+    private getFullImageUrl;
     createProjectCategoriesWithItems(data: ProjectCategoriesData, categories?: ProjectCategory[]): Promise<ProjectCategoriesData>;
     updateProjectCategoriesWithItems(id: number, data: Partial<ProjectCategoriesData>, categories?: ProjectCategory[]): Promise<ProjectCategoriesData | null>;
     validateProjectCategoriesData(data: any): Promise<string[]>;

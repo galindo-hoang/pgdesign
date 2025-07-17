@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 export declare class HomepageController {
+    private projectDetailModel;
     getHomepageData: (req: Request, res: Response, next: import("express").NextFunction) => void;
+    getHomepageProjects: (req: Request, res: Response, next: import("express").NextFunction) => void;
     getHeroData: (req: Request, res: Response, next: import("express").NextFunction) => void;
     createHeroData: (req: Request, res: Response, next: import("express").NextFunction) => void;
     updateHeroData: (req: Request, res: Response, next: import("express").NextFunction) => void;

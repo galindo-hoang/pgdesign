@@ -14,11 +14,20 @@ class AboutProjectModel extends BaseModel_1.BaseModel {
             id: result.id,
             title: result.title,
             subtitle: result.subtitle,
-            backgroundImageUrl: result.background_image_url,
+            backgroundImageUrl: this.getFullImageUrl(result.background_image_url),
             isActive: result.is_active,
             createdAt: result.created_at,
             updatedAt: result.updated_at
         };
+    }
+    getFullImageUrl(relativeUrl) {
+        if (!relativeUrl)
+            return '';
+        if (relativeUrl.startsWith('http')) {
+            return relativeUrl;
+        }
+        const baseUrl = 'http://localhost:9000/pgdesign-assets';
+        return `${baseUrl}${relativeUrl}`;
     }
     async createOrUpdateAboutProject(data) {
         await this.updateByCondition({ is_active: true }, { is_active: false });

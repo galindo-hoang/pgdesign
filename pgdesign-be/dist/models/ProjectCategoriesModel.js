@@ -32,7 +32,7 @@ class ProjectCategoriesModel extends BaseModel_1.BaseModel {
                 categoryId: category.category_id,
                 title: category.title,
                 projectCount: category.project_count,
-                backgroundImageUrl: category.background_image_url,
+                backgroundImageUrl: this.getFullImageUrl(category.background_image_url),
                 navigationPath: category.navigation_path,
                 displayOrder: category.display_order
             })),
@@ -40,6 +40,15 @@ class ProjectCategoriesModel extends BaseModel_1.BaseModel {
             createdAt: result.created_at,
             updatedAt: result.updated_at
         };
+    }
+    getFullImageUrl(relativeUrl) {
+        if (!relativeUrl)
+            return '';
+        if (relativeUrl.startsWith('http')) {
+            return relativeUrl;
+        }
+        const baseUrl = 'http://localhost:9000/pgdesign-assets';
+        return `${baseUrl}${relativeUrl}`;
     }
     async createProjectCategoriesWithItems(data, categories = []) {
         const trx = await database_1.default.transaction();

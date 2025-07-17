@@ -30,12 +30,12 @@ class StatsSectionModel extends BaseModel_1.BaseModel {
             statsItems: statsItems.map((item) => ({
                 id: item.id,
                 iconName: item.icon_name,
-                iconUrl: item.icon_url,
+                iconUrl: this.getFullImageUrl(item.icon_url),
                 targetValue: item.target_value,
                 label: item.label,
                 suffix: item.suffix,
                 description: item.description,
-                backgroundImageUrl: item.background_image_url,
+                backgroundImageUrl: this.getFullImageUrl(item.background_image_url),
                 category: item.category,
                 displayOrder: item.display_order
             })),
@@ -43,6 +43,15 @@ class StatsSectionModel extends BaseModel_1.BaseModel {
             createdAt: result.created_at,
             updatedAt: result.updated_at
         };
+    }
+    getFullImageUrl(relativeUrl) {
+        if (!relativeUrl)
+            return '';
+        if (relativeUrl.startsWith('http')) {
+            return relativeUrl;
+        }
+        const baseUrl = 'http://localhost:9000/pgdesign-assets';
+        return `${baseUrl}${relativeUrl}`;
     }
     async createStatsSectionWithItems(data, statsItems = []) {
         const trx = await database_1.default.transaction();

@@ -14,13 +14,15 @@ const WorkflowModel_1 = __importDefault(require("../models/WorkflowModel"));
 const ProjectDiaryModel_1 = __importDefault(require("../models/ProjectDiaryModel"));
 const TestimonialModel_1 = __importDefault(require("../models/TestimonialModel"));
 const ConsultationFormModel_1 = __importDefault(require("../models/ConsultationFormModel"));
+const ProjectDetailModel_1 = require("../models/ProjectDetailModel");
 class HomepageController {
     constructor() {
+        this.projectDetailModel = new ProjectDetailModel_1.ProjectDetailModel();
         this.getHomepageData = (0, errorHandler_1.asyncHandler)(async (req, res) => {
-            const [hero, about, imageSlider, stats, solution, workflow, projectDiary, testimonials, consultationForm] = await Promise.all([
+            const [hero, about, homepageProjects, stats, solution, workflow, projectDiary, testimonials, consultationForm] = await Promise.all([
                 HeroModel_1.default.getHeroWithImages(),
                 AboutModel_1.default.getActiveAbout(),
-                ImageSliderModel_1.default.getAllSlides(),
+                this.projectDetailModel.getHomepageProjects(),
                 StatsModel_1.default.getStatsWithItems(),
                 SolutionModel_1.default.getSolutionWithItems(),
                 WorkflowModel_1.default.getWorkflowWithTabs(),
@@ -28,6 +30,18 @@ class HomepageController {
                 TestimonialModel_1.default.getTestimonialWithItems(),
                 ConsultationFormModel_1.default.getConsultationFormWithProjectTypes()
             ]);
+            const imageSlider = homepageProjects.map(project => ({
+                id: project.id,
+                image_url: project.thumbnailImage || '/images/default-project.jpg',
+                image_alt: project.title,
+                title: project.title,
+                subtitle: project.subCategory || project.category,
+                size: project.area,
+                display_order: 0,
+                is_active: true,
+                created_at: project.createdAt,
+                updated_at: project.updatedAt
+            }));
             const response = {
                 success: true,
                 data: {
@@ -41,6 +55,14 @@ class HomepageController {
                     testimonials,
                     consultationForm
                 }
+            };
+            res.json(response);
+        });
+        this.getHomepageProjects = (0, errorHandler_1.asyncHandler)(async (req, res) => {
+            const projects = await this.projectDetailModel.getHomepageProjects();
+            const response = {
+                success: true,
+                data: projects
             };
             res.json(response);
         });
@@ -151,10 +173,22 @@ class HomepageController {
             res.json(response);
         });
         this.getImageSliderData = (0, errorHandler_1.asyncHandler)(async (req, res) => {
-            const slides = await ImageSliderModel_1.default.getAllSlides();
+            const projects = await this.projectDetailModel.getHomepageProjects();
+            const imageSlider = projects.map(project => ({
+                id: project.id,
+                image_url: project.thumbnailImage || '/images/default-project.jpg',
+                image_alt: project.title,
+                title: project.title,
+                subtitle: project.subCategory || project.category,
+                size: project.area,
+                display_order: 0,
+                is_active: true,
+                created_at: project.createdAt,
+                updated_at: project.updatedAt
+            }));
             const response = {
                 success: true,
-                data: slides
+                data: imageSlider
             };
             res.json(response);
         });

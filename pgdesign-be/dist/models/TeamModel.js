@@ -13,23 +13,31 @@ class TeamModel extends BaseModel_1.BaseModel {
         this.teamMembersModel = new BaseModel_1.BaseModel('team_members');
     }
     async getActiveTeam() {
-        const result = await this.findOneByCondition({ is_active: true });
+        const [result, boardDirectors, teamMembers] = await Promise.all([
+            this.findOneByCondition({ is_active: true }),
+            (0, database_1.default)('board_directors')
+                .where({ is_active: true })
+                .whereExists(function () {
+                this.select('*')
+                    .from('team_data')
+                    .whereRaw('team_data.id = board_directors.team_id')
+                    .where('team_data.is_active', true);
+            })
+                .orderBy('display_order', 'asc')
+                .select('id', 'name', 'title', 'image_url', 'display_order'),
+            (0, database_1.default)('team_members')
+                .where({ is_active: true })
+                .whereExists(function () {
+                this.select('*')
+                    .from('team_data')
+                    .whereRaw('team_data.id = team_members.team_id')
+                    .where('team_data.is_active', true);
+            })
+                .orderBy('display_order', 'asc')
+                .select('id', 'name', 'title', 'image_url', 'display_order')
+        ]);
         if (!result)
             return null;
-        const boardDirectors = await (0, database_1.default)('board_directors')
-            .where({
-            team_id: result.id,
-            is_active: true
-        })
-            .orderBy('display_order', 'asc')
-            .select('id', 'name', 'title', 'image_url', 'display_order');
-        const teamMembers = await (0, database_1.default)('team_members')
-            .where({
-            team_id: result.id,
-            is_active: true
-        })
-            .orderBy('display_order', 'asc')
-            .select('id', 'name', 'title', 'image_url', 'display_order');
         return {
             id: result.id,
             content: {
