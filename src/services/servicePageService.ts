@@ -1,14 +1,3 @@
-// src/services/servicePageService.ts
-// 
-// Service for fetching service page data from API or mock data
-// 
-// Environment Variables:
-// - REACT_APP_USE_MOCK_DATA: Set to 'true' to use mock data instead of API calls
-// - REACT_APP_API_URL: Base URL for API endpoints (defaults to http://localhost:3002/api)
-//
-// Usage:
-// To use mock data: Set REACT_APP_USE_MOCK_DATA=true in your .env file
-// To use API data: Set REACT_APP_USE_MOCK_DATA=false or remove the variable
 import {
   ServicePageData,
   HeroContent,
@@ -17,12 +6,16 @@ import {
   ConstructionServiceData
 } from '../types/servicePageTypes';
 
-import heroImage from "../assets/images/vision-mission-section.jpg";
+import heroImage from "../assets/images/servicepage/service-hero.jpg";
+import service1 from "../assets/images/servicepage/service1.jpg";
+import service2 from "../assets/images/servicepage/service2.jpg";
+import service3 from "../assets/images/servicepage/service3.jpg";
+import service4 from "../assets/images/servicepage/service4.jpg";
 
 // API Configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api';
 const API_TIMEOUT = 10000; // 10 seconds
-const USE_MOCK_DATA = process.env.REACT_APP_USE_MOCK_DATA === 'true' || false;
+const USE_MOCK_DATA = true;
 
 // Utility function to simulate API delay
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -183,7 +176,7 @@ export const fetchProcessSection1Data = async (): Promise<ServiceProcessData> =>
       title: "THI CÔNG PHẦN THÔ HOẶC TRỌN GÓI HOÀN THIỆN",
       description: "PG Design đảm nhận toàn bộ quy trình xây dựng từ phần thô đến hoàn thiện công trình — bao gồm thi công móng, kết cấu, xây tô, ốp lát, sơn nước, lắp đặt thiết bị vệ sinh, hệ thống điện - nước và trần đến hoàn chỉnh.",
       note: "Không bao gồm thi công đồ nội thất rời - xem mục Thi công nội thất",
-      imageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-7.jpg"
+      imageUrl: service1,
     };
   } catch (error) {
     handleApiError(error, 'process section 1');
@@ -229,7 +222,7 @@ export const fetchProcessSection2Data = async (): Promise<ServiceProcessData> =>
       title: "THI CÔNG NỘI THẤT",
       description: "PG Design đồng hành cùng bạn từ khâu hoàn thiện công trình, thi công nội thất đến cải tạo lại toàn bộ không gian sống - mang đến sự chỉn chu, tiện nghi và cảm xúc sống trọn vẹn.",
       note: "",
-      imageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-7.jpg"
+      imageUrl: service2,
     };
   } catch (error) {
     handleApiError(error, 'process section 2');
@@ -277,7 +270,7 @@ export const fetchProcessSection3Data = async (): Promise<ServiceProcessData> =>
       title: "THIẾT KẾ KIẾN TRÚC & NỘI THẤT",
       description: "Từ khái niệm không gian đến bản vẽ chi tiết, PG Design kiến tạo nên những thiết kế vừa chuẩn công năng, vừa đậm chất thẩm mỹ - thể hiện rõ cá tính và phong cách sống của gia chủ trong từng đường nét.",
       note: "",
-      imageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-7.jpg"
+      imageUrl: service3,
     };
   } catch (error) {
     handleApiError(error, 'process section 3');
@@ -322,7 +315,7 @@ export const fetchProcessSection4Data = async (): Promise<ServiceProcessData> =>
       title: "CẢI TẠO SỬA CHỮA HOẶC DỰ ÁN ĐÃ CÓ BẢN VẼ",
       description: "PG Design nhận thi công các công trình đã có bản vẽ kiến trúc hoặc nội thất, đảm bảo đúng kỹ thuật - đúng thiết kế - đúng tiến độ, mang đến sản phẩm cuối cùng hoàn thiện với chất lượng chuẩn mực.",
       note: "",
-      imageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-7.jpg"
+      imageUrl: service4,
     };
   } catch (error) {
     handleApiError(error, 'process section 4');

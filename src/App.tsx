@@ -15,7 +15,7 @@ import FloatingActionButton from "./components/FloatingActionButton";
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="App">
         <Navbar />
         <Routes>
@@ -31,7 +31,7 @@ const App: React.FC = () => {
         <Footer />
         <FloatingActionButton />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

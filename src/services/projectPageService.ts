@@ -9,10 +9,12 @@ import {
 } from '../types/projectPageTypes';
 
 // Import asset images
-import hero from "../assets/images/projectpage/hero.jpg";
+import hero from "../assets/images/projectpage/project-hero.jpg";
 import diaryImage1 from "../assets/images/diary-image-1.jpg";
-import department from "../assets/images/projectpage/department.jpg";
 import houseNormal from "../assets/images/projectpage/house-normal.jpg";
+import houseFull from "../assets/images/projectpage/house-full.png";
+import houseInterior from "../assets/images/projectpage/house-interior.jpg";
+import houseRough from "../assets/images/projectpage/house-rough.png";
 import diaryImage2 from "../assets/images/diary-image-2.jpg";
 import diaryImage3 from "../assets/images/diary-image-3.jpg";
 import diaryImage4 from "../assets/images/diary-image-4.jpg";
@@ -123,7 +125,7 @@ const mockProjectCategories: ProjectCategory[] = [
     categoryId: 'house-full',
     title: 'Xây nhà trọn gói',
     projectCount: 32,
-    backgroundImageUrl: department,
+    backgroundImageUrl: houseFull,
     navigationPath: '/projects/house-full',
     displayOrder: 1
   },
@@ -132,7 +134,7 @@ const mockProjectCategories: ProjectCategory[] = [
     categoryId: 'house-rough',
     title: 'Xây dựng phần thô',
     projectCount: 28,
-    backgroundImageUrl: diaryImage3,
+    backgroundImageUrl: houseRough,
     navigationPath: '/projects/house-rough',
     displayOrder: 2
   },
@@ -141,7 +143,7 @@ const mockProjectCategories: ProjectCategory[] = [
     categoryId: 'house-interior',
     title: 'Thiết kế và thi công nội thất',
     projectCount: 50,
-    backgroundImageUrl: diaryImage4,
+    backgroundImageUrl: houseInterior,
     navigationPath: '/projects/house-interior',
     displayOrder: 3
   }
