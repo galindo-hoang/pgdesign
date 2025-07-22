@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import "./ProjectDetailPage.css";
 import { ProjectDetailData } from "../../types/projectDetailTypes";
 import { fetchProjectDetailData } from "../../services/projectDetailService";
-import heroImage from "../../assets/images/diary-image-1.jpg";
 
 const ProjectDetailPage: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -58,7 +57,7 @@ const ProjectDetailPage: React.FC = () => {
       {/* Hero Section */}
       <div className="project-hero">
         <img 
-          src={projectData.thumbnailImage || heroImage} 
+          src={projectData.thumbnailImage} 
           alt={projectData.title}
           className="hero-background-image"
         />

@@ -1,7 +1,6 @@
 // src/components/AboutUsSection.tsx
 import React, { useRef, useEffect, useState } from "react";
 import "./VisionMissionSection.css";
-import aboutUsImage from "../assets/images/vision-mission-section.jpg"; // Path to your image
 // Make sure you have this image in src/assets/images/ or update the path
 
 interface VisionMissionContent {
@@ -68,7 +67,7 @@ const VisionMissionSection: React.FC<VisionMissionSectionProps> = ({content}) =>
           className={`about-us-image-container ${isVisible ? 'zoom-in-animation' : ''}`}
         >
           <img
-            src={content.image || aboutUsImage}
+            src={content.image}
             alt="Interior decoration with lamp and plant"
             className="about-us-decoration-image"
           />

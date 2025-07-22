@@ -91,7 +91,7 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
   );
 
   // Get hero image from category data or fallback to default
-  const heroImage = categoryData.heroImageUrl || '/assets/images/diary-image-1.jpg';
+  const heroImage = categoryData.heroImageUrl;
 
   return (
     <div className="project-category-page">

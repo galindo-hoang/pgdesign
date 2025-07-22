@@ -329,7 +329,7 @@ export const projectDetailService = {
   async getProjectCategories(): Promise<string[]> {
     if (USE_MOCK_DATA) {
       await delay(200);
-      return ['house-normal', 'house-full', 'apartment', 'office', 'commercial'];
+      return ['house-normal', 'appartment', 'apartment', 'office', 'commercial'];
     }
 
     try {
@@ -343,7 +343,7 @@ export const projectDetailService = {
       return data.success ? data.data : [];
     } catch (error) {
       console.error('Error fetching project categories:', error);
-      return ['house-normal', 'house-full', 'apartment', 'office', 'commercial'];
+      return ['house-normal', 'appartment', 'apartment', 'office', 'commercial'];
     }
   },
 

@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
 import "./AboutIntroSection.css"; // Import CSS module
-import backgroundImage from "../assets/images/thumb-intro.jpg"; // Adjust path as needed
 
 interface AboutIntroContent {
   brandTitle: string;
@@ -63,7 +62,7 @@ const AboutIntroSection: React.FC<AboutIntroSectionProps> = ({content}) => {
     <section
       ref={sectionRef}
       className={`about-intro-section ${isVisible ? 'zoom-in-bg' : ''}`}
-      style={{ backgroundImage: `url(${content.backgroundImage || backgroundImage})` }}
+      style={{ backgroundImage: `url(${content.backgroundImage})` }}
     >
       <div className="about-intro-content-container">
         <div className="intro-pg-design">

@@ -30,10 +30,10 @@ const mockCategoriesData: Record<string, Omit<ProjectCategory, 'subCategories'>>
     displayOrder: 0,
     isActive: true
   },
-  "house-full": {
+  "appartment": {
     id: 2,
-    categoryId: "house-full",
-    title: "NHÀ VƯỜN",
+    categoryId: "appartment",
+    title: "CĂN HỘ",
     description: "Hòa quyện kiến trúc với thiên nhiên, tạo nên không gian sống xanh và thư thái.",
     heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg",
     displayOrder: 1,
@@ -48,10 +48,10 @@ const mockCategoriesData: Record<string, Omit<ProjectCategory, 'subCategories'>>
     displayOrder: 2,
     isActive: true
   },
-  "house-interior": {
+  "house-business": {
     id: 4,
-    categoryId: "house-interior",
-    title: "NHÀ CẤP 4",
+    categoryId: "house-business",
+    title: "THƯƠNG MẠI",
     description: "Nhà một tầng đặc trưng của Việt Nam với nhiều biến thể phong cách và bố trí.",
     heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg",
     displayOrder: 3,
@@ -115,7 +115,7 @@ const mockSubCategoriesData: Record<string, ProjectSubCategory[]> = {
       updatedAt: new Date()
     }
   ],
-  "house-full": [
+  "appartment": [
     {
       id: 5,
       projectCategoryId: 2,
@@ -171,7 +171,7 @@ const mockSubCategoriesData: Record<string, ProjectSubCategory[]> = {
       updatedAt: new Date()
     }
   ],
-  "house-interior": [
+  "house-business": [
     {
       id: 9,
       projectCategoryId: 4,
