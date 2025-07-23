@@ -18,9 +18,7 @@ export interface ProjectDetailData {
   
   // Additional project details
   projectImages?: string[];
-  projectSpecs?: ProjectSpecification[];
-  projectStatus?: string;
-  projectBudget?: string;
+  projectStatus?: string; // Now includes budget information
   completionDate?: string;
   architectName?: string;
   contractorName?: string;
@@ -36,13 +34,7 @@ export interface ProjectDetailData {
   updatedAt?: string;
 }
 
-export interface ProjectSpecification {
-  id: string;
-  label: string;
-  value: string;
-  unit?: string;
-  displayOrder?: number;
-}
+
 
 // API Response type
 export interface ApiResponse<T> {

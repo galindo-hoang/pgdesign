@@ -23,7 +23,7 @@ class CommitmentsModel extends BaseModel_1.BaseModel {
                     .where('commitments_data.is_active', true);
             })
                 .orderBy('display_order', 'asc')
-                .select('id', 'icon_name', 'icon_url', 'title', 'description', 'display_order')
+                .select('id', 'icon_name', 'title', 'description', 'display_order')
         ]);
         if (!result)
             return null;
@@ -33,7 +33,6 @@ class CommitmentsModel extends BaseModel_1.BaseModel {
             commitments: commitmentItems.map((item) => ({
                 id: item.id,
                 iconName: item.icon_name,
-                iconUrl: item.icon_url,
                 title: item.title,
                 description: item.description,
                 displayOrder: item.display_order
@@ -60,7 +59,6 @@ class CommitmentsModel extends BaseModel_1.BaseModel {
                 const commitmentItemsData = commitmentItems.map((item, index) => ({
                     commitments_id: commitmentsId,
                     icon_name: item.iconName,
-                    icon_url: item.iconUrl,
                     title: item.title,
                     description: item.description,
                     display_order: item.displayOrder || index,
@@ -107,7 +105,6 @@ class CommitmentsModel extends BaseModel_1.BaseModel {
                     const commitmentItemsData = commitmentItems.map((item, index) => ({
                         commitments_id: id,
                         icon_name: item.iconName,
-                        icon_url: item.iconUrl,
                         title: item.title,
                         description: item.description,
                         display_order: item.displayOrder || index,
@@ -137,9 +134,6 @@ class CommitmentsModel extends BaseModel_1.BaseModel {
         const errors = [];
         if (!data.iconName || typeof data.iconName !== 'string') {
             errors.push('Icon name is required and must be a string');
-        }
-        if (!data.iconUrl || typeof data.iconUrl !== 'string') {
-            errors.push('Icon URL is required and must be a string');
         }
         if (!data.title || typeof data.title !== 'string') {
             errors.push('Title is required and must be a string');

@@ -10,6 +10,27 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import { fetchIntroPageData } from "../../services/introPageService";
 import { IntroPageData } from "../../types/introPageTypes";
 
+// Import static SVG icons
+import directExecutionIcon from "../../assets/icons/direct-execution-icon.svg";
+import qualityMaterialsIcon from "../../assets/icons/quality-materials-icon.svg";
+import clearPricingIcon from "../../assets/icons/clear-pricing-icon.svg";
+import timelyDeliveryIcon from "../../assets/icons/timely-delivery-icon.svg";
+import reasonablePriceIcon from "../../assets/icons/reasonable-price-icon.svg";
+import postHandoverWarrantyIcon from "../../assets/icons/post-handover-warranty-icon.svg";
+
+// Icon mapping function
+const getIconByIconName = (iconName: string): string => {
+  const iconMap: { [key: string]: string } = {
+    'direct-execution-icon': directExecutionIcon,
+    'quality-materials-icon': qualityMaterialsIcon,
+    'clear-pricing-icon': clearPricingIcon,
+    'timely-delivery-icon': timelyDeliveryIcon,
+    'reasonable-price-icon': reasonablePriceIcon,
+    'post-handover-warranty-icon': postHandoverWarrantyIcon,
+  };
+  return iconMap[iconName] || directExecutionIcon; // fallback to first icon
+};
+
 const IntroPage: React.FC = () => {
   const [introPageData, setIntroPageData] = useState<IntroPageData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -86,7 +107,7 @@ const IntroPage: React.FC = () => {
   const commitmentsData = {
     title: introPageData.commitments.title,
     commitments: introPageData.commitments.commitments.map(commitment => ({
-      icon: () => <img src={commitment.iconUrl} alt={commitment.iconName} className="commitment-icon-img" />,
+      icon: () => <img src={getIconByIconName(commitment.iconName)} alt={commitment.iconName} className="commitment-icon-img" />,
       title: commitment.title,
       description: commitment.description
     }))

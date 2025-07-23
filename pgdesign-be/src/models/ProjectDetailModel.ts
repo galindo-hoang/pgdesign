@@ -4,9 +4,7 @@ import { BaseModel } from './BaseModel';
 import db from '../config/database';
 import {
   ProjectDetailData,
-  ProjectSpecification,
   ProjectDetailRow,
-  ProjectSpecificationRow,
   CreateProjectDetailRequest,
   UpdateProjectDetailRequest,
   ProjectDetailFilters
@@ -14,7 +12,6 @@ import {
 
 export class ProjectDetailModel extends BaseModel {
   protected override tableName = 'project_details';
-  protected specsTableName = 'project_specifications';
 
   constructor() {
     super('project_details');
@@ -85,10 +82,6 @@ export class ProjectDetailModel extends BaseModel {
       errors.push('projectStatus must not exceed 100 characters');
     }
 
-    if (data.projectBudget && data.projectBudget.length > 100) {
-      errors.push('projectBudget must not exceed 100 characters');
-    }
-
     if (data.architectName && data.architectName.length > 200) {
       errors.push('architectName must not exceed 200 characters');
     }
@@ -112,31 +105,7 @@ export class ProjectDetailModel extends BaseModel {
     return errors;
   }
 
-  async validateProjectSpecificationData(data: Partial<ProjectSpecification>): Promise<string[]> {
-    const errors: string[] = [];
 
-    if (!data.label || data.label.trim() === '') {
-      errors.push('label is required');
-    } else if (data.label.length > 200) {
-      errors.push('label must not exceed 200 characters');
-    }
-
-    if (!data.value || data.value.trim() === '') {
-      errors.push('value is required');
-    } else if (data.value.length > 100) {
-      errors.push('value must not exceed 100 characters');
-    }
-
-    if (data.unit && data.unit.length > 50) {
-      errors.push('unit must not exceed 50 characters');
-    }
-
-    if (data.displayOrder !== undefined && (data.displayOrder < 0 || data.displayOrder > 999)) {
-      errors.push('displayOrder must be between 0 and 999');
-    }
-
-    return errors;
-  }
 
   // Add new method to get projects for homepage
   async getHomepageProjects(): Promise<ProjectDetailData[]> {
@@ -165,7 +134,7 @@ export class ProjectDetailModel extends BaseModel {
 
   // ===== TRANSFORMATION METHODS =====
 
-  private transformRowToData(row: ProjectDetailRow, specifications?: ProjectSpecificationRow[]): ProjectDetailData {
+  private transformRowToData(row: ProjectDetailRow): ProjectDetailData {
     let projectImages;
     let tags;
     
@@ -198,8 +167,7 @@ export class ProjectDetailModel extends BaseModel {
       thumbnailImage: row.thumbnail_image || undefined,
       htmlContent: row.html_content,
       projectImages: projectImages,
-      projectStatus: row.project_status || undefined,
-      projectBudget: row.project_budget || undefined,
+      projectStatus: row.project_status || undefined, // Now includes budget information
       completionDate: row.completion_date || undefined,
       architectName: row.architect_name || undefined,
       contractorName: row.contractor_name || undefined,
@@ -209,24 +177,11 @@ export class ProjectDetailModel extends BaseModel {
       isOnHomePage: row.is_on_homepage || false,
       isActive: row.is_active,
       createdAt: row.created_at,
-      updatedAt: row.updated_at,
-      projectSpecs: specifications ? specifications.map(this.transformSpecRowToData) : undefined
-    };
-  }
-
-  private transformSpecRowToData(row: ProjectSpecificationRow): ProjectSpecification {
-    return {
-      id: row.id,
-      projectDetailId: row.project_detail_id,
-      label: row.label,
-      value: row.value,
-      unit: row.unit || undefined,
-      displayOrder: row.display_order,
-      isActive: row.is_active,
-      createdAt: row.created_at,
       updatedAt: row.updated_at
     };
   }
+
+
 
   private transformDataToRow(data: CreateProjectDetailRequest | UpdateProjectDetailRequest): Partial<ProjectDetailRow> {
     const row: Partial<ProjectDetailRow> = {};
@@ -245,7 +200,6 @@ export class ProjectDetailModel extends BaseModel {
     if (data.htmlContent !== undefined) row.html_content = data.htmlContent;
     if (data.projectImages !== undefined) row.project_images = data.projectImages ? JSON.stringify(data.projectImages) : null;
     if (data.projectStatus !== undefined) row.project_status = data.projectStatus || null;
-    if (data.projectBudget !== undefined) row.project_budget = data.projectBudget || null;
     if (data.completionDate !== undefined) row.completion_date = data.completionDate || null;
     if (data.architectName !== undefined) row.architect_name = data.architectName || null;
     if (data.contractorName !== undefined) row.contractor_name = data.contractorName || null;
@@ -292,12 +246,7 @@ export class ProjectDetailModel extends BaseModel {
 
     if (!row) return null;
 
-    const specifications: ProjectSpecificationRow[] = await db(this.specsTableName)
-      .select('*')
-      .where({ project_detail_id: id, is_active: true })
-      .orderBy('display_order', 'asc');
-
-    return this.transformRowToData(row, specifications);
+    return this.transformRowToData(row);
   }
 
   async findByProjectId(projectId: string): Promise<ProjectDetailData | null> {
@@ -308,12 +257,7 @@ export class ProjectDetailModel extends BaseModel {
 
     if (!row) return null;
 
-    const specifications: ProjectSpecificationRow[] = await db(this.specsTableName)
-      .select('*')
-      .where({ project_detail_id: row.id, is_active: true })
-      .orderBy('display_order', 'asc');
-
-    return this.transformRowToData(row, specifications);
+    return this.transformRowToData(row);
   }
 
   override async create(data: CreateProjectDetailRequest): Promise<ProjectDetailData> {
@@ -322,20 +266,6 @@ export class ProjectDetailModel extends BaseModel {
     try {
       const rowData = this.transformDataToRow(data);
       const [id] = await trx(this.tableName).insert(rowData);
-
-      // Insert specifications if provided
-      if (data.projectSpecs && data.projectSpecs.length > 0) {
-        const specsData = data.projectSpecs.map(spec => ({
-          project_detail_id: id,
-          label: spec.label,
-          value: spec.value,
-          unit: spec.unit || '',
-          display_order: spec.displayOrder || 0,
-          is_active: true
-        }));
-
-        await trx(this.specsTableName).insert(specsData);
-      }
 
       await trx.commit();
 
@@ -369,28 +299,6 @@ export class ProjectDetailModel extends BaseModel {
         return null;
       }
 
-      // Update specifications if provided
-      if (data.projectSpecs) {
-        // Delete existing specifications
-        await trx(this.specsTableName)
-          .where({ project_detail_id: id })
-          .del();
-
-        // Insert new specifications
-        if (data.projectSpecs.length > 0) {
-          const specsData = data.projectSpecs.map(spec => ({
-            project_detail_id: id,
-            label: spec.label,
-            value: spec.value,
-            unit: spec.unit || '',
-            display_order: spec.displayOrder || 0,
-            is_active: true
-          }));
-
-          await trx(this.specsTableName).insert(specsData);
-        }
-      }
-
       await trx.commit();
 
       const result = await this.getById(id);
@@ -416,11 +324,6 @@ export class ProjectDetailModel extends BaseModel {
     const trx = await db.transaction();
 
     try {
-      // Delete specifications first (foreign key constraint)
-      await trx(this.specsTableName)
-        .where({ project_detail_id: id })
-        .del();
-
       // Delete the project detail
       const deleted = await trx(this.tableName)
         .where({ id })

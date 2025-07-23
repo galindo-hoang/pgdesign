@@ -129,7 +129,6 @@ exports.seed = async function(knex) {
     {
       commitments_id: commitmentsId,
       icon_name: 'direct-execution-icon',
-      icon_url: 'http://localhost:9000/pgdesign-assets/icons/direct-execution-icon.svg',
       title: 'KHÔNG KHOÁN THẦU',
       description: 'PG Design cam kết trực tiếp đảm nhận từ khâu thiết kế đến thi công, không giao khoán cho bên thứ ba.',
       display_order: 0,
@@ -140,7 +139,6 @@ exports.seed = async function(knex) {
     {
       commitments_id: commitmentsId,
       icon_name: 'quality-materials-icon',
-      icon_url: 'http://localhost:9000/pgdesign-assets/icons/quality-materials-icon.svg',
       title: 'VẬT TƯ ĐẠT CHUẨN',
       description: 'Chúng tôi sử dụng vật liệu chính hãng, rõ nguồn gốc, đảm bảo độ bền và tính thẩm mỹ cho công trình.',
       display_order: 1,
@@ -151,7 +149,6 @@ exports.seed = async function(knex) {
     {
       commitments_id: commitmentsId,
       icon_name: 'clear-pricing-icon',
-      icon_url: 'http://localhost:9000/pgdesign-assets/icons/clear-pricing-icon.svg',
       title: 'CHI PHÍ MINH BẠCH',
       description: 'Mọi hạng mục đều được minh bạch trong báo giá. Cam kết không để khách hàng lo lắng về chi phí phát sinh bất ngờ.',
       display_order: 2,
@@ -162,7 +159,6 @@ exports.seed = async function(knex) {
     {
       commitments_id: commitmentsId,
       icon_name: 'timely-delivery-icon',
-      icon_url: 'http://localhost:9000/pgdesign-assets/icons/timely-delivery-icon.svg',
       title: 'THI CÔNG ĐÚNG TIẾN ĐỘ',
       description: 'Chúng tôi đặt uy tín lên hàng đầu, bằng việc thực hiện công trình đúng tiến độ đã thống nhất với khách hàng.',
       display_order: 3,
@@ -173,7 +169,6 @@ exports.seed = async function(knex) {
     {
       commitments_id: commitmentsId,
       icon_name: 'reasonable-price-icon',
-      icon_url: 'http://localhost:9000/pgdesign-assets/icons/reasonable-price-icon.svg',
       title: 'GIÁ HỢP LÝ - TỐI ƯU NGÂN SÁCH',
       description: 'Chi phí thiết kế và thi công được tính toán hợp lý, mang lại giá trị cao nhất cho mỗi đồng đầu tư của khách hàng.',
       display_order: 4,
@@ -184,7 +179,6 @@ exports.seed = async function(knex) {
     {
       commitments_id: commitmentsId,
       icon_name: 'post-handover-warranty-icon',
-      icon_url: 'http://localhost:9000/pgdesign-assets/icons/post-handover-warranty-icon.svg',
       title: 'CAM KẾT BẢO HÀNH',
       description: 'Sau khi bàn giao, PG Design vẫn luôn đồng hành cùng khách hàng thông qua chính sách bảo hành chuyên nghiệp và chu đáo.',
       display_order: 5,

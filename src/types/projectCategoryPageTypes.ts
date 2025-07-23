@@ -15,8 +15,7 @@ export interface ProjectDetail {
   thumbnailImage?: string;
   htmlContent: string;
   projectImages?: string[];
-  projectStatus?: string;
-  projectBudget?: string;
+  projectStatus?: string; // Now includes budget information
   completionDate?: string;
   architectName?: string;
   contractorName?: string;

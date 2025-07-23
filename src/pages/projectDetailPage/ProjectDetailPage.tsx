@@ -117,19 +117,7 @@ const ProjectDetailPage: React.FC = () => {
               )}
             </div>
             
-            {projectData.projectSpecs && projectData.projectSpecs.length > 0 && (
-              <div className="info-card">
-                <h3>Thông số kỹ thuật</h3>
-                {projectData.projectSpecs
-                  .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0))
-                  .map((spec) => (
-                    <div key={spec.id} className="info-item">
-                      <strong>{spec.label}:</strong>
-                      <span>{spec.value} {spec.unit || ''}</span>
-                    </div>
-                  ))}
-              </div>
-            )}
+
           </div>
         </div>
       </div>

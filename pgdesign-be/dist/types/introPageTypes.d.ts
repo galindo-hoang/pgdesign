@@ -46,7 +46,6 @@ export interface CommitmentsData {
 export interface CommitmentItem {
     id?: number;
     iconName: string;
-    iconUrl: string;
     title: string;
     description: string;
     displayOrder?: number;

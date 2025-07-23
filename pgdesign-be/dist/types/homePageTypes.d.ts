@@ -40,7 +40,6 @@ export interface StatsHeader extends BaseEntity {
 export interface StatsItem extends BaseEntity {
     stats_header_id: number;
     icon_name: string;
-    icon_url: string;
     target_value: number;
     label: string;
     suffix: string;
@@ -81,7 +80,6 @@ export interface WorkflowTab extends BaseEntity {
     workflow_id: number;
     workflow_key: string;
     icon_name: string;
-    icon_url: string;
     title: string;
     diagram_url: string;
     display_order: number;

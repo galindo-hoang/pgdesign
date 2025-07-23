@@ -2,14 +2,16 @@ import React from 'react';
 import './TechnicalAdvantagesSection.css';
 
 // Import placeholder images - replace with actual project images
-import constructionImage1 from '../assets/images/diary-image-1.jpg';
-import constructionImage2 from '../assets/images/diary-image-2.jpg';
-import constructionImage3 from '../assets/images/diary-image-3.jpg';
-import constructionImage4 from '../assets/images/diary-image-4.jpg';
-import constructionImage5 from '../assets/images/diary-image-5.jpg';
-import constructionImage6 from '../assets/images/diary-image-6.jpg';
-import constructionImage7 from '../assets/images/diary-image-7.jpg';
-import constructionImage8 from '../assets/images/diary-image-8.jpg';
+import constructionImage1 from '../assets/images/profilepage/Rectangle 54.jpg';
+import constructionImage2 from '../assets/images/profilepage/Rectangle 53.jpg';
+import constructionImage3 from '../assets/images/profilepage/Rectangle 55.jpg';
+import constructionImage4 from '../assets/images/profilepage/Rectangle 57.jpg';
+import constructionImage5 from '../assets/images/profilepage/Rectangle 56.jpg';
+import constructionImage6 from '../assets/images/profilepage/Rectangle 58.jpg';
+import constructionImage7 from '../assets/images/profilepage/Rectangle 59.jpg';
+import constructionImage8 from '../assets/images/profilepage/Rectangle 61.jpg';
+import constructionImage9 from '../assets/images/profilepage/Rectangle 60.jpg';
+import constructionImage10 from '../assets/images/profilepage/Rectangle 62.jpg';
 
 const TechnicalAdvantagesSection: React.FC = () => {
   return (
@@ -72,12 +74,12 @@ const TechnicalAdvantagesSection: React.FC = () => {
 
           <div className="phase-images mixed-layout">
             <div className="main-large">
-              <img src={constructionImage6} alt="Completed refined construction phase" />
+              <img src={constructionImage7} alt="Completed refined construction phase" />
             </div>
             <div className="sub-row">
               <img src={constructionImage8} alt="Precise interior finishing" />
-              <img src={constructionImage4} alt="Detailed finishing work" />
-              <img src={constructionImage5} alt="Precision in construction details" />
+              <img src={constructionImage9} alt="Detailed finishing work" />
+              <img src={constructionImage10} alt="Precision in construction details" />
             </div>
           </div>
         </div>

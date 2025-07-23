@@ -2,9 +2,7 @@ import React from 'react';
 import './CapabilitiesSection.css';
 
 // Import placeholder images - you can replace these with actual architectural renderings
-import architecturalImage1 from '../assets/images/diary-image-1.jpg';
-import architecturalImage2 from '../assets/images/diary-image-2.jpg';
-import architecturalImage3 from '../assets/images/diary-image-3.jpg';
+import architecturalImage1 from '../assets/images/profilepage/image.jpg';
 
 const CapabilitiesSection: React.FC = () => {
   return (
@@ -43,10 +41,10 @@ const CapabilitiesSection: React.FC = () => {
             </div>
             <div className="side-images">
               <div className="side-image">
-                <img src={architecturalImage2} alt="Detailed view of modern villa entrance with classical elements" />
+                <img src={architecturalImage1} alt="Detailed view of modern villa entrance with classical elements" />
               </div>
               <div className="side-image">
-                <img src={architecturalImage3} alt="Alternative angle of luxury villa design showcasing architectural details" />
+                <img src={architecturalImage1} alt="Alternative angle of luxury villa design showcasing architectural details" />
               </div>
             </div>
           </div>

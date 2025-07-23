@@ -106,7 +106,6 @@ exports.seed = async function(knex) {
     {
       stats_header_id: statsHeaderId,
       icon_name: 'experience-icon',
-      icon_url: '/icons/experience-icon.svg',
       target_value: 5,
       label: 'Kinh nghiệm',
       suffix: '+ năm',
@@ -121,7 +120,6 @@ exports.seed = async function(knex) {
     {
       stats_header_id: statsHeaderId,
       icon_name: 'customer-icon',
-      icon_url: '/icons/customer-icon.svg',
       target_value: 500,
       label: 'Khách hàng',
       suffix: '+',
@@ -136,7 +134,6 @@ exports.seed = async function(knex) {
     {
       stats_header_id: statsHeaderId,
       icon_name: 'design-icon',
-      icon_url: '/icons/design-icon.svg',
       target_value: 450,
       label: 'Dự án',
       suffix: '+',
@@ -151,7 +148,6 @@ exports.seed = async function(knex) {
     {
       stats_header_id: statsHeaderId,
       icon_name: 'building-icon',
-      icon_url: '/icons/building-icon.svg',
       target_value: 98,
       label: 'Chất lượng',
       suffix: '%',

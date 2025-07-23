@@ -19,8 +19,7 @@ export interface ProjectDetailData {
   
   // Additional project details
   projectImages?: string[] | undefined;
-  projectStatus?: string | undefined;
-  projectBudget?: string | undefined;
+  projectStatus?: string | undefined; // Now includes budget information
   completionDate?: string | undefined;
   architectName?: string | undefined;
   contractorName?: string | undefined;
@@ -37,22 +36,9 @@ export interface ProjectDetailData {
   isActive?: boolean;
   createdAt?: string;
   updatedAt?: string;
-  
-  // Associated specifications
-  projectSpecs?: ProjectSpecification[] | undefined;
 }
 
-export interface ProjectSpecification {
-  id?: number;
-  projectDetailId?: number;
-  label: string;
-  value: string;
-  unit?: string | undefined;
-  displayOrder?: number;
-  isActive?: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-}
+
 
 // Request types for creating/updating project details
 export interface CreateProjectDetailRequest {
@@ -69,8 +55,7 @@ export interface CreateProjectDetailRequest {
   thumbnailImage?: string | undefined;
   htmlContent: string;
   projectImages?: string[] | undefined;
-  projectStatus?: string | undefined;
-  projectBudget?: string | undefined;
+  projectStatus?: string | undefined; // Now includes budget information
   completionDate?: string | undefined;
   architectName?: string | undefined;
   contractorName?: string | undefined;
@@ -78,7 +63,6 @@ export interface CreateProjectDetailRequest {
   metaDescription?: string | undefined;
   tags?: string[] | undefined;
   isOnHomePage?: boolean;
-  projectSpecs?: Omit<ProjectSpecification, 'id' | 'projectDetailId' | 'createdAt' | 'updatedAt'>[] | undefined;
 }
 
 export interface UpdateProjectDetailRequest {
@@ -95,8 +79,7 @@ export interface UpdateProjectDetailRequest {
   thumbnailImage?: string | undefined;
   htmlContent?: string | undefined;
   projectImages?: string[] | undefined;
-  projectStatus?: string | undefined;
-  projectBudget?: string | undefined;
+  projectStatus?: string | undefined; // Now includes budget information
   completionDate?: string | undefined;
   architectName?: string | undefined;
   contractorName?: string | undefined;
@@ -104,7 +87,6 @@ export interface UpdateProjectDetailRequest {
   metaDescription?: string | undefined;
   tags?: string[] | undefined;
   isOnHomePage?: boolean;
-  projectSpecs?: Omit<ProjectSpecification, 'id' | 'projectDetailId' | 'createdAt' | 'updatedAt'>[] | undefined;
 }
 
 // Database table interfaces
@@ -123,8 +105,7 @@ export interface ProjectDetailRow {
   thumbnail_image?: string | null;
   html_content: string;
   project_images?: string | null; // JSON string
-  project_status?: string | null;
-  project_budget?: string | null;
+  project_status?: string | null; // Now includes budget information
   completion_date?: string | null;
   architect_name?: string | null;
   contractor_name?: string | null;
@@ -137,17 +118,7 @@ export interface ProjectDetailRow {
   updated_at: string;
 }
 
-export interface ProjectSpecificationRow {
-  id: number;
-  project_detail_id: number;
-  label: string;
-  value: string;
-  unit?: string | null;
-  display_order: number;
-  is_active: boolean;
-  created_at: string;
-  updated_at: string;
-}
+
 
 // API Response types
 export interface ApiResponse<T> {

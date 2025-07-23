@@ -97,7 +97,6 @@ const mockCommitmentsData: CommitmentsData = {
     {
       id: 1,
       iconName: 'direct-execution-icon',
-      iconUrl: 'http://localhost:9000/pgdesign-assets/icons/direct-execution-icon.svg',
       title: 'KHÔNG KHOÁN THẦU',
       description: 'PG Design cam kết trực tiếp đảm nhận từ khâu thiết kế đến thi công, không giao khoán cho bên thứ ba.',
       displayOrder: 0
@@ -105,7 +104,6 @@ const mockCommitmentsData: CommitmentsData = {
     {
       id: 2,
       iconName: 'quality-materials-icon',
-      iconUrl: 'http://localhost:9000/pgdesign-assets/icons/quality-materials-icon.svg',
       title: 'VẬT TƯ ĐẠT CHUẨN',
       description: 'Chúng tôi sử dụng vật liệu chính hãng, rõ nguồn gốc, đảm bảo độ bền và tính thẩm mỹ cho công trình.',
       displayOrder: 1
@@ -113,7 +111,6 @@ const mockCommitmentsData: CommitmentsData = {
     {
       id: 3,
       iconName: 'clear-pricing-icon',
-      iconUrl: 'http://localhost:9000/pgdesign-assets/icons/clear-pricing-icon.svg',
       title: 'CHI PHÍ MINH BẠCH',
       description: 'Mọi hạng mục đều được minh bạch trong báo giá. Cam kết không để khách hàng lo lắng về chi phí phát sinh bất ngờ.',
       displayOrder: 2
@@ -121,7 +118,6 @@ const mockCommitmentsData: CommitmentsData = {
     {
       id: 4,
       iconName: 'timely-delivery-icon',
-      iconUrl: 'http://localhost:9000/pgdesign-assets/icons/timely-delivery-icon.svg',
       title: 'THI CÔNG ĐÚNG TIẾN ĐỘ',
       description: 'Chúng tôi đặt uy tín lên hàng đầu, bằng việc thực hiện công trình đúng tiến độ đã thống nhất với khách hàng.',
       displayOrder: 3
@@ -129,7 +125,6 @@ const mockCommitmentsData: CommitmentsData = {
     {
       id: 5,
       iconName: 'reasonable-price-icon',
-      iconUrl: 'http://localhost:9000/pgdesign-assets/icons/reasonable-price-icon.svg',
       title: 'GIÁ HỢP LÝ - TỐI ƯU NGÂN SÁCH',
       description: 'Chi phí thiết kế và thi công được tính toán hợp lý, mang lại giá trị cao nhất cho mỗi đồng đầu tư của khách hàng.',
       displayOrder: 4
@@ -137,7 +132,6 @@ const mockCommitmentsData: CommitmentsData = {
     {
       id: 6,
       iconName: 'post-handover-warranty-icon',
-      iconUrl: 'http://localhost:9000/pgdesign-assets/icons/post-handover-warranty-icon.svg',
       title: 'CAM KẾT BẢO HÀNH',
       description: 'Sau khi bàn giao, PG Design vẫn luôn đồng hành cùng khách hàng thông qua chính sách bảo hành chuyên nghiệp và chu đáo.',
       displayOrder: 5

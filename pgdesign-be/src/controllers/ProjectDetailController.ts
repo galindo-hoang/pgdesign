@@ -127,16 +127,6 @@ export class ProjectDetailController {
       throw createError(`Validation errors: ${errors.join(', ')}`, 400);
     }
 
-    // Validate project specifications if provided
-    if (data.projectSpecs && data.projectSpecs.length > 0) {
-      for (const spec of data.projectSpecs) {
-        const specErrors = await ProjectDetailModel.validateProjectSpecificationData(spec);
-        if (specErrors.length > 0) {
-          throw createError(`Specification validation errors: ${specErrors.join(', ')}`, 400);
-        }
-      }
-    }
-
     const projectDetail = await ProjectDetailModel.create(data);
     
     const response: ApiResponse<ProjectDetailData> = {
@@ -164,16 +154,6 @@ export class ProjectDetailController {
     const errors = await ProjectDetailModel.validateProjectDetailData(data as Partial<CreateProjectDetailRequest>);
     if (errors.length > 0) {
       throw createError(`Validation errors: ${errors.join(', ')}`, 400);
-    }
-
-    // Validate project specifications if provided
-    if (data.projectSpecs && data.projectSpecs.length > 0) {
-      for (const spec of data.projectSpecs) {
-        const specErrors = await ProjectDetailModel.validateProjectSpecificationData(spec);
-        if (specErrors.length > 0) {
-          throw createError(`Specification validation errors: ${specErrors.join(', ')}`, 400);
-        }
-      }
     }
 
     const projectDetail = await ProjectDetailModel.update(parseInt(id), data);

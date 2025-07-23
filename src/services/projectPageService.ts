@@ -50,7 +50,6 @@ const mockStatsItems: StatsItem[] = [
   {
     id: 1,
     iconName: 'experience-icon',
-    iconUrl: experienceIcon,
     targetValue: 5,
     label: 'Kinh nghiệm',
     suffix: '+ năm',
@@ -62,7 +61,6 @@ const mockStatsItems: StatsItem[] = [
   {
     id: 2,
     iconName: 'customer-icon',
-    iconUrl: customerIcon,
     targetValue: 500,
     label: 'Khách hàng',
     suffix: '+',
@@ -74,7 +72,6 @@ const mockStatsItems: StatsItem[] = [
   {
     id: 3,
     iconName: 'design-icon',
-    iconUrl: designIcon,
     targetValue: 450,
     label: 'Dự án',
     suffix: '+',
@@ -86,7 +83,6 @@ const mockStatsItems: StatsItem[] = [
   {
     id: 4,
     iconName: 'building-icon',
-    iconUrl: buildingIcon,
     targetValue: 98,
     label: 'Chất lượng',
     suffix: '%',

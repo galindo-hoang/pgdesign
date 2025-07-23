@@ -329,7 +329,6 @@ CREATE TABLE stats_items (
     stats_header_id INT UNSIGNED,
     stats_section_id INT UNSIGNED,
     icon_name VARCHAR(100) NOT NULL,
-    icon_url VARCHAR(500) NOT NULL,
     target_value INT NOT NULL,
     label VARCHAR(255) NOT NULL,
     suffix VARCHAR(20) NOT NULL,
@@ -369,7 +368,6 @@ CREATE TABLE workflow_tabs (
     workflow_id INT UNSIGNED NOT NULL,
     workflow_key VARCHAR(100) NOT NULL,
     icon_name VARCHAR(100) NOT NULL,
-    icon_url VARCHAR(500) NOT NULL,
     title VARCHAR(255) NOT NULL,
     diagram_url VARCHAR(500) NOT NULL,
     display_order INT DEFAULT 0,
@@ -455,7 +453,6 @@ CREATE TABLE commitment_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     commitments_id INT UNSIGNED NOT NULL,
     icon_name VARCHAR(100) NOT NULL,
-    icon_url VARCHAR(500) NOT NULL,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     display_order INT DEFAULT 0,
@@ -529,8 +526,7 @@ CREATE TABLE project_details (
     thumbnail_image VARCHAR(500) COMMENT 'Thumbnail image URL',
     html_content LONGTEXT NOT NULL COMMENT 'HTML content for project detail page',
     project_images JSON COMMENT 'Array of project image URLs',
-    project_status VARCHAR(100) COMMENT 'Project status',
-    project_budget VARCHAR(100) COMMENT 'Project budget',
+    project_status VARCHAR(100) COMMENT 'Project status (includes budget information)',
     completion_date DATE COMMENT 'Project completion date',
     architect_name VARCHAR(200) COMMENT 'Architect name',
     contractor_name VARCHAR(200) COMMENT 'Contractor name',
@@ -549,22 +545,7 @@ CREATE TABLE project_details (
     FOREIGN KEY (project_category_id) REFERENCES project_categories(id) ON DELETE RESTRICT
 );
 
--- Project Specifications
-CREATE TABLE project_specifications (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    project_detail_id INT UNSIGNED NOT NULL COMMENT 'Reference to project_details table',
-    label VARCHAR(200) NOT NULL COMMENT 'Specification label',
-    value VARCHAR(100) NOT NULL COMMENT 'Specification value',
-    unit VARCHAR(50) COMMENT 'Unit of measurement',
-    display_order INT DEFAULT 0 COMMENT 'Display order',
-    is_active BOOLEAN DEFAULT TRUE COMMENT 'Whether the specification is active',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    INDEX idx_project_detail_id (project_detail_id),
-    INDEX idx_display_order (display_order),
-    INDEX idx_is_active (is_active),
-    FOREIGN KEY (project_detail_id) REFERENCES project_details(id) ON DELETE CASCADE
-);
+
 
 -- Blog Design Styles
 CREATE TABLE blog_design_styles (

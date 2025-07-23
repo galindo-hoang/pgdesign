@@ -85,8 +85,7 @@ const mockProjectsData: Record<string, ProjectDetail[]> = {
         "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
         "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg"
       ],
-      projectStatus: "Hoàn thành",
-      projectBudget: "2.5 tỷ",
+      projectStatus: "Hoàn thành • 2.5 tỷ",
       completionDate: "2024-06-30",
       architectName: "KTS Nguyễn Văn A",
       contractorName: "PG Design",
@@ -116,8 +115,7 @@ const mockProjectsData: Record<string, ProjectDetail[]> = {
         "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg",
         "http://localhost:9000/pgdesign-assets/images/diary-image-3.jpg"
       ],
-      projectStatus: "Đang thi công",
-      projectBudget: "3.2 tỷ",
+      projectStatus: "Đang thi công • 3.2 tỷ",
       architectName: "KTS Phạm Thị B",
       contractorName: "PG Design",
       metaTitle: "Nhà Phố Tân Cổ Điển",
@@ -148,8 +146,7 @@ const mockProjectsData: Record<string, ProjectDetail[]> = {
         "http://localhost:9000/pgdesign-assets/images/diary-image-3.jpg",
         "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg"
       ],
-      projectStatus: "Hoàn thành",
-      projectBudget: "1.8 tỷ",
+      projectStatus: "Hoàn thành • 1.8 tỷ",
       completionDate: "2024-08-15",
       architectName: "KTS Lê Văn C",
       contractorName: "PG Design",
@@ -181,8 +178,7 @@ const mockProjectsData: Record<string, ProjectDetail[]> = {
         "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg",
         "http://localhost:9000/pgdesign-assets/images/diary-image-5.jpg"
       ],
-      projectStatus: "Đang thi công",
-      projectBudget: "2.0 tỷ",
+      projectStatus: "Đang thi công • 2.0 tỷ",
       architectName: "KTS Hoàng Văn D",
       contractorName: "PG Design",
       metaTitle: "Thi Công Phần Thô Biệt Thự",
@@ -213,8 +209,7 @@ const mockProjectsData: Record<string, ProjectDetail[]> = {
         "http://localhost:9000/pgdesign-assets/images/diary-image-5.jpg",
         "http://localhost:9000/pgdesign-assets/images/diary-image-6.jpg"
       ],
-      projectStatus: "Hoàn thành",
-      projectBudget: "800 triệu",
+      projectStatus: "Hoàn thành • 800 triệu",
       completionDate: "2024-07-15",
       architectName: "KTS Trần Thị E",
       contractorName: "PG Design",

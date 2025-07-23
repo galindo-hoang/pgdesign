@@ -72,9 +72,6 @@ class WorkflowModel extends BaseModel_1.BaseModel {
         if (!data.tab_id || typeof data.tab_id !== 'string' || data.tab_id.trim().length === 0) {
             errors.push('Tab ID is required and must be a non-empty string');
         }
-        if (!data.icon_url || typeof data.icon_url !== 'string' || data.icon_url.trim().length === 0) {
-            errors.push('Icon URL is required and must be a non-empty string');
-        }
         if (!data.title || typeof data.title !== 'string' || data.title.trim().length === 0) {
             errors.push('Title is required and must be a non-empty string');
         }

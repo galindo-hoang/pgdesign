@@ -88,16 +88,7 @@ const mockProjectDetailData: ProjectDetailData = {
     "/assets/images/diary-image-4.jpg"
   ],
   
-  projectSpecs: [
-    { id: "1", label: "Diện tích đất", value: "120", unit: "m²", displayOrder: 1 },
-    { id: "2", label: "Diện tích xây dựng", value: "300", unit: "m²", displayOrder: 2 },
-    { id: "3", label: "Số tầng", value: "3", displayOrder: 3 },
-    { id: "4", label: "Số phòng ngủ", value: "4", displayOrder: 4 },
-    { id: "5", label: "Số phòng tắm", value: "3", displayOrder: 5 }
-  ],
-  
-  projectStatus: "Hoàn thành",
-  projectBudget: "2.5 tỷ đồng",
+  projectStatus: "Hoàn thành • 2.5 tỷ đồng",
   completionDate: "2023-12-20",
   architectName: "KTS. Lê Văn B",
   contractorName: "Công ty TNHH Xây dựng PG Design",

@@ -15,7 +15,6 @@ router.post('/image-with-thumbnail', uploadSingle('image'), uploadController.upl
 
 // Specific purpose uploads
 router.post('/project-images', uploadMultiple('projectImages', 10), uploadController.uploadProjectImages);
-router.post('/icons', uploadMultiple('icons', 20), uploadController.uploadIcons);
 
 // File management
 router.delete('/file', uploadController.deleteFile);

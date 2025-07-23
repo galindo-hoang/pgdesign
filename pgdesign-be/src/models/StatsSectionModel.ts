@@ -23,7 +23,7 @@ export class StatsSectionModel extends BaseModel {
       })
       .orderBy('display_order', 'asc')
       .select(
-        'id', 'icon_name', 'icon_url', 'target_value', 'label', 
+        'id', 'icon_name', 'target_value', 'label', 
         'suffix', 'description', 'background_image_url', 'category', 'display_order'
       );
 
@@ -35,7 +35,6 @@ export class StatsSectionModel extends BaseModel {
       statsItems: statsItems.map((item: any) => ({
         id: item.id,
         iconName: item.icon_name,
-        iconUrl: this.getFullImageUrl(item.icon_url),
         targetValue: item.target_value,
         label: item.label,
         suffix: item.suffix,
@@ -92,7 +91,6 @@ export class StatsSectionModel extends BaseModel {
         const statsItemsData = statsItems.map((item, index) => ({
           stats_header_id: statsSectionId,
           icon_name: item.iconName,
-          icon_url: item.iconUrl,
           target_value: item.targetValue,
           label: item.label,
           suffix: item.suffix,
@@ -162,7 +160,6 @@ export class StatsSectionModel extends BaseModel {
           const statsItemsData = statsItems.map((item, index) => ({
             stats_header_id: id,
             icon_name: item.iconName,
-            icon_url: item.iconUrl,
             target_value: item.targetValue,
             label: item.label,
             suffix: item.suffix,
@@ -213,9 +210,7 @@ export class StatsSectionModel extends BaseModel {
       errors.push('Icon name is required and must be a string');
     }
 
-    if (!data.iconUrl || typeof data.iconUrl !== 'string') {
-      errors.push('Icon URL is required and must be a string');
-    }
+
 
     if (typeof data.targetValue !== 'number') {
       errors.push('Target value is required and must be a number');

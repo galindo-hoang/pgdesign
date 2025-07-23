@@ -118,26 +118,7 @@ export class UploadController {
     });
   });
 
-  // Upload icons
-  uploadIcons = asyncHandler(async (req: Request, res: Response): Promise<void> => {
-    if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
-      throw createError('No files uploaded', 400);
-    }
 
-    const files = req.files as Express.Multer.File[];
-    const fileUploads = files.map(convertMulterFileToFileUpload);
-    
-    const iconUrls = await fileUploadService.uploadMultipleImages(fileUploads, 'icons');
-    
-    res.json({
-      success: true,
-      message: 'Icons uploaded successfully',
-      data: {
-        urls: iconUrls,
-        count: files.length
-      }
-    });
-  });
 }
 
 export default new UploadController(); 

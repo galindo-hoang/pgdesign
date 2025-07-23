@@ -25,7 +25,6 @@ export interface StatsSectionData {
 export interface StatsItem {
     id: number;
     iconName: string;
-    iconUrl: string;
     targetValue: number;
     label: string;
     suffix: string;
