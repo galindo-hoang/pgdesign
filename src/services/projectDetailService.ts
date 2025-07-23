@@ -1,6 +1,7 @@
 // src/services/projectDetailService.ts
 
 import { ProjectDetailData, ApiResponse } from '../types/projectDetailTypes';
+import { getProjectByProjectId } from './additionalProjectData';
 
 // Environment configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002';
@@ -130,7 +131,38 @@ export const fetchProjectDetailDataMock = async (projectId: string): Promise<Pro
   
   console.log(`Using mock ProjectDetailData for project: ${projectId}`);
   
-  // Return mock data with the requested ID
+  // Try to find project in additional data first
+  const additionalProject = getProjectByProjectId(projectId);
+  if (additionalProject) {
+    // Convert ProjectDetail to ProjectDetailData format
+    return {
+      id: additionalProject.projectId,
+      title: additionalProject.title,
+      clientName: additionalProject.clientName,
+      area: additionalProject.area,
+      constructionDate: additionalProject.constructionDate,
+      address: additionalProject.address,
+      description: additionalProject.description || "",
+      category: additionalProject.category,
+      subCategory: additionalProject.category, // Use category as subCategory for compatibility
+      style: additionalProject.style || "",
+      thumbnailImage: additionalProject.thumbnailImage || "",
+      htmlContent: additionalProject.htmlContent,
+      projectImages: additionalProject.projectImages || [],
+      projectStatus: additionalProject.projectStatus || "",
+      completionDate: additionalProject.completionDate || "",
+      architectName: additionalProject.architectName || "",
+      contractorName: additionalProject.contractorName || "",
+      metaTitle: additionalProject.metaTitle || "",
+      metaDescription: additionalProject.metaDescription || "",
+      tags: additionalProject.tags || [],
+      isActive: additionalProject.isActive || true,
+      createdAt: additionalProject.createdAt || "",
+      updatedAt: additionalProject.updatedAt || ""
+    };
+  }
+  
+  // Fallback to original mock data
   return {
     ...mockProjectDetailData,
     id: projectId

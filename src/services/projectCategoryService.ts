@@ -5,6 +5,7 @@ import {
   ApiResponse
 } from '../types/projectCategoryPageTypes';
 
+import { additionalProjectData } from './additionalProjectData';
 
 import houseNormal from "../assets/images/projectpage/house-normal.jpg";
 import appartment from "../assets/images/projectpage/appartment.png";
@@ -64,9 +65,10 @@ const mockCategoriesData: Record<string, Omit<ProjectCategory, 'projects'>> = {
   }
 };
 
-// Mock project data for each category
+// Mock project data for each category - Merged with additional project data from images
 const mockProjectsData: Record<string, ProjectDetail[]> = {
   "house-normal": [
+    // Original mock data
     {
       id: 1,
       projectId: "HN001",
@@ -125,9 +127,12 @@ const mockProjectsData: Record<string, ProjectDetail[]> = {
       isActive: true,
       createdAt: "2024-02-01T00:00:00Z",
       updatedAt: "2024-02-01T00:00:00Z"
-    }
+    },
+    // Additional data from images
+    ...additionalProjectData["house-normal"]
   ],
   "appartment": [
+    // Original mock data
     {
       id: 3,
       projectId: "HF001",
@@ -157,9 +162,12 @@ const mockProjectsData: Record<string, ProjectDetail[]> = {
       isActive: true,
       createdAt: "2024-03-01T00:00:00Z",
       updatedAt: "2024-08-15T00:00:00Z"
-    }
+    },
+    // Additional data from images
+    ...additionalProjectData.appartment
   ],
   "village": [
+    // Original mock data
     {
       id: 4,
       projectId: "HR001",
@@ -188,7 +196,9 @@ const mockProjectsData: Record<string, ProjectDetail[]> = {
       isActive: true,
       createdAt: "2024-04-01T00:00:00Z",
       updatedAt: "2024-04-01T00:00:00Z"
-    }
+    },
+    // Additional data from images
+    ...additionalProjectData.village
   ],
   "house-business": [
     {

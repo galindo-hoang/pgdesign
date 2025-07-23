@@ -36,7 +36,6 @@ const ProjectCategoriesSection: React.FC<ProjectCategoriesSectionProps> = ({
 
   const handleViewMore = (e: React.MouseEvent, navigationPath: string) => {
     e.stopPropagation();
-    alert(navigationPath);
     navigate(navigationPath);
   };
 
