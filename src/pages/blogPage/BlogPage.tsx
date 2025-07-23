@@ -5,7 +5,9 @@ import "./BlogPage.css";
 import { 
   fetchBlogPageData, 
   fetchProjectItems, 
-  getCurrentDataSource 
+  getCurrentDataSource, 
+  readFilespreadsheet,
+  readFilespreadsheetWithEmbeddedContent
 } from "../../services/blogPageService";
 
 // Import types
@@ -54,6 +56,8 @@ const BlogPage: React.FC = () => {
     };
 
     loadBlogPageData();
+
+    readFilespreadsheetWithEmbeddedContent()
   }, [visibleProjects]);
 
   // Handle load more projects
