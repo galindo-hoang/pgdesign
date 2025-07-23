@@ -1,0 +1,287 @@
+/* Construction Process Section */
+.construction-process-section {
+  background: var(--primary-color);
+  padding: 20px 0px 40px 0px;
+}
+
+.process-section {
+  margin-bottom: 0;
+}
+
+.process-header {
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.process-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.process-description {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #e8f1ea;
+}
+
+/* Process Images Layouts */
+.process-images {
+  display: block;
+}
+
+.process-images img {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Two images side by side */
+.two-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
+.two-images img {
+  height: 300px;
+}
+
+/* Three images in a row */
+.three-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5px;
+}
+
+.three-images img {
+  height: 250px;
+}
+
+/* Single large image */
+.single-large img {
+  height: 400px;
+}
+
+/* Time optimization section with mixed layout */
+.time-optimization {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.time-optimization .worker-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
+.time-optimization .worker-row img {
+  height: 300px;
+  object-fit: cover;
+}
+
+.time-optimization .main-worker {
+  width: 100%;
+}
+
+.time-optimization .main-worker img {
+  height: 400px;
+  object-fit: cover;
+}
+
+/* Responsive Design for Construction Process */
+
+/* Large Tablets (1024px and below) */
+@media (max-width: 1024px) {
+  .construction-process-section {
+    padding: 15px 0px;
+  }
+
+  .process-header {
+    padding: 30px 15px;
+  }
+
+  .process-title {
+    font-size: 1.3rem;
+  }
+
+  .process-description {
+    font-size: 0.85rem;
+  }
+
+  .two-images img {
+    height: 250px;
+  }
+
+  .three-images img {
+    height: 200px;
+  }
+
+  .single-large img {
+    height: 350px;
+  }
+
+  .time-optimization .worker-row img,
+  .time-optimization .main-worker img {
+    height: 175px;
+  }
+}
+
+/* Tablets (768px and below) */
+@media (max-width: 768px) {
+  .construction-process-section {
+    padding: 10px 0px;
+  }
+
+  .process-header {
+    padding: 25px 12px;
+  }
+
+  .process-title {
+    font-size: 1.1rem;
+  }
+
+  .process-description {
+    font-size: 0.8rem;
+  }
+
+  .three-images {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .three-images img {
+    height: 200px;
+  }
+
+  .two-images img {
+    height: 200px;
+  }
+
+  .single-large img {
+    height: 300px;
+  }
+
+  .time-optimization .worker-row img,
+  .time-optimization .main-worker img {
+    height: 150px;
+  }
+}
+
+/* Small Tablets/Large Phones (600px and below) */
+@media (max-width: 600px) {
+  .construction-process-section {
+    padding: 5px 0px;
+  }
+
+  .process-header {
+    padding: 20px 10px;
+  }
+
+  .process-title {
+    font-size: 1rem;
+  }
+
+  .process-description {
+    font-size: 0.75rem;
+  }
+
+  .two-images {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+
+  .two-images img {
+    height: 180px;
+  }
+
+  .three-images img {
+    height: 150px;
+  }
+
+  .single-large img {
+    height: 250px;
+  }
+
+  .time-optimization .worker-row {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+
+  .time-optimization .worker-row img,
+  .time-optimization .main-worker img {
+    height: 120px;
+  }
+}
+
+/* Small Phones (480px and below) */
+@media (max-width: 480px) {
+  .process-header {
+    padding: 18px 8px;
+  }
+
+  .process-title {
+    font-size: 0.9rem;
+  }
+
+  .process-description {
+    font-size: 0.7rem;
+  }
+
+  .two-images img {
+    height: 150px;
+  }
+
+  .three-images img {
+    height: 120px;
+  }
+
+  .single-large img {
+    height: 200px;
+  }
+
+  .time-optimization .worker-row img,
+  .time-optimization .main-worker img {
+    height: 100px;
+  }
+}
+
+/* Very Small Phones (360px and below) */
+@media (max-width: 360px) {
+  .process-header {
+    padding: 15px 6px;
+  }
+
+  .process-title {
+    font-size: 0.85rem;
+  }
+
+  .process-description {
+    font-size: 0.65rem;
+  }
+
+  .two-images img {
+    height: 130px;
+  }
+
+  .three-images img {
+    height: 100px;
+  }
+
+  .single-large img {
+    height: 180px;
+  }
+
+  .time-optimization .worker-row img,
+  .time-optimization .main-worker img {
+    height: 90px;
+  }
+} 

@@ -82,4 +82,4 @@ const serviceData = await fetchServicePageData();
 The service provides helpful console logs to indicate:
 - Whether mock data or API is being used
 - API call success/failure
-- Fallback to mock data when API fails 
+- Fallback to mock data when API fails

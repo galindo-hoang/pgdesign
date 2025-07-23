@@ -1,0 +1,416 @@
+/* Technical Advantages Section */
+.technical-advantages-section {
+  background: #ffffff;
+  padding: 80px 0;
+}
+
+.technical-container {
+  max-width: 100%;
+  padding: 0;
+}
+
+/* Main Header */
+.main-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.main-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #2d4a35;
+  line-height: 1.2;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+/* Phase Sections */
+.phase-section {
+  margin-bottom: 80px;
+}
+
+.phase-section:last-child {
+  margin-bottom: 0;
+}
+
+.phase-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.phase-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2d4a35;
+  margin: 0 0 20px 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.phase-description {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: #555;
+  margin: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Common Image Styles */
+.phase-images img {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Layout: Three Grid (Phase 1) */
+.three-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5px;
+}
+
+.three-grid img {
+  height: 280px;
+}
+
+/* Layout: Mixed Layout (Phase 2 & 3) */
+.mixed-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.top-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
+.top-row img {
+  height: 280px;
+}
+
+.sub-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5px;
+}
+
+.sub-row img {
+  height: 280px;
+}
+
+.bottom-large,
+.main-large {
+  width: 100%;
+}
+
+.bottom-large img,
+.main-large img {
+  height: 400px;
+}
+
+/* Responsive Design */
+
+/* Large Tablets (1024px and below) */
+@media (max-width: 1024px) {
+  .technical-advantages-section {
+    padding: 60px 0;
+  }
+
+  .technical-container {
+    padding: 0 15px;
+  }
+
+  .main-title {
+    font-size: 2.2rem;
+  }
+
+  .phase-title {
+    font-size: 1.2rem;
+  }
+
+  .phase-description {
+    font-size: 0.85rem;
+  }
+
+  .three-grid img,
+  .top-row img,
+  .sub-row img {
+    height: 240px;
+  }
+
+  .bottom-large img,
+  .main-large img {
+    height: 350px;
+  }
+}
+
+/* Tablets (768px and below) */
+@media (max-width: 768px) {
+  .technical-advantages-section {
+    padding: 50px 0;
+  }
+
+  .technical-container {
+    padding: 0 12px;
+  }
+
+  .main-header {
+    margin-bottom: 40px;
+  }
+
+  .main-title {
+    font-size: 1.8rem;
+  }
+
+  .phase-section {
+    margin-bottom: 60px;
+  }
+
+  .phase-header {
+    margin-bottom: 30px;
+  }
+
+  .phase-title {
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+
+  .phase-description {
+    font-size: 0.8rem;
+  }
+
+  .three-grid {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .three-grid img {
+    height: 200px;
+  }
+
+  .top-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .top-row img {
+    height: 180px;
+  }
+
+  .sub-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+
+  .sub-row img {
+    height: 160px;
+  }
+
+  .bottom-large img,
+  .main-large img {
+    height: 280px;
+  }
+}
+
+/* Small Tablets/Large Phones (600px and below) */
+@media (max-width: 600px) {
+  .technical-advantages-section {
+    padding: 40px 0;
+  }
+
+  .technical-container {
+    padding: 0 10px;
+  }
+
+  .main-title {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .phase-title {
+    font-size: 0.9rem;
+  }
+
+  .phase-description {
+    font-size: 0.75rem;
+    line-height: 1.6;
+  }
+
+  .three-grid img {
+    height: 160px;
+  }
+
+  .top-row img {
+    height: 140px;
+  }
+
+  .sub-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .sub-row img {
+    height: 140px;
+  }
+
+  .bottom-large img,
+  .main-large img {
+    height: 220px;
+  }
+}
+
+/* Small Phones (480px and below) */
+@media (max-width: 480px) {
+  .technical-advantages-section {
+    padding: 30px 0;
+  }
+
+  .technical-container {
+    padding: 0 8px;
+  }
+
+  .main-header {
+    margin-bottom: 30px;
+  }
+
+  .main-title {
+    font-size: 1.3rem;
+  }
+
+  .phase-section {
+    margin-bottom: 40px;
+  }
+
+  .phase-header {
+    margin-bottom: 25px;
+  }
+
+  .phase-title {
+    font-size: 0.85rem;
+  }
+
+  .phase-description {
+    font-size: 0.7rem;
+  }
+
+  .mixed-layout,
+  .three-grid {
+    gap: 3px;
+  }
+
+  .three-grid img {
+    height: 140px;
+  }
+
+  .top-row img {
+    height: 120px;
+  }
+
+  .sub-row img {
+    height: 120px;
+  }
+
+  .bottom-large img,
+  .main-large img {
+    height: 180px;
+  }
+}
+
+/* Very Small Phones (360px and below) */
+@media (max-width: 360px) {
+  .technical-advantages-section {
+    padding: 25px 0;
+  }
+
+  .technical-container {
+    padding: 0 6px;
+  }
+
+  .main-title {
+    font-size: 1.2rem;
+  }
+
+  .phase-title {
+    font-size: 0.8rem;
+  }
+
+  .phase-description {
+    font-size: 0.65rem;
+  }
+
+  .three-grid img {
+    height: 120px;
+  }
+
+  .top-row img {
+    height: 100px;
+  }
+
+  .sub-row img {
+    height: 100px;
+  }
+
+  .bottom-large img,
+  .main-large img {
+    height: 160px;
+  }
+}
+
+/* Ultra Small Phones (320px and below) */
+@media (max-width: 320px) {
+  .technical-advantages-section {
+    padding: 20px 0;
+  }
+
+  .technical-container {
+    padding: 0 4px;
+  }
+
+  .main-title {
+    font-size: 1.1rem;
+    line-height: 1.1;
+  }
+
+  .phase-title {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+  }
+
+  .phase-description {
+    font-size: 0.6rem;
+    line-height: 1.4;
+  }
+
+  .phase-section {
+    margin-bottom: 30px;
+  }
+
+  .phase-header {
+    margin-bottom: 20px;
+  }
+
+  .main-header {
+    margin-bottom: 25px;
+  }
+
+  .three-grid img {
+    height: 100px;
+  }
+
+  .top-row img {
+    height: 90px;
+  }
+
+  .sub-row img {
+    height: 90px;
+  }
+
+  .bottom-large img,
+  .main-large img {
+    height: 140px;
+  }
+} 

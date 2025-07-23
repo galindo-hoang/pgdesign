@@ -12,6 +12,7 @@ import ContactPage from "./pages/contactPage/ContactPage";
 import ProjectDetailPage from "./pages/projectDetailPage/ProjectDetailPage";
 import ServicePage from "./pages/servicePage/ServicePage";
 import FloatingActionButton from "./components/FloatingActionButton";
+import ProfilePage from "./pages/profilePage/profilePage";
 
 const App: React.FC = () => {
   return (
@@ -19,7 +20,7 @@ const App: React.FC = () => {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<ProfilePage />} />
           <Route path="/intro" element={<IntroPage />} />
           <Route path="/service" element={<ServicePage/>}/>
           <Route path="/contact" element={<ContactPage />} />

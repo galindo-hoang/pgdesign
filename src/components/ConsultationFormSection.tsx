@@ -20,7 +20,14 @@ const ConsultationFormSection: React.FC<ConsultationFormSectionProps> = ({formDa
   const MIN_INVESTMENT = formData.minInvestment || 100; // 100 triệu VND
   const MAX_INVESTMENT = formData.maxInvestment || 10000; // 10 tỷ VND (which is 10,000 triệu VND)
   const STEP_INVESTMENT = formData.stepInvestment || 100; // Step of 100 triệu VND
-  const projectTypes = formData.projectTypes || ["-- Chọn loại công trình --", "Nhà Phố - Căn hộ"];
+  const projectTypes = formData.projectTypes || [
+    "-- Chọn loại công trình --",
+    "Nhà Phố - Căn hộ",
+    "Nhà hàng - Khách sạn",
+    "Quán Cafe",
+    "Văn phòng",
+    "Khác",
+  ];
 
   const [stateFormData, setStateFormData] = useState({
     fullName: "",
