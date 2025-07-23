@@ -65,10 +65,8 @@ export class ProjectDetailModel extends BaseModel {
       errors.push('category must not exceed 100 characters');
     }
 
-    if (!data.subCategory || data.subCategory.trim() === '') {
-      errors.push('subCategory is required');
-    } else if (data.subCategory.length > 100) {
-      errors.push('subCategory must not exceed 100 characters');
+    if (!data.projectCategoryId || data.projectCategoryId <= 0) {
+      errors.push('projectCategoryId is required and must be a positive number');
     }
 
     if (!data.htmlContent || data.htmlContent.trim() === '') {
@@ -195,7 +193,7 @@ export class ProjectDetailModel extends BaseModel {
       address: row.address,
       description: row.description || undefined,
       category: row.category,
-      subCategory: row.sub_category,
+      projectCategoryId: row.project_category_id,
       style: row.style || undefined,
       thumbnailImage: row.thumbnail_image || undefined,
       htmlContent: row.html_content,
@@ -231,30 +229,32 @@ export class ProjectDetailModel extends BaseModel {
   }
 
   private transformDataToRow(data: CreateProjectDetailRequest | UpdateProjectDetailRequest): Partial<ProjectDetailRow> {
-    return {
-      project_id: data.projectId,
-      title: data.title,
-      client_name: data.clientName,
-      area: data.area,
-      construction_date: data.constructionDate,
-      address: data.address,
-      description: data.description || null,
-      category: data.category,
-      sub_category: data.subCategory,
-      style: data.style || null,
-      thumbnail_image: data.thumbnailImage || null,
-      html_content: data.htmlContent,
-      project_images: data.projectImages ? JSON.stringify(data.projectImages) : null,
-      project_status: data.projectStatus || null,
-      project_budget: data.projectBudget || null,
-      completion_date: data.completionDate || null,
-      architect_name: data.architectName || null,
-      contractor_name: data.contractorName || null,
-      meta_title: data.metaTitle || null,
-      meta_description: data.metaDescription || null,
-      tags: data.tags ? JSON.stringify(data.tags) : null,
-      is_on_homepage: data.isOnHomePage || false
-    };
+    const row: Partial<ProjectDetailRow> = {};
+    
+    if (data.projectId !== undefined) row.project_id = data.projectId;
+    if (data.title !== undefined) row.title = data.title;
+    if (data.clientName !== undefined) row.client_name = data.clientName;
+    if (data.area !== undefined) row.area = data.area;
+    if (data.constructionDate !== undefined) row.construction_date = data.constructionDate;
+    if (data.address !== undefined) row.address = data.address;
+    if (data.description !== undefined) row.description = data.description || null;
+    if (data.category !== undefined) row.category = data.category;
+    if (data.projectCategoryId !== undefined) row.project_category_id = data.projectCategoryId;
+    if (data.style !== undefined) row.style = data.style || null;
+    if (data.thumbnailImage !== undefined) row.thumbnail_image = data.thumbnailImage || null;
+    if (data.htmlContent !== undefined) row.html_content = data.htmlContent;
+    if (data.projectImages !== undefined) row.project_images = data.projectImages ? JSON.stringify(data.projectImages) : null;
+    if (data.projectStatus !== undefined) row.project_status = data.projectStatus || null;
+    if (data.projectBudget !== undefined) row.project_budget = data.projectBudget || null;
+    if (data.completionDate !== undefined) row.completion_date = data.completionDate || null;
+    if (data.architectName !== undefined) row.architect_name = data.architectName || null;
+    if (data.contractorName !== undefined) row.contractor_name = data.contractorName || null;
+    if (data.metaTitle !== undefined) row.meta_title = data.metaTitle || null;
+    if (data.metaDescription !== undefined) row.meta_description = data.metaDescription || null;
+    if (data.tags !== undefined) row.tags = data.tags ? JSON.stringify(data.tags) : null;
+    if (data.isOnHomePage !== undefined) row.is_on_homepage = data.isOnHomePage || false;
+    
+    return row;
   }
 
   // ===== MAIN CRUD METHODS =====
@@ -269,8 +269,8 @@ export class ProjectDetailModel extends BaseModel {
       if (filters.category) {
         query = query.where('category', filters.category);
       }
-      if (filters.subCategory) {
-        query = query.where('sub_category', filters.subCategory);
+      if (filters.projectCategoryId) {
+        query = query.where('project_category_id', filters.projectCategoryId);
       }
       if (filters.projectStatus) {
         query = query.where('project_status', filters.projectStatus);
@@ -448,8 +448,8 @@ export class ProjectDetailModel extends BaseModel {
       if (filters.category) {
         query = query.where('category', filters.category);
       }
-      if (filters.subCategory) {
-        query = query.where('sub_category', filters.subCategory);
+      if (filters.projectCategoryId) {
+        query = query.where('project_category_id', filters.projectCategoryId);
       }
       if (filters.projectStatus) {
         query = query.where('project_status', filters.projectStatus);
@@ -489,17 +489,18 @@ export class ProjectDetailModel extends BaseModel {
     return result.map(row => row.category);
   }
 
-  async getSubCategories(category?: string): Promise<string[]> {
-    let query = db(this.tableName)
-      .distinct('sub_category')
-      .where('is_active', true);
+  async getCategoryCounts(): Promise<any[]> {
+    const result = await db(this.tableName)
+      .select('category')
+      .count('* as count')
+      .where('is_active', true)
+      .groupBy('category')
+      .orderBy('category');
 
-    if (category) {
-      query = query.where('category', category);
-    }
-
-    const result = await query.orderBy('sub_category');
-    return result.map(row => row.sub_category);
+    return result.map(row => ({
+      category: row.category,
+      count: Number(row.count)
+    }));
   }
 }
 

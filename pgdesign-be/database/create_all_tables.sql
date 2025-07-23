@@ -513,25 +513,7 @@ CREATE TABLE project_categories (
     FOREIGN KEY (categories_data_id) REFERENCES project_categories_data(id) ON DELETE CASCADE
 );
 
--- Project Sub Categories
-CREATE TABLE project_sub_categories (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    project_category_id INT UNSIGNED NOT NULL,
-    sub_category_id VARCHAR(100) NOT NULL,
-    title VARCHAR(255) NOT NULL,
-    description TEXT,
-    hero_image_url TEXT,
-    display_order INT DEFAULT 0,
-    project_count INT DEFAULT 0,
-    is_active BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    UNIQUE KEY project_sub_cat_unique (project_category_id, sub_category_id),
-    UNIQUE KEY project_sub_categories_sub_category_id_unique (sub_category_id),
-    FOREIGN KEY (project_category_id) REFERENCES project_categories(id) ON DELETE CASCADE
-);
-
--- Project Details
+-- Project Details (Direct relationship with categories)
 CREATE TABLE project_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
     project_id VARCHAR(100) NOT NULL UNIQUE COMMENT 'Unique identifier for the project',
@@ -542,8 +524,7 @@ CREATE TABLE project_details (
     address VARCHAR(500) NOT NULL COMMENT 'Project address',
     description TEXT COMMENT 'Project description',
     category VARCHAR(100) NOT NULL COMMENT 'Project category',
-    project_sub_category_id INT UNSIGNED NOT NULL COMMENT 'Project sub category ID',
-    sub_category VARCHAR(100) NOT NULL COMMENT 'Project sub category',
+    project_category_id INT UNSIGNED NOT NULL COMMENT 'Direct reference to project category',
     style VARCHAR(100) COMMENT 'Project style',
     thumbnail_image VARCHAR(500) COMMENT 'Thumbnail image URL',
     html_content LONGTEXT NOT NULL COMMENT 'HTML content for project detail page',
@@ -562,10 +543,10 @@ CREATE TABLE project_details (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     INDEX idx_project_id (project_id),
     INDEX idx_category (category),
-    INDEX idx_sub_category (sub_category),
+    INDEX idx_project_category_id (project_category_id),
     INDEX idx_project_details_is_on_homepage (is_on_homepage),
     INDEX idx_is_active (is_active),
-    FOREIGN KEY (project_sub_category_id) REFERENCES project_sub_categories(id) ON DELETE RESTRICT
+    FOREIGN KEY (project_category_id) REFERENCES project_categories(id) ON DELETE RESTRICT
 );
 
 -- Project Specifications

@@ -24,7 +24,7 @@ Successfully implemented comprehensive APIs for Project Categories and Project S
 
 ### 1. Database Constraints
 - **Unique constraint** on `project_categories.category_id` (Migration #013)
-- **Unique constraint** on `project_sub_categories` for (`project_category_id`, `sub_category_id`)
+- **Direct relationship** between categories and projects (no subcategories)
 
 ### 2. Flexible ID Support
 - Project categories can be retrieved by either `category_id` (string) or numeric `id`

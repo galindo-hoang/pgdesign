@@ -1,14 +1,15 @@
 import {
   ProjectCategory,
-  ProjectSubCategory,
-  ProjectSubCategoryWithProjects,
-  ProjectSubCategoryWithProjectOverview,
-  ProjectOverviewData,
   ProjectDetail,
-  ProjectCategoryApiResponse,
   CategoryInfo,
   ApiResponse
 } from '../types/projectCategoryPageTypes';
+
+
+import houseNormal from "../assets/images/projectpage/house-normal.jpg";
+import appartment from "../assets/images/projectpage/appartment.png";
+import houseBusiness from "../assets/images/projectpage/house-business.jpg";
+import village from "../assets/images/projectpage/village.png";
 
 // API Configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
@@ -20,335 +21,251 @@ const USE_MOCK_DATA = true;
 // ========== MOCK DATA ==========
 
 // Mock categories mapping (matching our seeded data)
-const mockCategoriesData: Record<string, Omit<ProjectCategory, 'subCategories'>> = {
+const mockCategoriesData: Record<string, Omit<ProjectCategory, 'projects'>> = {
   "house-normal": {
     id: 1,
     categoryId: "house-normal",
     title: "NHÀ PHỐ",
     description: "Thiết kế nhà phố hiện đại, tối ưu hóa không gian và ánh sáng tự nhiên cho cuộc sống đô thị.",
-    heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
+    heroImageUrl: houseNormal,
     displayOrder: 0,
-    isActive: true
+    isActive: true,
+    projectCount: 25
   },
   "appartment": {
     id: 2,
     categoryId: "appartment",
     title: "CĂN HỘ",
     description: "Hòa quyện kiến trúc với thiên nhiên, tạo nên không gian sống xanh và thư thái.",
-    heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg",
+    heroImageUrl: appartment,
     displayOrder: 1,
-    isActive: true
+    isActive: true,
+    projectCount: 18
   },
-  "house-rough": {
+  "village": {
     id: 3,
-    categoryId: "house-rough",
+    categoryId: "village",
     title: "BIỆT THỰ",
-    description: "Kiến trúc sang trọng và đẳng cấp, thể hiện phong cách sống luxury của gia chủ.",
-    heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-3.jpg",
+    description: "Thi công phần thô với chất lượng cao, đảm bảo kết cấu vững chắc cho công trình.",
+    heroImageUrl: village,
     displayOrder: 2,
-    isActive: true
+    isActive: true,
+    projectCount: 12
   },
   "house-business": {
     id: 4,
     categoryId: "house-business",
     title: "THƯƠNG MẠI",
-    description: "Nhà một tầng đặc trưng của Việt Nam với nhiều biến thể phong cách và bố trí.",
-    heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg",
+    description: "Thiết kế và thi công nội thất sang trọng, hiện đại phù hợp với phong cách sống.",
+    heroImageUrl: houseBusiness,
     displayOrder: 3,
-    isActive: true
+    isActive: true,
+    projectCount: 30
   }
 };
 
-// Mock subcategories data (matching our seeded data)
-const mockSubCategoriesData: Record<string, ProjectSubCategory[]> = {
+// Mock project data for each category
+const mockProjectsData: Record<string, ProjectDetail[]> = {
   "house-normal": [
     {
       id: 1,
+      projectId: "HN001",
+      title: "Nhà Phố Hiện Đại 3 Tầng - Quận 7",
+      clientName: "Anh Minh",
+      area: "4x15m",
+      constructionDate: "2024-01-15",
+      address: "123 Đường Nguyễn Văn Linh, Quận 7, TP.HCM",
+      description: "Thiết kế nhà phố hiện đại với không gian mở, tận dụng tối đa ánh sáng tự nhiên.",
+      category: "house-normal",
       projectCategoryId: 1,
-      subCategoryId: "nha-ong",
-      title: "Nhà Ống",
-      description: "Thiết kế cho mặt tiền hẹp, chiều sâu dài, tận dụng tối đa diện tích.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
-      displayOrder: 0,
-      projectCount: 4,
+      style: "Hiện đại",
+      thumbnailImage: "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
+      htmlContent: "<div>Chi tiết dự án nhà phố hiện đại...</div>",
+      projectImages: [
+        "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
+        "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg"
+      ],
+      projectStatus: "Hoàn thành",
+      projectBudget: "2.5 tỷ",
+      completionDate: "2024-06-30",
+      architectName: "KTS Nguyễn Văn A",
+      contractorName: "PG Design",
+      metaTitle: "Nhà Phố Hiện Đại 3 Tầng",
+      metaDescription: "Dự án nhà phố hiện đại tại Quận 7",
+      tags: ["nhà phố", "hiện đại", "3 tầng"],
+      isOnHomePage: true,
       isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
+      createdAt: "2024-01-15T00:00:00Z",
+      updatedAt: "2024-06-30T00:00:00Z"
     },
     {
       id: 2,
+      projectId: "HN002",
+      title: "Nhà Phố Tân Cổ Điển - Quận 2",
+      clientName: "Chị Lan",
+      area: "5x18m",
+      constructionDate: "2024-02-01",
+      address: "456 Đường Trần Não, Quận 2, TP.HCM",
+      description: "Nhà phố phong cách tân cổ điển với kiến trúc tinh tế và nội thất sang trọng.",
+      category: "house-normal",
       projectCategoryId: 1,
-      subCategoryId: "nha-lien-ke",
-      title: "Nhà Liền Kề",
-      description: "Nhà phố trong khu quy hoạch, kiến trúc đồng bộ và hiện đại.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
-      displayOrder: 1,
-      projectCount: 4,
+      style: "Tân cổ điển",
+      thumbnailImage: "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg",
+      htmlContent: "<div>Chi tiết dự án nhà phố tân cổ điển...</div>",
+      projectImages: [
+        "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg",
+        "http://localhost:9000/pgdesign-assets/images/diary-image-3.jpg"
+      ],
+      projectStatus: "Đang thi công",
+      projectBudget: "3.2 tỷ",
+      architectName: "KTS Phạm Thị B",
+      contractorName: "PG Design",
+      metaTitle: "Nhà Phố Tân Cổ Điển",
+      metaDescription: "Dự án nhà phố tân cổ điển tại Quận 2",
+      tags: ["nhà phố", "tân cổ điển", "sang trọng"],
+      isOnHomePage: false,
       isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      id: 3,
-      projectCategoryId: 1,
-      subCategoryId: "house-normal-san-vuon",
-      title: "Nhà Phố Có Sân Vườn",
-      description: "Kết hợp không gian xanh, tạo sự thông thoáng và gần gũi thiên nhiên.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
-      displayOrder: 2,
-      projectCount: 4,
-      isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      id: 4,
-      projectCategoryId: 1,
-      subCategoryId: "shophouse",
-      title: "Shophouse",
-      description: "Tầng trệt kinh doanh, tầng trên ở, tối ưu hóa mặt tiền thu hút khách hàng.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
-      displayOrder: 3,
-      projectCount: 4,
-      isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
+      createdAt: "2024-02-01T00:00:00Z",
+      updatedAt: "2024-02-01T00:00:00Z"
     }
   ],
   "appartment": [
     {
-      id: 5,
+      id: 3,
+      projectId: "HF001",
+      title: "Xây Nhà Trọn Gói 2 Tầng - Bình Dương",
+      clientName: "Anh Tùng",
+      area: "6x20m",
+      constructionDate: "2024-03-01",
+      address: "789 Đường Dĩ An, Bình Dương",
+      description: "Dự án xây nhà trọn gói bao gồm thiết kế, thi công và nội thất hoàn thiện.",
+      category: "appartment",
       projectCategoryId: 2,
-      subCategoryId: "resort-garden-houses",
-      title: "Resort Garden Houses",
-      description: "Nhà vườn phong cách resort, tận hưởng không gian xanh mát.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg",
-      displayOrder: 0,
-      projectCount: 4,
+      style: "Hiện đại",
+      thumbnailImage: "http://localhost:9000/pgdesign-assets/images/diary-image-3.jpg",
+      htmlContent: "<div>Chi tiết dự án xây nhà trọn gói...</div>",
+      projectImages: [
+        "http://localhost:9000/pgdesign-assets/images/diary-image-3.jpg",
+        "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg"
+      ],
+      projectStatus: "Hoàn thành",
+      projectBudget: "1.8 tỷ",
+      completionDate: "2024-08-15",
+      architectName: "KTS Lê Văn C",
+      contractorName: "PG Design",
+      metaTitle: "Xây Nhà Trọn Gói 2 Tầng",
+      metaDescription: "Dự án xây nhà trọn gói tại Bình Dương",
+      tags: ["xây nhà", "trọn gói", "2 tầng"],
+      isOnHomePage: true,
       isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      id: 6,
-      projectCategoryId: 2,
-      subCategoryId: "nha-vuon-mini",
-      title: "Nhà Vườn Mini",
-      description: "Nhà vườn quy mô nhỏ, phù hợp với diện tích hạn chế.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg",
-      displayOrder: 1,
-      projectCount: 4,
-      isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
+      createdAt: "2024-03-01T00:00:00Z",
+      updatedAt: "2024-08-15T00:00:00Z"
     }
   ],
-  "house-rough": [
+  "village": [
     {
-      id: 7,
+      id: 4,
+      projectId: "HR001",
+      title: "Thi Công Phần Thô Biệt Thự - Đồng Nai",
+      clientName: "Anh Khang",
+      area: "8x25m",
+      constructionDate: "2024-04-01",
+      address: "321 Đường Biên Hòa, Đồng Nai",
+      description: "Thi công phần thô biệt thự với kết cấu bê tông cốt thép chất lượng cao.",
+      category: "village",
       projectCategoryId: 3,
-      subCategoryId: "biet-thu-don-lap",
-      title: "Biệt Thự Đơn Lập",
-      description: "Biệt thự độc lập, không gian riêng tư tuyệt đối.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-3.jpg",
-      displayOrder: 0,
-      projectCount: 4,
+      style: "Biệt thự",
+      thumbnailImage: "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg",
+      htmlContent: "<div>Chi tiết dự án thi công phần thô...</div>",
+      projectImages: [
+        "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg",
+        "http://localhost:9000/pgdesign-assets/images/diary-image-5.jpg"
+      ],
+      projectStatus: "Đang thi công",
+      projectBudget: "2.0 tỷ",
+      architectName: "KTS Hoàng Văn D",
+      contractorName: "PG Design",
+      metaTitle: "Thi Công Phần Thô Biệt Thự",
+      metaDescription: "Dự án thi công phần thô tại Đồng Nai",
+      tags: ["phần thô", "biệt thự", "bê tông"],
+      isOnHomePage: false,
       isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      id: 8,
-      projectCategoryId: 3,
-      subCategoryId: "biet-thu-song-lap",
-      title: "Biệt Thự Song Lập",
-      description: "Biệt thự liền kề, tối ưu hóa không gian và chi phí.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-3.jpg",
-      displayOrder: 1,
-      projectCount: 4,
-      isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
+      createdAt: "2024-04-01T00:00:00Z",
+      updatedAt: "2024-04-01T00:00:00Z"
     }
   ],
   "house-business": [
     {
-      id: 9,
+      id: 5,
+      projectId: "HI001",
+      title: "Thiết Kế Nội Thất Căn Hộ Duplex - Quận 1",
+      clientName: "Chị Hoa",
+      area: "120m²",
+      constructionDate: "2024-05-01",
+      address: "555 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      description: "Thiết kế nội thất căn hộ duplex cao cấp với phong cách hiện đại và tinh tế.",
+      category: "house-business",
       projectCategoryId: 4,
-      subCategoryId: "nha-cap-4-hien-dai",
-      title: "Nhà Cấp 4 Hiện Đại",
-      description: "Nhà cấp 4 thiết kế hiện đại, tối giản và tiện nghi.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg",
-      displayOrder: 0,
-      projectCount: 4,
+      style: "Hiện đại cao cấp",
+      thumbnailImage: "http://localhost:9000/pgdesign-assets/images/diary-image-5.jpg",
+      htmlContent: "<div>Chi tiết dự án thiết kế nội thất...</div>",
+      projectImages: [
+        "http://localhost:9000/pgdesign-assets/images/diary-image-5.jpg",
+        "http://localhost:9000/pgdesign-assets/images/diary-image-6.jpg"
+      ],
+      projectStatus: "Hoàn thành",
+      projectBudget: "800 triệu",
+      completionDate: "2024-07-15",
+      architectName: "KTS Trần Thị E",
+      contractorName: "PG Design",
+      metaTitle: "Thiết Kế Nội Thất Căn Hộ Duplex",
+      metaDescription: "Dự án nội thất căn hộ duplex tại Quận 1",
+      tags: ["nội thất", "duplex", "cao cấp"],
+      isOnHomePage: true,
       isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      id: 10,
-      projectCategoryId: 4,
-      subCategoryId: "nha-cap-4-truyen-thong",
-      title: "Nhà Cấp 4 Truyền Thống",
-      description: "Nhà cấp 4 phong cách truyền thống Việt Nam.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg",
-      displayOrder: 1,
-      projectCount: 4,
-      isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      id: 11,
-      projectCategoryId: 4,
-      subCategoryId: "nha-cap-4-nong-thon",
-      title: "Nhà Cấp 4 Nông Thôn",
-      description: "Nhà cấp 4 phong cách nông thôn, gần gũi thiên nhiên.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg",
-      displayOrder: 2,
-      projectCount: 4,
-      isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      id: 12,
-      projectCategoryId: 4,
-      subCategoryId: "nha-cap-4-tiet-kiem",
-      title: "Nhà Cấp 4 Tiết Kiệm",
-      description: "Nhà cấp 4 tối ưu hóa chi phí, phù hợp thu nhập trung bình.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg",
-      displayOrder: 3,
-      projectCount: 4,
-      isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
+      createdAt: "2024-05-01T00:00:00Z",
+      updatedAt: "2024-07-15T00:00:00Z"
     }
   ]
 };
 
-// Mock project details generator
-const generateMockProjectDetails = (categoryId: string, subCategoryId: string, count: number = 4): ProjectDetail[] => {
-  const projects: ProjectDetail[] = [];
-  
-  for (let i = 1; i <= count; i++) {
-    projects.push({
-      id: i,
-      projectId: `${categoryId}-${subCategoryId}-${i}`,
-      title: `Dự án ${subCategoryId} #${i}`,
-      clientName: `Anh/Chị ${String.fromCharCode(64 + i)}`,
-      area: `${120 + i * 30}m²`,
-      constructionDate: `${String(12 - i).padStart(2, '0')}/2023`,
-      address: `Quận ${i}, TP.HCM`,
-      description: `Mô tả chi tiết dự án ${subCategoryId} số ${i}`,
-      category: categoryId,
-      subCategory: subCategoryId,
-      style: i % 2 === 0 ? "Modern" : "Classical",
-      thumbnailImage: `http://localhost:9000/pgdesign-assets/images/diary-image-${i}.jpg`,
-      htmlContent: `<h1>Dự án ${subCategoryId} #${i}</h1><p>Nội dung chi tiết...</p>`,
-      projectImages: [
-        `http://localhost:9000/pgdesign-assets/images/diary-image-${i}.jpg`,
-        `http://localhost:9000/pgdesign-assets/images/diary-image-${i + 1}.jpg`
-      ],
-      projectStatus: "Completed",
-      projectBudget: `${1 + i}M VND`,
-      completionDate: `${String(12 - i).padStart(2, '0')}/2023`,
-      architectName: "PG Design Team",
-      contractorName: "PG Construction",
-      isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    });
-  }
-  
-  return projects;
-};
+// Utility function for mock delay
+const delay = (ms: number): Promise<void> => 
+  new Promise(resolve => setTimeout(resolve, ms));
 
-// ========== UTILITY FUNCTIONS ==========
-
-// Transform ProjectOverviewData to ProjectDetail format
-const transformOverviewToDetail = (overview: ProjectOverviewData, categoryId: string, subCategoryId: string): ProjectDetail => {
-  return {
-    id: overview.id,
-    projectId: overview.projectId,
-    title: overview.title,
-    clientName: overview.clientName,
-    area: overview.area,
-    constructionDate: overview.constructionDate,
-    address: overview.address,
-    description: overview.title, // Use title as description fallback
-    category: categoryId,
-    subCategory: subCategoryId,
-    style: "Modern", // Default style
-    thumbnailImage: overview.thumbnailImage,
-    htmlContent: `<h1>${overview.title}</h1><p>Project details...</p>`, // Basic HTML content
-    projectImages: overview.thumbnailImage ? [overview.thumbnailImage] : [],
-    projectStatus: overview.projectStatus,
-    projectBudget: "N/A", // Not available in overview
-    completionDate: overview.constructionDate,
-    architectName: "PG Design Team", // Default
-    contractorName: "PG Construction", // Default
-    isActive: true,
-    createdAt: new Date(overview.createdAt),
-    updatedAt: new Date(overview.createdAt)
-  };
-};
-
-// Transform backend date strings to Date objects
-const transformDates = (obj: any): any => {
-  if (typeof obj === 'string' && obj.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)) {
-    return new Date(obj);
-  }
-  if (Array.isArray(obj)) {
-    return obj.map(transformDates);
-  }
-  if (obj && typeof obj === 'object') {
-    const transformed: any = {};
-    for (const key in obj) {
-      transformed[key] = transformDates(obj[key]);
-    }
-    return transformed;
-  }
-  return obj;
+// Transform dates (for compatibility) - no longer needed since we use strings
+const transformDates = (data: any): any => {
+  // Return data as-is since we now use string dates
+  return data;
 };
 
 // ========== MOCK FUNCTIONS ==========
 
-const fetchCategoryWithSubCategoriesMock = async (categoryId: string): Promise<ProjectCategory> => {
-  await mockDelay();
-  console.log(`🎭 Mock: Fetching category ${categoryId} with subcategories`);
-  
-  const categoryData = mockCategoriesData[categoryId];
-  if (!categoryData) {
+const fetchCategoryWithProjectsMock = async (categoryId: string): Promise<ProjectCategory> => {
+  console.log(`🎭 Mock Data: Fetching category ${categoryId} with projects`);
+  await delay(800);
+
+  const categoryInfo = mockCategoriesData[categoryId];
+  if (!categoryInfo) {
     throw new Error(`Category ${categoryId} not found`);
   }
 
-  const subcategories = mockSubCategoriesData[categoryId] || [];
-  const subcategoriesWithProjects: ProjectSubCategoryWithProjects[] = subcategories.map((sub: ProjectSubCategory) => ({
-    ...sub,
-    projects: generateMockProjectDetails(categoryId, sub.subCategoryId, sub.projectCount)
-  }));
+  const projects = mockProjectsData[categoryId] || [];
 
   return {
-    ...categoryData,
-    subCategories: subcategoriesWithProjects
+    ...categoryInfo,
+    projects: projects,
+    projectCount: projects.length
   };
-};
-
-const fetchSubCategoryProjectsMock = async (categoryId: string, subCategoryId: string): Promise<ProjectDetail[]> => {
-  await mockDelay();
-  console.log(`🎭 Mock: Fetching projects for ${categoryId}/${subCategoryId}`);
-  
-  return generateMockProjectDetails(categoryId, subCategoryId, 4);
 };
 
 // ========== API FUNCTIONS ==========
 
-const fetchCategoryWithSubCategoriesApi = async (categoryId: string): Promise<ProjectCategory> => {
+const fetchCategoryWithProjectsApi = async (categoryId: string): Promise<ProjectCategory> => {
   try {
-    console.log(`🌐 Real API: Fetching category ${categoryId} with subcategories`);
+    console.log(`🌐 Real API: Fetching category ${categoryId} with projects`);
     
-    const response = await fetch(`${API_BASE_URL}/projectsubcategories/category/${categoryId}/overview`, {
+    const response = await fetch(`${API_BASE_URL}/projectdetail/category/${categoryId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -360,37 +277,27 @@ const fetchCategoryWithSubCategoriesApi = async (categoryId: string): Promise<Pr
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const rawData: ProjectCategoryApiResponse = await response.json();
+    const projectsData: ApiResponse<ProjectDetail[]> = await response.json();
     
-    if (!rawData.success) {
-      throw new Error(rawData.message || 'Failed to fetch category data');
+    if (!projectsData.success) {
+      throw new Error(projectsData.message || 'Failed to fetch projects data');
     }
 
-    // Transform the response data
-    const subcategoriesData = transformDates(rawData.data) as ProjectSubCategoryWithProjectOverview[];
-    
-    // Transform to the expected format
-    const subcategoriesWithProjects: ProjectSubCategoryWithProjects[] = subcategoriesData.map((sub) => ({
-      ...sub,
-      projects: sub.projectsOverview.projects.map((project) => 
-        transformOverviewToDetail(project, categoryId, sub.subCategoryId)
-      )
-    }));
-
-    // Get category info (using first subcategory's categoryId or default)
+    // Get category info (you might need a separate API call for this)
     const categoryInfo: CategoryInfo = mockCategoriesData[categoryId] || {
-      id: subcategoriesData[0]?.projectCategoryId || 1,
+      id: 1,
       categoryId: categoryId,
       title: categoryId.toUpperCase().replace(/-/g, ' '),
       description: `Category ${categoryId}`,
-      heroImageUrl: subcategoriesData[0]?.heroImageUrl || '/assets/images/default-hero.jpg',
+      heroImageUrl: '/assets/images/default-hero.jpg',
       displayOrder: 0,
       isActive: true
     };
 
     return {
       ...categoryInfo,
-      subCategories: subcategoriesWithProjects
+      projects: projectsData.data,
+      projectCount: projectsData.data.length
     };
   } catch (error: any) {
     console.error(`Error fetching category ${categoryId}:`, error);
@@ -398,76 +305,33 @@ const fetchCategoryWithSubCategoriesApi = async (categoryId: string): Promise<Pr
   }
 };
 
-const fetchSubCategoryProjectsApi = async (categoryId: string, subCategoryId: string): Promise<ProjectDetail[]> => {
-  try {
-    console.log(`🌐 Real API: Fetching projects for ${categoryId}/${subCategoryId}`);
-    
-    const response = await fetch(`${API_BASE_URL}/categories/${categoryId}/subcategories/${subCategoryId}/projects`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      signal: AbortSignal.timeout(API_TIMEOUT)
-    });
+// ========== EXPORTED FUNCTIONS ==========
 
-    const data: ApiResponse<ProjectDetail[]> = await response.json();
-    
-    if (!response.ok) {
-      throw new Error(data.error || 'Failed to fetch projects data');
-    }
-    
-    return data.data || [];
-  } catch (error: any) {
-    console.error(`Error fetching projects for ${categoryId}/${subCategoryId}:`, error);
-    throw new Error(`Failed to fetch projects data: ${error.message}`);
-  }
-};
-
-// ========== HYBRID FUNCTIONS (AUTO-SWITCH) ==========
-
-// Mock delay function
-const mockDelay = (ms: number = 300): Promise<void> => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-};
-
-// Main service functions
-
-export const fetchCategoryWithSubCategories = async (categoryId: string): Promise<ProjectCategory> => {
+/**
+ * Fetch category with all its projects (Direct relationship: category -> projects)
+ */
+export const fetchCategoryWithProjects = async (categoryId: string): Promise<ProjectCategory> => {
   const dataSource = USE_MOCK_DATA ? '🎭 Mock Data' : '🌐 Real API';
-  console.log(`${dataSource}: Fetching category ${categoryId}`);
+  console.log(`${dataSource}: Fetching category ${categoryId} with projects`);
   
   return USE_MOCK_DATA 
-    ? fetchCategoryWithSubCategoriesMock(categoryId)
-    : fetchCategoryWithSubCategoriesApi(categoryId);
+    ? fetchCategoryWithProjectsMock(categoryId)
+    : fetchCategoryWithProjectsApi(categoryId);
 };
 
-export const fetchSubCategoryProjects = async (categoryId: string, subCategoryId: string): Promise<ProjectDetail[]> => {
-  const dataSource = USE_MOCK_DATA ? '🎭 Mock Data' : '🌐 Real API';
-  console.log(`${dataSource}: Fetching projects for ${categoryId}/${subCategoryId}`);
-  
-  return USE_MOCK_DATA 
-    ? fetchSubCategoryProjectsMock(categoryId, subCategoryId)
-    : fetchSubCategoryProjectsApi(categoryId, subCategoryId);
-};
-
-// Utility functions
-export const checkApiHealth = async (): Promise<boolean> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/health`);
-    return response.ok;
-  } catch (error) {
-    console.error('API health check failed:', error);
-    return false;
-  }
-};
-
+/**
+ * Get current data source
+ */
 export const getCurrentDataSource = (): 'mock' | 'api' => {
   return USE_MOCK_DATA ? 'mock' : 'api';
 };
 
-// Export mock data for testing
-export const getMockData = () => ({
-  categories: mockCategoriesData,
-  subcategories: mockSubCategoriesData,
-  generateProjects: generateMockProjectDetails
-}); 
+/**
+ * Get all available categories
+ */
+export const getAvailableCategories = (): string[] => {
+  return Object.keys(mockCategoriesData);
+};
+
+// For backward compatibility (deprecated - use fetchCategoryWithProjects instead)
+export const fetchCategoryWithSubCategories = fetchCategoryWithProjects; 

@@ -19,9 +19,5 @@ router.put('/hero/:id', homepageController.updateHeroData);
 router.put('/about/:id', homepageController.updateAboutData);
 router.put('/stats/:id', homepageController.updateStatsData);
 router.put('/solution/:id', homepageController.updateSolutionData);
-router.put('/workflow/:id', homepageController.updateWorkflowData);
-router.put('/project-diary/:id', homepageController.updateProjectDiaryData);
-router.put('/testimonials/:id', homepageController.updateTestimonialData);
-router.put('/consultation-form/:id', homepageController.updateConsultationFormData);
 exports.default = router;
 //# sourceMappingURL=homepage.js.map

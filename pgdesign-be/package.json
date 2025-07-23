@@ -15,8 +15,7 @@
     "seed:make": "knex seed:make",
     "upload:images": "node scripts/uploadImages.js",
     "public:urls": "node scripts/updateToPublicUrls.js",
-    "seed:project-page": "node scripts/seedProjectPageFromMock.js",
-    "seed:subcategories": "node scripts/seedProjectSubCategoriesFromMock.js"
+    "seed:project-page": "node scripts/seedProjectPageFromMock.js"
   },
   "dependencies": {
     "axios": "^1.10.0",

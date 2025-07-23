@@ -12,7 +12,6 @@ interface ProjectItem {
   address: string;
   description?: string;
   category: string;
-  subCategory: string;
   style?: string;
 }
 

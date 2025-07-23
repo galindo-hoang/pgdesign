@@ -486,7 +486,7 @@ construction_date (DATE, NOT NULL)
 address (VARCHAR(500), NOT NULL)
 description (TEXT, NULLABLE)
 category (VARCHAR(100), NOT NULL)
-sub_category (VARCHAR(100), NOT NULL)
+project_category_id (INT UNSIGNED, NOT NULL) - Direct reference to project_categories.id
 style (VARCHAR(100), NULLABLE)
 thumbnail_image (VARCHAR(500), NULLABLE)
 html_content (LONGTEXT, NOT NULL)

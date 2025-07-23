@@ -25,7 +25,7 @@ export class ProjectDetailController {
     
     // Extract filters from query parameters
     if (req.query.category) filters.category = req.query.category as string;
-    if (req.query.subCategory) filters.subCategory = req.query.subCategory as string;
+    if (req.query.projectCategoryId) filters.projectCategoryId = parseInt(req.query.projectCategoryId as string);
     if (req.query.projectStatus) filters.projectStatus = req.query.projectStatus as string;
     if (req.query.isActive !== undefined) filters.isActive = req.query.isActive === 'true';
 
@@ -161,7 +161,7 @@ export class ProjectDetailController {
     }
 
     // Validate the data (for non-empty fields)
-    const errors = await ProjectDetailModel.validateProjectDetailData(data);
+    const errors = await ProjectDetailModel.validateProjectDetailData(data as Partial<CreateProjectDetailRequest>);
     if (errors.length > 0) {
       throw createError(`Validation errors: ${errors.join(', ')}`, 400);
     }
@@ -243,7 +243,7 @@ export class ProjectDetailController {
 
   // Toggle homepage status
   toggleHomepageStatus = asyncHandler(async (req: Request, res: Response): Promise<void> => {
-    const id = parseInt(req.params.id);
+    const id = parseInt(req.params.id || '0');
     const { isOnHomePage } = req.body;
 
     if (isNaN(id)) {
@@ -287,23 +287,7 @@ export class ProjectDetailController {
     res.json(response);
   });
 
-  /**
-   * Get subcategories (optionally filtered by category)
-   * GET /api/v1/projectdetail/subcategories?category=house-normal
-   */
-  getSubCategories = asyncHandler(async (req: Request, res: Response) => {
-    const category = req.query.category as string;
-    
-    const subCategories = await ProjectDetailModel.getSubCategories(category);
-    
-    const response: ApiResponse<string[]> = {
-      success: true,
-      data: subCategories,
-      message: 'Project sub-categories retrieved successfully'
-    };
 
-    res.json(response);
-  });
 
   // ===== SEARCH ENDPOINTS =====
 
@@ -314,7 +298,7 @@ export class ProjectDetailController {
   searchProjectDetails = asyncHandler(async (req: Request, res: Response) => {
     const query = req.query.q as string;
     const category = req.query.category as string;
-    const subCategory = req.query.subCategory as string;
+    const projectCategoryId = req.query.projectCategoryId as string;
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
     
@@ -326,7 +310,7 @@ export class ProjectDetailController {
     // In a real-world scenario, you might want to use a proper search engine
     const filters: ProjectDetailFilters = {};
     if (category) filters.category = category;
-    if (subCategory) filters.subCategory = subCategory;
+    if (projectCategoryId) filters.projectCategoryId = parseInt(projectCategoryId);
 
     const result = await ProjectDetailModel.getPaginated(page, limit, filters);
     
@@ -417,6 +401,50 @@ export class ProjectDetailController {
       success: true,
       data: results,
       message: `Bulk delete completed for ${projectIds.length} project(s)`
+    };
+
+    res.json(response);
+  });
+
+  // ===== CATEGORY ENDPOINTS =====
+
+  /**
+   * Get projects by category (direct relationship)
+   */
+  getProjectsByCategory = asyncHandler(async (req: Request, res: Response): Promise<void> => {
+    const categoryId = req.params.categoryId;
+    
+    if (!categoryId) {
+      throw createError('Category ID is required', 400);
+    }
+
+    const filters: ProjectDetailFilters = { 
+      category: categoryId,
+      isActive: true 
+    };
+
+    const projects = await ProjectDetailModel.getAll(filters);
+
+    const response: ApiResponse<ProjectDetailData[]> = {
+      success: true,
+      data: projects,
+      message: `Found ${projects.length} projects for category: ${categoryId}`
+    };
+
+    res.json(response);
+  });
+
+  /**
+   * Get project counts by category
+   */
+  getCategoryCounts = asyncHandler(async (req: Request, res: Response): Promise<void> => {
+    // Get counts from the database
+    const counts = await ProjectDetailModel.getCategoryCounts();
+
+    const response: ApiResponse<any> = {
+      success: true,
+      data: counts,
+      message: 'Category counts retrieved successfully'
     };
 
     res.json(response);

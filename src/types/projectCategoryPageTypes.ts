@@ -1,34 +1,5 @@
-// Updated types to match backend database structure and API response
+// Updated types to work with direct category-project relationship (no subcategories)
 
-export interface ProjectSubCategory {
-  id: number;
-  projectCategoryId: number;
-  subCategoryId: string;
-  title: string;
-  description?: string;
-  heroImageUrl?: string;
-  displayOrder: number;
-  projectCount: number;
-  isActive: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-// Project overview data returned by backend (limited fields for listing)
-export interface ProjectOverviewData {
-  id: number;
-  projectId: string;
-  title: string;
-  clientName: string;
-  area: string;
-  address: string;
-  thumbnailImage?: string;
-  constructionDate: string;
-  projectStatus?: string;
-  createdAt: Date;
-}
-
-// Full project detail structure (for project detail pages)
 export interface ProjectDetail {
   id: number;
   projectId: string;
@@ -39,7 +10,7 @@ export interface ProjectDetail {
   address: string;
   description?: string;
   category: string;
-  subCategory: string;
+  projectCategoryId: number; // Direct reference to category
   style?: string;
   thumbnailImage?: string;
   htmlContent: string;
@@ -49,82 +20,63 @@ export interface ProjectDetail {
   completionDate?: string;
   architectName?: string;
   contractorName?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  tags?: string[];
+  isOnHomePage: boolean;
   isActive: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
-// Backend API response structure for subcategories with project overview
-export interface ProjectSubCategoryWithProjectOverview extends ProjectSubCategory {
-  projectsOverview: {
-    totalProjects: number;
-    projects: ProjectOverviewData[];
-  };
+// Project overview data for listings
+export interface ProjectOverviewData {
+  id: number;
+  projectId: string;
+  title: string;
+  clientName: string;
+  area: string;
+  constructionDate: string;
+  address: string;
+  description?: string;
+  category: string;
+  style?: string;
+  thumbnailImage?: string;
+  isActive: boolean;
 }
 
-// For compatibility - transforms ProjectOverviewData to ProjectDetail format
-export interface ProjectSubCategoryWithProjects extends ProjectSubCategory {
-  projects: ProjectDetail[];
-}
-
-// Updated to match actual backend response structure
-export interface ProjectCategoryApiResponse {
-  success: boolean;
-  data: ProjectSubCategoryWithProjectOverview[];
-  message: string;
-}
-
-// Category information structure (when needed)
+// Category info (basic category data)
 export interface CategoryInfo {
   id: number;
   categoryId: string;
   title: string;
-  description?: string;
+  description: string;
   heroImageUrl?: string;
   displayOrder: number;
   isActive: boolean;
 }
 
-// Complete category structure with subcategories (for frontend display)
+// Complete category structure with projects (for frontend display)
 export interface ProjectCategory extends CategoryInfo {
-  subCategories: ProjectSubCategoryWithProjects[];
+  projects: ProjectDetail[];
+  projectCount: number;
 }
 
-export interface ProjectCategoryPageData {
-  category: ProjectCategory;
-  defaultHeroImage?: string;
-}
-
-// API Response types
-export interface ApiResponse<T> {
+// API Response interfaces
+export interface ProjectCategoryApiResponse {
   success: boolean;
-  data?: T;
-  error?: string;
+  data: ProjectCategory;
   message?: string;
 }
 
-// Service function types for fetching data
-export interface ProjectCategoryService {
-  fetchCategoryWithSubCategories(categoryId: string): Promise<ProjectCategory>;
-  fetchSubCategoryProjects(categoryId: string, subCategoryId: string): Promise<ProjectDetail[]>;
+export interface ApiResponse<T> {
+  success: boolean;
+  data: T;
+  message?: string;
+  error?: string;
 }
 
-// Legacy types for backward compatibility (if needed)
-export interface CategoryData {
-  id: string;
-  title: string;
-  description: string;
-  heroImage: string;
-  subCategories: SubCategory[];
-}
-
-export interface SubCategory {
-  id: string;
-  title: string;
-  description: string;
-  projects: ProjectItem[];
-}
-
+// Legacy interfaces for backward compatibility (can be removed later)
 export interface ProjectItem {
   id: string;
   title: string;
@@ -135,6 +87,14 @@ export interface ProjectItem {
   address: string;
   description: string;
   category: string;
-  subCategory: string;
   style: string;
+}
+
+// Category data structure for project listings
+export interface CategoryData {
+  id: string;
+  title: string;
+  description: string;
+  heroImage: string;
+  projects: ProjectItem[];
 } 

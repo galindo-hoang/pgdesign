@@ -487,28 +487,19 @@ curl -X POST http://localhost:3000/api/v1/projectsubcategories \
 - `created_at` (TIMESTAMP)
 - `updated_at` (TIMESTAMP)
 
-### project_sub_categories Table
-- `id` (INT, PRIMARY KEY)
-- `project_category_id` (INT, FOREIGN KEY)
-- `sub_category_id` (VARCHAR)
-- `title` (VARCHAR)
-- `description` (TEXT)
-- `hero_image_url` (TEXT)
-- `display_order` (INT)
-- `project_count` (INT)
-- `is_active` (BOOLEAN)
-- `created_at` (TIMESTAMP)
-- `updated_at` (TIMESTAMP)
+### project_details Table (Direct Relationship)
+- `project_category_id` (INT, FOREIGN KEY) - Direct reference to project_categories.id
+- Projects are now directly linked to categories without intermediate subcategories
 
 ### Constraints
 - `project_categories.category_id` has UNIQUE constraint
-- `project_sub_categories` has UNIQUE constraint on (`project_category_id`, `sub_category_id`)
+- `project_details.project_category_id` references `project_categories.id`
 
 ---
 
 ## Notes
 - All endpoints return JSON responses
-- Soft delete is used for subcategories (sets `is_active` to false)
 - The `category_id` field in project_categories is used for URL-friendly identification
 - Project counts are maintained separately and should be updated when projects are added/removed
-- Display order determines the sorting of categories and subcategories in the frontend 
+- Display order determines the sorting of categories in the frontend
+- Projects are now directly linked to categories without subcategories 

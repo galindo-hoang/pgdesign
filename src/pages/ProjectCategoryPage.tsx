@@ -35,9 +35,9 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
           const categoryResult = await fetchCategoryWithSubCategories(categoryId);
           if (categoryResult) {
             setCategoryData(categoryResult);
-            if (categoryResult.subCategories.length > 0) {
-              setActiveSubCategory(categoryResult.subCategories[0].subCategoryId);
-            }
+            // if (categoryResult.subCategories.length > 0) {
+            //   setActiveSubCategory(categoryResult.subCategories[0].subCategoryId);
+            // }
           }
         }
       } catch (err) {
@@ -85,11 +85,6 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
       </div>
     );
   }
-
-  const activeSubCategoryData = categoryData.subCategories.find(
-    sub => sub.subCategoryId === activeSubCategory
-  );
-
   // Get hero image from category data or fallback to default
   const heroImage = categoryData.heroImageUrl;
 
@@ -112,37 +107,10 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
         </div>
       </div>
 
-      {/* Sub-category Navigation */}
-      <div className="subcategory-navigation">
-        <div className="subcategory-nav-container">
-          {categoryData.subCategories.map((subCategory) => (
-            <div key={subCategory.id} className="subcategory-nav-wrapper">
-              <button
-                className={`subcategory-nav-item ${
-                  activeSubCategory === subCategory.subCategoryId ? "active" : ""
-                }`}
-                onClick={() => setActiveSubCategory(subCategory.subCategoryId)}
-              >
-                {subCategory.title}
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Active Sub-category Content */}
-      {activeSubCategoryData && (
         <div className="subcategory-content">
-          <div className="subcategory-header">
-            <h2 className="subcategory-title">{activeSubCategoryData.title}</h2>
-            {activeSubCategoryData.description && (
-              <p className="subcategory-description">{activeSubCategoryData.description}</p>
-            )}
-          </div>
-
           {/* Project Grid */}
           <div className="projects-grid">
-            {activeSubCategoryData.projects.map((projectDetail) => {
+            {categoryData.projects.map((projectDetail) => {
               // Transform ProjectDetail to ProjectItem format for compatibility
               const projectItem = {
                 id: projectDetail.projectId,
@@ -154,7 +122,6 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
                 address: projectDetail.address,
                 description: projectDetail.description || '',
                 category: projectDetail.category,
-                subCategory: projectDetail.subCategory,
                 style: projectDetail.style || 'Modern'
               };
               
@@ -168,7 +135,6 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
             })}
           </div>
         </div>
-      )}
     </div>
   );
 };

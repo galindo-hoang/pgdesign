@@ -13,7 +13,7 @@ const router: Router = Router();
  * GET /api/v1/projectdetail
  * Query parameters:
  * - category: Filter by category
- * - subCategory: Filter by sub-category
+ * - projectCategoryId: Filter by category ID
  * - projectStatus: Filter by project status
  * - isActive: Filter by active status
  * - page: Page number for pagination
@@ -80,11 +80,22 @@ router.delete(
  */
 router.put('/:id/homepage-status', ProjectDetailController.toggleHomepageStatus);
 
+// ===== CATEGORY ENDPOINTS =====
+
+/**
+ * Get projects by category (direct relationship)
+ * GET /api/v1/projectdetail/category/:categoryId
+ */
+router.get(
+  '/category/:categoryId',
+  ProjectDetailController.getProjectsByCategory
+);
+
 // ===== UTILITY ENDPOINTS =====
 
 /**
  * Get all project categories
- * GET /api/v1/projectdetail/categories
+ * GET /api/v1/projectdetail/util/categories
  */
 router.get(
   '/util/categories',
@@ -92,12 +103,12 @@ router.get(
 );
 
 /**
- * Get subcategories (optionally filtered by category)
- * GET /api/v1/projectdetail/subcategories?category=house-normal
+ * Get project counts by category
+ * GET /api/v1/projectdetail/util/category-counts
  */
 router.get(
-  '/util/subcategories',
-  ProjectDetailController.getSubCategories
+  '/util/category-counts',
+  ProjectDetailController.getCategoryCounts
 );
 
 // ===== SEARCH ENDPOINTS =====

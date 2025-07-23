@@ -10,7 +10,7 @@ export interface ProjectDetailData {
   address: string;
   description?: string | undefined;
   category: string;
-  subCategory: string;
+  projectCategoryId: number;
   style?: string | undefined;
   thumbnailImage?: string | undefined;
   
@@ -64,7 +64,7 @@ export interface CreateProjectDetailRequest {
   address: string;
   description?: string | undefined;
   category: string;
-  subCategory: string;
+  projectCategoryId: number;
   style?: string | undefined;
   thumbnailImage?: string | undefined;
   htmlContent: string;
@@ -90,7 +90,7 @@ export interface UpdateProjectDetailRequest {
   address?: string | undefined;
   description?: string | undefined;
   category?: string | undefined;
-  subCategory?: string | undefined;
+  projectCategoryId?: number | undefined;
   style?: string | undefined;
   thumbnailImage?: string | undefined;
   htmlContent?: string | undefined;
@@ -118,7 +118,7 @@ export interface ProjectDetailRow {
   address: string;
   description?: string | null;
   category: string;
-  sub_category: string;
+  project_category_id: number;
   style?: string | null;
   thumbnail_image?: string | null;
   html_content: string;
@@ -187,7 +187,7 @@ export interface PaginatedResponse<T> {
 // Filter types
 export interface ProjectDetailFilters {
   category?: string;
-  subCategory?: string;
+  projectCategoryId?: number;
   projectStatus?: string;
   isActive?: boolean;
 } 

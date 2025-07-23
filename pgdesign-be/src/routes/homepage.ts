@@ -19,14 +19,10 @@ router.get('/project-diary', homepageController.getProjectDiaryData);
 router.get('/testimonials', homepageController.getTestimonialData);
 router.get('/consultation-form', homepageController.getConsultationFormData);
 
-// EDIT/UPDATE ROUTES
+// EDIT/UPDATE ROUTES (Only for sections with update functionality)
 router.put('/hero/:id', homepageController.updateHeroData);
 router.put('/about/:id', homepageController.updateAboutData);
 router.put('/stats/:id', homepageController.updateStatsData);
 router.put('/solution/:id', homepageController.updateSolutionData);
-router.put('/workflow/:id', homepageController.updateWorkflowData);
-router.put('/project-diary/:id', homepageController.updateProjectDiaryData);
-router.put('/testimonials/:id', homepageController.updateTestimonialData);
-router.put('/consultation-form/:id', homepageController.updateConsultationFormData);
 
 export default router; 

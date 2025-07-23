@@ -14,7 +14,7 @@ import diaryImage1 from "../assets/images/diary-image-1.jpg";
 import houseNormal from "../assets/images/projectpage/house-normal.jpg";
 import appartment from "../assets/images/projectpage/appartment.png";
 import houseBusiness from "../assets/images/projectpage/house-business.jpg";
-import houseRough from "../assets/images/projectpage/house-rough.png";
+import village from "../assets/images/projectpage/village.png";
 import diaryImage2 from "../assets/images/diary-image-2.jpg";
 import diaryImage3 from "../assets/images/diary-image-3.jpg";
 import diaryImage4 from "../assets/images/diary-image-4.jpg";
@@ -123,7 +123,7 @@ const mockProjectCategories: ProjectCategory[] = [
   {
     id: 2,
     categoryId: 'appartment',
-    title: 'Xây nhà trọn gói',
+    title: 'CĂN HỘ',
     projectCount: 32,
     backgroundImageUrl: appartment,
     navigationPath: '/projects/appartment',
@@ -131,17 +131,17 @@ const mockProjectCategories: ProjectCategory[] = [
   },
   {
     id: 3,
-    categoryId: 'house-rough',
-    title: 'Xây dựng phần thô',
+    categoryId: 'village',
+    title: 'Biệt thự',
     projectCount: 28,
-    backgroundImageUrl: houseRough,
-    navigationPath: '/projects/house-rough',
+    backgroundImageUrl: village,
+    navigationPath: '/projects/village',
     displayOrder: 2
   },
   {
     id: 4,
     categoryId: 'house-business',
-    title: 'Thiết kế và thi công nội thất',
+    title: 'Thương mại',
     projectCount: 50,
     backgroundImageUrl: houseBusiness,
     navigationPath: '/projects/house-business',
