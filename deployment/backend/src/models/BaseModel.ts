@@ -1,5 +1,4 @@
 import db from '../config/database';
-import { BaseEntity } from '../types/homePageTypes';
 
 export class BaseModel {
   protected tableName: string;

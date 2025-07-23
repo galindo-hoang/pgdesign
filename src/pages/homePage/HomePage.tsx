@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useMemo, useCallback } from "react";
 import "./HomePage.css";
 import AboutSection from "../../components/AboutSection";
 import ImageSliderSection from "../../components/ImageSliderSection";
@@ -106,10 +106,10 @@ const HomePage: React.FC = () => {
     };
   }, [isHeroVisible]);
 
-  // Retry function for failed requests
-  const handleRetry = () => {
+  // Retry function for failed requests (memoized to prevent unnecessary re-renders)
+  const handleRetry = useCallback(() => {
     setRetryCount(prev => prev + 1);
-  };
+  }, []);
 
   // Loading state
   if (isLoading) {
@@ -208,7 +208,7 @@ const HomePage: React.FC = () => {
           testimonials={homePageData.testimonials.testimonials} 
         />
         
-        <ConsultationFormSection formData={homePageData.consultationForm} />
+        <ConsultationFormSection/>
       </main>
     </div>
   );

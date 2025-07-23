@@ -34,6 +34,7 @@
 }
 
 .slide-image-container {
+  flex: 3;
   width: 100%;
   padding-top: 100%;
   /* Aspect ratio hack (70% height relative to width) */
@@ -55,6 +56,7 @@
 }
 
 .slide-info {
+  flex: 1;
   padding: 15px 0;
   text-align: left;
   /* Text is left-aligned in your screenshot */
@@ -84,7 +86,7 @@
 /* This is a visual trick often done with `opacity` and `transform` */
 .slick-slide:not(.slick-center) .slide-card {
   /* transform: scale(0.8); */
-  opacity: 0.9;
+  opacity: 0.7;
   transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
 }
 
@@ -124,10 +126,13 @@
   }
 
   .slide-image-container {
-    padding-top: 90%;
+    flex: 3;
+    /* Maintains 3/4 ratio */
   }
 
   .slide-info {
+    flex: 1;
+    /* Maintains 1/4 ratio */
     padding: 12px;
   }
 
@@ -166,10 +171,13 @@
   }
 
   .slide-image-container {
-    padding-top: 85%;
+    flex: 3;
+    /* Maintains 3/4 ratio */
   }
 
   .slide-info {
+    flex: 1;
+    /* Maintains 1/4 ratio */
     padding: 10px;
   }
 
@@ -203,10 +211,13 @@
   }
 
   .slide-image-container {
-    padding-top: 80%;
+    flex: 3;
+    /* Maintains 3/4 ratio */
   }
 
   .slide-info {
+    flex: 1;
+    /* Maintains 1/4 ratio */
     padding: 8px;
   }
 

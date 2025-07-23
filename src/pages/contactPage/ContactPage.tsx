@@ -20,7 +20,7 @@ const ContactPage: React.FC = () => {
   }
   return (
     <div>
-      <ConsultationFormSection formData = {formDataProps}/>
+      <ConsultationFormSection/>
       <MapSection />
     </div>
   );

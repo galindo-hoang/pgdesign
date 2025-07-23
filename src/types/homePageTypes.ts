@@ -12,6 +12,7 @@ export interface AboutData {
 
 export interface ImageSlideData {
   id: number;
+  projectId: string;
   imageUrl: string;
   title: string;
   subtitle: string;

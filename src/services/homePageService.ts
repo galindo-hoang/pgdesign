@@ -10,6 +10,8 @@ import {
   TestimonialData,
   ConsultationFormData
 } from '../types/homePageTypes';
+import { fetchCategoryProjectForHomePage } from './projectCategoryService';
+import { processProjectImageUrls } from './projectPageService';
 
 // Import icons and diagrams (these would normally come from a CDN or be handled differently)
 import { ReactComponent as BriefcaseIcon } from "../assets/icons/experience-icon.svg";
@@ -53,6 +55,20 @@ const API_TIMEOUT = 10000; // 10 seconds
 
 // Feature flag for mock data
 const USE_MOCK_DATA = true;
+
+// Cache for image slider data to prevent unnecessary API calls
+let imageSliderCache: {
+  data: ImageSlideData[] | null;
+  timestamp: number;
+  promise: Promise<ImageSlideData[]> | null;
+} = {
+  data: null,
+  timestamp: 0,
+  promise: null
+};
+
+// Cache duration: 5 minutes
+const CACHE_DURATION = 5 * 60 * 1000;
 
 // Utility function to simulate API delay
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -140,73 +156,105 @@ export const fetchAboutData = async (): Promise<AboutData> => {
 };
 
 export const fetchImageSliderData = async (): Promise<ImageSlideData[]> => {
+  const now = Date.now();
+  
+  // Check if we have valid cached data
+  if (imageSliderCache.data && (now - imageSliderCache.timestamp) < CACHE_DURATION) {
+    console.log('📦 Using cached image slider data');
+    return imageSliderCache.data;
+  }
+  
+  // Check if there's an ongoing request
+  if (imageSliderCache.promise) {
+    console.log('⏳ Waiting for ongoing image slider request');
+    return imageSliderCache.promise;
+  }
+  
+  // Create new request
+  console.log('🔄 Fetching fresh image slider data');
+  imageSliderCache.promise = fetchImageSliderDataInternal();
+  
   try {
-    if (USE_MOCK_DATA) {
-      // Use mock data
-      await delay(400);
-      return [
-        {
-          id: 1,
-          imageUrl: thumbIntro1,
-          title: "NHÀ ANH TRẠCH",
-          subtitle: "Thi công nội thất nhà phố",
-          size: "180m2",
-        },
-        {
-          id: 2,
-          imageUrl: thumbIntro2,
-          title: "ANH MỸ - OPAL GARDEN",
-          subtitle: "Thi công nội thất căn hộ",
-          size: "180m2",
-        },
-        {
-          id: 3,
-          imageUrl: thumbIntro3,
-          title: "SKY LINKED VILLA",
-          subtitle: "Thi công nội thất biệt thự",
-          size: "180m2",
-        },
-        {
-          id: 4,
-          imageUrl: thumbIntro,
-          title: "DỰ ÁN MỚI 1",
-          subtitle: "Thi công nội thất chung cư",
-          size: "120m2",
-        },
-        {
-          id: 5,
-          imageUrl: thumbIntro1,
-          title: "DỰ ÁN MỚI 2",
-          subtitle: "Thi công nội thất văn phòng",
-          size: "300m2",
-        },
-      ];
-    } else {
-      // Make real API call
-      const response = await fetch(`${API_BASE_URL}/homepage/image-slider`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        signal: AbortSignal.timeout(API_TIMEOUT),
-      });
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      return data.data.map((slide: any) => ({
-        id: slide.id,
-        imageUrl: slide.image_url || '',
-        title: slide.title || '',
-        subtitle: slide.subtitle || '',
-        size: slide.size || ''
-      }));
-    }
+    const result = await imageSliderCache.promise;
+    // Cache the successful result
+    imageSliderCache.data = result;
+    imageSliderCache.timestamp = now;
+    imageSliderCache.promise = null;
+    return result;
   } catch (error) {
-    handleApiError(error, 'image slider');
+    // Clear the promise on error
+    imageSliderCache.promise = null;
     throw error;
+  }
+};
+
+const fetchImageSliderDataInternal = async (): Promise<ImageSlideData[]> => {
+  try {
+    // Fetch projects marked for homepage display
+    const homePageProjects = await fetchCategoryProjectForHomePage();
+    
+    // Process image URLs to handle PUBLIC_URL prefix
+    const processedProjects = homePageProjects.map(project => processProjectImageUrls(project));
+    
+    // Convert to ImageSlideData format
+    const imageSliderData: ImageSlideData[] = processedProjects.map(project => ({
+      id: project.id,
+      projectId: project.projectId,
+      imageUrl: project.thumbnailImage,
+      title: project.title,
+      subtitle: project.clientName,
+      size: project.area
+    }));
+    
+    console.log(`Converted ${imageSliderData.length} projects to image slider format`);
+    
+    return imageSliderData;
+  } catch (error) {
+    console.error('Error fetching image slider data from projects:', error);
+    console.log('Falling back to original mock data for image slider');
+    await delay(400);
+    return [
+      {
+        id: 1,
+        imageUrl: thumbIntro1,
+        projectId: "NHÀ ANH TRẠCH",
+        title: "NHÀ ANH TRẠCH",
+        subtitle: "Thi công nội thất nhà phố",
+        size: "180m2",
+      },
+      {
+        id: 2,
+        imageUrl: thumbIntro2,
+        projectId: "ANH MỸ - OPAL GARDEN",
+        title: "ANH MỸ - OPAL GARDEN",
+        subtitle: "Thi công nội thất căn hộ",
+        size: "180m2",
+      },
+      {
+        id: 3,
+        imageUrl: thumbIntro3,
+        projectId: "SKY LINKED VILLA",
+        title: "SKY LINKED VILLA",
+        subtitle: "Thi công nội thất biệt thự",
+        size: "180m2",
+      },
+      {
+        id: 4,
+        imageUrl: thumbIntro,
+        projectId: "DỰ ÁN MỚI 1",
+        title: "DỰ ÁN MỚI 1",
+        subtitle: "Thi công nội thất chung cư",
+        size: "120m2",
+      },
+      {
+        id: 5,
+        imageUrl: thumbIntro1,
+        projectId: "DỰ ÁN MỚI 2",
+        title: "DỰ ÁN MỚI 2",
+        subtitle: "Thi công nội thất văn phòng",
+        size: "300m2",
+      },
+    ];
   }
 };
 
@@ -764,4 +812,17 @@ export const checkApiHealth = async (): Promise<boolean> => {
     console.error('API health check failed:', error);
     return false;
   }
+};
+
+/**
+ * Clear the image slider cache to force a fresh fetch
+ * Useful when you need to refresh the data
+ */
+export const clearImageSliderCache = (): void => {
+  console.log('🗑️ Clearing image slider cache');
+  imageSliderCache = {
+    data: null,
+    timestamp: 0,
+    promise: null
+  };
 }; 

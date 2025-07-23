@@ -3,24 +3,18 @@ import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "./ImageSliderSection.css";
-
-// Define an interface for each slide's data
-interface SlideData {
-  id: number;
-  imageUrl: string;
-  title: string;
-  subtitle: string;
-  size: string;
-}
+import { ImageSlideData } from "../types/homePageTypes";
 
 // Props for the ImageSlider component
 interface ImageSliderProps {
-  slides: SlideData[];
+  slides: ImageSlideData[];
 }
 
 const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides }) => {
   const sliderRef = useRef<Slider>(null);
   const navigate = useNavigate(); 
+
+  console.log(`zoeeee: ${JSON.stringify(slides)}`)
   
   if (!slides || slides.length === 0) {
     return (
@@ -77,9 +71,9 @@ const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides }) => {
   };
 
   // Click handler for each slide
-  const handleSlideClick = (slide: SlideData) => {
+  const handleSlideClick = (slide: ImageSlideData) => {
     // Navigate to project detail page using the slide's ID
-    navigate(`/project-detail/${slide.id}`);
+    navigate(`/project-detail/${slide.projectId}`);
   };
 
   return (
@@ -87,7 +81,7 @@ const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides }) => {
       <Slider ref={sliderRef} {...settings}>
         {slides.map((slide, index) => (
           <div
-            key={slide.id}
+            key={`${slide.id}#${slide.projectId}`}
             className="slide-card-wrapper"
             onClick={() => handleSlideClick(slide)}
             role="button"

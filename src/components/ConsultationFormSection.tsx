@@ -16,7 +16,23 @@ interface ConsultationFormSectionProps {
   formData: ConsultationFormData;
 }
 
-const ConsultationFormSection: React.FC<ConsultationFormSectionProps> = ({formData}) => {
+const ConsultationFormSection: React.FC = () => {
+
+  const formData = {
+    title: "ĐĂNG KÝ TƯ VẤN",
+    projectTypes: [
+      "-- Chọn loại công trình --",
+      "Nhà Phố - Căn hộ",
+      "Nhà hàng - Khách sạn",
+      "Quán Cafe",
+      "Văn phòng",
+      "Khác",
+    ],
+    minInvestment: 100,
+    maxInvestment: 10000,
+    stepInvestment: 100
+  }
+
   const MIN_INVESTMENT = formData.minInvestment || 100; // 100 triệu VND
   const MAX_INVESTMENT = formData.maxInvestment || 10000; // 10 tỷ VND (which is 10,000 triệu VND)
   const STEP_INVESTMENT = formData.stepInvestment || 100; // Step of 100 triệu VND

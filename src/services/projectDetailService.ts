@@ -2,6 +2,7 @@
 
 import { ProjectDetailData, ApiResponse } from '../types/projectDetailTypes';
 import { getProjectByProjectId } from './additionalProjectData';
+import { appendProjectImagesToHtml, processProjectImageUrls } from './projectPageService';
 
 // Environment configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002';
@@ -129,43 +130,57 @@ const handleApiError = (error: any, context: string) => {
 export const fetchProjectDetailDataMock = async (projectId: string): Promise<ProjectDetailData> => {
   await delay(800); // Simulate API delay
   
-  console.log(`Using mock ProjectDetailData for project: ${projectId}`);
-  
   // Try to find project in additional data first
   const additionalProject = getProjectByProjectId(projectId);
   if (additionalProject) {
+    // Process image URLs and append images to htmlContent
+    const processedProject = processProjectImageUrls(additionalProject);
+    const enhancedHtmlContent = appendProjectImagesToHtml(
+      processedProject.htmlContent,
+      processedProject.projectImages || [],
+      processedProject.title
+    );
+    
     // Convert ProjectDetail to ProjectDetailData format
     return {
-      id: additionalProject.projectId,
-      title: additionalProject.title,
-      clientName: additionalProject.clientName,
-      area: additionalProject.area,
-      constructionDate: additionalProject.constructionDate,
-      address: additionalProject.address,
-      description: additionalProject.description || "",
-      category: additionalProject.category,
-      subCategory: additionalProject.category, // Use category as subCategory for compatibility
-      style: additionalProject.style || "",
-      thumbnailImage: additionalProject.thumbnailImage || "",
-      htmlContent: additionalProject.htmlContent,
-      projectImages: additionalProject.projectImages || [],
-      projectStatus: additionalProject.projectStatus || "",
-      completionDate: additionalProject.completionDate || "",
-      architectName: additionalProject.architectName || "",
-      contractorName: additionalProject.contractorName || "",
-      metaTitle: additionalProject.metaTitle || "",
-      metaDescription: additionalProject.metaDescription || "",
-      tags: additionalProject.tags || [],
-      isActive: additionalProject.isActive || true,
-      createdAt: additionalProject.createdAt || "",
-      updatedAt: additionalProject.updatedAt || ""
+      id: processedProject.projectId,
+      title: processedProject.title,
+      clientName: processedProject.clientName,
+      area: processedProject.area,
+      constructionDate: processedProject.constructionDate,
+      address: processedProject.address,
+      description: processedProject.description || "",
+      category: processedProject.category,
+      subCategory: processedProject.category, // Use category as subCategory for compatibility
+      style: processedProject.style || "",
+      thumbnailImage: processedProject.thumbnailImage || "",
+      htmlContent: enhancedHtmlContent,
+      projectImages: processedProject.projectImages || [],
+      projectStatus: processedProject.projectStatus || "",
+      completionDate: processedProject.completionDate || "",
+      architectName: processedProject.architectName || "",
+      contractorName: processedProject.contractorName || "",
+      metaTitle: processedProject.metaTitle || "",
+      metaDescription: processedProject.metaDescription || "",
+      tags: processedProject.tags || [],
+      isActive: processedProject.isActive || true,
+      createdAt: processedProject.createdAt || "",
+      updatedAt: processedProject.updatedAt || ""
     };
   }
   
-  // Fallback to original mock data
+  // Fallback to original mock data with image processing
+  const processedMockData = processProjectImageUrls(mockProjectDetailData);
+  const enhancedHtmlContent = appendProjectImagesToHtml(
+    processedMockData.htmlContent,
+    processedMockData.projectImages || [],
+    processedMockData.title
+  );
+  
   return {
-    ...mockProjectDetailData,
-    id: projectId
+    ...processedMockData,
+    id: projectId,
+    htmlContent: enhancedHtmlContent
   };
 };
 
@@ -189,7 +204,18 @@ export const fetchProjectDetailDataApi = async (projectId: string): Promise<Proj
       throw new Error(data.error || 'Failed to fetch project detail data');
     }
     
-    return data.data!;
+    // Process image URLs and append images to htmlContent
+    const processedData = processProjectImageUrls(data.data!);
+    const enhancedHtmlContent = appendProjectImagesToHtml(
+      processedData.htmlContent,
+      processedData.projectImages || [],
+      processedData.title
+    );
+    
+    return {
+      ...processedData,
+      htmlContent: enhancedHtmlContent
+    };
   } catch (error) {
     handleApiError(error, `project detail ${projectId}`);
     throw error;

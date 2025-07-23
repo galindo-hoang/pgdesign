@@ -65,174 +65,7 @@ const mockCategoriesData: Record<string, Omit<ProjectCategory, 'projects'>> = {
   }
 };
 
-// Mock project data for each category - Merged with additional project data from images
-const mockProjectsData: Record<string, ProjectDetail[]> = {
-  "house-normal": [
-    // Original mock data
-    {
-      id: 1,
-      projectId: "HN001",
-      title: "Nhà Phố Hiện Đại 3 Tầng - Quận 7",
-      clientName: "Anh Minh",
-      area: "4x15m",
-      constructionDate: "2024-01-15",
-      address: "123 Đường Nguyễn Văn Linh, Quận 7, TP.HCM",
-      description: "Thiết kế nhà phố hiện đại với không gian mở, tận dụng tối đa ánh sáng tự nhiên.",
-      category: "house-normal",
-      projectCategoryId: 1,
-      style: "Hiện đại",
-      thumbnailImage: "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
-      htmlContent: "<div>Chi tiết dự án nhà phố hiện đại...</div>",
-      projectImages: [
-        "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
-        "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg"
-      ],
-      projectStatus: "Hoàn thành • 2.5 tỷ",
-      completionDate: "2024-06-30",
-      architectName: "KTS Nguyễn Văn A",
-      contractorName: "PG Design",
-      metaTitle: "Nhà Phố Hiện Đại 3 Tầng",
-      metaDescription: "Dự án nhà phố hiện đại tại Quận 7",
-      tags: ["nhà phố", "hiện đại", "3 tầng"],
-      isOnHomePage: true,
-      isActive: true,
-      createdAt: "2024-01-15T00:00:00Z",
-      updatedAt: "2024-06-30T00:00:00Z"
-    },
-    {
-      id: 2,
-      projectId: "HN002",
-      title: "Nhà Phố Tân Cổ Điển - Quận 2",
-      clientName: "Chị Lan",
-      area: "5x18m",
-      constructionDate: "2024-02-01",
-      address: "456 Đường Trần Não, Quận 2, TP.HCM",
-      description: "Nhà phố phong cách tân cổ điển với kiến trúc tinh tế và nội thất sang trọng.",
-      category: "house-normal",
-      projectCategoryId: 1,
-      style: "Tân cổ điển",
-      thumbnailImage: "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg",
-      htmlContent: "<div>Chi tiết dự án nhà phố tân cổ điển...</div>",
-      projectImages: [
-        "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg",
-        "http://localhost:9000/pgdesign-assets/images/diary-image-3.jpg"
-      ],
-      projectStatus: "Đang thi công • 3.2 tỷ",
-      architectName: "KTS Phạm Thị B",
-      contractorName: "PG Design",
-      metaTitle: "Nhà Phố Tân Cổ Điển",
-      metaDescription: "Dự án nhà phố tân cổ điển tại Quận 2",
-      tags: ["nhà phố", "tân cổ điển", "sang trọng"],
-      isOnHomePage: false,
-      isActive: true,
-      createdAt: "2024-02-01T00:00:00Z",
-      updatedAt: "2024-02-01T00:00:00Z"
-    },
-    // Additional data from images
-    ...additionalProjectData["house-normal"]
-  ],
-  "appartment": [
-    // Original mock data
-    {
-      id: 3,
-      projectId: "HF001",
-      title: "Xây Nhà Trọn Gói 2 Tầng - Bình Dương",
-      clientName: "Anh Tùng",
-      area: "6x20m",
-      constructionDate: "2024-03-01",
-      address: "789 Đường Dĩ An, Bình Dương",
-      description: "Dự án xây nhà trọn gói bao gồm thiết kế, thi công và nội thất hoàn thiện.",
-      category: "appartment",
-      projectCategoryId: 2,
-      style: "Hiện đại",
-      thumbnailImage: "http://localhost:9000/pgdesign-assets/images/diary-image-3.jpg",
-      htmlContent: "<div>Chi tiết dự án xây nhà trọn gói...</div>",
-      projectImages: [
-        "http://localhost:9000/pgdesign-assets/images/diary-image-3.jpg",
-        "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg"
-      ],
-      projectStatus: "Hoàn thành • 1.8 tỷ",
-      completionDate: "2024-08-15",
-      architectName: "KTS Lê Văn C",
-      contractorName: "PG Design",
-      metaTitle: "Xây Nhà Trọn Gói 2 Tầng",
-      metaDescription: "Dự án xây nhà trọn gói tại Bình Dương",
-      tags: ["xây nhà", "trọn gói", "2 tầng"],
-      isOnHomePage: true,
-      isActive: true,
-      createdAt: "2024-03-01T00:00:00Z",
-      updatedAt: "2024-08-15T00:00:00Z"
-    },
-    // Additional data from images
-    ...additionalProjectData.appartment
-  ],
-  "village": [
-    // Original mock data
-    {
-      id: 4,
-      projectId: "HR001",
-      title: "Thi Công Phần Thô Biệt Thự - Đồng Nai",
-      clientName: "Anh Khang",
-      area: "8x25m",
-      constructionDate: "2024-04-01",
-      address: "321 Đường Biên Hòa, Đồng Nai",
-      description: "Thi công phần thô biệt thự với kết cấu bê tông cốt thép chất lượng cao.",
-      category: "village",
-      projectCategoryId: 3,
-      style: "Biệt thự",
-      thumbnailImage: "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg",
-      htmlContent: "<div>Chi tiết dự án thi công phần thô...</div>",
-      projectImages: [
-        "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg",
-        "http://localhost:9000/pgdesign-assets/images/diary-image-5.jpg"
-      ],
-      projectStatus: "Đang thi công • 2.0 tỷ",
-      architectName: "KTS Hoàng Văn D",
-      contractorName: "PG Design",
-      metaTitle: "Thi Công Phần Thô Biệt Thự",
-      metaDescription: "Dự án thi công phần thô tại Đồng Nai",
-      tags: ["phần thô", "biệt thự", "bê tông"],
-      isOnHomePage: false,
-      isActive: true,
-      createdAt: "2024-04-01T00:00:00Z",
-      updatedAt: "2024-04-01T00:00:00Z"
-    },
-    // Additional data from images
-    ...additionalProjectData.village
-  ],
-  "house-business": [
-    {
-      id: 5,
-      projectId: "HI001",
-      title: "Thiết Kế Nội Thất Căn Hộ Duplex - Quận 1",
-      clientName: "Chị Hoa",
-      area: "120m²",
-      constructionDate: "2024-05-01",
-      address: "555 Đường Nguyễn Huệ, Quận 1, TP.HCM",
-      description: "Thiết kế nội thất căn hộ duplex cao cấp với phong cách hiện đại và tinh tế.",
-      category: "house-business",
-      projectCategoryId: 4,
-      style: "Hiện đại cao cấp",
-      thumbnailImage: "http://localhost:9000/pgdesign-assets/images/diary-image-5.jpg",
-      htmlContent: "<div>Chi tiết dự án thiết kế nội thất...</div>",
-      projectImages: [
-        "http://localhost:9000/pgdesign-assets/images/diary-image-5.jpg",
-        "http://localhost:9000/pgdesign-assets/images/diary-image-6.jpg"
-      ],
-      projectStatus: "Hoàn thành • 800 triệu",
-      completionDate: "2024-07-15",
-      architectName: "KTS Trần Thị E",
-      contractorName: "PG Design",
-      metaTitle: "Thiết Kế Nội Thất Căn Hộ Duplex",
-      metaDescription: "Dự án nội thất căn hộ duplex tại Quận 1",
-      tags: ["nội thất", "duplex", "cao cấp"],
-      isOnHomePage: true,
-      isActive: true,
-      createdAt: "2024-05-01T00:00:00Z",
-      updatedAt: "2024-07-15T00:00:00Z"
-    }
-  ]
-};
+
 
 // Utility function for mock delay
 const delay = (ms: number): Promise<void> => 
@@ -254,14 +87,33 @@ const fetchCategoryWithProjectsMock = async (categoryId: string): Promise<Projec
   if (!categoryInfo) {
     throw new Error(`Category ${categoryId} not found`);
   }
-
-  const projects = mockProjectsData[categoryId] || [];
+  const projects = additionalProjectData[categoryId as keyof typeof additionalProjectData];
 
   return {
     ...categoryInfo,
     projects: projects,
     projectCount: projects.length
   };
+};
+
+const fetchCategoryProjectForHomePageMock = async (): Promise<ProjectDetail[]> => {
+  console.log(`🎭 Mock Data: Fetching projects for HomePage (isOnHomePage: true)`);
+  await delay(800);
+
+  // Get all projects from additional data and filter by isOnHomePage flag
+  const allProjects: ProjectDetail[] = [];
+  
+  // Collect projects from all categories
+  Object.values(additionalProjectData).forEach(categoryProjects => {
+    allProjects.push(...categoryProjects);
+  });
+
+  // Filter projects that are marked for homepage display
+  const homePageProjects = allProjects.filter(project => project.isOnHomePage === true);
+  
+  console.log(`Found ${homePageProjects.length} projects for homepage out of ${allProjects.length} total projects`);
+  
+  return homePageProjects;
 };
 
 // ========== API FUNCTIONS ==========
@@ -310,6 +162,37 @@ const fetchCategoryWithProjectsApi = async (categoryId: string): Promise<Project
   }
 };
 
+const fetchCategoryProjectForHomePageApi = async (): Promise<ProjectDetail[]> => {
+  try {
+    console.log(`🌐 Real API: Fetching projects for HomePage (isOnHomePage: true)`);
+    
+    const response = await fetch(`${API_BASE_URL}/projectdetail/homepage`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      signal: AbortSignal.timeout(API_TIMEOUT)
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const projectsData: ApiResponse<ProjectDetail[]> = await response.json();
+    
+    if (!projectsData.success) {
+      throw new Error(projectsData.message || 'Failed to fetch homepage projects data');
+    }
+
+    console.log(`Found ${projectsData.data.length} projects for homepage from API`);
+    
+    return projectsData.data;
+  } catch (error: any) {
+    console.error(`Error fetching homepage projects:`, error);
+    throw new Error(`Failed to fetch homepage projects data: ${error.message}`);
+  }
+};
+
 // ========== EXPORTED FUNCTIONS ==========
 
 /**
@@ -336,6 +219,16 @@ export const getCurrentDataSource = (): 'mock' | 'api' => {
  */
 export const getAvailableCategories = (): string[] => {
   return Object.keys(mockCategoriesData);
+};
+
+
+export const fetchCategoryProjectForHomePage = async (): Promise<ProjectDetail[]> => {
+  const dataSource = USE_MOCK_DATA ? '🎭 Mock Data' : '🌐 Real API';
+  console.log(`${dataSource}: Fetching projects for HomePage (isOnHomePage: true)`);
+  
+  return USE_MOCK_DATA 
+    ? fetchCategoryProjectForHomePageMock()
+    : fetchCategoryProjectForHomePageApi();
 };
 
 // For backward compatibility (deprecated - use fetchCategoryWithProjects instead)

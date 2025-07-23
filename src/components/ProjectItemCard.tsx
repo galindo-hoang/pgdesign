@@ -40,7 +40,7 @@ const ProjectItemCard: React.FC<ProjectItemCardProps> = ({ project, onClick }) =
     >
       <div className="project-image-container">
         <img 
-          src={project.thumbnailImage} 
+          src={project.thumbnailImage.startsWith('/assets/') ? process.env.PUBLIC_URL + project.thumbnailImage : project.thumbnailImage} 
           alt={project.title}
           className="project-masonry-image"
           loading="lazy"

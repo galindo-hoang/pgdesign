@@ -10,7 +10,7 @@ const ProfilePage = () => {
       <CapabilitiesSection />
       <ConstructionProcessSection />
       <TechnicalAdvantagesSection />
-      <ConsultationFormSection formData={{}}/>
+      <ConsultationFormSection/>
     </div>
   );
 };

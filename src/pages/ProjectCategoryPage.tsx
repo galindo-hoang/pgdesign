@@ -35,9 +35,6 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
           const categoryResult = await fetchCategoryWithSubCategories(categoryId);
           if (categoryResult) {
             setCategoryData(categoryResult);
-            // if (categoryResult.subCategories.length > 0) {
-            //   setActiveSubCategory(categoryResult.subCategories[0].subCategoryId);
-            // }
           }
         }
       } catch (err) {

@@ -19,12 +19,6 @@ import diaryImage2 from "../assets/images/diary-image-2.jpg";
 import diaryImage3 from "../assets/images/diary-image-3.jpg";
 import diaryImage4 from "../assets/images/diary-image-4.jpg";
 
-// Import icon assets
-import experienceIcon from "../assets/icons/experience-icon.svg";
-import customerIcon from "../assets/icons/customer-icon.svg";
-import designIcon from "../assets/icons/design-icon.svg";
-import buildingIcon from "../assets/icons/building-icon.svg";
-
 // API Configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
 const API_TIMEOUT = 10000; // 10 seconds
@@ -302,6 +296,95 @@ export const fetchProjectPageData = async (): Promise<ProjectPageData> => {
 };
 
 // ========== UTILITY FUNCTIONS ==========
+
+/**
+ * Appends project images to htmlContent with proper PUBLIC_URL handling
+ * @param htmlContent - The existing HTML content
+ * @param projectImages - Array of image paths
+ * @param title - Project title for alt text
+ * @returns Enhanced HTML content with images
+ */
+export const appendProjectImagesToHtml = (
+  htmlContent: string, 
+  projectImages: string[], 
+  title: string
+): string => {
+  if (!projectImages || projectImages.length === 0) {
+    return htmlContent;
+  }
+
+  // Function to process image URL with PUBLIC_URL if needed
+  const processImageUrl = (imageUrl: string): string => {
+    if (imageUrl.startsWith('/assets/')) {
+      return `${process.env.PUBLIC_URL}${imageUrl}`;
+    }
+    return imageUrl;
+  };
+
+  // Create image gallery HTML
+  const imageGalleryHtml = `
+    <div style="margin: 2rem 0;">
+      <h3 style="color: #1b3025; margin-top: 2rem; margin-bottom: 1rem;">Hình ảnh dự án</h3>
+      <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+        ${projectImages.map((imageUrl, index) => {
+          const processedUrl = processImageUrl(imageUrl);
+          return `
+            <img 
+              src="${processedUrl}" 
+              alt="${title} - Hình ${index + 1}" 
+              style="width: 100%; height: 400px; object-fit: cover;"
+              loading="lazy"
+            />
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+
+  // Check if htmlContent already has an image gallery section
+  const hasImageGallery = htmlContent.includes('Hình ảnh dự án') || 
+                         htmlContent.includes('project-images') ||
+                         htmlContent.includes('image-gallery');
+
+  if (hasImageGallery) {
+    // If gallery already exists, replace it with new images
+    const galleryRegex = /<div[^>]*>[\s\S]*?Hình ảnh dự án[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/i;
+    if (galleryRegex.test(htmlContent)) {
+      return htmlContent.replace(galleryRegex, imageGalleryHtml);
+    }
+  }
+
+  // Append the image gallery to the end of htmlContent
+  return htmlContent + imageGalleryHtml;
+};
+
+/**
+ * Processes all image URLs in a project data object
+ * @param projectData - Project data object
+ * @returns Project data with processed image URLs
+ */
+export const processProjectImageUrls = (projectData: any): any => {
+  if (!projectData) return projectData;
+
+  const processImageUrl = (imageUrl: string): string => {
+    if (imageUrl && imageUrl.startsWith('/assets/')) {
+      return `${process.env.PUBLIC_URL}${imageUrl}`;
+    }
+    return imageUrl;
+  };
+
+  // Process thumbnail image
+  if (projectData.thumbnailImage) {
+    projectData.thumbnailImage = processImageUrl(projectData.thumbnailImage);
+  }
+
+  // Process project images array
+  if (projectData.projectImages && Array.isArray(projectData.projectImages)) {
+    projectData.projectImages = projectData.projectImages.map(processImageUrl);
+  }
+
+  return projectData;
+};
 
 // Utility function to check API health
 export const checkApiHealth = async (): Promise<boolean> => {
