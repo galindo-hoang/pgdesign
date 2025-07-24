@@ -10,6 +10,7 @@ import ProjectCategoryPage from "./pages/ProjectCategoryPage";
 import BlogPage from "./pages/blogPage/BlogPage";
 import ContactPage from "./pages/contactPage/ContactPage";
 import ProjectDetailPage from "./pages/projectDetailPage/ProjectDetailPage";
+import BlogDetailPage from "./pages/blogDetailPage/BlogDetailPage";
 import ServicePage from "./pages/servicePage/ServicePage";
 import FloatingActionButton from "./components/FloatingActionButton";
 import ProfilePage from "./pages/profilePage/profilePage";
@@ -28,6 +29,7 @@ const App: React.FC = () => {
           <Route path="/projects/:categoryId" element={<ProjectCategoryPage />} />
           <Route path="/project-detail/:projectId" element={<ProjectDetailPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogDetailPage />} />
         </Routes>
         <Footer />
         <FloatingActionButton />

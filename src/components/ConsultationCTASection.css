@@ -1,0 +1,159 @@
+/* Consultation CTA Section Styles */
+
+/* Call to Action Section */
+.consultation-cta {
+  background: linear-gradient(135deg, #2f674b 0%, #36604c 100%);
+  padding: 80px 0;
+  color: white;
+}
+
+.cta-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 60px;
+  align-items: center;
+}
+
+.cta-content {
+  max-width: 600px;
+}
+
+.cta-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cta-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  opacity: 0.95;
+  font-weight: 300;
+}
+
+.cta-features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.cta-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.feature-icon {
+  background: rgba(255, 255, 255, 0.2);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.feature-text {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.cta-button {
+  background: white;
+  color: #2f674b;
+  border: none;
+  padding: 18px 36px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cta-button:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.cta-image {
+  text-align: center;
+}
+
+.consultation-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .cta-container {
+    grid-template-columns: 1fr 350px;
+    gap: 40px;
+  }
+  
+  .cta-content {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .consultation-cta {
+    padding: 60px 0;
+  }
+  
+  .cta-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  
+  .cta-content {
+    max-width: 100%;
+  }
+  
+  .cta-title {
+    font-size: 2rem;
+  }
+  
+  .consultation-image {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .consultation-cta {
+    padding: 60px 0;
+  }
+  
+  .cta-container {
+    padding: 0 15px;
+  }
+  
+  .cta-title {
+    font-size: 1.6rem;
+  }
+  
+  .cta-description {
+    font-size: 1rem;
+  }
+  
+  .consultation-image {
+    height: 200px;
+  }
+} 
