@@ -32,7 +32,7 @@ class HomepageController {
             ]);
             const imageSlider = homepageProjects.map(project => ({
                 id: project.id,
-                image_url: project.thumbnailImage || '/images/default-project.jpg',
+                image_url: project.thumbnailImage || '/images/default-project.png',
                 image_alt: project.title,
                 title: project.title,
                 subtitle: project.category,
@@ -176,7 +176,7 @@ class HomepageController {
             const projects = await this.projectDetailModel.getHomepageProjects();
             const imageSlider = projects.map(project => ({
                 id: project.id,
-                image_url: project.thumbnailImage || '/images/default-project.jpg',
+                image_url: project.thumbnailImage || '/images/default-project.png',
                 image_alt: project.title,
                 title: project.title,
                 subtitle: project.category,

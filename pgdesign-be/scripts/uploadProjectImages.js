@@ -178,7 +178,7 @@ async function uploadImage(localPath, objectName) {
 function getContentType(filePath) {
   const ext = path.extname(filePath).toLowerCase();
   switch (ext) {
-    case '.jpg':
+    case '.png':
     case '.jpeg':
       return 'image/jpeg';
     case '.png':

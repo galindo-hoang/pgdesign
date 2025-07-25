@@ -44,7 +44,7 @@ export class HomepageController {
     // Transform projects to image slider format for backward compatibility
     const imageSlider = homepageProjects.map(project => ({
       id: project.id,
-      image_url: project.thumbnailImage || '/images/default-project.jpg',
+      image_url: project.thumbnailImage || '/images/default-project.png',
       image_alt: project.title,
       title: project.title,
       subtitle: project.subCategory || project.category,
@@ -239,7 +239,7 @@ export class HomepageController {
     // Transform projects to image slider format
     const imageSlider = projects.map(project => ({
       id: project.id,
-      image_url: project.thumbnailImage || '/images/default-project.jpg',
+      image_url: project.thumbnailImage || '/images/default-project.png',
       image_alt: project.title,
       title: project.title,
       subtitle: project.subCategory || project.category,

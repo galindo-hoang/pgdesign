@@ -2,15 +2,15 @@ import React from 'react';
 import './ConstructionProcessSection.css';
 
 // Import placeholder images - replace with actual construction/design images
-import interiorImage1 from '../assets/images/profilepage/Rectangle 44.jpg';
-import interiorImage2 from '../assets/images/profilepage/Rectangle 43.jpg';
-import constructionImage1 from '../assets/images/profilepage/Rectangle 46.jpg';
-import constructionImage2 from '../assets/images/profilepage/Rectangle 45.jpg';
-import constructionImage3 from '../assets/images/profilepage/Rectangle 51.jpg';
-import constructionSingleImage from '../assets/images/profilepage/Rectangle 47.jpg';
-import workerImage1 from '../assets/images/profilepage/Rectangle 50.jpg';
-import workerImage2 from '../assets/images/profilepage/Rectangle 49.jpg';
-import workerImage3 from '../assets/images/profilepage/Rectangle 52.jpg';
+import interiorImage1 from '../assets/images/profilepage/Rectangle 44.png';
+import interiorImage2 from '../assets/images/profilepage/Rectangle 43.png';
+import constructionImage1 from '../assets/images/profilepage/Rectangle 46.png';
+import constructionImage2 from '../assets/images/profilepage/Rectangle 45.png';
+import constructionImage3 from '../assets/images/profilepage/Rectangle 51.png';
+import constructionSingleImage from '../assets/images/profilepage/Rectangle 47.png';
+import workerImage1 from '../assets/images/profilepage/Rectangle 50.png';
+import workerImage2 from '../assets/images/profilepage/Rectangle 49.png';
+import workerImage3 from '../assets/images/profilepage/Rectangle 52.png';
 
 
 const ConstructionProcessSection: React.FC = () => {

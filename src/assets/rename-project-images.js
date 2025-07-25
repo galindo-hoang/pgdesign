@@ -126,7 +126,7 @@ function renameImagesInFolder(category, folderName, projectInfo) {
   const files = fs.readdirSync(folderPath);
   const imageFiles = files.filter(file => {
     const ext = getFileExtension(file).toLowerCase();
-    return ['.jpg', '.jpeg', '.png', '.gif', '.webp'].includes(ext);
+    return ['.png', '.jpeg', '.png', '.gif', '.webp'].includes(ext);
   });
 
   if (imageFiles.length === 0) {

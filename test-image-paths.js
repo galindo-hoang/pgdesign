@@ -3,9 +3,9 @@ const path = require('path');
 
 // Test image paths
 const testPaths = [
-  '/assets/appartment/PICITY Q12/picity-q12-01.jpg',
+  '/assets/appartment/PICITY Q12/picity-q12-01.png',
   '/assets/house-normal/CHỊ TÚ - LONG AN/nha-pho-long-an-01.png',
-  '/assets/village/MOLAR VILLA - QUẬN 9/molar-villa-01.jpg'
+  '/assets/village/MOLAR VILLA - QUẬN 9/molar-villa-01.png'
 ];
 
 console.log('🖼️  Testing Image Paths');
@@ -48,5 +48,5 @@ categories.forEach(category => {
 console.log('\n🎯 Image Path Format:');
 console.log('=====================');
 console.log('✅ /assets/[category]/[project-folder]/[image-name]');
-console.log('✅ Example: /assets/appartment/PICITY Q12/picity-q12-01.jpg');
+console.log('✅ Example: /assets/appartment/PICITY Q12/picity-q12-01.png');
 console.log('✅ These paths should work in your React app'); 

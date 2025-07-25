@@ -20,7 +20,7 @@ const ConsultationCTASection: React.FC<ConsultationCTASectionProps> = ({
     "Hỗ trợ thi công và giám sát"
   ],
   buttonText = "ĐĂNG KÝ TƯ VẤN NGAY",
-  imageUrl = "/src/assets/images/diary-image-1.jpg",
+  imageUrl = "/src/assets/images/diary-image-1.png",
   onConsultationClick
 }) => {
   const handleClick = () => {

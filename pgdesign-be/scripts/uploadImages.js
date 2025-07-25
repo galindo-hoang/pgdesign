@@ -122,33 +122,33 @@ async function updateDatabase(imageUrls, iconUrls, logoUrls) {
     console.log('✅ Connected to MySQL');
 
     // Update hero images
-    if (imageUrls['thumb-intro.jpg']) {
+    if (imageUrls['thumb-intro.png']) {
       await connection.execute(
         'UPDATE hero_images SET image_url = ? WHERE image_url LIKE "%thumb-intro%"',
-        [imageUrls['thumb-intro.jpg']]
+        [imageUrls['thumb-intro.png']]
       );
     }
     
-    if (imageUrls['diary-image-1.jpg']) {
+    if (imageUrls['diary-image-1.png']) {
       await connection.execute(
         'UPDATE hero_images SET image_url = ? WHERE image_url LIKE "%diary-image-1%"',
-        [imageUrls['diary-image-1.jpg']]
+        [imageUrls['diary-image-1.png']]
       );
     }
     
-    if (imageUrls['diary-image-2.jpg']) {
+    if (imageUrls['diary-image-2.png']) {
       await connection.execute(
         'UPDATE hero_images SET image_url = ? WHERE image_url LIKE "%diary-image-2%"',
-        [imageUrls['diary-image-2.jpg']]
+        [imageUrls['diary-image-2.png']]
       );
     }
 
     // Update image slider data
     const sliderUpdates = [
-      { file: 'diary-image-1.jpg', pattern: '%diary-image-1%' },
-      { file: 'diary-image-2.jpg', pattern: '%diary-image-2%' },
-      { file: 'diary-image-3.jpg', pattern: '%diary-image-3%' },
-      { file: 'thumb-intro.jpg', pattern: '%thumb-intro%' }
+      { file: 'diary-image-1.png', pattern: '%diary-image-1%' },
+      { file: 'diary-image-2.png', pattern: '%diary-image-2%' },
+      { file: 'diary-image-3.png', pattern: '%diary-image-3%' },
+      { file: 'thumb-intro.png', pattern: '%thumb-intro%' }
     ];
 
     for (const update of sliderUpdates) {
@@ -162,10 +162,10 @@ async function updateDatabase(imageUrls, iconUrls, logoUrls) {
 
     // Update stats items background images
     const statsUpdates = [
-      { file: 'diary-image-1.jpg', pattern: '%diary-image-1%' },
-      { file: 'diary-image-2.jpg', pattern: '%diary-image-2%' },
-      { file: 'diary-image-3.jpg', pattern: '%diary-image-3%' },
-      { file: 'diary-image-4.jpg', pattern: '%diary-image-4%' }
+      { file: 'diary-image-1.png', pattern: '%diary-image-1%' },
+      { file: 'diary-image-2.png', pattern: '%diary-image-2%' },
+      { file: 'diary-image-3.png', pattern: '%diary-image-3%' },
+      { file: 'diary-image-4.png', pattern: '%diary-image-4%' }
     ];
 
     for (const update of statsUpdates) {
@@ -179,10 +179,10 @@ async function updateDatabase(imageUrls, iconUrls, logoUrls) {
 
     // Update solution items
     const solutionUpdates = [
-      { file: 'diary-image-5.jpg', pattern: '%diary-image-5%' },
-      { file: 'diary-image-6.jpg', pattern: '%diary-image-6%' },
-      { file: 'diary-image-7.jpg', pattern: '%diary-image-7%' },
-      { file: 'diary-image-8.jpg', pattern: '%diary-image-8%' }
+      { file: 'diary-image-5.png', pattern: '%diary-image-5%' },
+      { file: 'diary-image-6.png', pattern: '%diary-image-6%' },
+      { file: 'diary-image-7.png', pattern: '%diary-image-7%' },
+      { file: 'diary-image-8.png', pattern: '%diary-image-8%' }
     ];
 
     for (const update of solutionUpdates) {

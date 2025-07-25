@@ -139,17 +139,17 @@ function generateCorrectImagePaths(category, projectInfo) {
     
     // Check if the file exists with different extensions
     const publicPath = path.join(__dirname, '..', '..', 'public', 'assets', category, projectInfo.folderName);
-    const jpgPath = path.join(publicPath, `${projectInfo.prefix}-${imageNumber}.jpg`);
+    const jpgPath = path.join(publicPath, `${projectInfo.prefix}-${imageNumber}.png`);
     const pngPath = path.join(publicPath, `${projectInfo.prefix}-${imageNumber}.png`);
     
     let imagePath;
     if (fs.existsSync(jpgPath)) {
-      imagePath = `/assets/${category}/${projectInfo.folderName}/${projectInfo.prefix}-${imageNumber}.jpg`;
+      imagePath = `/assets/${category}/${projectInfo.folderName}/${projectInfo.prefix}-${imageNumber}.png`;
     } else if (fs.existsSync(pngPath)) {
       imagePath = `/assets/${category}/${projectInfo.folderName}/${projectInfo.prefix}-${imageNumber}.png`;
     } else {
       // Fallback to jpg if file doesn't exist
-      imagePath = `/assets/${category}/${projectInfo.folderName}/${projectInfo.prefix}-${imageNumber}.jpg`;
+      imagePath = `/assets/${category}/${projectInfo.folderName}/${projectInfo.prefix}-${imageNumber}.png`;
     }
     
     imagePaths.push(imagePath);

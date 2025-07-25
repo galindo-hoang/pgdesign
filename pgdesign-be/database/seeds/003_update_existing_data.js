@@ -18,7 +18,7 @@ exports.seed = async function(knex) {
     // Add 2 more slides to match the mock data
     await knex('image_slider_data').insert([
       {
-        image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg',
+        image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.png',
         image_alt: 'DỰ ÁN MỚI 1',
         title: 'DỰ ÁN MỚI 1',
         subtitle: 'Thi công nội thất chung cư',
@@ -29,7 +29,7 @@ exports.seed = async function(knex) {
         updated_at: new Date()
       },
       {
-        image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg',
+        image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-1.png',
         image_alt: 'DỰ ÁN MỚI 2',
         title: 'DỰ ÁN MỚI 2',
         subtitle: 'Thi công nội thất văn phòng',

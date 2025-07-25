@@ -19,7 +19,7 @@ exports.seed = async function(knex) {
     category: 'house-normal',
     sub_category: 'Nhà Ống',
     style: 'Hiện đại',
-    thumbnail_image: '/assets/images/diary-image-1.jpg',
+    thumbnail_image: '/assets/images/diary-image-1.png',
     html_content: `
     <p style="line-height: 1.6; color: #333; margin-bottom: 1rem;">Đây là dự án nhà phố hiện đại được thiết kế với phong cách tối giản nhưng không kém phần sang trọng. Công trình được hoàn thành với chất lượng cao và sự hài lòng của khách hàng.</p>
     
@@ -39,10 +39,10 @@ exports.seed = async function(knex) {
     <div style="margin: 2rem 0;">
       <h3 style="color: #1b3025; margin-top: 2rem; margin-bottom: 1rem;">Hình ảnh dự án</h3>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 1rem;">
-        <img src="/assets/images/diary-image-1.jpg" alt="Mặt tiền nhà" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-        <img src="/assets/images/diary-image-2.jpg" alt="Phòng khách" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-        <img src="/assets/images/diary-image-3.jpg" alt="Phòng bếp" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-        <img src="/assets/images/diary-image-4.jpg" alt="Phòng ngủ" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <img src="/assets/images/diary-image-1.png" alt="Mặt tiền nhà" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <img src="/assets/images/diary-image-2.png" alt="Phòng khách" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <img src="/assets/images/diary-image-3.png" alt="Phòng bếp" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <img src="/assets/images/diary-image-4.png" alt="Phòng ngủ" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
       </div>
     </div>
     
@@ -78,10 +78,10 @@ exports.seed = async function(knex) {
     </div>
     `,
     project_images: JSON.stringify([
-      '/assets/images/diary-image-1.jpg',
-      '/assets/images/diary-image-2.jpg',
-      '/assets/images/diary-image-3.jpg',
-      '/assets/images/diary-image-4.jpg'
+      '/assets/images/diary-image-1.png',
+      '/assets/images/diary-image-2.png',
+      '/assets/images/diary-image-3.png',
+      '/assets/images/diary-image-4.png'
     ]),
     project_status: 'Hoàn thành',
     project_budget: '2.5 tỷ đồng',
@@ -150,7 +150,7 @@ exports.seed = async function(knex) {
     category: 'house-full',
     sub_category: 'Biệt Thự',
     style: 'Cổ điển',
-    thumbnail_image: '/assets/images/diary-image-2.jpg',
+    thumbnail_image: '/assets/images/diary-image-2.png',
     html_content: `
     <p style="line-height: 1.6; color: #333; margin-bottom: 1rem;">Biệt thự 2 tầng với thiết kế sang trọng, kết hợp giữa kiến trúc cổ điển và hiện đại.</p>
     
@@ -163,9 +163,9 @@ exports.seed = async function(knex) {
     </ul>
     `,
     project_images: JSON.stringify([
-      '/assets/images/diary-image-2.jpg',
-      '/assets/images/diary-image-3.jpg',
-      '/assets/images/diary-image-4.jpg'
+      '/assets/images/diary-image-2.png',
+      '/assets/images/diary-image-3.png',
+      '/assets/images/diary-image-4.png'
     ]),
     project_status: 'Hoàn thành',
     project_budget: '5.2 tỷ đồng',

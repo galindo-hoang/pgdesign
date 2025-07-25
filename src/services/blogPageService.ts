@@ -14,11 +14,11 @@ import {
 } from '../types/blogPageTypes';
 
 // Import sample images
-import sampleImage1 from "../assets/images/diary-image-1.jpg";
-import sampleImage2 from "../assets/images/diary-image-2.jpg";
-import sampleImage3 from "../assets/images/diary-image-3.jpg";
-import sampleImage4 from "../assets/images/diary-image-4.jpg";
-import consultationImage from "../assets/images/thumb-intro.jpg";
+import sampleImage1 from "../assets/images/diary-image-1.png";
+import sampleImage2 from "../assets/images/diary-image-2.png";
+import sampleImage3 from "../assets/images/diary-image-3.png";
+import sampleImage4 from "../assets/images/diary-image-4.png";
+import consultationImage from "../assets/images/thumb-intro.png";
 
 // API Configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
@@ -1367,7 +1367,7 @@ const getMockEnhancedData = (): { [sheetName: string]: EnhancedGoogleSheetsData[
       {
         title: "Nhà đẹp là do mix chất liệu đúng cách – Bạn đã biết chưa?",
         contentLink: "https://example.com/blog1",
-        imageLink: "https://image1.jpg",
+        imageLink: "https://image1.png",
         sheetName: "BLOG WEBSITE",
         embeddedContent: "<div class='google-doc-content'><p>This is <strong>mock embedded content</strong> with <em>styling</em>.</p></div>",
         documentId: "mock-doc-1",
@@ -1376,7 +1376,7 @@ const getMockEnhancedData = (): { [sheetName: string]: EnhancedGoogleSheetsData[
       {
         title: "4 Tips Tạo Điểm Nhấn Cho Bếp Sang Trọng & Tiện Nghi",
         contentLink: "https://example.com/blog2",
-        imageLink: "https://image2.jpg",
+        imageLink: "https://image2.png",
         sheetName: "BLOG WEBSITE",
         embeddedContent: "<div class='google-doc-content'><p>More <span style='color: red;'>styled content</span> here.</p></div>",
         documentId: "mock-doc-2",
@@ -1393,19 +1393,19 @@ const getMockMultiSheetData = (): MultiSheetData => {
       {
         title: "Nhà đẹp là do mix chất liệu đúng cách – Bạn đã biết chưa?",
         contentLink: "https://example.com/blog1",
-        imageLink: "https://image1.jpg",
+        imageLink: "https://image1.png",
         sheetName: "BLOG WEBSITE"
       },
       {
         title: "4 Tips Tạo Điểm Nhấn Cho Bếp Sang Trọng & Tiện Nghi",
         contentLink: "https://example.com/blog2",
-        imageLink: "https://image2.jpg",
+        imageLink: "https://image2.png",
         sheetName: "BLOG WEBSITE"
       },
       {
         title: "Khám Phá 4 Phong Cách Tủ Quần Áo Đẹp Chuẩn Gu & Cá Tính",
         contentLink: "https://example.com/blog3",
-        imageLink: "https://image3.jpg",
+        imageLink: "https://image3.png",
         sheetName: "BLOG WEBSITE"
       }
     ],
@@ -1413,13 +1413,13 @@ const getMockMultiSheetData = (): MultiSheetData => {
       {
         title: "Tin tức mới nhất về thiết kế nội thất 2024",
         contentLink: "https://example.com/news1",
-        imageLink: "https://news1.jpg",
+        imageLink: "https://news1.png",
         sheetName: "NEWS"
       },
       {
         title: "Xu hướng thiết kế nhà ở hiện đại",
         contentLink: "https://example.com/news2",
-        imageLink: "https://news2.jpg",
+        imageLink: "https://news2.png",
         sheetName: "NEWS"
       }
     ],
@@ -1427,13 +1427,13 @@ const getMockMultiSheetData = (): MultiSheetData => {
       {
         title: "Cách chọn màu sắc cho phòng khách",
         contentLink: "https://example.com/tip1",
-        imageLink: "https://tip1.jpg",
+        imageLink: "https://tip1.png",
         sheetName: "TIPS"
       },
       {
         title: "Mẹo trang trí nhà nhỏ",
         contentLink: "https://example.com/tip2",
-        imageLink: "https://tip2.jpg",
+        imageLink: "https://tip2.png",
         sheetName: "TIPS"
       }
     ]

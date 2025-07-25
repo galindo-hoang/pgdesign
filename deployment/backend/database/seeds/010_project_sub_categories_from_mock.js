@@ -13,28 +13,28 @@ const mockSubCategoriesData = {
       id: "nha-ong",
       title: "Nhà Ống",
       description: "Thiết kế cho mặt tiền hẹp, chiều sâu dài, tận dụng tối đa diện tích.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
+      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-1.png",
       displayOrder: 0
     },
     {
       id: "nha-lien-ke",
       title: "Nhà Liền Kề",
       description: "Nhà phố trong khu quy hoạch, kiến trúc đồng bộ và hiện đại.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
+      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-1.png",
       displayOrder: 1
     },
     {
       id: "house-normal-san-vuon",
       title: "Nhà Phố Có Sân Vườn",
       description: "Kết hợp không gian xanh, tạo sự thông thoáng và gần gũi thiên nhiên.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
+      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-1.png",
       displayOrder: 2
     },
     {
       id: "shophouse",
       title: "Shophouse",
       description: "Tầng trệt kinh doanh, tầng trên ở, tối ưu hóa mặt tiền thu hút khách hàng.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
+      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-1.png",
       displayOrder: 3
     }
   ],
@@ -43,14 +43,14 @@ const mockSubCategoriesData = {
       id: "resort-villa",
       title: "Resort Garden Houses",
       description: "Diện tích lớn, nhiều tiện ích cao cấp như hồ bơi, sân tennis.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg",
+      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-2.png",
       displayOrder: 0
     },
     {
       id: "mini-garden",
       title: "Nhà Vườn Mini",
       description: "Diện tích vừa phải, vẫn có không gian xanh và cảnh quan nhỏ.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg",
+      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-2.png",
       displayOrder: 1
     }
   ],
@@ -59,14 +59,14 @@ const mockSubCategoriesData = {
       id: "house-rough-don-lap",
       title: "Biệt Thự Đơn Lập",
       description: "Hoàn toàn độc lập, 4 mặt thoáng, tối đa hóa sự riêng tư.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-3.jpg",
+      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-3.png",
       displayOrder: 0
     },
     {
       id: "house-rough-song-lap",
       title: "Biệt Thự Song Lập",
       description: "Hai biệt thự kiến trúc đối xứng, chung một bức tường.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-3.jpg",
+      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-3.png",
       displayOrder: 1
     }
   ],
@@ -75,28 +75,28 @@ const mockSubCategoriesData = {
       id: "mai-thai",
       title: "Nhà Cấp 4 Mái Thái",
       description: "Mái dốc lớn hình chóp hoặc chữ A, đẹp mắt, thoát nước tốt.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg",
+      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-4.png",
       displayOrder: 0
     },
     {
       id: "mai-nhat",
       title: "Nhà Cấp 4 Mái Nhật",
       description: "Độ dốc ít hơn mái Thái, tạo vẻ trang nghiêm, phù hợp phong cách hiện đại.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg",
+      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-4.png",
       displayOrder: 1
     },
     {
       id: "mai-bang",
       title: "Nhà Cấp 4 Mái Bằng",
       description: "Mái phẳng, có thể tận dụng không gian mái, kiến trúc vững chắc, hiện đại.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg",
+      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-4.png",
       displayOrder: 2
     },
     {
       id: "gac-lung",
       title: "Nhà Cấp 4 Gác Lửng",
       description: "Có thêm không gian gác lửng để tối ưu diện tích sử dụng.",
-      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-4.jpg",
+      heroImageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-4.png",
       displayOrder: 3
     }
   ]

@@ -119,7 +119,7 @@ function generateNewImagePaths(category, projectInfo) {
   
   for (let i = 1; i <= projectInfo.imageCount; i++) {
     const imageNumber = String(i).padStart(2, '0');
-    const imagePath = `/assets/${category}/${projectInfo.prefix}-${imageNumber}.jpg`;
+    const imagePath = `/assets/${category}/${projectInfo.prefix}-${imageNumber}.png`;
     imagePaths.push(imagePath);
   }
   

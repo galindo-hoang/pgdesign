@@ -7,7 +7,7 @@ import { fetchBlogDetailData } from "../../services/blogDetailService";
 import { fetchConsultationCTA } from "../../services/blogPageService";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ConsultationCTASection from "../../components/ConsultationCTASection";
-import QuillEditor, { QuillEditorRef } from "../../components/QuillEditor";
+import BlogContentSection, { BlogContentSectionRef } from "../../components/BlogContentSection";
 
 const BlogDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -20,7 +20,7 @@ const BlogDetailPage: React.FC = () => {
   const [editorContent, setEditorContent] = useState<string>('');
   const [showHTMLOutput, setShowHTMLOutput] = useState(false);
   
-  const quillEditorRef = useRef<QuillEditorRef>(null);
+  const blogContentSectionRef = useRef<BlogContentSectionRef>(null);
 
   useEffect(() => {
     const loadData = async () => {
@@ -33,8 +33,6 @@ const BlogDetailPage: React.FC = () => {
       try {
         setIsLoading(true);
         setError(null);
-        
-        // Fetch blog detail data and consultation CTA data in parallel
         const [blogDetailData, consultationData] = await Promise.all([
           fetchBlogDetailData(slug),
           fetchConsultationCTA()
@@ -54,27 +52,6 @@ const BlogDetailPage: React.FC = () => {
     loadData();
   }, [slug]);
 
-  // Handle Escape key to close preview modal
-  useEffect(() => {
-    const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && showHTMLOutput) {
-        setShowHTMLOutput(false);
-      }
-    };
-
-    if (showHTMLOutput) {
-      document.addEventListener('keydown', handleEscapeKey);
-      // Prevent body scroll when modal is open
-      document.body.style.overflow = 'hidden';
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscapeKey);
-      // Restore body scroll when modal is closed
-      document.body.style.overflow = 'unset';
-    };
-  }, [showHTMLOutput]);
-
   const handleBackClick = () => {
     navigate('/blog');
   };
@@ -90,12 +67,12 @@ const BlogDetailPage: React.FC = () => {
   };
 
   const handlePreviewContent = () => {
-    if (quillEditorRef.current) {
-      const content = quillEditorRef.current.getContent();
-      const formattedHTML = quillEditorRef.current.getFormattedHTML();
+    if (blogContentSectionRef.current) {
+      const content = blogContentSectionRef.current.getEditorContent();
+      const formattedHTML = blogContentSectionRef.current.getFormattedHTML();
       
       console.log('Preview Content:');
-      console.log('Raw HTML:', content.html);
+      console.log('Raw HTML:', content?.html);
       console.log('Formatted HTML:', formattedHTML);
       
       // Set the content to display in preview
@@ -105,9 +82,9 @@ const BlogDetailPage: React.FC = () => {
   };
 
   const handleSubmitContent = async () => {
-    if (quillEditorRef.current) {
-      const content = quillEditorRef.current.getContent();
-      const formattedHTML = quillEditorRef.current.getFormattedHTML();
+    if (blogContentSectionRef.current) {
+      const content = blogContentSectionRef.current.getEditorContent();
+      const formattedHTML = blogContentSectionRef.current.getFormattedHTML();
       
       try {
         // Show loading state
@@ -118,8 +95,8 @@ const BlogDetailPage: React.FC = () => {
           slug: slug,
           title: blogData?.title,
           content: formattedHTML,
-          rawContent: content.html,
-          delta: content.delta,
+          rawContent: content?.html,
+          delta: content?.delta,
           updatedAt: new Date().toISOString()
         };
         
@@ -257,180 +234,17 @@ const BlogDetailPage: React.FC = () => {
       </div>
       
       {/* Blog Content */}
-      <div className="blog-content-wrapper">
-        <div className="content-grid">
-          {/* Main Content */}
-          <div className="main-content">
-            <div className="editor-controls" style={{ marginBottom: '20px', padding: '10px', background: '#f5f5f5', borderRadius: '4px' }}>
-              <h4>Editor Controls</h4>
-              <button 
-                onClick={handlePreviewContent}
-                style={{ marginRight: '10px', padding: '8px 16px', background: '#0078d4', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
-              >
-                Preview Content
-              </button>
-              <button 
-                onClick={handleSubmitContent}
-                style={{ padding: '8px 16px', background: '#107c10', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
-              >
-                Submit Content
-              </button>
-            </div>
-
-            <QuillEditor 
-              ref={quillEditorRef}
-              value={blogData.htmlContent} 
-              onChange={handleEditorChange}
-              placeholder="Bắt đầu chỉnh sửa nội dung bài viết..."
-            />
-
-            {/* Full Screen Preview Modal */}
-            {showHTMLOutput && (
-              <div className="preview-modal-overlay" style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: 'rgba(0, 0, 0, 0.8)',
-                zIndex: 1000,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '20px'
-              }}>
-                <div className="preview-modal" style={{
-                  background: 'white',
-                  borderRadius: '12px',
-                  width: '100%',
-                  maxWidth: '1200px',
-                  height: '90vh',
-                  maxHeight: '800px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
-                  overflow: 'hidden'
-                }}>
-                  {/* Modal Header */}
-                  <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    padding: '20px 24px',
-                    borderBottom: '1px solid #e9ecef',
-                    background: '#f8f9fa'
-                  }}>
-                    <h3 style={{ margin: 0, color: '#495057', fontSize: '18px', fontWeight: '600' }}>
-                      Content Preview
-                    </h3>
-                    <button 
-                      onClick={() => setShowHTMLOutput(false)}
-                      style={{ 
-                        background: 'none', 
-                        border: 'none', 
-                        fontSize: '24px', 
-                        cursor: 'pointer', 
-                        color: '#666',
-                        padding: '8px',
-                        borderRadius: '6px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: '40px',
-                        height: '40px',
-                        transition: 'all 0.2s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = '#e9ecef';
-                        e.currentTarget.style.color = '#495057';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'none';
-                        e.currentTarget.style.color = '#666';
-                      }}
-                    >
-                      ×
-                    </button>
-                  </div>
-
-                  {/* Modal Content */}
-                  <div style={{
-                    flex: 1,
-                    overflow: 'auto',
-                    padding: '24px',
-                    background: 'white'
-                  }}>
-                    <div 
-                      className="preview-content"
-                      style={{ 
-                        maxWidth: '800px',
-                        margin: '0 auto',
-                        lineHeight: '1.6',
-                        fontSize: '16px'
-                      }}
-                      dangerouslySetInnerHTML={{ __html: editorContent }}
-                    />
-                  </div>
-
-                  {/* Modal Footer */}
-                  <div style={{
-                    padding: '16px 24px',
-                    borderTop: '1px solid #e9ecef',
-                    background: '#f8f9fa',
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    gap: '12px'
-                  }}>
-                    <button 
-                      onClick={() => setShowHTMLOutput(false)}
-                      style={{
-                        padding: '8px 16px',
-                        background: '#6c757d',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '6px',
-                        cursor: 'pointer',
-                        fontSize: '14px',
-                        transition: 'background 0.2s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = '#5a6268';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = '#6c757d';
-                      }}
-                    >
-                      Close
-                    </button>
-                    <button 
-                      onClick={handleSubmitContent}
-                      style={{
-                        padding: '8px 16px',
-                        background: '#0078d4',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '6px',
-                        cursor: 'pointer',
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        transition: 'background 0.2s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = '#106ebe';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = '#0078d4';
-                      }}
-                    >
-                      Submit Content
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      <BlogContentSection
+        htmlContent={blogData.htmlContent}
+        onEditorChange={handleEditorChange}
+        onPreviewContent={handlePreviewContent}
+        onSubmitContent={handleSubmitContent}
+        showPreviewModal={showHTMLOutput}
+        onClosePreviewModal={() => setShowHTMLOutput(false)}
+        editorContent={editorContent}
+        placeholder="Bắt đầu chỉnh sửa nội dung bài viết..."
+        ref={blogContentSectionRef}
+      />
 
       {/* Call to Action Section */}
       <ConsultationCTASection

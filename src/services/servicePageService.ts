@@ -6,11 +6,11 @@ import {
   ConstructionServiceData
 } from '../types/servicePageTypes';
 
-import heroImage from "../assets/images/servicepage/service-hero.jpg";
-import service1 from "../assets/images/servicepage/service1.jpg";
-import service2 from "../assets/images/servicepage/service2.jpg";
-import service3 from "../assets/images/servicepage/service3.jpg";
-import service4 from "../assets/images/servicepage/service4.jpg";
+import heroImage from "../assets/images/servicepage/service-hero.png";
+import service1 from "../assets/images/servicepage/service1.png";
+import service2 from "../assets/images/servicepage/service2.png";
+import service3 from "../assets/images/servicepage/service3.png";
+import service4 from "../assets/images/servicepage/service4.png";
 
 // API Configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api';

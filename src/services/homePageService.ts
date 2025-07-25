@@ -24,30 +24,30 @@ import { ReactComponent as WorkProcessFlowDiagram1 } from "../assets/icons/work-
 import { ReactComponent as WorkProcessFlowDiagram2 } from "../assets/icons/work-process-flow-diagram-2.svg";
 
 // Import images
-import hero1 from "../assets/images/homepage/hero1.jpg";
-import hero2 from "../assets/images/homepage/hero2.jpg";
-import hero3 from "../assets/images/homepage/hero3.jpg";
-import hero4 from "../assets/images/homepage/hero4.jpg";
-import projectDiary1 from "../assets/images/homepage/projectdiary1.jpg";
-import projectDiary2 from "../assets/images/homepage/projectdiary2.jpg";
-import projectDiary3 from "../assets/images/homepage/projectdiary3.jpg";
-import projectDiary4 from "../assets/images/homepage/projectdiary4.jpg";
-import projectDiary5 from "../assets/images/homepage/projectdiary5.jpg";
-import projectDiary6 from "../assets/images/homepage/projectdiary6.jpg";
-import projectDiary7 from "../assets/images/homepage/projectdiary7.jpg";
-import projectDiary8 from "../assets/images/homepage/projectdiary8.jpg";
-import thumbIntro from "../assets/images/thumb-intro.jpg";
-import thumbIntro1 from "../assets/images/diary-image-1.jpg";
-import thumbIntro2 from "../assets/images/diary-image-2.jpg";
-import thumbIntro3 from "../assets/images/diary-image-3.jpg";
+import hero1 from "../assets/images/homepage/hero1.png";
+import hero2 from "../assets/images/homepage/hero2.png";
+import hero3 from "../assets/images/homepage/hero3.png";
+import hero4 from "../assets/images/homepage/hero4.png";
+import projectDiary1 from "../assets/images/homepage/projectdiary1.png";
+import projectDiary2 from "../assets/images/homepage/projectdiary2.png";
+import projectDiary3 from "../assets/images/homepage/projectdiary3.png";
+import projectDiary4 from "../assets/images/homepage/projectdiary4.png";
+import projectDiary5 from "../assets/images/homepage/projectdiary5.png";
+import projectDiary6 from "../assets/images/homepage/projectdiary6.png";
+import projectDiary7 from "../assets/images/homepage/projectdiary7.png";
+import projectDiary8 from "../assets/images/homepage/projectdiary8.png";
+import thumbIntro from "../assets/images/thumb-intro.png";
+import thumbIntro1 from "../assets/images/diary-image-1.png";
+import thumbIntro2 from "../assets/images/diary-image-2.png";
+import thumbIntro3 from "../assets/images/diary-image-3.png";
 import solutionImg1 from "../assets/images/homepage/solution1.png";
 import solutionImg2 from "../assets/images/homepage/solution2.png";
 import solutionImg3 from "../assets/images/homepage/solution3.png";
 import solutionImg4 from "../assets/images/homepage/solution4.png";
-import experienceImg from "../assets/images/diary-image-1.jpg";
-import customerImg from "../assets/images/diary-image-2.jpg";
-import projectImg from "../assets/images/diary-image-3.jpg";
-import qualityImg from "../assets/images/diary-image-4.jpg";
+import experienceImg from "../assets/images/diary-image-1.png";
+import customerImg from "../assets/images/diary-image-2.png";
+import projectImg from "../assets/images/diary-image-3.png";
+import qualityImg from "../assets/images/diary-image-4.png";
 
 // API Configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';

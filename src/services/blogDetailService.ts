@@ -171,7 +171,7 @@ const mockBlogDetails: { [key: string]: BlogDetailData } = {
     title: "4 Công Thức Phối Vật Liệu Giúp Không Gian 'Lên Đời' Tức Thì",
     subtitle: "(Hoặc: Nhà Đẹp Là Do Mix Chất Liệu Đúng Cách – Bạn Đã Biết Chưa?)",
     excerpt: "Khám phá bí quyết tạo nên không gian sống đẹp mắt thông qua việc kết hợp các chất liệu một cách hài hòa. Từ gỗ tự nhiên đến kim loại, từ vải vóc đến đá cẩm thạch, mỗi chất liệu đều mang đến một vẻ đẹp riêng biệt.",
-    thumbnail: "/src/assets/images/diary-image-1.jpg",
+    thumbnail: "/src/assets/images/diary-image-1.png",
     viewCount: 2156,
     hashtags: ["chất liệu", "thiết kế", "nội thất", "mix-match"],
     publishDate: "2024-01-20",
@@ -197,7 +197,7 @@ const mockBlogDetails: { [key: string]: BlogDetailData } = {
             Đá lát & Gỗ – Mát lạnh gặp ấm áp
           </h3>
           <div style="display: flex; gap: 1.5rem; align-items: flex-start; margin-bottom: 1.5rem;">
-            <img src="/src/assets/images/diary-image-1.jpg" alt="Đá lát và gỗ kết hợp" style="width: 200px; height: 150px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+            <img src="/src/assets/images/diary-image-1.png" alt="Đá lát và gỗ kết hợp" style="width: 200px; height: 150px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
             <div>
               <p style="font-size: 1rem; line-height: 1.6; color: #495057; margin-bottom: 1rem;">
                 Đây là cặp đôi hoàn hảo kết hợp giữa vẻ <strong style="color: #1b3025;">sang trọng, mát lạnh</strong> của đá với cảm giác <strong style="color: #1b3025;">mộc mạc, gần gũi</strong> của gỗ. Sự kết hợp này đặc biệt phù hợp cho các khu vực như bếp hoặc phòng tắm, nơi cần sự bền bỉ và thẩm mỹ cao.
@@ -219,7 +219,7 @@ const mockBlogDetails: { [key: string]: BlogDetailData } = {
             Đá & Gỗ – Mộc mạc mà sang trọng
           </h3>
           <div style="display: flex; gap: 1.5rem; align-items: flex-start; margin-bottom: 1.5rem;">
-            <img src="/src/assets/images/diary-image-2.jpg" alt="Đá và gỗ tự nhiên" style="width: 200px; height: 150px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+            <img src="/src/assets/images/diary-image-2.png" alt="Đá và gỗ tự nhiên" style="width: 200px; height: 150px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
             <div>
               <p style="font-size: 1rem; line-height: 1.6; color: #495057; margin-bottom: 1rem;">
                 Đá và gỗ khi kết hợp với nhau tạo nên một không gian vừa <strong style="color: #1b3025;">đơn giản, tinh tế</strong> vừa đầy chiều sâu. Sự kết hợp này mang đến cảm giác thư giãn, thoải mái và rất phù hợp cho phòng khách, phòng đọc sách hoặc phòng giải trí.
@@ -243,7 +243,7 @@ const mockBlogDetails: { [key: string]: BlogDetailData } = {
             Kim loại & Gỗ – Hiện đại gặp tự nhiên
           </h3>
           <div style="display: flex; gap: 1.5rem; align-items: flex-start; margin-bottom: 1.5rem;">
-            <img src="/src/assets/images/diary-image-3.jpg" alt="Kim loại và gỗ kết hợp" style="width: 200px; height: 150px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+            <img src="/src/assets/images/diary-image-3.png" alt="Kim loại và gỗ kết hợp" style="width: 200px; height: 150px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
             <div>
               <p style="font-size: 1rem; line-height: 1.6; color: #495057; margin-bottom: 1rem;">
                 Sự kết hợp giữa kim loại và gỗ tạo nên không gian vừa <strong style="color: #1b3025;">hiện đại vừa ấm cúng</strong>. Kim loại mang đến vẻ sáng bóng, hiện đại trong khi gỗ tạo cảm giác tự nhiên, gần gũi.
@@ -261,7 +261,7 @@ const mockBlogDetails: { [key: string]: BlogDetailData } = {
             Vải vóc & Gỗ – Mềm mại gặp cứng cáp
           </h3>
           <div style="display: flex; gap: 1.5rem; align-items: flex-start; margin-bottom: 1.5rem;">
-            <img src="/src/assets/images/diary-image-4.jpg" alt="Vải vóc và gỗ kết hợp" style="width: 200px; height: 150px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+            <img src="/src/assets/images/diary-image-4.png" alt="Vải vóc và gỗ kết hợp" style="width: 200px; height: 150px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
             <div>
               <p style="font-size: 1rem; line-height: 1.6; color: #495057; margin-bottom: 1rem;">
                 Vải vóc và gỗ là sự kết hợp hoàn hảo tạo nên không gian <strong style="color: #1b3025;">ấm cúng, thoải mái</strong>. Vải vóc mang đến sự mềm mại, ấm áp trong khi gỗ tạo nền tảng vững chắc, tự nhiên.

@@ -112,7 +112,7 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
               const projectItem = {
                 id: projectDetail.projectId,
                 title: projectDetail.title,
-                thumbnailImage: projectDetail.thumbnailImage || '/assets/images/default-project.jpg',
+                thumbnailImage: projectDetail.thumbnailImage || '/assets/images/default-project.png',
                 clientName: projectDetail.clientName,
                 area: projectDetail.area,
                 constructionDate: projectDetail.constructionDate,

@@ -7,9 +7,9 @@ import {
 
 import { additionalProjectData } from './additionalProjectData';
 
-import houseNormal from "../assets/images/projectpage/house-normal.jpg";
+import houseNormal from "../assets/images/projectpage/house-normal.png";
 import appartment from "../assets/images/projectpage/appartment.png";
-import houseBusiness from "../assets/images/projectpage/house-business.jpg";
+import houseBusiness from "../assets/images/projectpage/house-business.png";
 import village from "../assets/images/projectpage/village.png";
 
 // API Configuration
@@ -146,7 +146,7 @@ const fetchCategoryWithProjectsApi = async (categoryId: string): Promise<Project
       categoryId: categoryId,
       title: categoryId.toUpperCase().replace(/-/g, ' '),
       description: `Category ${categoryId}`,
-      heroImageUrl: '/assets/images/default-hero.jpg',
+      heroImageUrl: '/assets/images/default-hero.png',
       displayOrder: 0,
       isActive: true
     };

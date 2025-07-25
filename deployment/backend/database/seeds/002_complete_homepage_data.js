@@ -191,7 +191,7 @@ exports.seed = async function(knex) {
   await knex('project_diary_images').insert([
     {
       project_diary_id: projectDiaryId,
-      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-1.png',
       image_alt: 'People presenting something at a table',
       display_order: 0,
       is_active: true,
@@ -200,7 +200,7 @@ exports.seed = async function(knex) {
     },
     {
       project_diary_id: projectDiaryId,
-      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-2.png',
       image_alt: 'People inspecting a room in construction',
       display_order: 1,
       is_active: true,
@@ -209,7 +209,7 @@ exports.seed = async function(knex) {
     },
     {
       project_diary_id: projectDiaryId,
-      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-3.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-3.png',
       image_alt: 'Construction workers reviewing plans',
       display_order: 2,
       is_active: true,
@@ -218,7 +218,7 @@ exports.seed = async function(knex) {
     },
     {
       project_diary_id: projectDiaryId,
-      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-5.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-5.png',
       image_alt: 'Stylish kitchen interior',
       display_order: 3,
       is_active: true,
@@ -227,7 +227,7 @@ exports.seed = async function(knex) {
     },
     {
       project_diary_id: projectDiaryId,
-      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-6.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-6.png',
       image_alt: 'Person using a tablet at a desk',
       display_order: 4,
       is_active: true,
@@ -236,7 +236,7 @@ exports.seed = async function(knex) {
     },
     {
       project_diary_id: projectDiaryId,
-      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-7.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-7.png',
       image_alt: 'Modern living room interior',
       display_order: 5,
       is_active: true,
@@ -245,7 +245,7 @@ exports.seed = async function(knex) {
     },
     {
       project_diary_id: projectDiaryId,
-      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-8.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-8.png',
       image_alt: 'Team standing in front of a house design',
       display_order: 6,
       is_active: true,
@@ -254,7 +254,7 @@ exports.seed = async function(knex) {
     },
     {
       project_diary_id: projectDiaryId,
-      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.png',
       image_alt: 'Worker installing a window',
       display_order: 7,
       is_active: true,

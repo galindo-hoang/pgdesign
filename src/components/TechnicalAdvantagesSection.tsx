@@ -2,16 +2,16 @@ import React from 'react';
 import './TechnicalAdvantagesSection.css';
 
 // Import placeholder images - replace with actual project images
-import constructionImage1 from '../assets/images/profilepage/Rectangle 54.jpg';
-import constructionImage2 from '../assets/images/profilepage/Rectangle 53.jpg';
-import constructionImage3 from '../assets/images/profilepage/Rectangle 55.jpg';
-import constructionImage4 from '../assets/images/profilepage/Rectangle 57.jpg';
-import constructionImage5 from '../assets/images/profilepage/Rectangle 56.jpg';
-import constructionImage6 from '../assets/images/profilepage/Rectangle 58.jpg';
-import constructionImage7 from '../assets/images/profilepage/Rectangle 59.jpg';
-import constructionImage8 from '../assets/images/profilepage/Rectangle 61.jpg';
-import constructionImage9 from '../assets/images/profilepage/Rectangle 60.jpg';
-import constructionImage10 from '../assets/images/profilepage/Rectangle 62.jpg';
+import constructionImage1 from '../assets/images/profilepage/Rectangle 54.png';
+import constructionImage2 from '../assets/images/profilepage/Rectangle 53.png';
+import constructionImage3 from '../assets/images/profilepage/Rectangle 55.png';
+import constructionImage4 from '../assets/images/profilepage/Rectangle 57.png';
+import constructionImage5 from '../assets/images/profilepage/Rectangle 56.png';
+import constructionImage6 from '../assets/images/profilepage/Rectangle 58.png';
+import constructionImage7 from '../assets/images/profilepage/Rectangle 59.png';
+import constructionImage8 from '../assets/images/profilepage/Rectangle 61.png';
+import constructionImage9 from '../assets/images/profilepage/Rectangle 60.png';
+import constructionImage10 from '../assets/images/profilepage/Rectangle 62.png';
 
 const TechnicalAdvantagesSection: React.FC = () => {
   return (

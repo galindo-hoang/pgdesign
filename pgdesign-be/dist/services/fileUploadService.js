@@ -173,7 +173,7 @@ class FileUploadService {
         this.validateFile(file);
         const fileExtension = file.originalname.split('.').pop()?.toLowerCase();
         const fileName = `${(0, uuid_1.v4)()}.${fileExtension}`;
-        const thumbnailName = `${(0, uuid_1.v4)()}_thumb.jpg`;
+        const thumbnailName = `${(0, uuid_1.v4)()}_thumb.png`;
         const originalObjectName = `${folder}/${fileName}`;
         const thumbnailObjectName = `${folder}/thumbnails/${thumbnailName}`;
         try {

@@ -9,7 +9,7 @@ const MINIO_URL = 'http://localhost:9000';
 
 // Create a test image file
 function createTestImage() {
-  const testImagePath = path.join(__dirname, 'test-image.jpg');
+  const testImagePath = path.join(__dirname, 'test-image.png');
   
   // Create a simple test image (1x1 pixel JPEG)
   const testImageBuffer = Buffer.from([
@@ -77,7 +77,7 @@ async function testMultipleImageUpload() {
     console.log('\n🧪 Testing Multiple Images Upload...');
     
     const testImagePath1 = createTestImage();
-    const testImagePath2 = path.join(__dirname, 'test-image-2.jpg');
+    const testImagePath2 = path.join(__dirname, 'test-image-2.png');
     fs.copyFileSync(testImagePath1, testImagePath2);
 
     const formData = new FormData();

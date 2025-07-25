@@ -16,7 +16,7 @@ exports.seed = async function(knex) {
       main_title: 'DỊCH VỤ',
       brand_name: 'PG DESIGN',
       description: 'Chúng tôi đồng hành cùng khách hàng từ bản vẽ ý tưởng đến không gian sống hoàn thiện, tối ưu công năng - nâng tầm thẩm mỹ - đảm bảo chất lượng thi công.',
-      hero_image_url: '/assets/images/vision-mission-section.jpg',
+      hero_image_url: '/assets/images/vision-mission-section.png',
       is_active: true,
       display_order: 1,
       created_at: new Date(),

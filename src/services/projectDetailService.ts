@@ -22,7 +22,7 @@ const mockProjectDetailData: ProjectDetailData = {
   category: "house-normal",
   subCategory: "Nhà Ống",
   style: "Hiện đại",
-  thumbnailImage: "/assets/images/diary-image-1.jpg",
+  thumbnailImage: "/assets/images/diary-image-1.png",
   
   // Embedded HTML content from server (admin can modify this - only main content area)
   htmlContent: `
@@ -44,10 +44,10 @@ const mockProjectDetailData: ProjectDetailData = {
     <div style="margin: 2rem 0;">
       <h3 style="color: #1b3025; margin-top: 2rem; margin-bottom: 1rem;">Hình ảnh dự án</h3>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 1rem;">
-        <img src="/assets/images/diary-image-1.jpg" alt="Mặt tiền nhà" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-        <img src="/assets/images/diary-image-2.jpg" alt="Phòng khách" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-        <img src="/assets/images/diary-image-3.jpg" alt="Phòng bếp" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-        <img src="/assets/images/diary-image-4.jpg" alt="Phòng ngủ" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <img src="/assets/images/diary-image-1.png" alt="Mặt tiền nhà" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <img src="/assets/images/diary-image-2.png" alt="Phòng khách" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <img src="/assets/images/diary-image-3.png" alt="Phòng bếp" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <img src="/assets/images/diary-image-4.png" alt="Phòng ngủ" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
       </div>
     </div>
     
@@ -84,10 +84,10 @@ const mockProjectDetailData: ProjectDetailData = {
   `,
   
   projectImages: [
-    "/assets/images/diary-image-1.jpg",
-    "/assets/images/diary-image-2.jpg",
-    "/assets/images/diary-image-3.jpg",
-    "/assets/images/diary-image-4.jpg"
+    "/assets/images/diary-image-1.png",
+    "/assets/images/diary-image-2.png",
+    "/assets/images/diary-image-3.png",
+    "/assets/images/diary-image-4.png"
   ],
   
   projectStatus: "Hoàn thành • 2.5 tỷ đồng",

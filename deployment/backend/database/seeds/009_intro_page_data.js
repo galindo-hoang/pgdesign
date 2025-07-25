@@ -26,7 +26,7 @@ exports.seed = async function(knex) {
       identity: 'KHẲNG ĐỊNH BẢN SẮC',
       description_1: 'Là đơn vị chuyên nghiệp trong lĩnh vực thiết kế kiến trúc, nội thất và thi công trọn gói. Với đội ngũ thiết kế và thi công giàu kinh nghiệm, chúng tôi cam kết mang đến những công trình chất lượng cao, đúng tiến độ và phản ánh rõ rệt tính cách của từng khách hàng.',
       description_2: 'PG Design không chỉ tạo ra những không gian sống và làm việc thẩm mỹ, mà còn góp phần xây dựng bản sắc riêng cho mỗi công trình thông qua thiết kế cá nhân hóa và có chiều sâu, gắn liền với phong cách sống và định hướng thương hiệu của khách hàng. Đây chính là cách chúng tôi mang đến giá trị vượt lên trên vẻ đẹp bề mặt - một không gian có hồn và có ý nghĩa.',
-      background_image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg',
+      background_image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.png',
       is_active: true
     }
   ]);
@@ -36,7 +36,7 @@ exports.seed = async function(knex) {
   await knex('vision_mission_data').insert([
     {
       id: 1,
-      image_url: 'http://localhost:9000/pgdesign-assets/images/vision-mission-section.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/vision-mission-section.png',
       vision_title: 'TẦM NHÌN',
       vision_paragraph_1: 'PG Design tự hào trở thành đơn vị thiết kế - thi công uy tín hàng đầu: nơi mở không gian không chỉ được đầu tư về công năng và thẩm mỹ, mà còn là nơi kiến tạo câu chuyện bằng không gian sống của người sở hữu.',
       vision_paragraph_2: 'Chúng tôi tin rằng, một không gian đẹp là không gian đặt dấu cảm xúc và đồng điệu với nhu cầu sống, từ đó nâng tầm trải nghiệm và chất lượng cuộc sống mỗi ngày.',
@@ -210,7 +210,7 @@ exports.seed = async function(knex) {
       team_id: 1,
       name: 'Phan Anh Thư',
       title: 'CEO & Founder',
-      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.png',
       display_order: 0,
       is_active: true
     },
@@ -219,7 +219,7 @@ exports.seed = async function(knex) {
       team_id: 1,
       name: 'Võ Nguyên Pháp',
       title: 'Project Director',
-      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.png',
       display_order: 1,
       is_active: true
     }
@@ -233,7 +233,7 @@ exports.seed = async function(knex) {
       team_id: 1,
       name: 'Nguyễn Văn A',
       title: 'Senior Architect',
-      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.png',
       display_order: 0,
       is_active: true
     },
@@ -242,7 +242,7 @@ exports.seed = async function(knex) {
       team_id: 1,
       name: 'Trần Thị B',
       title: 'Interior Designer',
-      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.png',
       display_order: 1,
       is_active: true
     },
@@ -251,7 +251,7 @@ exports.seed = async function(knex) {
       team_id: 1,
       name: 'Lê Minh C',
       title: 'Construction Manager',
-      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.png',
       display_order: 2,
       is_active: true
     },
@@ -260,7 +260,7 @@ exports.seed = async function(knex) {
       team_id: 1,
       name: 'Phạm Thu D',
       title: '3D Designer',
-      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.png',
       display_order: 3,
       is_active: true
     },
@@ -269,7 +269,7 @@ exports.seed = async function(knex) {
       team_id: 1,
       name: 'Hoàng Văn E',
       title: 'Site Supervisor',
-      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.png',
       display_order: 4,
       is_active: true
     },
@@ -278,7 +278,7 @@ exports.seed = async function(knex) {
       team_id: 1,
       name: 'Đỗ Thị F',
       title: 'Project Coordinator',
-      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/thumb-intro.png',
       display_order: 5,
       is_active: true
     }

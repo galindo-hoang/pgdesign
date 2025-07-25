@@ -16,7 +16,7 @@ exports.seed = async function(knex) {
       main_title: 'DỊCH VỤ',
       brand_name: 'PG DESIGN',
       description: 'Chúng tôi đồng hành cùng khách hàng từ bản vẽ ý tưởng đến không gian sống hoàn thiện, tối ưu công năng - nâng tầm thẩm mỹ - đảm bảo chất lượng thi công.',
-      hero_image_url: 'http://localhost:9000/pgdesign-assets/images/vision-mission-section.jpg',
+      hero_image_url: 'http://localhost:9000/pgdesign-assets/images/vision-mission-section.png',
       is_active: true,
       display_order: 1
     }
@@ -66,7 +66,7 @@ exports.seed = async function(knex) {
       title: 'THI CÔNG PHẦN THÔ HOẶC TRỌN GÓI HOÀN THIỆN',
       description: 'PG Design đảm nhận toàn bộ quy trình xây dựng từ phần thô đến hoàn thiện công trình — bao gồm thi công móng, kết cấu, xây tô, ốp lát, sơn nước, lắp đặt thiết bị vệ sinh, hệ thống điện - nước và trần đến hoàn chỉnh.',
       note: 'Không bao gồm thi công đồ nội thất rời - xem mục Thi công nội thất',
-      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-1.png',
       is_active: true
     },
     {
@@ -75,7 +75,7 @@ exports.seed = async function(knex) {
       title: 'THI CÔNG NỘI THẤT',
       description: 'PG Design đồng hành cùng bạn từ khâu hoàn thiện công trình, thi công nội thất đến cải tạo lại toàn bộ không gian sống - mang đến sự chỉn chu, tiện nghi và cảm xúc sống trọn vẹn.',
       note: '',
-      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-3.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-3.png',
       is_active: true
     },
     {
@@ -84,7 +84,7 @@ exports.seed = async function(knex) {
       title: 'THIẾT KẾ KIẾN TRÚC & NỘI THẤT',
       description: 'Từ khái niệm không gian đến bản vẽ chi tiết, PG Design kiến tạo nên những thiết kế vừa chuẩn công năng, vừa đậm chất thẩm mỹ - thể hiện rõ cá tính và phong cách sống của gia chủ trong từng đường nét.',
       note: '',
-      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-5.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-5.png',
       is_active: true
     },
     {
@@ -93,7 +93,7 @@ exports.seed = async function(knex) {
       title: 'CẢI TẠO SỬA CHỮA HOẶC DỰ ÁN ĐÃ CÓ BẢN VẼ',
       description: 'PG Design nhận thi công các công trình đã có bản vẽ kiến trúc hoặc nội thất, đảm bảo đúng kỹ thuật - đúng thiết kế - đúng tiến độ, mang đến sản phẩm cuối cùng hoàn thiện với chất lượng chuẩn mực.',
       note: '',
-      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-7.jpg',
+      image_url: 'http://localhost:9000/pgdesign-assets/images/diary-image-7.png',
       is_active: true
     }
   ]);

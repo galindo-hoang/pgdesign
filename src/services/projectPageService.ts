@@ -9,15 +9,15 @@ import {
 } from '../types/projectPageTypes';
 
 // Import asset images
-import hero from "../assets/images/projectpage/project-hero.jpg";
-import diaryImage1 from "../assets/images/diary-image-1.jpg";
-import houseNormal from "../assets/images/projectpage/house-normal.jpg";
+import hero from "../assets/images/projectpage/project-hero.png";
+import diaryImage1 from "../assets/images/diary-image-1.png";
+import houseNormal from "../assets/images/projectpage/house-normal.png";
 import appartment from "../assets/images/projectpage/appartment.png";
-import houseBusiness from "../assets/images/projectpage/house-business.jpg";
+import houseBusiness from "../assets/images/projectpage/house-business.png";
 import village from "../assets/images/projectpage/village.png";
-import diaryImage2 from "../assets/images/diary-image-2.jpg";
-import diaryImage3 from "../assets/images/diary-image-3.jpg";
-import diaryImage4 from "../assets/images/diary-image-4.jpg";
+import diaryImage2 from "../assets/images/diary-image-2.png";
+import diaryImage3 from "../assets/images/diary-image-3.png";
+import diaryImage4 from "../assets/images/diary-image-4.png";
 
 // API Configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';

@@ -2,7 +2,7 @@ import React from 'react';
 import './CapabilitiesSection.css';
 
 // Import placeholder images - you can replace these with actual architectural renderings
-import architecturalImage1 from '../assets/images/profilepage/image.jpg';
+import architecturalImage1 from '../assets/images/profilepage/image.png';
 
 const CapabilitiesSection: React.FC = () => {
   return (

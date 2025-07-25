@@ -20,7 +20,7 @@ exports.seed = async function(knex) {
   await knex('hero_images').insert([
     {
       hero_id: heroId,
-      image_url: '/images/thumb-intro.jpg',
+      image_url: '/images/thumb-intro.png',
       image_alt: 'PG Design Hero Image 1',
       display_order: 0,
       created_at: new Date(),
@@ -28,7 +28,7 @@ exports.seed = async function(knex) {
     },
     {
       hero_id: heroId,
-      image_url: '/images/diary-image-1.jpg',
+      image_url: '/images/diary-image-1.png',
       image_alt: 'PG Design Hero Image 2',
       display_order: 1,
       created_at: new Date(),
@@ -36,7 +36,7 @@ exports.seed = async function(knex) {
     },
     {
       hero_id: heroId,
-      image_url: '/images/diary-image-2.jpg',
+      image_url: '/images/diary-image-2.png',
       image_alt: 'PG Design Hero Image 3',
       display_order: 2,
       created_at: new Date(),
@@ -57,7 +57,7 @@ exports.seed = async function(knex) {
   // Insert Image Slider data
   await knex('image_slider_data').insert([
     {
-      image_url: '/images/diary-image-1.jpg',
+      image_url: '/images/diary-image-1.png',
       image_alt: 'NHÀ ANH TRẠCH',
       title: 'NHÀ ANH TRẠCH',
       subtitle: 'Thi công nội thất nhà phố',
@@ -68,7 +68,7 @@ exports.seed = async function(knex) {
       updated_at: new Date()
     },
     {
-      image_url: '/images/diary-image-2.jpg',
+      image_url: '/images/diary-image-2.png',
       image_alt: 'ANH MỸ - OPAL GARDEN',
       title: 'ANH MỸ - OPAL GARDEN',
       subtitle: 'Thi công nội thất căn hộ',
@@ -79,7 +79,7 @@ exports.seed = async function(knex) {
       updated_at: new Date()
     },
     {
-      image_url: '/images/diary-image-3.jpg',
+      image_url: '/images/diary-image-3.png',
       image_alt: 'SKY LINKED VILLA',
       title: 'SKY LINKED VILLA',
       subtitle: 'Thi công nội thất biệt thự',
@@ -110,7 +110,7 @@ exports.seed = async function(knex) {
       label: 'Kinh nghiệm',
       suffix: '+ năm',
       description: 'Kinh nghiệm',
-      background_image_url: '/images/diary-image-1.jpg',
+      background_image_url: '/images/diary-image-1.png',
       category: 'experience',
       display_order: 0,
       is_active: true,
@@ -124,7 +124,7 @@ exports.seed = async function(knex) {
       label: 'Khách hàng',
       suffix: '+',
       description: 'Tin tưởng & hài lòng',
-      background_image_url: '/images/diary-image-2.jpg',
+      background_image_url: '/images/diary-image-2.png',
       category: 'customers',
       display_order: 1,
       is_active: true,
@@ -138,7 +138,7 @@ exports.seed = async function(knex) {
       label: 'Dự án',
       suffix: '+',
       description: 'Thiết kế hoàn thành',
-      background_image_url: '/images/diary-image-3.jpg',
+      background_image_url: '/images/diary-image-3.png',
       category: 'projects',
       display_order: 2,
       is_active: true,
@@ -152,7 +152,7 @@ exports.seed = async function(knex) {
       label: 'Chất lượng',
       suffix: '%',
       description: 'Cam kết hoàn hảo',
-      background_image_url: '/images/diary-image-4.jpg',
+      background_image_url: '/images/diary-image-4.png',
       category: 'quality',
       display_order: 3,
       is_active: true,
@@ -174,7 +174,7 @@ exports.seed = async function(knex) {
   await knex('solution_items').insert([
     {
       solution_header_id: solutionHeaderId,
-      image_url: '/images/diary-image-5.jpg',
+      image_url: '/images/diary-image-5.png',
       image_alt: 'Thiết kế kiến trúc',
       category: 'Dịch vụ',
       title: 'Thiết kế kiến trúc',
@@ -186,7 +186,7 @@ exports.seed = async function(knex) {
     },
     {
       solution_header_id: solutionHeaderId,
-      image_url: '/images/diary-image-6.jpg',
+      image_url: '/images/diary-image-6.png',
       image_alt: 'Thiết kế nội thất',
       category: 'Dịch vụ',
       title: 'Thiết kế nội thất',
@@ -198,7 +198,7 @@ exports.seed = async function(knex) {
     },
     {
       solution_header_id: solutionHeaderId,
-      image_url: '/images/diary-image-7.jpg',
+      image_url: '/images/diary-image-7.png',
       image_alt: 'Thi công hoàn thiện',
       category: 'Dịch vụ',
       title: 'Thi công hoàn thiện',
@@ -210,7 +210,7 @@ exports.seed = async function(knex) {
     },
     {
       solution_header_id: solutionHeaderId,
-      image_url: '/images/diary-image-8.jpg',
+      image_url: '/images/diary-image-8.png',
       image_alt: 'Thi công trọn gói',
       category: 'Dịch vụ',
       title: 'Thi công trọn gói',

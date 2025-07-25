@@ -158,7 +158,7 @@ export class FileUploadService {
 
     const fileExtension = file.originalname.split('.').pop()?.toLowerCase();
     const fileName = `${uuidv4()}.${fileExtension}`;
-    const thumbnailName = `${uuidv4()}_thumb.jpg`;
+    const thumbnailName = `${uuidv4()}_thumb.png`;
     
     const originalObjectName = `${folder}/${fileName}`;
     const thumbnailObjectName = `${folder}/thumbnails/${thumbnailName}`;
