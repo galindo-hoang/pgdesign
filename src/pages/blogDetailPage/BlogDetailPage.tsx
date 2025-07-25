@@ -164,10 +164,10 @@ const BlogDetailPage: React.FC = () => {
         <div className="content-grid">
           {/* Main Content */}
           <div className="main-content">
-            <div 
+            {/* <div 
               className="embedded-html-content"
               dangerouslySetInnerHTML={{ __html: blogData.htmlContent }}
-            />
+            /> */}
             
             
           </div>

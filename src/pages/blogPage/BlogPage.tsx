@@ -47,11 +47,11 @@ const BlogPage: React.FC = () => {
     {
       id: "2",
       title: "4 Tips Tạo Điểm Nhấn Cho Bếp Sang Trọng & Tiện Nghi",
-      excerpt: "Phòng bếp không chỉ là nơi nấu nướng mà còn là trung tâm của gia đình. Khám phá 4 bí quyết quan trọng để tạo điểm nhấn cho phòng bếp vừa sang trọng vừa tiện dụng cho cuộc sống hàng ngày.",
-      thumbnail: "/src/assets/images/diary-image-2.jpg",
-      viewCount: 1893,
-      hashtags: ["phòng bếp", "sang trọng", "tiện nghi", "tips"],
-      publishDate: "2024-01-18",
+      excerpt: "Bếp không chỉ là nơi nấu nướng mà còn là trái tim của ngôi nhà. Khám phá 4 tips thiết kế bếp sang trọng và tiện nghi giúp không gian bếp trở nên ấn tượng và hiệu quả hơn.",
+      thumbnail: "/assets/blog/4-tips-tao-diem-nhan-bep-sang-trong/Picture1.png",
+      viewCount: 3421,
+      hashtags: ["thiết kế bếp", "nội thất", "sang trọng", "tiện nghi", "điểm nhấn"],
+      publishDate: "2024-01-25",
       slug: "4-tips-tao-diem-nhan-bep-sang-trong"
     },
     {
