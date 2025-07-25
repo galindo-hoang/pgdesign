@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react"; // Import useState and useEf
 import "./Navbar.css";
 import { ReactComponent as PGLogo } from "../../assets/logo/pg-design-logo.svg"; // Import SVG as ReactComponent
 import { useNavigate } from "react-router-dom";
-import Handle from "rc-slider/lib/Handles/Handle";
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false); // State to track scroll position
@@ -43,6 +42,9 @@ const Navbar: React.FC = () => {
         </li>
         <li className={`navbar-item ${scrolled ? "scrolled" : ""}`}>
           <a href="/service">Dịch vụ</a>
+        </li>
+        <li className={`navbar-item ${scrolled ? "scrolled" : ""}`}>
+          <a href="/profile">Hồ sơ</a>
         </li>
         <li className={`navbar-item ${scrolled ? "scrolled" : ""}`}>
           <a href="/project">Dự án</a>
