@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   Plus, 
   Edit, 
@@ -24,11 +25,11 @@ interface BlogPost {
 }
 
 const BlogAdmin: React.FC = () => {
+  const navigate = useNavigate();
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
-  const [showCreateModal, setShowCreateModal] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -115,12 +116,25 @@ const BlogAdmin: React.FC = () => {
     ));
   };
 
+  const handleCreatePost = () => {
+    navigate('/blog/create');
+  };
+
+  const handleEditPost = (id: string) => {
+    navigate(`/blog/edit/${id}`);
+  };
+
+  const handleViewPost = (id: string) => {
+    // Navigate to the public blog post view
+    window.open(`/blog/${id}`, '_blank');
+  };
+
   if (loading) {
     return (
       <div className="blog-admin">
         <div className="loading-container">
           <div className="loading-spinner"></div>
-          <p>Loading blog posts...</p>
+          <p>Loading posts...</p>
         </div>
       </div>
     );
@@ -128,42 +142,40 @@ const BlogAdmin: React.FC = () => {
 
   return (
     <div className="blog-admin">
-      {/* Header */}
-      <div className="admin-header">
-        <div>
+      <div className="blog-header">
+        <div className="header-left">
           <h1>Blog Management</h1>
-          <p>Create and manage your blog content</p>
+          <p>Manage your blog posts and content</p>
         </div>
-        <button 
-          className="create-btn"
-          onClick={() => setShowCreateModal(true)}
-        >
-          <Plus />
-          Create Post
-        </button>
+        <div className="header-actions">
+          <button 
+            className="create-btn primary"
+            onClick={handleCreatePost}
+          >
+            <Plus />
+            Create Post
+          </button>
+        </div>
       </div>
 
-      {/* Filters and Search */}
-      <div className="admin-controls">
-        <div className="search-container">
-          <Search className="search-icon" />
+      <div className="blog-filters">
+        <div className="search-box">
+          <Search />
           <input
             type="text"
             placeholder="Search posts..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
           />
         </div>
-
-        <div className="filter-container">
-          <Filter className="filter-icon" />
+        
+        <div className="filter-group">
+          <Filter />
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="filter-select"
           >
-            <option value="all">All Posts</option>
+            <option value="all">All Status</option>
             <option value="published">Published</option>
             <option value="draft">Draft</option>
             <option value="archived">Archived</option>
@@ -171,39 +183,14 @@ const BlogAdmin: React.FC = () => {
         </div>
       </div>
 
-      {/* Stats Cards */}
-      <div className="stats-row">
-        <div className="stat-card">
-          <div className="stat-number">{posts.length}</div>
-          <div className="stat-label">Total Posts</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-number">{posts.filter(p => p.status === 'published').length}</div>
-          <div className="stat-label">Published</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-number">{posts.filter(p => p.status === 'draft').length}</div>
-          <div className="stat-label">Drafts</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-number">{posts.reduce((sum, p) => sum + p.views, 0).toLocaleString()}</div>
-          <div className="stat-label">Total Views</div>
-        </div>
-      </div>
-
-      {/* Posts Table */}
-      <div className="posts-table">
-        <div className="table-header">
-          <h3>All Posts ({filteredPosts.length})</h3>
-        </div>
-        
+      <div className="blog-content">
         <div className="table-content">
           {filteredPosts.length === 0 ? (
             <div className="empty-state">
               <p>No posts found</p>
               <button 
                 className="create-btn secondary"
-                onClick={() => setShowCreateModal(true)}
+                onClick={handleCreatePost}
               >
                 <Plus />
                 Create your first post
@@ -259,11 +246,17 @@ const BlogAdmin: React.FC = () => {
                       >
                         {post.featured ? 'Unfeature' : 'Feature'}
                       </button>
-                      <button className="post-btn">
+                      <button 
+                        className="post-btn"
+                        onClick={() => handleEditPost(post.id)}
+                      >
                         <Edit />
                         Edit
                       </button>
-                      <button className="post-btn">
+                      <button 
+                        className="post-btn"
+                        onClick={() => handleViewPost(post.id)}
+                      >
                         <Eye />
                         View
                       </button>
@@ -282,38 +275,6 @@ const BlogAdmin: React.FC = () => {
           )}
         </div>
       </div>
-
-      {/* Create Modal Placeholder */}
-      {showCreateModal && (
-        <div className="modal-overlay" onClick={() => setShowCreateModal(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h3>Create New Post</h3>
-              <button 
-                className="modal-close"
-                onClick={() => setShowCreateModal(false)}
-              >
-                ×
-              </button>
-            </div>
-            <div className="modal-body">
-              <p>Blog post creation form would go here...</p>
-              <p>This would include fields for title, content, author, status, etc.</p>
-            </div>
-            <div className="modal-footer">
-              <button 
-                className="btn secondary"
-                onClick={() => setShowCreateModal(false)}
-              >
-                Cancel
-              </button>
-              <button className="btn primary">
-                Create Post
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

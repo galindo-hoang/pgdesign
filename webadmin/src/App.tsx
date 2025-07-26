@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage';
 // Pages
 import Dashboard from './pages/Dashboard';
 import BlogAdmin from './pages/BlogAdmin';
+import BlogPostEditor from './pages/BlogPostEditor';
 import HomepageAdmin from './pages/HomepageAdmin';
 import IntroAdmin from './pages/IntroAdmin';
 import ProjectAdmin from './pages/ProjectAdmin';
@@ -42,6 +43,8 @@ const AppContent: React.FC = () => {
         <Route index element={<Dashboard />} />
         <Route path="analytics" element={<AnalyticsPage />} />
         <Route path="blog" element={<BlogAdmin />} />
+        <Route path="blog/create" element={<BlogPostEditor />} />
+        <Route path="blog/edit/:id" element={<BlogPostEditor />} />
         <Route path="homepage" element={<HomepageAdmin />} />
         <Route path="intro" element={<IntroAdmin />} />
         <Route path="projects" element={<ProjectAdmin />} />
