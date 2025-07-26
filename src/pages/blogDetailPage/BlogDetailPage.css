@@ -181,8 +181,34 @@
 /* Embedded HTML Content Styles */
 .embedded-html-content {
   line-height: 1.8;
-  font-family: 'Barlow', sans-serif;
   color: #333;
+  font-size: 1.1rem;
+}
+
+/* Content placeholder styling for when HTML content fails to load */
+.content-placeholder {
+  background: #f8f9fa;
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.content-placeholder p {
+  margin: 0.5rem 0;
+  color: #6c757d;
+}
+
+.content-placeholder p:first-child {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.content-placeholder small {
+  font-size: 0.9rem;
+  color: #adb5bd;
 }
 
 .embedded-html-content h3 {
