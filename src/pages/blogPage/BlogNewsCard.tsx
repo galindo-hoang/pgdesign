@@ -65,7 +65,7 @@ const BlogNewsCard: React.FC<BlogNewsCardProps> = ({
       {/* Thumbnail */}
       <div className="news-image-container">
         <img 
-          src={thumbnail} 
+          src={thumbnail.startsWith('/assets/') ? process.env.PUBLIC_URL + thumbnail : thumbnail} 
           alt={title}
           className="news-image"
           onError={(e) => {

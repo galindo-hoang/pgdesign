@@ -82,7 +82,7 @@ const BlogPostEditor: React.FC = () => {
         title: 'Thiết kế nội thất phòng khách hiện đại',
         subtitle: 'Xu hướng thiết kế 2024',
         excerpt: 'Khám phá những xu hướng thiết kế nội thất phòng khách hiện đại với những gam màu tươi sáng và không gian mở...',
-        thumbnail: '/assets/images/blog/hero-image.jpg',
+        thumbnail: '/assets/images/blog/hero-image.png',
         viewCount: 1250,
         hashtags: ['thiết kế nội thất', 'phòng khách', 'hiện đại'],
         publishDate: '2024-01-15',

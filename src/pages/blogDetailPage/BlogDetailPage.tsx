@@ -130,7 +130,7 @@ const BlogDetailPage: React.FC = () => {
       {/* Hero Section */}
       <div className="blog-hero">
         <img 
-          src={blogData.thumbnail} 
+          src={blogData.thumbnail.startsWith('/assets/') ? process.env.PUBLIC_URL + blogData.thumbnail : blogData.thumbnail} 
           alt={blogData.title}
           className="hero-background-image"
         />
@@ -177,14 +177,14 @@ const BlogDetailPage: React.FC = () => {
               <h3>Bài viết liên quan</h3>
               <div className="related-articles-list">
                 <div className="related-article">
-                  <img src="/src/assets/images/diary-image-3.jpg" alt="Related article" />
+                  <img src="/src/assets/images/diary-image-3.png" alt="Related article" />
                   <div className="related-article-info">
                     <h4>Khám Phá 4 Phong Cách Tủ Quần Áo Đẹp</h4>
                     <span>1,678 lượt xem</span>
                   </div>
                 </div>
                 <div className="related-article">
-                  <img src="/src/assets/images/diary-image-4.jpg" alt="Related article" />
+                  <img src="/src/assets/images/diary-image-4.png" alt="Related article" />
                   <div className="related-article-info">
                     <h4>Các cách phối màu nội thất đẹp</h4>
                     <span>2,431 lượt xem</span>
