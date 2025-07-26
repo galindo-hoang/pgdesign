@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./BlogDetailPage.css";
 import { BlogDetailData } from "../../types/blogDetailTypes";
@@ -7,7 +7,6 @@ import { fetchBlogDetailData } from "../../services/blogDetailService";
 import { fetchConsultationCTA } from "../../services/blogPageService";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ConsultationCTASection from "../../components/ConsultationCTASection";
-import BlogContentSection, { BlogContentSectionRef } from "../../components/BlogContentSection";
 
 const BlogDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -17,10 +16,6 @@ const BlogDetailPage: React.FC = () => {
   const [consultationCTAData, setConsultationCTAData] = useState<ConsultationCTA | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [editorContent, setEditorContent] = useState<string>('');
-  const [showHTMLOutput, setShowHTMLOutput] = useState(false);
-  
-  const blogContentSectionRef = useRef<BlogContentSectionRef>(null);
 
   useEffect(() => {
     const loadData = async () => {
@@ -59,77 +54,6 @@ const BlogDetailPage: React.FC = () => {
   const handleConsultationClick = () => {
     // Handle consultation form or contact
     console.log("Consultation requested");
-  };
-
-  const handleEditorChange = (content: string) => {
-    setEditorContent(content);
-    console.log('Editor content changed:', content);
-  };
-
-  const handlePreviewContent = () => {
-    if (blogContentSectionRef.current) {
-      const content = blogContentSectionRef.current.getEditorContent();
-      const formattedHTML = blogContentSectionRef.current.getFormattedHTML();
-      
-      console.log('Preview Content:');
-      console.log('Raw HTML:', content?.html);
-      console.log('Formatted HTML:', formattedHTML);
-      
-      // Set the content to display in preview
-      setEditorContent(formattedHTML);
-      setShowHTMLOutput(true);
-    }
-  };
-
-  const handleSubmitContent = async () => {
-    if (blogContentSectionRef.current) {
-      const content = blogContentSectionRef.current.getEditorContent();
-      const formattedHTML = blogContentSectionRef.current.getFormattedHTML();
-      
-      try {
-        // Show loading state
-        console.log('Submitting content to backend...');
-        
-        // Prepare the data to send to backend
-        const submitData = {
-          slug: slug,
-          title: blogData?.title,
-          content: formattedHTML,
-          rawContent: content?.html,
-          delta: content?.delta,
-          updatedAt: new Date().toISOString()
-        };
-        
-        console.log('Submit Data:', submitData);
-        
-        // TODO: Replace with actual API call to your backend
-        // Example API call:
-        // const response = await fetch('/api/blog/update', {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify(submitData)
-        // });
-        // 
-        // if (!response.ok) {
-        //   throw new Error('Failed to submit content');
-        // }
-        // 
-        // const result = await response.json();
-        // console.log('Submit successful:', result);
-        
-        // For now, simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        alert('Nội dung đã được gửi thành công!');
-        console.log('Content submitted successfully!');
-        
-      } catch (error) {
-        console.error('Error submitting content:', error);
-        alert('Có lỗi xảy ra khi gửi nội dung. Vui lòng thử lại.');
-      }
-    }
   };
 
   // Show loading state
@@ -234,17 +158,43 @@ const BlogDetailPage: React.FC = () => {
       </div>
       
       {/* Blog Content */}
-      <BlogContentSection
-        htmlContent={blogData.htmlContent}
-        onEditorChange={handleEditorChange}
-        onPreviewContent={handlePreviewContent}
-        onSubmitContent={handleSubmitContent}
-        showPreviewModal={showHTMLOutput}
-        onClosePreviewModal={() => setShowHTMLOutput(false)}
-        editorContent={editorContent}
-        placeholder="Bắt đầu chỉnh sửa nội dung bài viết..."
-        ref={blogContentSectionRef}
-      />
+      <div className="blog-content-wrapper">
+        <div className="content-grid">
+          {/* Main Content */}
+          <div className="main-content">
+            {/* <div 
+              className="embedded-html-content"
+              dangerouslySetInnerHTML={{ __html: blogData.htmlContent }}
+            /> */}
+            
+            
+          </div>
+          
+          {/* Sidebar - Only Related Articles */}
+          <div className="sidebar">
+            {/* Related Articles */}
+            <div className="related-articles-card">
+              <h3>Bài viết liên quan</h3>
+              <div className="related-articles-list">
+                <div className="related-article">
+                  <img src="/src/assets/images/diary-image-3.jpg" alt="Related article" />
+                  <div className="related-article-info">
+                    <h4>Khám Phá 4 Phong Cách Tủ Quần Áo Đẹp</h4>
+                    <span>1,678 lượt xem</span>
+                  </div>
+                </div>
+                <div className="related-article">
+                  <img src="/src/assets/images/diary-image-4.jpg" alt="Related article" />
+                  <div className="related-article-info">
+                    <h4>Các cách phối màu nội thất đẹp</h4>
+                    <span>2,431 lượt xem</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Call to Action Section */}
       <ConsultationCTASection
