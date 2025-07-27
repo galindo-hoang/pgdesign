@@ -218,3 +218,12 @@
         /* No transform on mobile */
     } 
 }
+
+@media (max-width: 480px) {
+    .testimonial-slider-section {
+        padding: 40px 0px;
+    }
+    .ts-sub-headline {
+        margin-bottom: 20px;
+    }
+}

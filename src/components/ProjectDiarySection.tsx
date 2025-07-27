@@ -17,8 +17,8 @@ const ProjectDiarySection: React.FC<ProjectDiarySectionProps> = ({title,images})
   // Define breakpoints for responsive columns
   const breakpointColumnsObj = {
     default: 3, // Default to 3 columns
-    1024: 2, // 2 columns on screens <= 1024px
-    768: 1, // 1 column on screens <= 768px
+    1024: 3, // 2 columns on screens <= 1024px
+    768: 2, // 1 column on screens <= 768px
   };
 
   return (

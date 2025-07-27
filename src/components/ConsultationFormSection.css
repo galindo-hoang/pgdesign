@@ -285,3 +285,11 @@ cf-form-group input.input-error,
         top: -35px;
     } 
 }
+@media (max-width: 480px) {
+    .cf-main-headline {
+        font-size: 1.8em;
+    }
+    .cf-form-grid {
+        gap: 3px;
+    }
+}

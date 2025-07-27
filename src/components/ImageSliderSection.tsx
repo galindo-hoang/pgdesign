@@ -31,8 +31,8 @@ const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides }) => {
      slidesToShow: 3, // How many slides are visible at once (adjust for your layout)
      slidesToScroll: 1, // How many slides to scroll at a time
      centerMode: true, // This is key for the "partially visible" effect
-     centerPadding: "120px", // Space around the center slide (adjust as needed)
-     autoplay: true, // Disable auto-scroll
+     centerPadding: "70px", // Space around the center slide (adjust as needed)
+     autoplay: false, // Disable auto-scroll
      autoplaySpeed: 1500, // Time between slides (not used when autoplay is false)
      arrows: false, // Hide default arrows (you can add custom ones if needed)
      swipe: true, // <--- Ensure this is true (it's default true)
@@ -52,7 +52,7 @@ const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides }) => {
          settings: {
            slidesToShow: 3,
            slidesToScroll: 1,
-           centerPadding: "40px",
+           centerPadding: "20px",
            dots: false,
            arrows: false,
          },
@@ -60,9 +60,9 @@ const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides }) => {
        {
          breakpoint: 480, // Mobile phones
          settings: {
-           slidesToShow: 3,
+           slidesToShow: 1,
            slidesToScroll: 1,
-           centerPadding: "20px",
+           centerPadding: "90px",
            dots: false,
            arrows: false,
          },

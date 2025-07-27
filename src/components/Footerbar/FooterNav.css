@@ -161,7 +161,7 @@
     .footer-middle-section {
         grid-template-columns: 1fr;
         /* 1 column on small screens */
-        gap: 40px;
+        gap: 20px;
     }
 
     .footer-info-column::after {
@@ -189,4 +189,17 @@
         width: 35px;
         height: 35px;
     } 
+
+    .footer-info-column:not(:last-child) {
+        padding: 0px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-middle-section {
+        gap: 10px;
+    }
+    .footer-info-column {
+        gap: 0px;
+    }
 }

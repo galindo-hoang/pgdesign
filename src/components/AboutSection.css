@@ -100,4 +100,9 @@
   .about-headline {
     font-size: 1.5em;
   }
+
+
+  .about-section {
+    padding: 40px 15px;
+  }
 }

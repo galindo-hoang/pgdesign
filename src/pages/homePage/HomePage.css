@@ -8,7 +8,7 @@
 /* === HERO/INTRO SECTION === */
 .hero-section {
   position: relative;
-  height: 100vh;
+  height: 90vh;
   width: 100%;
   overflow: hidden;
 }
@@ -129,7 +129,6 @@
 .about-intro-section,
 .statistics-section,
 .solutions-section,
-.services-section,
 .work-process-section,
 .team-section,
 .projects-section,
@@ -181,10 +180,6 @@
 
 .solutions-section {
   background: #ffffff;
-}
-
-.services-section {
-  background: linear-gradient(135deg, #f8faf9 0%, #ffffff 100%);
 }
 
 .work-process-section {
@@ -240,7 +235,18 @@
 
 @media (max-width: 768px) {
   .hero-section {
-    height: 80vh;
+    height: 50vh; /* Reduced from 80vh to 70vh */
+    min-height: 500px; /* Ensure minimum height for content */
+  }
+  
+  .hero-image-container {
+    height: 100%;
+    /* Optimize for mobile viewing */
+    object-position: center 30%; /* Focus on upper part of image */
+  }
+  
+  .hero-image {
+    object-position: center 30%; /* Better mobile image positioning */
   }
   
   .hero-main-text {
@@ -274,8 +280,6 @@
   .hero-image.active {
     animation-duration: 0.8s; /* Even faster individual image animations */
   }
-
-
 
   /* Simplified mobile animation */
   @keyframes heroZoomIn {
@@ -311,7 +315,18 @@
 
 @media (max-width: 480px) {
   .hero-section {
-    height: 70vh;
+    height: 44vh; /* Further reduced for small mobile */
+    min-height: 400px; /* Minimum height for very small screens */
+  }
+  
+  .hero-image-container {
+    height: 100%;
+    /* Optimize for small mobile */
+    object-position: center 25%; /* Focus more on upper part */
+  }
+  
+  .hero-image {
+    object-position: center 25%; /* Better positioning for small screens */
   }
   
   .hero-main-text {
@@ -344,8 +359,6 @@
     animation-duration: 0.6s; /* Fastest individual image animations */
   }
 
-
-
   /* Ultra-simple animation for small screens */
   @keyframes heroZoomIn {
     0% {
@@ -367,6 +380,65 @@
       transform: translate3d(0, 0, 0) scale(1);
       opacity: 1;
     }
+  }
+}
+
+/* Additional mobile optimizations */
+@media (max-width: 375px) {
+  .hero-section {
+    height: 55vh; /* Even smaller for very small screens */
+    min-height: 350px;
+  }
+  
+  .hero-image-container {
+    object-position: center 20%;
+  }
+  
+  .hero-image {
+    object-position: center 20%;
+  }
+  
+  .hero-main-text {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .hero-section {
+    height: 50vh; /* Smallest for iPhone SE and similar */
+    min-height: 300px;
+  }
+  
+  .hero-image-container {
+    object-position: center 15%;
+  }
+  
+  .hero-image {
+    object-position: center 15%;
+  }
+  
+  .hero-main-text {
+    font-size: 1.6rem;
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero-section {
+    height: 80vh; /* Slightly taller for landscape */
+    min-height: 450px;
+  }
+  
+  .hero-image-container {
+    object-position: center 40%;
+  }
+  
+  .hero-image {
+    object-position: center 40%;
+  }
+  
+  .hero-main-text {
+    font-size: 2.5rem; /* Smaller text for landscape */
   }
 }
 
@@ -437,7 +509,6 @@ html {
 
 /* Add subtle hover effects for interactive sections */
 .solutions-section:hover,
-.services-section:hover,
 .work-process-section:hover,
 .team-section:hover {
   transform: translateY(-2px);
