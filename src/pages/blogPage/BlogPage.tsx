@@ -4,17 +4,14 @@ import NewsSection from "./NewsSection";
 import ConsultationCTASection from "../../components/ConsultationCTASection";
 
 // Import BlogPageService
-import { 
-  fetchBlogPageData, 
-  fetchProjectItems, 
+import {
+  fetchBlogPageData,
   getCurrentDataSource
 } from "../../services/blogPageService";
 
 // Import types
-import { 
-  BlogPageData, 
-  ProjectGalleryData, 
-  BlogPageFilters 
+import {
+  BlogPageData
 } from "../../types/blogPageTypes";
 
 // Import LoadingSpinner component
@@ -24,11 +21,8 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 const BlogPage: React.FC = () => {
   // State management
   const [blogData, setBlogData] = useState<BlogPageData | null>(null);
-  const [visibleProjects, setVisibleProjects] = useState(6);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [projectsData, setProjectsData] = useState<ProjectGalleryData | null>(null);
-  const [newsLoading, setNewsLoading] = useState(false);
 
   // Mock news data - replace with actual API call
   const mockNewsData = [
@@ -130,17 +124,12 @@ const BlogPage: React.FC = () => {
       try {
         setIsLoading(true);
         setError(null);
-        
+
         const data = await fetchBlogPageData();
         setBlogData(data);
 
         // Load initial projects data
-        const projectFilters: BlogPageFilters = {
-          limit: visibleProjects,
-          offset: 0
-        };
-        const projectGallery = await fetchProjectItems(projectFilters);
-        setProjectsData(projectGallery);
+        // const projectGallery = await fetchProjectItems(projectFilters); // This line was removed
 
       } catch (err: any) {
         console.error('Error loading blog page data:', err);
@@ -152,7 +141,7 @@ const BlogPage: React.FC = () => {
 
     loadBlogPageData();
 
-  }, [visibleProjects]);
+  }, []); // Removed visibleProjects from dependency array
 
   const handleConsultationClick = () => {
     // Handle consultation form or contact
@@ -177,11 +166,11 @@ const BlogPage: React.FC = () => {
   if (isLoading) {
     return (
       <div className="blog-page">
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          height: '50vh' 
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '50vh'
         }}>
           <LoadingSpinner />
         </div>
@@ -193,14 +182,14 @@ const BlogPage: React.FC = () => {
   if (error || !blogData) {
     return (
       <div className="blog-page">
-        <div style={{ 
-          textAlign: 'center', 
+        <div style={{
+          textAlign: 'center',
           padding: '2rem',
           color: '#666'
         }}>
           <h2>Có lỗi xảy ra</h2>
           <p>{error || 'Không thể tải dữ liệu trang blog'}</p>
-          <button 
+          <button
             onClick={handleRetry}
             style={{
               padding: '0.5rem 1rem',
@@ -226,7 +215,7 @@ const BlogPage: React.FC = () => {
         news={mockNewsData}
         title="Tin Tức & Bài Viết"
         subtitle="Khám phá những bài viết mới nhất về thiết kế nội thất từ PG Design"
-        loading={newsLoading}
+        loading={false} // newsLoading state was removed, so it's always false
         onNewsClick={handleNewsClick}
       />
 

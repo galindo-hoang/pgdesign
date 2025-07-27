@@ -777,102 +777,6 @@ const convertGoogleDocToHtmlWithImages = async (documentData: any, documentId: s
   }
 };
 
-// Function to convert paragraph to HTML
-const convertParagraphToHtml = (paragraph: any): string => {
-  let html = '<p>';
-  
-  if (paragraph.elements) {
-    paragraph.elements.forEach((element: any) => {
-      if (element.textRun) {
-        const { textRun } = element;
-        const { content, textStyle } = textRun;
-        
-        let styledContent = content;
-        
-        // Apply text styling
-        if (textStyle) {
-          if (textStyle.bold) {
-            styledContent = `<strong>${styledContent}</strong>`;
-          }
-          if (textStyle.italic) {
-            styledContent = `<em>${styledContent}</em>`;
-          }
-          if (textStyle.underline) {
-            styledContent = `<u>${styledContent}</u>`;
-          }
-          if (textStyle.strikethrough) {
-            styledContent = `<del>${styledContent}</del>`;
-          }
-          
-          // Apply font size
-          if (textStyle.fontSize) {
-            const fontSize = textStyle.fontSize.magnitude;
-            styledContent = `<span style="font-size: ${fontSize}pt;">${styledContent}</span>`;
-          }
-          
-          // Apply font family
-          if (textStyle.weightedFontFamily) {
-            const fontFamily = textStyle.weightedFontFamily.fontFamily;
-            styledContent = `<span style="font-family: '${fontFamily}', sans-serif;">${styledContent}</span>`;
-          }
-          
-          // Apply text color
-          if (textStyle.foregroundColor && textStyle.foregroundColor.color) {
-            const color = textStyle.foregroundColor.color;
-            if (color.rgbColor) {
-              const { red, green, blue } = color.rgbColor;
-              const rgbColor = `rgb(${Math.round(red * 255)}, ${Math.round(green * 255)}, ${Math.round(blue * 255)})`;
-              styledContent = `<span style="color: ${rgbColor};">${styledContent}</span>`;
-            }
-          }
-        }
-        
-        html += styledContent;
-      } else if (element.inlineObjectElement) {
-        // Handle inline images
-        html += convertInlineImageToHtml(element.inlineObjectElement);
-      } else if (element.pageBreak) {
-        html += '<div class="page-break"></div>';
-      }
-    });
-  }
-  
-  html += '</p>';
-  return html;
-};
-
-// Function to convert inline images to HTML
-const convertInlineImageToHtml = (inlineObjectElement: any): string => {
-  try {
-    const { inlineObjectId, textStyle } = inlineObjectElement;
-    
-    // For now, we'll create a placeholder for images
-    // In a full implementation, you'd need to fetch the image data
-    let imageHtml = '<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTUwIiBmaWxsPSIjRjVGNUY1Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SW1hZ2U8L3RleHQ+Cjwvc3ZnPgo=" alt="Embedded image" class="google-doc-image" />';
-    
-    // Apply image styling if available
-    if (textStyle) {
-      const style = [];
-      
-      if (textStyle.fontSize) {
-        const fontSize = textStyle.fontSize.magnitude;
-        style.push(`width: ${fontSize * 2}px`);
-        style.push(`height: auto`);
-      }
-      
-      if (style.length > 0) {
-        imageHtml = imageHtml.replace('class="google-doc-image"', `class="google-doc-image" style="${style.join('; ')}"`);
-      }
-    }
-    
-    return imageHtml;
-    
-  } catch (error) {
-    console.error('❌ Error converting inline image:', error);
-    return '<span class="image-placeholder">[Image]</span>';
-  }
-};
-
 // Function to convert inline images to HTML with real image URLs
 const convertInlineImageToHtmlWithUrl = (inlineObjectElement: any, imageData: Map<string, string>): string => {
   try {
@@ -1014,44 +918,6 @@ const convertTableToHtmlWithImages = (table: any, imageData: Map<string, string>
     
   } catch (error) {
     console.error('❌ Error converting table to HTML with images:', error);
-    return '<p>[Table content]</p>';
-  }
-};
-
-// Function to convert table to HTML
-const convertTableToHtml = (table: any): string => {
-  try {
-    let html = '<table class="google-doc-table">';
-    
-    if (table.tableRows) {
-      table.tableRows.forEach((row: any) => {
-        html += '<tr>';
-        
-        if (row.tableCells) {
-          row.tableCells.forEach((cell: any) => {
-            html += '<td>';
-            
-            if (cell.content) {
-              cell.content.forEach((element: any) => {
-                if (element.paragraph) {
-                  html += convertParagraphToHtml(element.paragraph);
-                }
-              });
-            }
-            
-            html += '</td>';
-          });
-        }
-        
-        html += '</tr>';
-      });
-    }
-    
-    html += '</table>';
-    return html;
-    
-  } catch (error) {
-    console.error('❌ Error converting table to HTML:', error);
     return '<p>[Table content]</p>';
   }
 };
@@ -1278,57 +1144,6 @@ export const readFilespreadsheet = async(): Promise<MultiSheetData> => {
     // Return mock data as fallback
     return getMockMultiSheetData();
   }
-};
-
-// Mock spreadsheet data based on the actual Google Sheets content
-const getMockSpreadsheetData = (): GoogleSheetsData[] => {
-  return [
-    {
-      title: "Nhà đẹp là do mix chất liệu đúng cách – Bạn đã biết chưa?",
-      contentLink: "Nhà đẹp là do mix chất liệu đúng cách – Bạn đã biết chưa?",
-      imageLink: ""
-    },
-    {
-      title: "4 Tips Tạo Điểm Nhấn Cho Bếp Sang Trọng & Tiện Nghi",
-      contentLink: "4 Tips Tạo Điểm Nhấn Cho Bếp Sang Trọng & Tiện Nghi",
-      imageLink: ""
-    },
-    {
-      title: "Khám Phá 4 Phong Cách Tủ Quần Áo Đẹp Chuẩn Gu & Cá Tính",
-      contentLink: "Khám Phá 4 Phong Cách Tủ Quần Áo Đẹp Chuẩn Gu & Cá Tính",
-      imageLink: ""
-    },
-    {
-      title: "Các cách phối màu nội thất đẹp và sang trọng, nhìn lâu không chán",
-      contentLink: "PHỐI MÀU NỘI THẤT SAO CHO ĐẸP – SANG – NHÌN LÂU KHÔNG CHÁN",
-      imageLink: ""
-    },
-    {
-      title: "Top 7 vật liệu ốp tường gia chủ cần biết khi xây nhà và làm nội thất",
-      contentLink: "Top 7 vật liệu ốp tường gia chủ cần biết khi xây nhà và làm nội thất",
-      imageLink: ""
-    },
-    {
-      title: "6 + Tip vệ sinh bộ bàn ăn gỗ đơn giản ngay tại nhà",
-      contentLink: "6 + Tip vệ sinh bộ bàn ăn gỗ đơn giản ngay tại nhà",
-      imageLink: ""
-    },
-    {
-      title: "[21+ Mẫu] Kệ tivi dưới gầm cầu thang đẹp sang trọng, tinh tế - giá phải chăng",
-      contentLink: "[21+ Mẫu] Kệ tivi dưới gầm cầu thang đẹp sang trọng, tinh tế - giá phải chăng",
-      imageLink: ""
-    },
-    {
-      title: "12 Xu Hướng Thiết Kế Không Gian Xanh Cho Ngôi Nhà Của Bạn",
-      contentLink: "12 Xu Hướng Thiết Kế Không Gian Xanh Cho Ngôi Nhà Của Bạn",
-      imageLink: ""
-    },
-    {
-      title: "Bật mí 99+ thiết kế quán trà sữa đảm bảo hút khách",
-      contentLink: "Bật mí 99+ thiết kế quán trà sữa đảm bảo hút khách",
-      imageLink: ""
-    }
-  ];
 };
 
 // Mock enhanced data for fallback

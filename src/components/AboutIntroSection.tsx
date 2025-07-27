@@ -18,6 +18,8 @@ const AboutIntroSection: React.FC<AboutIntroSectionProps> = ({content}) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const currentSectionRef = sectionRef.current;
+    
     // Fallback: Trigger animation after 1 second regardless of intersection
     const fallbackTimer = setTimeout(() => {
       if (!isVisible) {
@@ -45,14 +47,14 @@ const AboutIntroSection: React.FC<AboutIntroSectionProps> = ({content}) => {
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    if (currentSectionRef) {
+      observer.observe(currentSectionRef);
     }
 
     return () => {
       clearTimeout(fallbackTimer);
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentSectionRef) {
+        observer.unobserve(currentSectionRef);
       }
       observer.disconnect();
     };

@@ -1384,31 +1384,7 @@ export const fetchBlogDetailData = async (identifier: string): Promise<BlogDetai
   return blogDetail;
 };
 
-// Function to read file content from the assets/blog directory
-async function readFileWithPath(folderName: string): Promise<string> {
-  try {
-    // Try to read raw.html file first
-    const response = await fetch(`${process.env.PUBLIC_URL}/assets/blog/${encodeURIComponent(folderName)}/raw.html`);
-    
-    if (!response.ok) {
-      // If raw.html doesn't exist, try raw.txt
-      const txtResponse = await fetch(`${process.env.PUBLIC_URL}/assets/blog/${encodeURIComponent(folderName)}/raw.txt`);
-      
-      if (!txtResponse.ok) {
-        throw new Error(`File not found: raw.html or raw.txt in ${folderName}`);
-      }
-      
-      const content = await txtResponse.text();
-      return content;
-    }
-    
-    const content = await response.text();
-    return content;
-  } catch (error) {
-    console.error(`Error reading file from ${folderName}:`, error);
-    throw new Error(`Failed to read file content from ${folderName}: ${error instanceof Error ? error.message : 'Unknown error'}`);
-  }
-}
+
 
 // Function to check if a file exists
 export const checkFileExists = async (folderName: string, fileName: string): Promise<boolean> => {

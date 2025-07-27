@@ -31,6 +31,8 @@ const VisionMissionSection: React.FC<VisionMissionSectionProps> = ({content}) =>
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const currentImageContainerRef = imageContainerRef.current;
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -47,13 +49,13 @@ const VisionMissionSection: React.FC<VisionMissionSectionProps> = ({content}) =>
       }
     );
 
-    if (imageContainerRef.current) {
-      observer.observe(imageContainerRef.current);
+    if (currentImageContainerRef) {
+      observer.observe(currentImageContainerRef);
     }
 
     return () => {
-      if (imageContainerRef.current) {
-        observer.unobserve(imageContainerRef.current);
+      if (currentImageContainerRef) {
+        observer.unobserve(currentImageContainerRef);
       }
       observer.disconnect();
     };

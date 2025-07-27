@@ -4,14 +4,6 @@ import "./ConsultationFormSection.css";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
-interface ConsultationFormData {
-  title?: string;
-  projectTypes?: string[];
-  minInvestment?: number;
-  maxInvestment?: number;
-  stepInvestment?: number;
-}
-
 const ConsultationFormSection: React.FC = () => {
 
   const formData = {

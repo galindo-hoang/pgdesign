@@ -71,10 +71,15 @@ const HomePage: React.FC = () => {
 
   // Hero section visibility observer
   useEffect(() => {
+    const currentHeroRef = heroRef.current;
+    
+    // Immediate fallback timer
     const immediateTimer = setTimeout(() => {
-      console.log('Hero - Immediate animation trigger'); 
-      setIsHeroVisible(true);
-    }, 500);
+      if (!isHeroVisible) {
+        console.log('Hero - Fallback animation trigger');
+        setIsHeroVisible(true);
+      }
+    }, 1000);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -93,14 +98,14 @@ const HomePage: React.FC = () => {
       }
     );
 
-    if (heroRef.current) {
-      observer.observe(heroRef.current);
+    if (currentHeroRef) {
+      observer.observe(currentHeroRef);
     }
 
     return () => {
       clearTimeout(immediateTimer);
-      if (heroRef.current) {
-        observer.unobserve(heroRef.current);
+      if (currentHeroRef) {
+        observer.unobserve(currentHeroRef);
       }
       observer.disconnect();
     };

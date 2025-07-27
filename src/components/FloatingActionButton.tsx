@@ -1,93 +1,85 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import "./FloatingActionButton.css";
 
 const FloatingActionButton: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [position, setPosition] = useState({ x: 40, y: 100 });
+  const [position, setPosition] = useState({ x: 20, y: 20 });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const buttonRef = useRef<HTMLDivElement>(null);
 
   const handleCall = () => {
-    window.open("tel:+84123456789", "_self");
+    window.open('tel:0978208351', '_self');
   };
 
   const handleZalo = () => {
-    window.open("https://zalo.me/84123456789", "_blank");
+    window.open('https://zalo.me/0978208351', '_blank');
   };
 
   const handleMessage = () => {
-    window.open("sms:+84123456789", "_self");
+    window.open('mailto:info@pgdesign.com', '_self');
   };
 
   const handleFacebook = () => {
-    window.open("https://m.me/pgdesign", "_blank");
+    window.open('https://facebook.com/pgdesign', '_blank');
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-    setIsExpanded(false);
-    
-    const rect = buttonRef.current?.getBoundingClientRect();
-    if (rect) {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
       setDragOffset({
         x: e.clientX - rect.left,
         y: e.clientY - rect.top
       });
+      setIsDragging(true);
     }
   };
 
-  const handleMouseMove = (e: MouseEvent) => {
-    if (!isDragging) return;
-    
-    const newX = window.innerWidth - (e.clientX - dragOffset.x) - 60;
-    const newY = window.innerHeight - (e.clientY - dragOffset.y) - 60;
-    
-    // Keep button within screen bounds
-    const boundedX = Math.max(15, Math.min(newX, window.innerWidth - 75));
-    const boundedY = Math.max(15, Math.min(newY, window.innerHeight - 75));
-    
-    setPosition({ x: boundedX, y: boundedY });
-  };
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (isDragging) {
+      const newX = e.clientX - dragOffset.x;
+      const newY = e.clientY - dragOffset.y;
+      
+      const boundedX = Math.max(15, Math.min(newX, window.innerWidth - 75));
+      const boundedY = Math.max(15, Math.min(newY, window.innerHeight - 75));
+      
+      setPosition({ x: boundedX, y: boundedY });
+    }
+  }, [isDragging, dragOffset]);
 
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-    setIsExpanded(false);
-    
-    const touch = e.touches[0];
-    const rect = buttonRef.current?.getBoundingClientRect();
-    if (rect) {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      const touch = e.touches[0];
       setDragOffset({
         x: touch.clientX - rect.left,
         y: touch.clientY - rect.top
       });
+      setIsDragging(true);
     }
   };
 
-  const handleTouchMove = (e: TouchEvent) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    
-    const touch = e.touches[0];
-    const newX = window.innerWidth - (touch.clientX - dragOffset.x) - 60;
-    const newY = window.innerHeight - (touch.clientY - dragOffset.y) - 60;
-    
-    // Keep button within screen bounds
-    const boundedX = Math.max(15, Math.min(newX, window.innerWidth - 75));
-    const boundedY = Math.max(15, Math.min(newY, window.innerHeight - 75));
-    
-    setPosition({ x: boundedX, y: boundedY });
-  };
+  const handleTouchMove = useCallback((e: TouchEvent) => {
+    if (isDragging) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const newX = touch.clientX - dragOffset.x;
+      const newY = touch.clientY - dragOffset.y;
+      
+      const boundedX = Math.max(15, Math.min(newX, window.innerWidth - 75));
+      const boundedY = Math.max(15, Math.min(newY, window.innerHeight - 75));
+      
+      setPosition({ x: boundedX, y: boundedY });
+    }
+  }, [isDragging, dragOffset]);
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
 
   useEffect(() => {
     if (isDragging) {
@@ -103,7 +95,7 @@ const FloatingActionButton: React.FC = () => {
         document.removeEventListener('touchend', handleTouchEnd);
       };
     }
-  }, [isDragging, dragOffset]);
+  }, [isDragging, dragOffset, handleMouseMove, handleMouseUp, handleTouchMove, handleTouchEnd]);
 
   const handleMouseEnter = () => {
     if (!isDragging) {
