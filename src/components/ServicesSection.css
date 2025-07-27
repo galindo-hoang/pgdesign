@@ -61,7 +61,7 @@
 
 .services-description {
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.4;
     color: var(--primary-color);
     margin: 0;
     max-width: 600px;
@@ -179,25 +179,25 @@
 
 .service-title {
     font-size: 1rem;
-    font-weight: 600;
-    color: #333333;
+    font-weight: normal;
+    color: #939393;
     margin: 0 0 0.3rem 0;
     line-height: 1.4;
 }
 
 .service-subtitle {
-    font-size: 0.95rem;
-    color: #666666;
+    font-size: 22px;
+    font-weight: 800;
+    color: black;
     margin: 0 0 0.3rem 0;
-    line-height: 1.4;
 }
 
 .service-card-description {
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 800;
     color: #333333;
     margin: 0;
-    line-height: 1.4;
+    line-height: 0.5;
 }
 
 /* Vertical separators between cards */

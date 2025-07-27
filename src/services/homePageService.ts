@@ -274,8 +274,8 @@ export const fetchStatsData = async (): Promise<StatsData> => {
             icon: BriefcaseIcon,
             targetValue: 5,
             label: "Kinh nghiệm",
-            suffix: "+ năm",
-            description: "Kinh nghiệm",
+            suffix: "+",
+            description: "Năm kinh nghiệm",
             backgroundImage: experienceImg,
             category: "experience"
           },
@@ -364,29 +364,29 @@ export const fetchSolutionData = async (): Promise<SolutionData> => {
           {
             id: 1,
             imageUrl: solutionImg1,
-            category: "Dịch vụ",
-            title: "Thiết kế kiến trúc",
+            category: "Dịch vụ thi công",
+            title: "Phần thô Trọn gói hoàn thiện",
             link: "/services/architecture-design",
           },
           {
             id: 2,
             imageUrl: solutionImg2,
-            category: "Dịch vụ",
-            title: "Thiết kế nội thất",
+            category: "Dịch vụ thi công",
+            title: "Nội thất",
             link: "/services/interior-design",
           },
           {
             id: 3,
             imageUrl: solutionImg3,
-            category: "Dịch vụ",
-            title: "Thi công hoàn thiện",
+            category: "Dịch vụ thiết kế",
+            title: "Kiến trúc - Nội thất",
             link: "/services/construction",
           },
           {
             id: 4,
             imageUrl: solutionImg4,
-            category: "Dịch vụ",
-            title: "Thi công trọn gói",
+            category: "Dịch vụ thi công",
+            title: "Cải tạo sửa chữa dự án đã có bản vẽ",
             link: "/services/full-package",
           },
         ]
@@ -540,7 +540,7 @@ export const fetchTestimonialData = async (): Promise<TestimonialData> => {
           {
             name: "CHỊ NHI",
             project: "CHUNG CƯ CITY GATES - Q1",
-            text: "Tôi rất hài lòng với dịch vụ thiết kế và thi công nội thất của PG Design. Mọi thứ đều được hoàn thiện đúng tiến độ, đúng như những gì tôi mong đợi - thậm chí còn đẹp hơn cả bản vẽ 3D. Nhân sự tư vấn kỹ lưỡng, thân thiện và luôn sẵn sàng hỗ trợ bất cứ khi nào tôi cần.",
+            text: "Tôi rất hài lòng với Dịch vụ thi công thiết kế và thi công nội thất của PG Design. Mọi thứ đều được hoàn thiện đúng tiến độ, đúng như những gì tôi mong đợi - thậm chí còn đẹp hơn cả bản vẽ 3D. Nhân sự tư vấn kỹ lưỡng, thân thiện và luôn sẵn sàng hỗ trợ bất cứ khi nào tôi cần.",
           },
           {
             name: "ANH BÌNH",

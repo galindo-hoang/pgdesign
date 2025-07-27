@@ -56,7 +56,7 @@
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 2.5rem;
+    gap: 0.2rem;
 }
 
 .navbar-item a {
@@ -81,10 +81,6 @@
         padding: 1rem 1.5rem;
     }
 
-    .navbar-links {
-        gap: 1.5rem;
-    }
-
     .navbar-item a {
         font-size: 1rem;
         padding: 0.4rem 0.8rem;
@@ -106,7 +102,6 @@
     .navbar-links {
         flex-wrap: wrap;
         justify-content: center;
-        gap: 1rem;
     }
 }
 
@@ -114,10 +109,6 @@
     .navbar-logo {
         height: 40px;
         /* Adjust responsive height for SVG */
-    }
-
-    .navbar-links {
-        gap: 0.8rem;
     }
 
     .navbar-item a {

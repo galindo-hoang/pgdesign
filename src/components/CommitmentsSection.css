@@ -29,8 +29,8 @@ html {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     /* Default desktop: 3 columns */
-    gap: 2rem;
-    width: 85%;
+    gap: 3rem;
+    width: 70%;
     /* Grid is 75% of section width */
     max-width: 1400px;
     /* ADDED: Prevents grid from getting too wide on very large screens */
@@ -140,34 +140,25 @@ html {
 .commitment-title {
     font-size: 24px;
     color: white;
-    font-weight: 600;
+    font-weight: bold;
     margin-bottom: 0;
     text-transform: uppercase;
     white-space: nowrap;
     line-height: 1;
     position: relative;
     padding-bottom: 0.3rem;
-}
-
-.commitment-title::after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: white;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    /* transform: translateX(0); REMOVED: Redundant with left: 0 and width: 100% */
+    align-items: flex-end;
 }
 
 .commitment-description {
     display: flex;
-    text-align: start;
-    font-size: 17px;
+    font-size: 15px;
+    opacity: 0.5;
+    font-weight: 400;
     line-height: 1.6;
     color: white;
     margin: 0;
+    text-align: justify;
     /* Ensures no default paragraph margins interfere */
 }
 

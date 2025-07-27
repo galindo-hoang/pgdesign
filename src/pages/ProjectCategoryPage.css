@@ -10,7 +10,7 @@
   padding: 0;
   position: relative;
   overflow: hidden;
-  min-height: 500px;
+  min-height: 70vh;
   display: flex;
   align-items: flex-end;
 }
@@ -90,8 +90,9 @@
 }
 
 .category-title {
-  font-size: 3.5rem;
-  font-weight: 800;
+  font-size: 78px;
+  font-weight: bold;
+  opacity: 0.45;
   margin-bottom: 20px;
   text-transform: uppercase;
   letter-spacing: 2px;

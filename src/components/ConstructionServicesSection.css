@@ -146,8 +146,9 @@
 
 .construction-service-list li {
   position: relative;
-  padding: 0.3rem 0 0.3rem 1rem;
-  font-size: 22px;
+  padding: 0 0 0 1rem;
+  
+  font-size: 20px;
   line-height: 1.5;
   color: #444444;
   text-align: left;
@@ -164,7 +165,7 @@
 }
 
 .construction-services-divider {
-  width: 2px;
+  width: 1px;
   height: 100%;
   background-color: black;
   justify-self: center;

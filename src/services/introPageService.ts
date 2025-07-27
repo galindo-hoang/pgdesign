@@ -26,7 +26,6 @@ const mockAboutIntroData: AboutIntroData = {
   identity: 'KHẲNG ĐỊNH BẢN SẮC',
   descriptions: [
     'Là đơn vị chuyên nghiệp trong lĩnh vực thiết kế kiến trúc, nội thất và thi công trọn gói. Với đội ngũ thiết kế và thi công giàu kinh nghiệm, chúng tôi cam kết mang đến những công trình chất lượng cao, đúng tiến độ và phản ánh rõ rệt tính cách của từng khách hàng.',
-    'PG Design không chỉ tạo ra những không gian sống và làm việc thẩm mỹ, mà còn góp phần xây dựng bản sắc riêng cho mỗi công trình thông qua thiết kế cá nhân hóa và có chiều sâu, gắn liền với phong cách sống và định hướng thương hiệu của khách hàng. Đây chính là cách chúng tôi mang đến giá trị vượt lên trên vẻ đẹp bề mặt - một không gian có hồn và có ý nghĩa.'
   ],
   backgroundImage: hero,
   isActive: true,
@@ -51,7 +50,7 @@ const mockVisionMissionData: VisionMissionData = {
       'Cung cấp các giải pháp thiết kế - thi công đồng bộ, chuyên nghiệp, đúng tiến độ tối ưu chi phí mà vẫn đảm bảo chất lượng và phong cách riêng.',
       'Đạt chuẩn mực thiết kế dựa trên nhu cầu, gu thẩm mỹ và mục tiêu sử dụng của từng khách hàng.',
       'Không ngừng sáng tạo, cập nhật xu hướng vật liệu, công nghệ và phong cách mới trong ngành thiết kế - nội thất.',
-      'Xây dựng mối quan hệ lâu dài với khách hàng trên nền tảng uy tín - minh bạch - tận tâm.'
+      'Xây dựng mối quan hệ lâu dài với khách hàng: Uy tín - Minh bạch - Tận tâm.'
     ]
   },
   coreValues: {
@@ -97,42 +96,42 @@ const mockCommitmentsData: CommitmentsData = {
       id: 1,
       iconName: 'direct-execution-icon',
       title: 'KHÔNG KHOÁN THẦU',
-      description: 'PG Design cam kết trực tiếp đảm nhận từ khâu thiết kế đến thi công, không giao khoán cho bên thứ ba.',
+      description: 'PG Design cam kết trực tiếp đảm nhận từ khâu thiết kế đến thi công.',
       displayOrder: 0
     },
     {
       id: 2,
       iconName: 'quality-materials-icon',
       title: 'VẬT TƯ ĐẠT CHUẨN',
-      description: 'Chúng tôi sử dụng vật liệu chính hãng, rõ nguồn gốc, đảm bảo độ bền và tính thẩm mỹ cho công trình.',
+      description: 'Chúng tôi sử dụng vật liệu chính hãng, đảm bảo độ bền và tính thẩm mỹ cho công trình.',
       displayOrder: 1
     },
     {
       id: 3,
       iconName: 'clear-pricing-icon',
       title: 'CHI PHÍ MINH BẠCH',
-      description: 'Mọi hạng mục đều được minh bạch trong báo giá. Cam kết không để khách hàng lo lắng về chi phí phát sinh bất ngờ.',
+      description: 'Mọi hạng mục đều được minh bạch trong báo giá. Cam kết không phát sinh bất ngờ.',
       displayOrder: 2
     },
     {
       id: 4,
       iconName: 'timely-delivery-icon',
       title: 'THI CÔNG ĐÚNG TIẾN ĐỘ',
-      description: 'Chúng tôi đặt uy tín lên hàng đầu, bằng việc thực hiện công trình đúng tiến độ đã thống nhất với khách hàng.',
+      description: 'Chúng tôi thực hiện công trình đúng tiến độ đã thống nhất với khách hàng.',
       displayOrder: 3
     },
     {
       id: 5,
       iconName: 'reasonable-price-icon',
-      title: 'GIÁ HỢP LÝ - TỐI ƯU NGÂN SÁCH',
-      description: 'Chi phí thiết kế và thi công được tính toán hợp lý, mang lại giá trị cao nhất cho mỗi đồng đầu tư của khách hàng.',
+      title: 'GIÁ HỢP LÝ',
+      description: 'Chi phí thiết kế và thi công được tính toán hợp lý cho khách hàng.',
       displayOrder: 4
     },
     {
       id: 6,
       iconName: 'post-handover-warranty-icon',
       title: 'CAM KẾT BẢO HÀNH',
-      description: 'Sau khi bàn giao, PG Design vẫn luôn đồng hành cùng khách hàng thông qua chính sách bảo hành chuyên nghiệp và chu đáo.',
+      description: 'Sau khi bàn giao vẫn luôn đồng hành cùng khách hàng bảo hành chuyên nghiệp và chu đáo.',
       displayOrder: 5
     }
   ],
@@ -202,6 +201,34 @@ const mockTeamData: TeamData = {
     },
     {
       id: 6,
+      name: 'Đỗ Thị F',
+      title: 'Project Coordinator',
+      image: backgroundImage,
+      displayOrder: 5
+    },
+    {
+      id: 7,
+      name: 'Lê Minh C',
+      title: 'Construction Manager',
+      image: backgroundImage,
+      displayOrder: 2
+    },
+    {
+      id: 8,
+      name: 'Phạm Thu D',
+      title: '3D Designer',
+      image: backgroundImage,
+      displayOrder: 3
+    },
+    {
+      id: 9,
+      name: 'Hoàng Văn E',
+      title: 'Site Supervisor',
+      image: backgroundImage,
+      displayOrder: 4
+    },
+    {
+      id: 10,
       name: 'Đỗ Thị F',
       title: 'Project Coordinator',
       image: backgroundImage,

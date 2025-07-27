@@ -76,7 +76,7 @@ const ProjectDetailPage: React.FC = () => {
         <div className="content-grid">
                     {/* Main Content */}
           <div className="main-content">
-            <h2>Thông tin chi tiết dự án</h2>
+            {/* <h2>Thông tin chi tiết dự án</h2> */}
             <div 
               className="embedded-html-content"
               dangerouslySetInnerHTML={{ __html: projectData.htmlContent }}

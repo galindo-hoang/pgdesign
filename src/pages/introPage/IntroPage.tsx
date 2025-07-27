@@ -9,6 +9,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 // Import intro page service and types
 import { fetchIntroPageData } from "../../services/introPageService";
 import { IntroPageData } from "../../types/introPageTypes";
+import ImageSliderSection from "../../components/ImageSliderSection";
 
 // Import static SVG icons
 import directExecutionIcon from "../../assets/icons/direct-execution-icon.svg";
@@ -142,6 +143,8 @@ const IntroPage: React.FC = () => {
         boardDirectors={teamData.boardDirectors} 
         teamMembers={teamData.teamMembers} 
       />
+
+        <ImageSliderSection slides={[]} />
     </div>
   );
 };

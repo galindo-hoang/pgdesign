@@ -81,8 +81,6 @@
 
     /* This is where the background color for the 'card' visually should be */
     background-color: #ffffff; /* This is the white background visible in the screenshot */
-    border-top-left-radius: 50% 150px; /* Adjust as needed for your curve */
-    border-top-right-radius: 50% 150px; /* Adjust as needed for your curve */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Shadow on the image container itself */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -333,11 +331,6 @@
         max-height: 500px;;
     }
     
-    .solution-image-container {
-        border-top-left-radius: 45% 120px;
-        border-top-right-radius: 45% 120px;
-    }
-    
     .solution-info {
         padding: 20px;
     }
@@ -384,11 +377,6 @@
         padding-top: 15px;
     }
     
-    .solution-image-container {
-        border-top-left-radius: 40% 100px;
-        border-top-right-radius: 40% 100px;
-    }
-    
     .solution-info {
         padding: 18px;
     }
@@ -433,11 +421,6 @@
         min-height: 320px;
         max-height: 400px;
         padding-top: 12px;
-    }
-    
-    .solution-image-container {
-        border-top-left-radius: 35% 80px;
-        border-top-right-radius: 35% 80px;
     }
     
     .solution-info {
@@ -488,11 +471,6 @@
         padding-top: 10px;
     }
     
-    .solution-image-container {
-        border-top-left-radius: 30% 60px;
-        border-top-right-radius: 30% 60px;
-    }
-    
     .solution-info {
         padding: 14px;
     }
@@ -534,11 +512,6 @@
         height: 35vh;
         min-height: 250px;
         max-height: 300px;
-    }
-    
-    .solution-image-container {
-        border-top-left-radius: 25% 50px;
-        border-top-right-radius: 25% 50px;
     }
     
     .solution-info {

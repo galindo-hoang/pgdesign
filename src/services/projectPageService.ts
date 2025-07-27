@@ -45,8 +45,8 @@ const mockStatsItems: StatsItem[] = [
     iconName: 'experience-icon',
     targetValue: 5,
     label: 'Kinh nghiệm',
-    suffix: '+ năm',
-    description: 'Kinh nghiệm',
+    suffix: '+',
+    description: 'Năm kinh nghiệm',
     backgroundImageUrl: diaryImage1,
     category: 'experience',
     displayOrder: 0
@@ -322,16 +322,15 @@ export const appendProjectImagesToHtml = (
 
   // Create image gallery HTML
   const imageGalleryHtml = `
-    <div style="margin: 2rem 0;">
-      <h3 style="color: #1b3025; margin-top: 2rem; margin-bottom: 1rem;">Hình ảnh dự án</h3>
-      <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+    <div style="">
+      <div style="display: flex; flex-direction: column;">
         ${projectImages.map((imageUrl, index) => {
           const processedUrl = processImageUrl(imageUrl);
           return `
             <img 
               src="${processedUrl}" 
               alt="${title} - Hình ${index + 1}" 
-              style="width: 100%; height: 400px; object-fit: cover;"
+              style="width: 100%; height: 400px; object-fit: cover; margin-bottom: 1px; margin-top: 1px;"
               loading="lazy"
             />
           `;

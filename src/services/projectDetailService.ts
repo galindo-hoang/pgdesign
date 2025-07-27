@@ -41,7 +41,7 @@ const mockProjectDetailData: ProjectDetailData = {
     <p style="line-height: 1.6; color: #333; margin-bottom: 1rem;"><strong style="color: #1b3025;">Tầng 2:</strong> Phòng ngủ chính, phòng ngủ khách và phòng tắm</p>
     <p style="line-height: 1.6; color: #333; margin-bottom: 1rem;"><strong style="color: #1b3025;">Tầng 3:</strong> Phòng làm việc, khu vực thư giãn và sân thượng</p>
     
-    <div style="margin: 2rem 0;">
+    <div style="">
       <h3 style="color: #1b3025; margin-top: 2rem; margin-bottom: 1rem;">Hình ảnh dự án</h3>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 1rem;">
         <img src="/assets/images/diary-image-1.png" alt="Mặt tiền nhà" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
@@ -68,7 +68,7 @@ const mockProjectDetailData: ProjectDetailData = {
       </em>
     </p>
     
-    <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 8px; margin: 2rem 0; border-left: 4px solid #4CAF50;">
+    <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 8px; border-left: 4px solid #4CAF50;">
       <h3 style="color: #1b3025; margin-bottom: 1rem;">Cam kết chất lượng</h3>
       <p style="color: #333; line-height: 1.6; margin-bottom: 1rem;">
         PG Design cam kết mang đến cho khách hàng những công trình chất lượng cao với:

@@ -15,15 +15,15 @@
 }
 
 .process-title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: bold;
   margin: 0 0 15px 0;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
 
 .process-description {
-  font-size: 0.9rem;
+  font-size: 16px;
   line-height: 1.6;
   margin: 0;
   max-width: 800px;

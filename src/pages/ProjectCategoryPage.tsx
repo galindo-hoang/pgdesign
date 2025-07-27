@@ -98,8 +98,8 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
       >
         <div className="floating-particles"></div>
         <div className="category-header-content">
-          <h1 className="category-title">{categoryData.title}</h1>
-          <p className="category-description">{categoryData.description}</p>
+          {/* <h1 className="category-title">Dự án {categoryData.title}</h1> */}
+          {/* <p className="category-description">{categoryData.description}</p> */}
         </div>
       </div>
 

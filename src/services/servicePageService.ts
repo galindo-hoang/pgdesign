@@ -248,10 +248,10 @@ export const fetchConstructionSection2Data = async (): Promise<ConstructionServi
       titleRight: "THI CÔNG NỘI THẤT",
       contentsRight: [
         "Gia công, sản xuất và lắp đặt nội thất theo bản vẽ thiết kế",
-        "Trình mẫu vật tư và nghiệm thu vật liệu đầu vào trước khi sản xuất",
+        "Trình mẫu và nghiệm thu vật liệu đầu vào trước khi sản xuất",
         "Vật liệu nội thất từ gỗ công nghiệp (An Cường,...) gỗ tự nhiên (gỗ óc chó...) hoặc gỗ nhựa (Picomat, WPB...)",
         "Cung cấp lắp đặt phụ kiện tủ từ cơ bản tới cao cấp",
-        "Cung cấp và lắp đặt thiết bị bếp (máy rửa chén, bếp từ, lò vi sóng...)",
+        "Cung cấp và lắp đặt thiết bị bếp (máy rửa chén, bếp từ,...)",
         "Cung cấp và lắp đặt thiết bị thông minh (nếu có)",
         "Nhận thi công nội thất từ thiết kế của khách hàng"
       ]
@@ -333,7 +333,7 @@ export const fetchConstructionSection4Data = async (): Promise<ConstructionServi
       contentsLeft: [
         "Khảo sát thực tế hiện trạng công trình",
         "Đánh giá kết cấu, hệ thống điện nước, vật liệu, công năng",
-        "Đề xuất phương án cải tạo phù hợp nhu cầu - thẩm mỹ - ngân sách",
+        "Đề xuất phương án phù hợp nhu cầu - thẩm mỹ - ngân sách",
         "Lập hồ sơ thiết kế cải tạo và dự toán công trình",
         "Thi công từ phần thô đến hoàn thiện",
         "Đảm bảo tiến độ, giám sát kỹ thuật và an toàn công trình trong suốt quá trình thi công"
@@ -345,7 +345,7 @@ export const fetchConstructionSection4Data = async (): Promise<ConstructionServi
         "Bóc tách khối lượng - lập báo giá chi tiết",
         "Trình mẫu vật tư trước khi thi công",
         "Triển khai thi công theo đúng hồ sơ thiết kế",
-        "Nghiệm thu từng phần & tổng thể công trình với CĐT trước khi bản giao",
+        "Nghiệm thu từng phần & tổng thể công trình với CĐT trước khi bàn giao",
         "Giám sát chặt chẽ - bảo hành công trình sau hoàn thiện"
       ]
     };

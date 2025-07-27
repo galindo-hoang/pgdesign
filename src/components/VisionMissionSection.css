@@ -26,7 +26,6 @@ html {
 .about-us-image-container {
     flex: 9;
     overflow: hidden;
-    border-radius: 30px;
     /* Initial state for animation - use transform3d for hardware acceleration */
     transform: translate3d(0, 0, 0) scale(0.8);
     opacity: 0;
@@ -74,7 +73,6 @@ html {
     flex: 11;
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
     /* Adjusted from 50px to rem for responsive gap between blocks */
     text-align: left;
 }
@@ -85,11 +83,10 @@ html {
     font-weight: 700;
     text-transform: uppercase;
     /* background-color: #D8DDD4; */
-    padding: 6px 30px 6px 30px;
+    padding: 6px 30px 0px 30px;
     border-top-right-radius: 80px;
     border-bottom-right-radius: 80px;
     display: inline-block;
-    margin-bottom: 0.625rem;
 }
 
 .about-us-block p,
@@ -99,12 +96,23 @@ html {
     margin-bottom: 0.9375rem;
     /* Base margin-bottom in rem */
     margin-left: 2.5rem;
+    margin-top: 0px;
+    text-align: justify;
     /* Base margin-left in rem */
+}
+
+.about-us-block:not(:first-child) {
+    margin-top: 50px;
 }
 
 .about-us-block ul {
     list-style: none;
     padding-left: 0;
+
+}
+
+.about-us-block .core-value-item:not(:first-child) {
+    margin-top: 15px;
 }
 
 .about-us-block ul li {
@@ -112,6 +120,7 @@ html {
     padding-left: 1.5625rem;
     /* Base padding-left in rem */
     margin-bottom: 0;
+    text-align: justify;
 }
 
 .about-us-block ul li::before {
@@ -122,6 +131,9 @@ html {
     left: 0;
     top: 0;
     font-weight: bold;
+}
+.core-value-item {
+    margin-bottom: 0px!important;
 }
 
 .core-value-item strong {

@@ -127,8 +127,9 @@
 }
 
 .stat-icon {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
+    opacity: 0.5;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
     transition: all 0.4s ease;
 }
@@ -155,8 +156,8 @@
 }
 
 .stat-value {
-    font-size: 1.3rem;
-    font-weight: 800;
+    font-size: 60px;
+    font-weight: bold;
     color: #ffffff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: all 0.4s ease;
@@ -177,7 +178,7 @@
 }
 
 .stat-description {
-    font-size: 0.9rem;
+    font-size: 20px;
     color: rgba(255, 255, 255, 0.7);
     line-height: 1.4;
     font-weight: 300;

@@ -211,16 +211,6 @@
   color: #adb5bd;
 }
 
-.embedded-html-content h3 {
-  color: #1b3025 !important;
-  margin-top: 2.5rem !important;
-  margin-bottom: 1.5rem !important;
-  font-weight: 600;
-  font-size: 1.5rem;
-  border-left: 4px solid #1b3025;
-  padding-left: 1rem;
-}
-
 .embedded-html-content h3:first-child {
   margin-top: 0 !important;
 }

@@ -68,7 +68,7 @@ const AboutIntroSection: React.FC<AboutIntroSectionProps> = ({content}) => {
     >
       <div className="about-intro-content-container">
         <div className="intro-pg-design">
-          <p className="about-intro-pg-design-title">{content.brandTitle}</p>
+          {/* <p className="about-intro-pg-design-title">{content.brandTitle}</p> */}
           <p className="about-intro-pg-design-subtitle">{content.brandSubtitle}</p>
         </div>
 
