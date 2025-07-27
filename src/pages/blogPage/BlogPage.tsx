@@ -7,9 +7,7 @@ import ConsultationCTASection from "../../components/ConsultationCTASection";
 import { 
   fetchBlogPageData, 
   fetchProjectItems, 
-  getCurrentDataSource, 
-  readFilespreadsheet,
-  readFilespreadsheetWithEmbeddedContent
+  getCurrentDataSource
 } from "../../services/blogPageService";
 
 // Import types
@@ -154,28 +152,7 @@ const BlogPage: React.FC = () => {
 
     loadBlogPageData();
 
-    readFilespreadsheetWithEmbeddedContent()
   }, [visibleProjects]);
-
-  // Handle load more projects
-  const handleLoadMore = async () => {
-    if (!projectsData || !projectsData.hasMore) return;
-
-    try {
-      const newLimit = visibleProjects + 6;
-      const filters: BlogPageFilters = {
-        limit: newLimit,
-        offset: 0
-      };
-
-      const newProjectsData = await fetchProjectItems(filters);
-      setProjectsData(newProjectsData);
-      setVisibleProjects(newLimit);
-    } catch (err: any) {
-      console.error('Error loading more projects:', err);
-      setError('Failed to load more projects');
-    }
-  };
 
   const handleConsultationClick = () => {
     // Handle consultation form or contact

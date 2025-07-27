@@ -71,12 +71,6 @@ const mockCategoriesData: Record<string, Omit<ProjectCategory, 'projects'>> = {
 const delay = (ms: number): Promise<void> => 
   new Promise(resolve => setTimeout(resolve, ms));
 
-// Transform dates (for compatibility) - no longer needed since we use strings
-const transformDates = (data: any): any => {
-  // Return data as-is since we now use string dates
-  return data;
-};
-
 // ========== MOCK FUNCTIONS ==========
 
 const fetchCategoryWithProjectsMock = async (categoryId: string): Promise<ProjectCategory> => {

@@ -12,10 +12,6 @@ interface ConsultationFormData {
   stepInvestment?: number;
 }
 
-interface ConsultationFormSectionProps {
-  formData: ConsultationFormData;
-}
-
 const ConsultationFormSection: React.FC = () => {
 
   const formData = {

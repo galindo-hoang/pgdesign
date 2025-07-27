@@ -20,7 +20,6 @@ interface ProjectCategoryPageProps {
 const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
   const [categoryData, setCategoryData] = useState<ProjectCategory | null>(null);
-  const [activeSubCategory, setActiveSubCategory] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

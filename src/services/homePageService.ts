@@ -51,7 +51,6 @@ import qualityImg from "../assets/images/diary-image-4.png";
 
 // API Configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
-const API_TIMEOUT = 10000; // 10 seconds
 
 // Feature flag for mock data
 const USE_MOCK_DATA = true;
@@ -100,7 +99,7 @@ export const fetchHeroData = async (): Promise<HeroData> => {
         headers: {
           'Content-Type': 'application/json',
         },
-        signal: AbortSignal.timeout(API_TIMEOUT),
+        signal: AbortSignal.timeout(10000),
       });
       
       if (!response.ok) {
@@ -135,7 +134,7 @@ export const fetchAboutData = async (): Promise<AboutData> => {
         headers: {
           'Content-Type': 'application/json',
         },
-        signal: AbortSignal.timeout(API_TIMEOUT),
+        signal: AbortSignal.timeout(10000),
       });
       
       if (!response.ok) {
@@ -319,7 +318,7 @@ export const fetchStatsData = async (): Promise<StatsData> => {
         headers: {
           'Content-Type': 'application/json',
         },
-        signal: AbortSignal.timeout(API_TIMEOUT),
+        signal: AbortSignal.timeout(10000),
       });
       
       if (!response.ok) {
@@ -399,7 +398,7 @@ export const fetchSolutionData = async (): Promise<SolutionData> => {
         headers: {
           'Content-Type': 'application/json',
         },
-        signal: AbortSignal.timeout(API_TIMEOUT),
+        signal: AbortSignal.timeout(10000),
       });
       
       if (!response.ok) {
@@ -456,7 +455,7 @@ export const fetchWorkflowData = async (): Promise<WorkflowData> => {
         headers: {
           'Content-Type': 'application/json',
         },
-        signal: AbortSignal.timeout(API_TIMEOUT),
+        signal: AbortSignal.timeout(10000),
       });
       
       if (!response.ok) {
@@ -505,7 +504,7 @@ export const fetchProjectDiaryData = async (): Promise<ProjectDiaryData> => {
         headers: {
           'Content-Type': 'application/json',
         },
-        signal: AbortSignal.timeout(API_TIMEOUT),
+        signal: AbortSignal.timeout(10000),
       });
       
       if (!response.ok) {
@@ -572,7 +571,7 @@ export const fetchTestimonialData = async (): Promise<TestimonialData> => {
         headers: {
           'Content-Type': 'application/json',
         },
-        signal: AbortSignal.timeout(API_TIMEOUT),
+        signal: AbortSignal.timeout(10000),
       });
       
       if (!response.ok) {
@@ -625,7 +624,7 @@ export const fetchConsultationFormData = async (): Promise<ConsultationFormData>
         headers: {
           'Content-Type': 'application/json',
         },
-        signal: AbortSignal.timeout(API_TIMEOUT),
+        signal: AbortSignal.timeout(10000),
       });
       
       if (!response.ok) {
@@ -692,7 +691,7 @@ export const fetchHomePageData = async (): Promise<HomePageData> => {
         headers: {
           'Content-Type': 'application/json',
         },
-        signal: AbortSignal.timeout(API_TIMEOUT),
+        signal: AbortSignal.timeout(10000),
       });
       
       if (!response.ok) {
@@ -804,7 +803,7 @@ export const checkApiHealth = async (): Promise<boolean> => {
         headers: {
           'Content-Type': 'application/json',
         },
-        signal: AbortSignal.timeout(API_TIMEOUT),
+        signal: AbortSignal.timeout(10000),
       });
       return response.ok;
     }

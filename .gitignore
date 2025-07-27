@@ -13,6 +13,9 @@
 
 # production
 /build
+/frontend-deployment
+/deployment
+/static
 
 # misc
 .DS_Store

@@ -12,7 +12,6 @@ import backgroundImage from '../assets/images/thumb-intro.png'
 
 // API Configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
-const API_TIMEOUT = 10000; // 10 seconds
 
 // Configuration for data source (can be controlled via environment variable)
 const USE_MOCK_DATA = true;

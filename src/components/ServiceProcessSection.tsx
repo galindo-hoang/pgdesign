@@ -69,7 +69,7 @@ const ServiceProcessSection: React.FC<ServiceProcessSectionProps> = ({
                 {description}
               </p>
             </div>
-            { note.length != 0 && (
+            { note.length !== 0 && (
               <p className="service-process-note">({note})</p>
             )}
           </div>

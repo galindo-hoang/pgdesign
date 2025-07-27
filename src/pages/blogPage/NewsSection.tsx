@@ -29,22 +29,6 @@ const NewsSection: React.FC<NewsSectionProps> = ({
   onNewsClick,
   className = ''
 }) => {
-  const [selectedHashtag, setSelectedHashtag] = useState<string | null>(null);
-
-  // Get all unique hashtags from news
-  const allHashtags = Array.from(
-    new Set(news.flatMap(item => item.hashtags))
-  ).sort();
-
-  // Filter news by selected hashtag
-  const filteredNews = selectedHashtag 
-    ? news.filter(item => item.hashtags.includes(selectedHashtag))
-    : news;
-
-  const handleHashtagClick = (hashtag: string) => {
-    setSelectedHashtag(selectedHashtag === hashtag ? null : hashtag);
-  };
-
   const handleNewsClick = (id: string) => {
     if (onNewsClick) {
       onNewsClick(id);
@@ -138,7 +122,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
 
         {/* News Grid */}
         <div className="news-grid">
-          {filteredNews.map((item) => (
+          {news.map((item) => (
             <BlogNewsCard
               key={item.id}
               id={item.id}
@@ -155,7 +139,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
         </div>
 
         {/* Filter Info */}
-        {selectedHashtag && (
+        {/* {selectedHashtag && (
           <div style={{ 
             textAlign: 'center', 
             marginTop: '20px',
@@ -164,7 +148,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
           }}>
             Hiển thị {filteredNews.length} bài viết với hashtag #{selectedHashtag}
           </div>
-        )}
+        )} */}
       </div>
     </section>
   );

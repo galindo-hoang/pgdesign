@@ -40,11 +40,11 @@
 }
 
 .pd-masonry-grid_column {
-    padding-left: 5px;
+    padding-left: 2px;
     background-clip: padding-box;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 2px;
 }
 
 .pd-masonry-grid_column>div {

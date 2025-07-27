@@ -777,35 +777,6 @@ const convertGoogleDocToHtmlWithImages = async (documentData: any, documentId: s
   }
 };
 
-// Function to convert Google Doc content to HTML (fallback without images)
-const convertGoogleDocToHtml = (documentData: any): string => {
-  try {
-    const { body } = documentData;
-    if (!body || !body.content) {
-      return '<p>No content available</p>';
-    }
-    
-    let html = '<div class="google-doc-content">';
-    
-    body.content.forEach((element: any) => {
-      if (element.paragraph) {
-        html += convertParagraphToHtml(element.paragraph);
-      } else if (element.table) {
-        html += convertTableToHtml(element.table);
-      } else if (element.sectionBreak) {
-        html += '<hr class="section-break">';
-      }
-    });
-    
-    html += '</div>';
-    return html;
-    
-  } catch (error) {
-    console.error('❌ Error converting Google Doc to HTML:', error);
-    return '<p>Error loading content</p>';
-  }
-};
-
 // Function to convert paragraph to HTML
 const convertParagraphToHtml = (paragraph: any): string => {
   let html = '<p>';

@@ -13,8 +13,9 @@ import service3 from "../assets/images/servicepage/service3.png";
 import service4 from "../assets/images/servicepage/service4.png";
 
 // API Configuration
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api';
-const API_TIMEOUT = 10000; // 10 seconds
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
+
+// Configuration for data source (can be controlled via environment variable)
 const USE_MOCK_DATA = true;
 
 // Utility function to simulate API delay
@@ -36,12 +37,12 @@ export const fetchServicePageData = async (): Promise<ServicePageData> => {
 
   try {
     console.log('Fetching service page data from API...');
-    const response = await fetch(`${API_BASE_URL}/v1/servicepage`, {
+    const response = await fetch(`${API_BASE_URL}/servicepage`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-      signal: AbortSignal.timeout(API_TIMEOUT),
+      signal: AbortSignal.timeout(10000), // Keep original timeout
     });
 
     if (!response.ok) {
@@ -375,6 +376,6 @@ export const getDataSourceInfo = () => {
   return {
     useMockData: USE_MOCK_DATA,
     apiBaseUrl: API_BASE_URL,
-    apiTimeout: API_TIMEOUT
+    apiTimeout: 10000 // Keep original timeout
   };
 }; 

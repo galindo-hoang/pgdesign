@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useMemo, useCallback } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import "./HomePage.css";
 import AboutSection from "../../components/AboutSection";
 import ImageSliderSection from "../../components/ImageSliderSection";
