@@ -540,27 +540,42 @@ export const fetchTestimonialData = async (): Promise<TestimonialData> => {
           {
             name: "CHỊ NHI",
             project: "CHUNG CƯ CITY GATES - Q1",
-            text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.",
+            text: "Tôi rất hài lòng với dịch vụ thiết kế và thi công nội thất của PG Design. Mọi thứ đều được hoàn thiện đúng tiến độ, đúng như những gì tôi mong đợi - thậm chí còn đẹp hơn cả bản vẽ 3D. Nhân sự tư vấn kỹ lưỡng, thân thiện và luôn sẵn sàng hỗ trợ bất cứ khi nào tôi cần.",
           },
           {
             name: "ANH BÌNH",
             project: "CHUNG CƯ CITY GATES - Q1",
-            text: "Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.",
+            text: "Điều tôi ấn tượng nhất ở PG Design là sự chuyên nghiệp và tinh tế trong từng chi tiết. Không gian sống sau khi hoàn thiện vừa hiện đại, vừa mang tính cá nhân hóa cao. Gia đình tôi cảm thấy thoải mái và hài lòng mỗi ngày khi trở về nhà.",
           },
           {
             name: "CHỊ LAN",
             project: "DỰ ÁN BIỆT THỰ ĐÀ LẠT - Q1",
-            text: "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim.",
+            text: "Biệt thự của tôi ở Đà Lạt có nhiều góc khó xử lý, nhưng PG Design đã đưa ra những giải pháp rất thông minh và thẩm mỹ. Thiết kế vừa sang trọng, vừa gần gũi với thiên nhiên – đúng như mong muốn ban đầu. Tôi đánh giá cao sự tận tâm và gu thẩm mỹ của đội ngũ.",
           },
           {
             name: "ANH THỊNH",
             project: "NHÀ PHỐ QUẬN 7 - Q1",
-            text: "Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius.",
+            text: "PG Design đã biến ngôi nhà phố của tôi thành một không gian sống hoàn hảo. Từ thiết kế ban đầu đến thi công hoàn thiện, mọi bước đều được thực hiện một cách chuyên nghiệp. Đặc biệt là phần bếp và phòng khách, vừa đẹp vừa tiện dụng cho gia đình.",
           },
           {
             name: "CHỊ MAI",
             project: "CĂN HỘ CAO CẤP - Q8",
-            text: "Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.",
+            text: "Làm việc với PG Design là một trải nghiệm tuyệt vời. Họ không chỉ tạo ra không gian đẹp mà còn hiểu rõ nhu cầu sử dụng của gia đình. Căn hộ sau khi hoàn thiện vừa hiện đại, vừa ấm cúng. Tôi rất hài lòng với kết quả cuối cùng.",
+          },
+          {
+            name: "ANH TUẤN",
+            project: "SHOPHOUSE QUẬN 2",
+            text: "Dự án shophouse của tôi được PG Design thiết kế rất thông minh, tối ưu không gian kinh doanh và sinh hoạt. Đội ngũ thi công chuyên nghiệp, đảm bảo chất lượng và tiến độ. Tôi đánh giá cao sự tận tâm và trách nhiệm của họ.",
+          },
+          {
+            name: "CHỊ HƯƠNG",
+            project: "VĂN PHÒNG QUẬN 3",
+            text: "Văn phòng công ty tôi được PG Design thiết kế theo phong cách hiện đại, tạo môi trường làm việc chuyên nghiệp và thoải mái. Nhân viên ai cũng thích không gian mới này. Cảm ơn PG Design đã mang lại giá trị thực sự cho doanh nghiệp.",
+          },
+          {
+            name: "ANH MINH",
+            project: "CĂN HỘ STUDIO - Q4",
+            text: "Căn hộ studio nhỏ của tôi được PG Design tối ưu hóa không gian một cách tuyệt vời. Mọi góc đều được sử dụng hiệu quả, tạo cảm giác rộng rãi hơn thực tế. Thiết kế vừa đẹp vừa thực dụng, phù hợp với lối sống hiện đại.",
           },
         ]
       };
