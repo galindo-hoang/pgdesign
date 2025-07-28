@@ -20,6 +20,7 @@ import reasonablePriceIcon from "../../assets/icons/reasonable-price-icon.svg";
 import postHandoverWarrantyIcon from "../../assets/icons/post-handover-warranty-icon.svg";
 import { fetchImageSliderData } from "../../services/homePageService";
 import { ImageSlideData } from "../../types/homePageTypes";
+import ConsultationFormSection from "../../components/ConsultationFormSection";
 
 // Icon mapping function
 const getIconByIconName = (iconName: string): string => {
@@ -151,7 +152,9 @@ const IntroPage: React.FC = () => {
         teamMembers={teamData.teamMembers} 
       />
 
-        <ImageSliderSection slides={imageSliderData || []} />
+      <ImageSliderSection slides={imageSliderData || []} />
+
+      <ConsultationFormSection/>
     </div>
   );
 };

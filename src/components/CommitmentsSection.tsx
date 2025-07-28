@@ -70,11 +70,14 @@ const CommitmentsSection: React.FC<CommitmentsSectionProps> = ({title,commitment
                 <div className={`commitment-icon ${isVisible ? 'animate-icon' : ''}`}>
                   <IconComponent />
                 </div>
+                <div>
+
                 <h3 className="commitment-title">{commitment.title}</h3>
-              </div>
               <p className="commitment-description">
                 {commitment.description}
               </p>
+                </div>
+              </div>
             </div>
           );
         })}

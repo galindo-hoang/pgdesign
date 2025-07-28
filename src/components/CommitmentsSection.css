@@ -53,12 +53,17 @@ html {
     justify-content: left;
     /* Default: Align icon and title to the left */
     width: 100%;
+    align-items: center;
+    /* Center items vertically */
 }
 
 .commitment-icon {
     width: 80px;
-    height: 80px;
-    /* margin-right: 0.5rem; */
+    height: 100%;
+    /* Scale height to match parent */
+    min-height: 80px;
+    /* Minimum height for desktop */
+    /* margin-right: 1rem; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,6 +72,8 @@ html {
     opacity: 0;
     transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     will-change: transform, opacity;
+    flex-shrink: 0;
+    /* Prevent icon from shrinking */
 }
 
 /* Animation trigger class */
@@ -148,6 +155,7 @@ html {
     position: relative;
     padding-bottom: 0.3rem;
     align-items: flex-end;
+    text-align: left;
 }
 
 .commitment-description {
@@ -155,7 +163,7 @@ html {
     font-size: 15px;
     opacity: 0.5;
     font-weight: 400;
-    line-height: 1.6;
+    line-height: 1;
     color: white;
     margin: 0;
     text-align: justify;
@@ -201,8 +209,11 @@ html {
     .commitment-icon {
         width: 60px;
         /* Adjust icon size for tablets */
-        height: 60px;
-        margin-right: 0.3rem;
+        height: 100%;
+        /* Scale height to match parent */
+        min-height: 60px;
+        /* Minimum height for tablets */
+        margin-right: 0.8rem;
         margin-bottom: 0;
     }
 
@@ -265,8 +276,11 @@ html {
     .commitment-icon {
         width: 50px;
         /* Further adjust icon size */
-        height: 50px;
-        margin-right: 0.4rem;
+        height: 100%;
+        /* Scale height to match parent */
+        min-height: 50px;
+        /* Minimum height for mobile */
+        margin-right: 0.6rem;
         margin-bottom: 0;
     }
 
@@ -318,16 +332,26 @@ html {
     }
 
     .pg-commitments-heading {
-        font-size: 1.5rem;
+        font-size: 26px;
         padding: 0.4rem 1rem;
         margin-bottom: 1.5rem;
     }
 
     .commitment-icon {
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        /* Adjust icon size for very small screens */
+        height: 100%;
+        /* Scale height to match parent */
+        min-height: 45px;
+        /* Minimum height for very small screens */
         margin-right: 0.5rem;
         /* Small adjustment for very small screens */
+    }
+
+    .commitment-icon-img {
+        width: 50px;
+        height: 50px;
+        margin-right: 30px;
     }
 
     /* Minimal animation for small devices */
@@ -338,6 +362,14 @@ html {
 
     .pg-commitments-grid {
         gap: 1rem;
+    }
+
+    .commitment-item p {
+        line-height: 120%;
+        font-size: 13px;
+    }
+    .commitment-header {
+        margin-bottom: 0px;
     }
 
     /* Ultra-simple animation for very small screens */
@@ -359,6 +391,7 @@ html {
 
     .commitment-description {
         font-size: 15px;
+        /* margin-left: 50px; */
         /* Smallest description size */
     }
 

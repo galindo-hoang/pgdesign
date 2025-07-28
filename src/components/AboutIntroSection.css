@@ -184,10 +184,15 @@
     }
 
     .about-intro-content-container {
-        width: 100%;
+        width: 70%;
         height: auto;
         padding: 40px 20px;
+        display: flex;
+        margin: 0 auto;
     } 
+    .about-intro-pg-design-subtitle, .about-intro-affirm-identity {
+        font-size: 18px;
+    }
 }
 
 /* Accessibility: Reduced Motion Support */

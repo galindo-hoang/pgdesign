@@ -233,6 +233,18 @@ html {
     }
 }
 
+@media (max-width: 480px) {
+    .about-us-block p,
+    .about-us-block ul {
+        line-height: 120%;
+        font-size: 13px;
+    }
+
+    .about-us-heading {
+        font-size: 19px;
+    }
+}
+
 /* Prefers-reduced-motion support for accessibility */
 @media (prefers-reduced-motion: reduce) {
     .about-us-image-container {
