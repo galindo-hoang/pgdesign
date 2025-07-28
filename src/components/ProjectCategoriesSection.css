@@ -379,7 +379,7 @@
   }
   
   .category-card {
-    height: 200px;
+    height: 500px;
   }
   
   .category-content-wrapper {
@@ -387,15 +387,16 @@
   }
   
   .category-top {
-    font-size: 0.9rem;
+    gap: 0px;
+    margin-left: 20px;
   }
   
   .category-top div:first-child {
-    font-size: 0.8rem;
+    font-size: 20px;
   }
   
   .category-top div:last-child {
-    font-size: 1rem;
+    font-size: 24px;
   }
   
   .category-bottom {

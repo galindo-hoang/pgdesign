@@ -215,7 +215,8 @@
 
 @media (max-width: 480px) {
     .intro-section {
-        background-size: 120%; /* Minimal zoom on small screens */
+        height: 60vh;
+        background-size: 100%; /* Minimal zoom on small screens */
         transform: scale(1.04);
     }
     
