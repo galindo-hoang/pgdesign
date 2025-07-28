@@ -315,8 +315,8 @@
 
 @media (max-width: 480px) {
   .hero-section {
-    height: 44vh; /* Further reduced for small mobile */
-    min-height: 400px; /* Minimum height for very small screens */
+    height: 24vh; /* Further reduced for small mobile */
+    min-height: 200px; /* Minimum height for very small screens */
   }
   
   .hero-image-container {

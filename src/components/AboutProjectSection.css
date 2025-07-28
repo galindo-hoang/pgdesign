@@ -215,7 +215,9 @@
 
 @media (max-width: 480px) {
     .intro-section {
-        height: 60vh;
+        height: 24vh; /* Further reduced for small mobile */
+        min-height: 200px; /* Minimum height for very small screens */
+  
         background-size: 100%; /* Minimal zoom on small screens */
         transform: scale(1.04);
     }
