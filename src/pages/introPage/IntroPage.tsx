@@ -18,6 +18,8 @@ import clearPricingIcon from "../../assets/icons/clear-pricing-icon.svg";
 import timelyDeliveryIcon from "../../assets/icons/timely-delivery-icon.svg";
 import reasonablePriceIcon from "../../assets/icons/reasonable-price-icon.svg";
 import postHandoverWarrantyIcon from "../../assets/icons/post-handover-warranty-icon.svg";
+import { fetchImageSliderData } from "../../services/homePageService";
+import { ImageSlideData } from "../../types/homePageTypes";
 
 // Icon mapping function
 const getIconByIconName = (iconName: string): string => {
@@ -33,6 +35,8 @@ const getIconByIconName = (iconName: string): string => {
 };
 
 const IntroPage: React.FC = () => {
+
+  const [imageSliderData, setImageSliderData] = useState<ImageSlideData[] | null>(null);
   const [introPageData, setIntroPageData] = useState<IntroPageData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -43,6 +47,9 @@ const IntroPage: React.FC = () => {
         setLoading(true);
         setError(null);
         const data = await fetchIntroPageData();
+
+        const imageSliderData = await fetchImageSliderData();
+        setImageSliderData(imageSliderData);
         setIntroPageData(data);
       } catch (err: any) {
         console.error('Error loading intro page data:', err);
@@ -144,7 +151,7 @@ const IntroPage: React.FC = () => {
         teamMembers={teamData.teamMembers} 
       />
 
-        <ImageSliderSection slides={[]} />
+        <ImageSliderSection slides={imageSliderData || []} />
     </div>
   );
 };

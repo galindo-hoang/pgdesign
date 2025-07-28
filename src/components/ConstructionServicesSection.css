@@ -96,7 +96,6 @@
 .construction-services-divider {
   opacity: 0;
   transform: scaleY(0);
-  transform-origin: top;
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -166,10 +165,11 @@
 
 .construction-services-divider {
   width: 1px;
-  height: 100%;
+  height: 50%;
+  transform-origin: center;
   background-color: black;
   justify-self: center;
-  align-self: stretch;
+  align-self: center;
 }
 
 /* Responsive Design */
