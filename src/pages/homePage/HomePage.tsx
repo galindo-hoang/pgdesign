@@ -63,7 +63,7 @@ const HomePage: React.FC = () => {
           (prevIndex + 1) % homePageData.hero.images.length
         );
         setIsImageAnimating(false);
-      }, 300); 
+      }, 1900); 
     }, 4000);
 
     return () => clearInterval(imageChangeInterval);
