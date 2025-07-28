@@ -535,7 +535,7 @@ export const additionalProjectData: {
     "id": 12,
     "projectId": "HN003",
     "title": "Thiết Kế Nhà Phố Indochine",
-    "clientName": "Khách hàng Indochine",
+    "clientName": "Nhà phố Long An",
     "area": "6x22m",
     "constructionDate": "2024-03-01",
     "address": "Long An",

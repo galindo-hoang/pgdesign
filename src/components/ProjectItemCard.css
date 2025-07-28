@@ -107,7 +107,6 @@
 
 .client-name {
   font-size: 22px;
-  margin-bottom: 6px;
   font-weight: bold;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -115,7 +114,6 @@
 .project-specs {
   display: flex;
   flex-direction: column;
-  gap: 2px;
 }
 
 .area,

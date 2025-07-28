@@ -18,7 +18,7 @@
 }
 
 .slide-card {
-  border-radius: 10px;
+  /* border-radius: 10px; */
   background-color: #fff;
   overflow: hidden;
   /* Ensures image corners are rounded */
@@ -51,9 +51,9 @@
   height: 100%;
   object-fit: cover;
   /* Ensures image covers the container without distortion */
-  border-top-left-radius: 4px;
+  /* border-top-left-radius: 4px; */
   /* Match card border-radius */
-  border-top-right-radius: 4px;
+  /* border-top-right-radius: 4px; */
 }
 
 .slide-info {

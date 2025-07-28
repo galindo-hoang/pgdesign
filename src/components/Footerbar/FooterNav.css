@@ -48,6 +48,7 @@
     flex-direction: column;
     align-items: center;
     gap: 4px;
+
     /* Space between elements in a column */
     padding: 0 0 10px 0;
     /* Padding for readability */
@@ -83,7 +84,8 @@
 
 .info-text {
     font-size: 0.9em;
-    color: #e0e0e0;
+    color: white;
+    font-weight: bold;
     /* Lighter text color */
     text-decoration: none;
     /* Remove underline for links */

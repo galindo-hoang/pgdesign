@@ -174,9 +174,10 @@
     
     .pd-main-headline {
         font-size: 1.8rem;
-        margin: 0 auto 20px auto;
-        padding: 0 15px;
+        margin: 5px auto;
+        padding: 5px;
         text-align: center;
+        justify-content: center;
     }
     
     .pd-masonry-wrapper {
@@ -188,7 +189,7 @@
     }
     
     .pd-masonry-grid {
-        margin-left: -10px;
+        margin-left: 0px;
         max-width: 100%;
         height: auto;
         display: flex;
@@ -196,6 +197,15 @@
         justify-content: center;
         align-items: flex-start;
         gap: 1px;
+    }
+
+    .ts-main-headline {
+        /* justify-self: center; */
+        text-align: center !important;
+        margin-bottom: 0px !important;
+    }
+    .ts-sub-headline {
+        margin-top: 0px;
     }
     .pd-masonry-grid_column {
         flex: 1;

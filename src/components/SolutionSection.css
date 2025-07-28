@@ -465,9 +465,8 @@
     .solution-card {
         width: 100%;
         max-width: 320px;
-        height: 40vh;
+        height: 60vh;
         min-height: 280px;
-        max-height: 350px;
         padding-top: 10px;
     }
     

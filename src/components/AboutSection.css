@@ -98,9 +98,12 @@
 
 @media (max-width: 480px) {
   .about-headline {
-    font-size: 1.5em;
+    font-size: 16px;
   }
 
+  .about-description {
+    font-size: 11px;
+  }
 
   .about-section {
     padding: 40px 15px;
