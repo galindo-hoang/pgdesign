@@ -365,28 +365,28 @@ export const fetchSolutionData = async (): Promise<SolutionData> => {
             id: 1,
             imageUrl: solutionImg1,
             category: "Dịch vụ thi công",
-            title: "Phần thô Trọn gói hoàn thiện",
+            title: ["Phần thô", "Trọn gói hoàn thiện"],
             link: "/services/architecture-design",
           },
           {
             id: 2,
             imageUrl: solutionImg2,
             category: "Dịch vụ thi công",
-            title: "Nội thất",
+            title: ["Nội thất"],
             link: "/services/interior-design",
           },
           {
             id: 3,
             imageUrl: solutionImg3,
             category: "Dịch vụ thiết kế",
-            title: "Kiến trúc - Nội thất",
+            title: ["Kiến trúc", "Nội thất"],
             link: "/services/construction",
           },
           {
             id: 4,
             imageUrl: solutionImg4,
             category: "Dịch vụ thi công",
-            title: "Cải tạo sửa chữa dự án đã có bản vẽ",
+            title: ["Cải tạo sửa chữa", "Dự án đã có bản vẽ"],
             link: "/services/full-package",
           },
         ]
@@ -415,7 +415,7 @@ export const fetchSolutionData = async (): Promise<SolutionData> => {
           id: solution.id,
           imageUrl: solution.image_url || '',
           category: solution.category || '',
-          title: solution.title || '',
+          title: Array.isArray(solution.title) ? solution.title : [solution.title],
           link: solution.link || ''
         }))
       };
@@ -758,7 +758,7 @@ export const fetchHomePageData = async (): Promise<HomePageData> => {
             id: solution.id,
             imageUrl: solution.image_url || '',
             category: solution.category || '',
-            title: solution.title || '',
+            title: Array.isArray(solution.title) ? solution.title : [solution.title],
             link: solution.link || ''
           }))
         },

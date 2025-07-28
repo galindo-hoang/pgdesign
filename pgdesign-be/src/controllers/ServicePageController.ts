@@ -540,28 +540,28 @@ export class ServicePageController {
     const defaults = {
       1: {
         processNumber: 1,
-        title: "THI CÔNG PHẦN THÔ HOẶC TRỌN GÓI HOÀN THIỆN",
+        title: ["THI CÔNG PHẦN THÔ HOẶC", "TRỌN GÓI HOÀN THIỆN"],
         description: "PG Design đảm nhận toàn bộ quy trình xây dựng từ phần thô đến hoàn thiện công trình.",
         note: "Không bao gồm thi công đồ nội thất rời",
         imageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-7.png"
       },
       2: {
         processNumber: 2,
-        title: "THI CÔNG NỘI THẤT",
+        title: ["THI CÔNG NỘI THẤT"],
         description: "PG Design đồng hành cùng bạn từ khâu hoàn thiện công trình, thi công nội thất đến cải tạo lại toàn bộ không gian sống.",
         note: "",
         imageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-7.png"
       },
       3: {
         processNumber: 3,
-        title: "THIẾT KẾ KIẾN TRÚC & NỘI THẤT",
+        title: ["THIẾT KẾ KIẾN TRÚC & NỘI THẤT"],
         description: "Từ khái niệm không gian đến bản vẽ chi tiết, PG Design kiến tạo nên những thiết kế vừa chuẩn công năng, vừa đậm chất thẩm mỹ.",
         note: "",
         imageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-7.png"
       },
       4: {
         processNumber: 4,
-        title: "CẢI TẠO SỬA CHỮA HOẶC DỰ ÁN ĐÃ CÓ BẢN VẼ",
+        title: ["CẢI TẠO SỬA CHỮA HOẶC", "DỰ ÁN ĐÃ CÓ BẢN VẼ"],
         description: "PG Design nhận thi công các công trình đã có bản vẽ kiến trúc hoặc nội thất.",
         note: "",
         imageUrl: "http://localhost:9000/pgdesign-assets/images/diary-image-7.png"

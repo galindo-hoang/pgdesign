@@ -66,7 +66,7 @@ export interface SolutionItemData {
   id: number;
   imageUrl: string;
   category: string;
-  title: string;
+  title: string[]; // Changed from string to string[]
   link: string;
   displayOrder: number;
 }
@@ -250,6 +250,27 @@ const transformConsultationFormData = (backendData: any): ConsultationFormData =
   };
 };
 
+const transformSolutionData = (backendData: any): SolutionData => {
+  return {
+    id: backendData.header?.id || 0,
+    header: {
+      mainHeadline: backendData.header?.main_headline || '',
+      subHeadline: backendData.header?.sub_headline || ''
+    },
+    solutions: (backendData.solutions || []).map((solution: any) => ({
+      id: solution.id,
+      imageUrl: solution.image_url,
+      category: solution.category,
+      title: Array.isArray(solution.title) ? solution.title : [solution.title], // Handle both array and string
+      link: solution.link,
+      displayOrder: solution.display_order
+    })),
+    isActive: backendData.header?.is_active || false,
+    createdAt: new Date(backendData.header?.created_at || Date.now()),
+    updatedAt: new Date(backendData.header?.updated_at || Date.now())
+  };
+};
+
 class HomepageAdminService {
   private baseURL = API_BASE_URL;
 
@@ -419,6 +440,17 @@ class HomepageAdminService {
         minInvestment: 0,
         maxInvestment: 0,
         stepInvestment: 0,
+        isActive: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      solution: response.solution ? transformSolutionData(response.solution) : {
+        id: 0,
+        header: {
+          mainHeadline: '',
+          subHeadline: ''
+        },
+        solutions: [],
         isActive: false,
         createdAt: new Date(),
         updatedAt: new Date()

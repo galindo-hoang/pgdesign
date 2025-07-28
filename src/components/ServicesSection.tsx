@@ -6,7 +6,7 @@ interface ServiceItem {
   id: number;
   title: string;
   subtitle: string;
-  description: string;
+  description: string[]; // Changed from string to string[]
 }
 
 interface ServicesHeroContent {
@@ -87,10 +87,17 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({heroContent, services}
               </div>
               <div className="service-content">
                 <h3 className="service-title">{service.title}</h3>
-                {service.subtitle && (
+                {/* {service.subtitle && (
                   <p className="service-subtitle">{service.subtitle}</p>
-                )}
-                <p className="service-card-description">{service.description}</p>
+                )} */}
+                <p className="service-card-description">
+                  {service.description.map((descLine, index) => (
+                    <React.Fragment key={index}>
+                      {descLine}
+                      {index < service.description.length - 1 && <br />}
+                    </React.Fragment>
+                  ))}
+                </p>
               </div>
             </div>
           ))}

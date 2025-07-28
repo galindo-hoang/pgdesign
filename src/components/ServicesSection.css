@@ -197,7 +197,7 @@
     font-weight: 800;
     color: #333333;
     margin: 0;
-    line-height: 0.5;
+    line-height: 120%;
 }
 
 /* Vertical separators between cards */

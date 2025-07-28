@@ -8,6 +8,22 @@ export class ServicePageProcessSectionsModel extends BaseModel {
     super('service_page_process_sections');
   }
 
+  private parseTitle(title: any): string[] {
+    if (typeof title === 'string') {
+      try {
+        return JSON.parse(title);
+      } catch {
+        // If parsing fails, treat as single string
+        return [title];
+      }
+    }
+    return Array.isArray(title) ? title : [title];
+  }
+
+  private serializeTitle(title: string[]): string {
+    return JSON.stringify(title);
+  }
+
   // Get all active process sections
   async getActiveProcessSections(): Promise<ServicePageProcessSectionEntity[]> {
     try {
@@ -23,8 +39,14 @@ export class ServicePageProcessSectionsModel extends BaseModel {
   // Get all process sections
   async getAll(): Promise<ServicePageProcessSectionEntity[]> {
     try {
-      return await db(this.tableName)
+      const results = await db(this.tableName)
         .orderBy('process_number', 'asc');
+      
+      // Parse JSON titles for each result
+      return results.map(result => ({
+        ...result,
+        title: this.parseTitle(result.title)
+      }));
     } catch (error) {
       console.error('Error fetching all process sections:', error);
       throw new Error('Failed to fetch process sections');
@@ -52,7 +74,12 @@ export class ServicePageProcessSectionsModel extends BaseModel {
         .where('process_number', processNumber)
         .first();
       
-      return result || null;
+      if (!result) return null;
+      
+      return {
+        ...result,
+        title: this.parseTitle(result.title)
+      };
     } catch (error) {
       console.error('Error fetching process section by number:', error);
       throw new Error('Failed to fetch process section');
@@ -68,14 +95,20 @@ export class ServicePageProcessSectionsModel extends BaseModel {
         throw new Error(`Process section ${data.processNumber} already exists`);
       }
 
-      const sectionData = {
+      const sectionData: any = {
         process_number: data.processNumber,
-        title: data.title,
         description: data.description,
         note: data.note || '',
         image_url: data.imageUrl || null,
         is_active: true
       };
+
+      // Serialize title if it's an array
+      if (Array.isArray(data.title)) {
+        sectionData.title = this.serializeTitle(data.title);
+      } else {
+        sectionData.title = data.title;
+      }
 
       const [id] = await db(this.tableName)
         .insert(sectionData);
@@ -89,7 +122,10 @@ export class ServicePageProcessSectionsModel extends BaseModel {
         throw new Error('Failed to retrieve created process section');
       }
 
-      return created;
+      return {
+        ...created,
+        title: this.parseTitle(created.title)
+      };
     } catch (error) {
       console.error('Error creating process section:', error);
       throw new Error('Failed to create process section');
@@ -101,7 +137,14 @@ export class ServicePageProcessSectionsModel extends BaseModel {
     try {
       const updateData: any = {};
       
-      if (data.title !== undefined) updateData.title = data.title;
+      if (data.title !== undefined) {
+        // Serialize title if it's an array
+        if (Array.isArray(data.title)) {
+          updateData.title = this.serializeTitle(data.title);
+        } else {
+          updateData.title = data.title;
+        }
+      }
       if (data.description !== undefined) updateData.description = data.description;
       if (data.note !== undefined) updateData.note = data.note;
       if (data.imageUrl !== undefined) updateData.image_url = data.imageUrl;
@@ -125,7 +168,10 @@ export class ServicePageProcessSectionsModel extends BaseModel {
         throw new Error('Failed to retrieve updated process section');
       }
 
-      return updated;
+      return {
+        ...updated,
+        title: this.parseTitle(updated.title)
+      };
     } catch (error) {
       console.error('Error updating process section:', error);
       throw new Error('Failed to update process section');

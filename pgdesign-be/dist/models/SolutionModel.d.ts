@@ -4,6 +4,8 @@ export declare class SolutionModel extends BaseModel {
     private solutionItemsModel;
     constructor();
     getSolutionWithItems(): Promise<SolutionData | null>;
+    private parseTitle;
+    private serializeTitle;
     createSolutionWithItems(headerData: Partial<SolutionHeader>, items: Partial<SolutionItem>[]): Promise<SolutionData>;
     updateSolutionWithItems(headerId: number, headerData: Partial<SolutionHeader>, items?: Partial<SolutionItem>[]): Promise<SolutionData | null>;
     validateSolutionHeaderData(data: any): Promise<string[]>;

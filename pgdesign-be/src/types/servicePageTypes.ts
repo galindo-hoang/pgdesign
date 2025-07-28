@@ -17,7 +17,7 @@ export interface ServicePageServiceEntity {
   id: number;
   title: string;
   subtitle: string;
-  description: string;
+  description: string[]; // Changed from string to string[]
   is_active: boolean;
   display_order: number;
   created_at?: Date;
@@ -27,7 +27,7 @@ export interface ServicePageServiceEntity {
 export interface ServicePageProcessSectionEntity {
   id: number;
   process_number: number;
-  title: string;
+  title: string[]; // Changed from string to string[]
   description: string;
   note: string;
   image_url: string;
@@ -60,12 +60,12 @@ export interface ServiceItem {
   id: number;
   title: string;
   subtitle: string;
-  description: string;
+  description: string[]; // Changed from string to string[]
 }
 
 export interface ServiceProcessData {
   processNumber: number;
-  title: string;
+  title: string[]; // Changed from string to string[]
   description: string;
   note: string;
   imageUrl: string;
@@ -105,7 +105,7 @@ export interface UpdateHeroContentInput extends Partial<CreateHeroContentInput> 
 export interface CreateServiceInput {
   title: string;
   subtitle?: string;
-  description: string;
+  description: string[]; // Changed from string to string[]
   displayOrder: number;
 }
 
@@ -113,7 +113,7 @@ export interface UpdateServiceInput extends Partial<CreateServiceInput> {}
 
 export interface CreateProcessSectionInput {
   processNumber: number;
-  title: string;
+  title: string[]; // Changed from string to string[]
   description: string;
   note?: string;
   imageUrl?: string;

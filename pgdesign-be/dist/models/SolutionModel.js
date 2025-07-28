@@ -20,21 +20,46 @@ class SolutionModel extends BaseModel_1.BaseModel {
             .select('*')
             .where({ solution_header_id: header.id, is_active: true })
             .orderBy('display_order', 'asc');
+        const parsedItems = items.map(item => ({
+            ...item,
+            title: this.parseTitle(item.title)
+        }));
         return {
             header,
-            solutions: items
+            solutions: parsedItems
         };
+    }
+    parseTitle(title) {
+        if (typeof title === 'string') {
+            try {
+                return JSON.parse(title);
+            }
+            catch {
+                return [title];
+            }
+        }
+        return Array.isArray(title) ? title : [title];
+    }
+    serializeTitle(title) {
+        return JSON.stringify(title);
     }
     async createSolutionWithItems(headerData, items) {
         const header = await this.create(headerData);
         const createdItems = [];
         for (let i = 0; i < items.length; i++) {
-            const item = await this.solutionItemsModel.create({
+            const itemData = {
                 ...items[i],
                 solution_header_id: header.id,
                 display_order: i
+            };
+            if (Array.isArray(itemData.title)) {
+                itemData.title = this.serializeTitle(itemData.title);
+            }
+            const item = await this.solutionItemsModel.create(itemData);
+            createdItems.push({
+                ...item,
+                title: this.parseTitle(item.title)
             });
-            createdItems.push(item);
         }
         return {
             header,
@@ -51,11 +76,15 @@ class SolutionModel extends BaseModel_1.BaseModel {
                 .where({ solution_header_id: headerId })
                 .update({ is_active: false, updated_at: new Date() });
             for (let i = 0; i < items.length; i++) {
-                await this.solutionItemsModel.create({
+                const itemData = {
                     ...items[i],
                     solution_header_id: headerId,
                     display_order: i
-                });
+                };
+                if (Array.isArray(itemData.title)) {
+                    itemData.title = this.serializeTitle(itemData.title);
+                }
+                await this.solutionItemsModel.create(itemData);
             }
         }
         return await this.getSolutionWithItems();
@@ -72,8 +101,15 @@ class SolutionModel extends BaseModel_1.BaseModel {
     }
     async validateSolutionItemData(data) {
         const errors = [];
-        if (!data.title || typeof data.title !== 'string' || data.title.trim().length === 0) {
-            errors.push('Title is required and must be a non-empty string');
+        if (!data.title || !Array.isArray(data.title) || data.title.length === 0) {
+            errors.push('Title is required and must be a non-empty array of strings');
+        }
+        else {
+            for (let i = 0; i < data.title.length; i++) {
+                if (typeof data.title[i] !== 'string' || data.title[i].trim().length === 0) {
+                    errors.push(`Title at index ${i} must be a non-empty string`);
+                }
+            }
         }
         if (!data.category || typeof data.category !== 'string' || data.category.trim().length === 0) {
             errors.push('Category is required and must be a non-empty string');

@@ -8,6 +8,22 @@ export class ServicePageServicesModel extends BaseModel {
     super('service_page_services');
   }
 
+  private parseDescription(description: any): string[] {
+    if (typeof description === 'string') {
+      try {
+        return JSON.parse(description);
+      } catch {
+        // If parsing fails, treat as single string
+        return [description];
+      }
+    }
+    return Array.isArray(description) ? description : [description];
+  }
+
+  private serializeDescription(description: string[]): string {
+    return JSON.stringify(description);
+  }
+
   // Get all active services
   async getActiveServices(): Promise<ServicePageServiceEntity[]> {
     try {
@@ -23,8 +39,14 @@ export class ServicePageServicesModel extends BaseModel {
   // Get all services
   async getAll(): Promise<ServicePageServiceEntity[]> {
     try {
-      return await db(this.tableName)
+      const results = await db(this.tableName)
         .orderBy('display_order', 'asc');
+      
+      // Parse JSON descriptions for each result
+      return results.map(result => ({
+        ...result,
+        description: this.parseDescription(result.description)
+      }));
     } catch (error) {
       console.error('Error fetching all services:', error);
       throw new Error('Failed to fetch services');
@@ -38,7 +60,12 @@ export class ServicePageServicesModel extends BaseModel {
         .where('id', id)
         .first();
       
-      return result || null;
+      if (!result) return null;
+      
+      return {
+        ...result,
+        description: this.parseDescription(result.description)
+      };
     } catch (error) {
       console.error('Error fetching service by ID:', error);
       throw new Error('Failed to fetch service');
@@ -48,13 +75,19 @@ export class ServicePageServicesModel extends BaseModel {
   // Create new service
   override async create(data: CreateServiceInput): Promise<ServicePageServiceEntity> {
     try {
-      const serviceData = {
+      const serviceData: any = {
         title: data.title,
         subtitle: data.subtitle || '',
-        description: data.description,
         display_order: data.displayOrder,
         is_active: true
       };
+
+      // Serialize description if it's an array
+      if (Array.isArray(data.description)) {
+        serviceData.description = this.serializeDescription(data.description);
+      } else {
+        serviceData.description = data.description;
+      }
 
       const [id] = await db(this.tableName)
         .insert(serviceData);
@@ -82,7 +115,14 @@ export class ServicePageServicesModel extends BaseModel {
       
       if (data.title !== undefined) updateData.title = data.title;
       if (data.subtitle !== undefined) updateData.subtitle = data.subtitle;
-      if (data.description !== undefined) updateData.description = data.description;
+      if (data.description !== undefined) {
+        // Serialize description if it's an array
+        if (Array.isArray(data.description)) {
+          updateData.description = this.serializeDescription(data.description);
+        } else {
+          updateData.description = data.description;
+        }
+      }
       if (data.displayOrder !== undefined) updateData.display_order = data.displayOrder;
 
       if (Object.keys(updateData).length === 0) {
@@ -203,8 +243,14 @@ export class ServicePageServicesModel extends BaseModel {
       const total = Number(countResult?.total || 0);
       const totalPages = Math.ceil(total / limit);
 
+      // Parse JSON descriptions for each service
+      const parsedServices = services.map(service => ({
+        ...service,
+        description: this.parseDescription(service.description)
+      }));
+
       return {
-        services,
+        services: parsedServices,
         total,
         totalPages
       };

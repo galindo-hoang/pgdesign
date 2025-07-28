@@ -6,7 +6,7 @@ interface SolutionItemData {
   id: number;
   imageUrl: string;
   category: string; // "Dịch vụ"
-  title: string;
+  title: string[]; // Changed from string to string[]
   link: string; // URL for "Xem chi tiết"
 }
 
@@ -38,7 +38,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({header,solutions}) => 
             <div className="solution-image-container">
               <img
                 src={solution.imageUrl}
-                alt={solution.title}
+                alt={solution.title.join(' ')}
                 className="solution-image"
               />
               {/* Overlay for gradient/text readability */}
@@ -52,7 +52,14 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({header,solutions}) => 
                   </button>
                   <div className="solution-text-content">
                     <p className="solution-category">{solution.category}</p>
-                    <h4 className="solution-title">{solution.title}</h4>
+                    <h4 className="solution-title">
+                      {solution.title.map((titleLine, index) => (
+                        <React.Fragment key={index}>
+                          {titleLine}
+                          {index < solution.title.length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
+                    </h4>
                   </div>
                 </div>
               </div>

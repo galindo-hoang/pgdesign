@@ -78,7 +78,7 @@ export interface SolutionItem extends BaseEntity {
   image_url: string;
   image_alt: string;
   category: string;
-  title: string;
+  title: string[]; // Changed from string to string[]
   link: string;
   display_order: number;
   is_active: boolean;

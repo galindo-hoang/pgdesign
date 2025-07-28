@@ -11,12 +11,12 @@ export interface ServiceItem {
   id: number;
   title: string;
   subtitle: string;
-  description: string;
+  description: string[]; // Changed from string to string[]
 }
 
 export interface ServiceProcessData {
   processNumber: number;
-  title: string;
+  title: string[]; // Changed from string to string[]
   description: string;
   note: string;
   imageUrl: string;

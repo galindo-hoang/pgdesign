@@ -50,7 +50,7 @@ export interface SolutionItemData {
   id: number;
   imageUrl: string;
   category: string;
-  title: string;
+  title: string[]; // Changed from string to string[]
   link: string;
 }
 

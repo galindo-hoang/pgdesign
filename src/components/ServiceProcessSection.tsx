@@ -3,7 +3,7 @@ import "./ServiceProcessSection.css";
 
 interface ServiceProcessSectionProps {
   processNumber: number;
-  title: string;
+  title: string[]; // Changed from string to string[]
   description: string;
   note: string;
   imageUrl: string;
@@ -63,7 +63,14 @@ const ServiceProcessSection: React.FC<ServiceProcessSectionProps> = ({
           
           <div className="service-process-content">
             <div className="service-process-main-content">
-              <h1 className="service-process-title">{title}</h1>
+              <h1 className="service-process-title">
+                {title.map((titleLine, index) => (
+                  <React.Fragment key={index}>
+                    {titleLine}
+                    {index < title.length - 1 && <br />}
+                  </React.Fragment>
+                ))}
+              </h1>
               
               <p className="service-process-description">
                 {description}

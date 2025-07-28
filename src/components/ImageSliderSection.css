@@ -98,6 +98,7 @@
 .slick-center .slide-card {
   padding: 0 !important;
   transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(5%);
 }
 
 .slick-slide {
@@ -150,7 +151,7 @@
 
   /* Center slide scaling for tablets */
   .slick-center .slide-card {
-    transform: scale(1.15);
+    transform: scale(1.15) translateY(10px);
   }
 
   .slick-slide:not(.slick-center) .slide-card {
@@ -207,7 +208,7 @@
   }
 
   .slick-center .slide-card {
-    transform: scale(1.1);
+    transform: scale(1.1) translateY(8px);
   }
 }
 
@@ -232,6 +233,7 @@
     flex: 1;
     /* Maintains 1/4 ratio */
     padding: 10px;
+    text-align: center;
   }
 
   .slide-title {
@@ -256,7 +258,7 @@
   }
 
   .slick-center .slide-card {
-    transform: scale(1.05);
+    transform: scale(1.05) translateY(5%);
   }
 }
 
@@ -294,7 +296,7 @@
   }
 
   .slick-center .slide-card {
-    transform: scale(1.02);
+    transform: scale(1.02) translateY(4px);
   }
 }
 
@@ -332,6 +334,6 @@
   }
 
   .slick-center .slide-card {
-    transform: scale(1.01);
+    transform: scale(1.01) translateY(2px);
   }
 }

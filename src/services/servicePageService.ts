@@ -140,26 +140,26 @@ export const fetchServicesData = async (): Promise<ServiceItem[]> => {
       {
         id: 1,
         title: "Dịch vụ thi công",
-        subtitle: "Phần thô hoặc",
-        description: "Trọn gói hoàn thiện"
+        subtitle: "",
+        description: ["Phần thô hoặc","Trọn gói hoàn thiện"]
       },
       {
         id: 2,
         title: "Dịch vụ thi công",
         subtitle: "",
-        description: "Nội thất"
+        description: ["Nội thất"]
       },
       {
         id: 3,
         title: "Dịch vụ thiết kế",
         subtitle: "",
-        description: "Kiến trúc - Nội thất"
+        description: ["Kiến trúc - Nội thất"]
       },
       {
         id: 4,
         title: "Dịch vụ thi công",
-        subtitle: "Cải tạo sửa chữa hoặc",
-        description: "Dự án đã có bản vẽ"
+        subtitle: "",
+        description: ["Cải tạo sửa chữa hoặc", "Dự án đã có bản vẽ"]
       }
     ];
   } catch (error) {
@@ -174,7 +174,7 @@ export const fetchProcessSection1Data = async (): Promise<ServiceProcessData> =>
     
     return {
       processNumber: 1,
-      title: "THI CÔNG PHẦN THÔ HOẶC TRỌN GÓI HOÀN THIỆN",
+      title: ["Thi công phần thô", "Trọn gói hoàn thiện"],
       description: "PG Design đảm nhận toàn bộ quy trình xây dựng từ phần thô đến hoàn thiện công trình — bao gồm thi công móng, kết cấu, xây tô, ốp lát, sơn nước, lắp đặt thiết bị vệ sinh, hệ thống điện - nước và trần đến hoàn chỉnh.",
       note: "Không bao gồm thi công đồ nội thất rời - xem mục Thi công nội thất",
       imageUrl: service1,
@@ -220,7 +220,7 @@ export const fetchProcessSection2Data = async (): Promise<ServiceProcessData> =>
     
     return {
       processNumber: 2,
-      title: "THI CÔNG NỘI THẤT",
+      title: ["THI CÔNG NỘI THẤT"],
       description: "PG Design đồng hành cùng bạn từ khâu hoàn thiện công trình, thi công nội thất đến cải tạo lại toàn bộ không gian sống - mang đến sự chỉn chu, tiện nghi và cảm xúc sống trọn vẹn.",
       note: "",
       imageUrl: service2,
@@ -268,7 +268,7 @@ export const fetchProcessSection3Data = async (): Promise<ServiceProcessData> =>
     
     return {
       processNumber: 3,
-      title: "THIẾT KẾ KIẾN TRÚC & NỘI THẤT",
+      title: ["THIẾT KẾ KIẾN TRÚC & NỘI THẤT"],
       description: "Từ khái niệm không gian đến bản vẽ chi tiết, PG Design kiến tạo nên những thiết kế vừa chuẩn công năng, vừa đậm chất thẩm mỹ - thể hiện rõ cá tính và phong cách sống của gia chủ trong từng đường nét.",
       note: "",
       imageUrl: service3,
@@ -313,7 +313,7 @@ export const fetchProcessSection4Data = async (): Promise<ServiceProcessData> =>
     
     return {
       processNumber: 4,
-      title: "CẢI TẠO SỬA CHỮA HOẶC DỰ ÁN ĐÃ CÓ BẢN VẼ",
+      title: ["Cải tạo sửa chữa hoặc", "Dự án đã có bản vẽ"],
       description: "PG Design nhận thi công các công trình đã có bản vẽ kiến trúc hoặc nội thất, đảm bảo đúng kỹ thuật - đúng thiết kế - đúng tiến độ, mang đến sản phẩm cuối cùng hoàn thiện với chất lượng chuẩn mực.",
       note: "",
       imageUrl: service4,
