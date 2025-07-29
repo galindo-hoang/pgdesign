@@ -314,9 +314,9 @@ export const appendProjectImagesToHtml = (
 
   // Function to process image URL with PUBLIC_URL if needed
   const processImageUrl = (imageUrl: string): string => {
-    if (imageUrl.startsWith('/assets/')) {
-      return `${process.env.PUBLIC_URL}${imageUrl}`;
-    }
+    // if (imageUrl.startsWith('/assets/')) {
+    //   return `${process.env.PUBLIC_URL}${imageUrl}`;
+    // }
     return imageUrl;
   };
 
@@ -365,9 +365,9 @@ export const processProjectImageUrls = (projectData: any): any => {
   if (!projectData) return projectData;
 
   const processImageUrl = (imageUrl: string): string => {
-    if (imageUrl && imageUrl.startsWith('/assets/')) {
-      return `${process.env.PUBLIC_URL}${imageUrl}`;
-    }
+    // if (imageUrl && imageUrl.startsWith('/assets/')) {
+    //   return `${process.env.PUBLIC_URL}${imageUrl}`;
+    // }
     return imageUrl;
   };
 

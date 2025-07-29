@@ -225,11 +225,6 @@
     margin: 0 auto;
   }
 
-  .slide-image-container {
-    flex: 3;
-    /* Maintains 3/4 ratio */
-  }
-
   .slide-info {
     flex: 1;
     /* Maintains 1/4 ratio */
@@ -256,6 +251,7 @@
 
   .slick-slide {
     padding: 0 3px;
+    margin-bottom: 20px;
   }
 
   .slick-center .slide-card {

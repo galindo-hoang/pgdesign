@@ -130,7 +130,7 @@ const BlogDetailPage: React.FC = () => {
       {/* Hero Section */}
       <div className="blog-hero">
         <img 
-          src={blogData.thumbnail.startsWith('/assets/') ? process.env.PUBLIC_URL + blogData.thumbnail : blogData.thumbnail} 
+          src={blogData.thumbnail} 
           alt={blogData.title}
           className="hero-background-image"
         />
