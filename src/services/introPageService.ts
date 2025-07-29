@@ -6,15 +6,10 @@ import {
   TeamData,
   ApiResponse
 } from '../types/introPageTypes';
-import { ImageSlideData } from '../types/homePageTypes';
 import hero from '../assets/images/intropage/hero.png'
 import mission from '../assets/images/intropage/mission.png'
 import backgroundImage from '../assets/images/thumb-intro.png'
 import CEOImage from '../assets/images/CEO.png'
-import thumbIntro1 from '../assets/images/diary-image-1.png';
-import thumbIntro2 from '../assets/images/diary-image-2.png';
-import thumbIntro3 from '../assets/images/diary-image-3.png';
-import thumbIntro from '../assets/images/thumb-intro.png';
 
 // API Configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';

@@ -29,9 +29,9 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/pgdesign/",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#2c3e50",
   "background_color": "#ffffff",
-  "scope": "/pgdesign/"
+  "scope": "/"
 }
