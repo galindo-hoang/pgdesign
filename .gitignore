@@ -12,7 +12,7 @@
 /pgdesign-be/dist
 
 # production
-/build
+# /build
 /frontend-deployment
 /deployment
 /static
