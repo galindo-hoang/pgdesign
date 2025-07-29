@@ -212,7 +212,7 @@ const HomePage: React.FC = () => {
           description={homePageData.about.description}
         />
         
-        {/* <ImageSliderSection slides={homePageData.imageSlider} /> */}
+        <ImageSliderSection slides={homePageData.imageSlider} />
         
         <StatsSection 
           stateHeader={homePageData.stats.header} 
