@@ -89,13 +89,13 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
       <div 
         className="category-header"
         data-category={categoryData.id}
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(${heroImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
       >
+        <img 
+          src={heroImage} 
+          alt={`${categoryData.title} header image`}
+          className="category-header-image"
+        />
+        <div className="category-header-overlay"></div>
         <div className="floating-particles"></div>
         <div className="category-header-content">
           {/* <h1 className="category-title">Dự án {categoryData.title}</h1> */}
