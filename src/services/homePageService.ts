@@ -69,9 +69,6 @@ let imageSliderCache: {
 // Cache duration: 5 minutes
 const CACHE_DURATION = 5 * 60 * 1000;
 
-// Utility function to simulate API delay
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
 // Error handling utility
 const handleApiError = (error: any, section: string) => {
   console.error(`Error fetching ${section} data:`, error);
@@ -83,7 +80,7 @@ export const fetchHeroData = async (): Promise<HeroData> => {
   try {
     if (USE_MOCK_DATA) {
       // Use mock data
-      await delay(500);
+      // await delay(500);
       return {
         images: [
           hero1,
