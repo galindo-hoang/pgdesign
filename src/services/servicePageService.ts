@@ -114,7 +114,7 @@ const fetchServicePageDataMock = async (): Promise<ServicePageData> => {
 // API Functions for each section (kept as fallback)
 export const fetchHeroContentData = async (): Promise<HeroContent> => {
   try {
-    await delay(300);
+    // await delay(300);
     
     // In real implementation, this would be:
     // const response = await fetch(`${API_BASE_URL}/service-page/hero`);
@@ -134,7 +134,7 @@ export const fetchHeroContentData = async (): Promise<HeroContent> => {
 
 export const fetchServicesData = async (): Promise<ServiceItem[]> => {
   try {
-    await delay(250);
+    // await delay(250);
     
     return [
       {
@@ -170,7 +170,7 @@ export const fetchServicesData = async (): Promise<ServiceItem[]> => {
 
 export const fetchProcessSection1Data = async (): Promise<ServiceProcessData> => {
   try {
-    await delay(200);
+    // await delay(200);
     
     return {
       processNumber: 1,
@@ -187,7 +187,7 @@ export const fetchProcessSection1Data = async (): Promise<ServiceProcessData> =>
 
 export const fetchConstructionSection1Data = async (): Promise<ConstructionServiceData> => {
   try {
-    await delay(200);
+    // await delay(200);
     
     return {
       titleLeft: "THI CÔNG PHẦN THÔ",
@@ -216,7 +216,7 @@ export const fetchConstructionSection1Data = async (): Promise<ConstructionServi
 
 export const fetchProcessSection2Data = async (): Promise<ServiceProcessData> => {
   try {
-    await delay(200);
+    // await delay(200);
     
     return {
       processNumber: 2,
@@ -233,7 +233,7 @@ export const fetchProcessSection2Data = async (): Promise<ServiceProcessData> =>
 
 export const fetchConstructionSection2Data = async (): Promise<ConstructionServiceData> => {
   try {
-    await delay(200);
+    // await delay(200);
     
     return {
       titleLeft: "THI CÔNG HOÀN THIỆN",
@@ -264,7 +264,7 @@ export const fetchConstructionSection2Data = async (): Promise<ConstructionServi
 
 export const fetchProcessSection3Data = async (): Promise<ServiceProcessData> => {
   try {
-    await delay(200);
+    // await delay(200);
     
     return {
       processNumber: 3,
@@ -281,7 +281,7 @@ export const fetchProcessSection3Data = async (): Promise<ServiceProcessData> =>
 
 export const fetchConstructionSection3Data = async (): Promise<ConstructionServiceData> => {
   try {
-    await delay(200);
+    // await delay(200);
     
     return {
       titleLeft: "THIẾT KẾ KIẾN TRÚC",
@@ -309,7 +309,7 @@ export const fetchConstructionSection3Data = async (): Promise<ConstructionServi
 
 export const fetchProcessSection4Data = async (): Promise<ServiceProcessData> => {
   try {
-    await delay(200);
+    // await delay(200);
     
     return {
       processNumber: 4,
@@ -326,7 +326,7 @@ export const fetchProcessSection4Data = async (): Promise<ServiceProcessData> =>
 
 export const fetchConstructionSection4Data = async (): Promise<ConstructionServiceData> => {
   try {
-    await delay(200);
+    // await delay(200);
     
     return {
       titleLeft: "CẢI TẠO SỬA CHỮA",

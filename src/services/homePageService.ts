@@ -121,7 +121,7 @@ export const fetchAboutData = async (): Promise<AboutData> => {
   try {
     if (USE_MOCK_DATA) {
       // Use mock data
-      await delay(300);
+      // await delay(300);
       return {
         headline: "MỖI THIẾT KẾ LÀ MỘT CÂU CHUYỆN",
         subHeadline: "MỖI CÔNG TRÌNH LÀ MỘT DẤU ẤN",
@@ -211,7 +211,7 @@ const fetchImageSliderDataInternal = async (): Promise<ImageSlideData[]> => {
   } catch (error) {
     console.error('Error fetching image slider data from projects:', error);
     console.log('Falling back to original mock data for image slider');
-    await delay(400);
+    // await delay(400);
     return [
       {
         id: 1,
@@ -261,7 +261,7 @@ export const fetchStatsData = async (): Promise<StatsData> => {
   try {
     if (USE_MOCK_DATA) {
       // Use mock data
-      await delay(350);
+      // await delay(350);
       return {
         header: {
           mainHeadline: "THÀNH TỰU CỦA CHÚNG TÔI",
@@ -354,7 +354,7 @@ export const fetchSolutionData = async (): Promise<SolutionData> => {
   try {
     if (USE_MOCK_DATA) {
       // Use mock data
-      await delay(300);
+      // await delay(300);
       return {
         header: {
           mainHeadline: "GIẢI PHÁP KHÔNG GIAN",
@@ -430,7 +430,7 @@ export const fetchWorkflowData = async (): Promise<WorkflowData> => {
   try {
     if (USE_MOCK_DATA) {
       // Use mock data
-      await delay(250);
+      // await delay(250);
       return {
         title: "QUY TRÌNH LÀM VIỆC",
         workflows: [
@@ -483,7 +483,7 @@ export const fetchProjectDiaryData = async (): Promise<ProjectDiaryData> => {
   try {
     if (USE_MOCK_DATA) {
       // Use mock data
-      await delay(200);
+      // await delay(200);
       return {
         title: "NHẬT KÝ HÀNH TRÌNH",
         images: [
@@ -530,7 +530,7 @@ export const fetchTestimonialData = async (): Promise<TestimonialData> => {
   try {
     if (USE_MOCK_DATA) {
       // Use mock data
-      await delay(300);
+      // await delay(300);
       return {
         header: {
           mainHeadline: "CẢM NHẬN KHÁCH HÀNG",
@@ -616,7 +616,7 @@ export const fetchConsultationFormData = async (): Promise<ConsultationFormData>
   try {
     if (USE_MOCK_DATA) {
       // Use mock data
-      await delay(150);
+      // await delay(150);
       return {
         title: "ĐĂNG KÝ TƯ VẤN",
         projectTypes: [
@@ -809,7 +809,7 @@ export const checkApiHealth = async (): Promise<boolean> => {
   try {
     if (USE_MOCK_DATA) {
       // Mock health check
-      await delay(100);
+      // await delay(100);
       return true;
     } else {
       // Real API health check

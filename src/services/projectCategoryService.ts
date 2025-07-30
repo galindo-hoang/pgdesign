@@ -75,7 +75,7 @@ const delay = (ms: number): Promise<void> =>
 
 const fetchCategoryWithProjectsMock = async (categoryId: string): Promise<ProjectCategory> => {
   console.log(`🎭 Mock Data: Fetching category ${categoryId} with projects`);
-  await delay(800);
+  // await delay(800);
 
   const categoryInfo = mockCategoriesData[categoryId];
   if (!categoryInfo) {
@@ -92,7 +92,7 @@ const fetchCategoryWithProjectsMock = async (categoryId: string): Promise<Projec
 
 const fetchCategoryProjectForHomePageMock = async (): Promise<ProjectDetail[]> => {
   console.log(`🎭 Mock Data: Fetching projects for HomePage (isOnHomePage: true)`);
-  await delay(800);
+  // await delay(800);
 
   // Get all projects from additional data and filter by isOnHomePage flag
   const allProjects: ProjectDetail[] = [];

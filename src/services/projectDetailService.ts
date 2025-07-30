@@ -128,7 +128,7 @@ const handleApiError = (error: any, context: string) => {
 
 // Mock API functions
 export const fetchProjectDetailDataMock = async (projectId: string): Promise<ProjectDetailData> => {
-  await delay(800); // Simulate API delay
+  // await delay(800); // Simulate API delay
   
   // Try to find project in additional data first
   const additionalProject = getProjectByProjectId(projectId);
@@ -263,7 +263,7 @@ export const projectDetailService = {
     limit?: number;
   }): Promise<ProjectDetailData[]> {
     if (USE_MOCK_DATA) {
-      await delay(300);
+      // await delay(300);
       return [mockProjectDetailData];
     }
 
@@ -297,7 +297,7 @@ export const projectDetailService = {
   // Create project detail
   async createProjectDetail(projectData: Omit<ProjectDetailData, 'id'>): Promise<ProjectDetailData | null> {
     if (USE_MOCK_DATA) {
-      await delay(1000);
+      // await delay(1000);
       return { ...projectData, id: `project-${Date.now()}` };
     }
 
@@ -325,7 +325,7 @@ export const projectDetailService = {
   // Update project detail
   async updateProjectDetail(id: string, projectData: Partial<ProjectDetailData>): Promise<ProjectDetailData | null> {
     if (USE_MOCK_DATA) {
-      await delay(1000);
+      // await delay(1000);
       return { ...mockProjectDetailData, ...projectData, id };
     }
 
@@ -353,7 +353,7 @@ export const projectDetailService = {
   // Delete project detail
   async deleteProjectDetail(id: string): Promise<boolean> {
     if (USE_MOCK_DATA) {
-      await delay(500);
+      // await delay(500);
       return true;
     }
 
@@ -377,7 +377,7 @@ export const projectDetailService = {
   // Get project categories
   async getProjectCategories(): Promise<string[]> {
     if (USE_MOCK_DATA) {
-      await delay(200);
+      // await delay(200);
       return ['house-normal', 'appartment', 'apartment', 'office', 'commercial'];
     }
 
@@ -399,7 +399,7 @@ export const projectDetailService = {
   // Get project subcategories
   async getProjectSubCategories(category?: string): Promise<string[]> {
     if (USE_MOCK_DATA) {
-      await delay(200);
+      // await delay(200);
       return ['Nhà Ống', 'Nhà Biệt Thự', 'Căn Hộ', 'Văn Phòng'];
     }
 
@@ -431,7 +431,7 @@ export const projectDetailService = {
     limit?: number;
   }): Promise<ProjectDetailData[]> {
     if (USE_MOCK_DATA) {
-      await delay(300);
+      // await delay(300);
       return query.toLowerCase().includes('nhà phố') ? [mockProjectDetailData] : [];
     }
 
