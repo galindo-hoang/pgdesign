@@ -9,7 +9,21 @@ import {
 import hero from '../assets/images/intropage/hero.png'
 import mission from '../assets/images/intropage/mission.png'
 import backgroundImage from '../assets/images/thumb-intro.png'
-import CEOImage from '../assets/images/CEO.png'
+import CEOImage from '../assets/images/PG NHÂN SỰ/PHAN TÔ THƯ - GIÁM ĐỐC.jpg'
+import CEOImage2 from '../assets/images/PG NHÂN SỰ/VÕ NGUYÊN PHÁP - GIÁM ĐỐC THI CÔNG.jpg'
+import employeeImage2 from '../assets/images/PG NHÂN SỰ/ĐỖ TUYẾT QUY - TRƯỞNG PHÒNG MARKETING.jpg'
+import employeeImage3 from '../assets/images/PG NHÂN SỰ/Y NHẬT MINH - TRƯỞNG PHÒNG KINH DOANH.jpg'
+import employeeImage4 from '../assets/images/PG NHÂN SỰ/CÁP NGUYỄN HỒNG PHÚC - KINH DOANH.jpg'
+import employeeImage5 from '../assets/images/PG NHÂN SỰ/ĐẶNG HỒNG SƠN - KỸ SƯ XÂY DỰNG.jpg'
+import employeeImage6 from '../assets/images/PG NHÂN SỰ/DIỆP GIA HY - KINH DOANH.jpg'
+import employeeImage7 from '../assets/images/PG NHÂN SỰ/LÊ ĐÌNH THIÊN - KIẾN TRÚC SƯ.jpg'
+import employeeImage8 from '../assets/images/PG NHÂN SỰ/LÊ DUY HUY - KĨ SƯ XÂY DỰNG.jpg'
+import employeeImage9 from '../assets/images/PG NHÂN SỰ/LÊ THỊ NGỌC DIỄM - THIẾT KẾ NỘI THẤT.jpg'
+import employeeImage10 from '../assets/images/PG NHÂN SỰ/NGUYỄN HOÀNG BẢO - KĨ SƯ XÂY.jpg'
+import employeeImage11 from '../assets/images/PG NHÂN SỰ/NGUYỄN THÀNH THẠO - KỸ SƯ MEP.jpg'
+import employeeImage12 from '../assets/images/PG NHÂN SỰ/NGUYỄN THỊ THU THẢO - KẾ TOÁN HÀNH CHÍNH.jpg'
+import employeeImage13 from '../assets/images/PG NHÂN SỰ/PHAN NHẬT HÀ - THIẾT KẾ NỘI THẤT.jpg'
+import employeeImage14  from '../assets/images/PG NHÂN SỰ/NGUYỄN THỊ THU HUYỀN - MARKETING.jpg'
 
 // API Configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
@@ -151,8 +165,8 @@ const mockTeamData: TeamData = {
   boardDirectors: [
     {
       id: 1,
-      name: 'Phan Anh Thư',
-      title: 'CEO & Founder',
+      name: 'Phan Tô Thư',
+      title: 'Giám Đốc',
       image: CEOImage,
       displayOrder: 0
     },
@@ -160,81 +174,102 @@ const mockTeamData: TeamData = {
       id: 2,
       name: 'Võ Nguyên Pháp',
       title: 'Project Director',
-      image: backgroundImage,
+      image: CEOImage2,
       displayOrder: 1
     }
   ],
   teamMembers: [
     {
-      id: 1,
-      name: 'Nguyễn Văn A',
-      title: 'Senior Architect',
-      image: backgroundImage,
-      displayOrder: 0
-    },
-    {
-      id: 2,
-      name: 'Trần Thị B',
-      title: 'Interior Designer',
-      image: backgroundImage,
+      id: 3,
+      name: 'Đỗ Tuyết Quy',
+      title: 'Trưởng Phòng Marketing',
+      image: employeeImage2,
       displayOrder: 1
     },
     {
-      id: 3,
-      name: 'Lê Minh C',
-      title: 'Construction Manager',
-      image: backgroundImage,
-      displayOrder: 2
-    },
-    {
       id: 4,
-      name: 'Phạm Thu D',
-      title: '3D Designer',
-      image: backgroundImage,
-      displayOrder: 3
+      name: 'Y Nhật Minh',
+      title: 'Trưởng phòng Kinh Doanh',
+      image: employeeImage3,
+      displayOrder: 2
     },
     {
       id: 5,
-      name: 'Hoàng Văn E',
-      title: 'Site Supervisor',
-      image: backgroundImage,
+      name: 'Đặng Hồng Sơn',
+      title: 'Kỹ Sư Xây Dựng',
+      image: employeeImage5,
       displayOrder: 4
-    },
-    {
-      id: 6,
-      name: 'Đỗ Thị F',
-      title: 'Project Coordinator',
-      image: backgroundImage,
-      displayOrder: 5
     },
     {
       id: 7,
-      name: 'Lê Minh C',
-      title: 'Construction Manager',
-      image: backgroundImage,
-      displayOrder: 2
+      name: 'Lê Đình Thiên',
+      title: 'Kiến Trúc Sư',
+      image: employeeImage7,
+      displayOrder: 6
     },
     {
       id: 8,
-      name: 'Phạm Thu D',
-      title: '3D Designer',
-      image: backgroundImage,
-      displayOrder: 3
+      name: 'Lê Duy Huy',
+      title: 'Kĩ Sư Xây Dựng',
+      image: employeeImage8,
+      displayOrder: 7
     },
     {
       id: 9,
-      name: 'Hoàng Văn E',
-      title: 'Site Supervisor',
-      image: backgroundImage,
-      displayOrder: 4
+      name: 'Lê Thị Ngọc Diễm',
+      title: 'Thiết Kế Nội Thất',
+      image: employeeImage9,
+      displayOrder: 8
     },
     {
       id: 10,
-      name: 'Đỗ Thị F',
-      title: 'Project Coordinator',
-      image: backgroundImage,
-      displayOrder: 5
-    }
+      name: 'Nguyễn Hoàng Bảo',
+      title: 'Kĩ Sư Xây',
+      image: employeeImage10,
+      displayOrder: 9
+    },
+    {
+      id: 11,
+      name: 'Nguyễn Thành Thạo',
+      title: 'Kỹ Sư MEP',
+      image: employeeImage11,
+      displayOrder: 10
+    },
+    {
+      id: 12,
+      name: 'Nguyễn Thị Thu Thảo',
+      title: 'Kế Toán Hành Chính',
+      image: employeeImage12,
+      displayOrder: 11
+    },
+    {
+      id: 13,
+      name: 'Phan Nhật Hà',
+      title: 'Thiết Kế Nội Thất',
+      image: employeeImage13,
+      displayOrder: 12
+    },
+    {
+      id: 14,
+      name: 'NGUYỄN THỊ THU HUYỀN',
+      title: 'Marketing',
+      image: employeeImage14,
+      displayOrder: 13
+    },
+    {
+      id: 15,
+      name: 'Cáp Nguyễn Hồng Phúc',
+      title: 'Kinh Doanh',
+      image: employeeImage4,
+      displayOrder: 14
+    },
+    {
+      id: 16,
+      name: 'Diệp Gia Hy',
+      title: 'Kinh Doanh',
+      image: employeeImage6,
+      displayOrder: 15
+    },
   ],
   isActive: true,
   createdAt: new Date(),
