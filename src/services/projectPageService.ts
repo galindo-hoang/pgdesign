@@ -5,8 +5,8 @@ import {
   ProjectCategoriesData,
   StatsItem,
   ProjectCategory,
-  ApiResponse
-} from '../types/projectPageTypes';
+  ApiResponse,
+} from "../types/projectPageTypes";
 
 // Import asset images
 import hero from "../assets/images/projectpage/project-hero.png";
@@ -20,7 +20,8 @@ import diaryImage3 from "../assets/images/diary-image-3.png";
 import diaryImage4 from "../assets/images/diary-image-4.png";
 
 // API Configuration
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
+const API_BASE_URL =
+  process.env.REACT_APP_API_URL || "http://localhost:3002/api/v1";
 
 // Configuration for data source (can be controlled via environment variable)
 const USE_MOCK_DATA = true;
@@ -30,162 +31,167 @@ const USE_MOCK_DATA = true;
 // Mock About Project Data
 const mockAboutProjectData: AboutProjectData = {
   id: 1,
-  title: 'Dự án',
-  subtitle: 'PG DESIGN',
+  title: "Dự án",
+  subtitle: "PG DESIGN",
   backgroundImageUrl: hero,
   isActive: true,
   createdAt: new Date(),
-  updatedAt: new Date()
+  updatedAt: new Date(),
 };
 
 // Mock Stats Items
 const mockStatsItems: StatsItem[] = [
   {
     id: 1,
-    iconName: 'experience-icon',
+    iconName: "experience-icon",
     targetValue: 5,
-    label: 'Kinh nghiệm',
-    suffix: '+',
-    description: 'Năm kinh nghiệm',
+    label: "Kinh nghiệm",
+    suffix: "+",
+    description: "Năm kinh nghiệm",
     backgroundImageUrl: diaryImage1,
-    category: 'experience',
-    displayOrder: 0
+    category: "experience",
+    displayOrder: 0,
   },
   {
     id: 2,
-    iconName: 'customer-icon',
+    iconName: "customer-icon",
     targetValue: 500,
-    label: 'Khách hàng',
-    suffix: '+',
-    description: 'Tin tưởng & hài lòng',
+    label: "Khách hàng",
+    suffix: "+",
+    description: "Tin tưởng & hài lòng",
     backgroundImageUrl: diaryImage2,
-    category: 'customers',
-    displayOrder: 1
+    category: "customers",
+    displayOrder: 1,
   },
   {
     id: 3,
-    iconName: 'design-icon',
+    iconName: "design-icon",
     targetValue: 450,
-    label: 'Dự án',
-    suffix: '+',
-    description: 'Thiết kế hoàn thành',
+    label: "Dự án",
+    suffix: "+",
+    description: "Thiết kế hoàn thành",
     backgroundImageUrl: diaryImage3,
-    category: 'projects',
-    displayOrder: 2
+    category: "projects",
+    displayOrder: 2,
   },
   {
     id: 4,
-    iconName: 'building-icon',
+    iconName: "building-icon",
     targetValue: 98,
-    label: 'Chất lượng',
-    suffix: '%',
-    description: 'Cam kết hoàn hảo',
+    label: "Chất lượng",
+    suffix: "%",
+    description: "Cam kết hoàn hảo",
     backgroundImageUrl: diaryImage4,
-    category: 'quality',
-    displayOrder: 3
-  }
+    category: "quality",
+    displayOrder: 3,
+  },
 ];
 
 // Mock Stats Section Data
 const mockStatsSectionData: StatsSectionData = {
   id: 1,
-  mainHeadline: 'THÀNH TỰU CỦA CHÚNG TÔI',
-  subHeadline: 'Những con số ấn tượng',
-  description: 'Với nhiều năm kinh nghiệm trong lĩnh vực thiết kế kiến trúc và nội thất, chúng tôi tự hào mang đến những giải pháp tối ưu cho mọi không gian sống.',
+  mainHeadline: "THÀNH TỰU CỦA CHÚNG TÔI",
+  subHeadline: "Những con số ấn tượng",
+  description:
+    "Với nhiều năm kinh nghiệm trong lĩnh vực thiết kế kiến trúc và nội thất, chúng tôi tự hào mang đến những giải pháp tối ưu cho mọi không gian sống.",
   statsItems: mockStatsItems,
   isActive: true,
   createdAt: new Date(),
-  updatedAt: new Date()
+  updatedAt: new Date(),
 };
 
 // Mock Project Categories
 const mockProjectCategories: ProjectCategory[] = [
   {
     id: 1,
-    categoryId: 'house-normal',
-    title: 'NHÀ PHỐ',
+    categoryId: "house-normal",
+    title: "NHÀ PHỐ",
     projectCount: 45,
     backgroundImageUrl: houseNormal,
-    navigationPath: '/projects/house-normal',
-    displayOrder: 0
+    navigationPath: "/projects/house-normal",
+    displayOrder: 0,
   },
   {
     id: 2,
-    categoryId: 'appartment',
-    title: 'CĂN HỘ',
+    categoryId: "appartment",
+    title: "CĂN HỘ",
     projectCount: 32,
     backgroundImageUrl: appartment,
-    navigationPath: '/projects/appartment',
-    displayOrder: 1
+    navigationPath: "/projects/appartment",
+    displayOrder: 1,
   },
   {
     id: 3,
-    categoryId: 'village',
-    title: 'Biệt thự',
+    categoryId: "village",
+    title: "Biệt thự",
     projectCount: 28,
     backgroundImageUrl: village,
-    navigationPath: '/projects/village',
-    displayOrder: 2
+    navigationPath: "/projects/village",
+    displayOrder: 2,
   },
   {
     id: 4,
-    categoryId: 'house-business',
-    title: 'Thương mại',
+    categoryId: "house-business",
+    title: "Thương mại",
     projectCount: 50,
     backgroundImageUrl: houseBusiness,
-    navigationPath: '/projects/house-business',
-    displayOrder: 3
-  }
+    navigationPath: "/projects/house-business",
+    displayOrder: 3,
+  },
 ];
 
 // Mock Project Categories Data
 const mockProjectCategoriesData: ProjectCategoriesData = {
   id: 1,
-  mainTitle: 'DANH MỤC DỰ ÁN',
-  subtitle: 'KHÁM PHÁ CÁC LOẠI HÌNH THIẾT KẾ',
-  description: 'Từ những căn nhà phố hiện đại đến những biệt thự sang trọng, từ không gian nội thất tinh tế đến những ngôi nhà vườn xanh mát - chúng tôi mang đến giải pháp thiết kế toàn diện cho mọi nhu cầu.',
+  mainTitle: "DANH MỤC DỰ ÁN",
+  subtitle: "KHÁM PHÁ CÁC LOẠI HÌNH THIẾT KẾ",
+  description:
+    "Từ những căn nhà phố hiện đại đến những biệt thự sang trọng, từ không gian nội thất tinh tế đến những ngôi nhà vườn xanh mát - chúng tôi mang đến giải pháp thiết kế toàn diện cho mọi nhu cầu.",
   categories: mockProjectCategories,
   isActive: true,
   createdAt: new Date(),
-  updatedAt: new Date()
+  updatedAt: new Date(),
 };
 
 // Mock Complete Project Page Data
 const mockProjectPageData: ProjectPageData = {
   aboutProject: mockAboutProjectData,
   statsSection: mockStatsSectionData,
-  projectCategories: mockProjectCategoriesData
+  projectCategories: mockProjectCategoriesData,
 };
 
 // ========== MOCK DATA FUNCTIONS ==========
 
 // Mock delay function to simulate API calls
 const mockDelay = (ms: number = 800): Promise<void> => {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
 // Mock API functions
-export const fetchAboutProjectDataMock = async (): Promise<AboutProjectData> => {
-  await mockDelay();
-  console.log('Using mock AboutProjectData');
-  return mockAboutProjectData;
-};
+export const fetchAboutProjectDataMock =
+  async (): Promise<AboutProjectData> => {
+    await mockDelay();
+    console.log("Using mock AboutProjectData");
+    return mockAboutProjectData;
+  };
 
-export const fetchStatsSectionDataMock = async (): Promise<StatsSectionData> => {
-  await mockDelay();
-  console.log('Using mock StatsSectionData');
-  return mockStatsSectionData;
-};
+export const fetchStatsSectionDataMock =
+  async (): Promise<StatsSectionData> => {
+    await mockDelay();
+    console.log("Using mock StatsSectionData");
+    return mockStatsSectionData;
+  };
 
-export const fetchProjectCategoriesDataMock = async (): Promise<ProjectCategoriesData> => {
-  await mockDelay();
-  console.log('Using mock ProjectCategoriesData');
-  return mockProjectCategoriesData;
-};
+export const fetchProjectCategoriesDataMock =
+  async (): Promise<ProjectCategoriesData> => {
+    await mockDelay();
+    console.log("Using mock ProjectCategoriesData");
+    return mockProjectCategoriesData;
+  };
 
 export const fetchProjectPageDataMock = async (): Promise<ProjectPageData> => {
   await mockDelay();
-  console.log('Using mock ProjectPageData');
+  console.log("Using mock ProjectPageData");
   return mockProjectPageData;
 };
 
@@ -202,15 +208,15 @@ export const fetchAboutProjectDataApi = async (): Promise<AboutProjectData> => {
   try {
     const response = await fetch(`${API_BASE_URL}/projectpage/about-project`);
     const data: ApiResponse<AboutProjectData> = await response.json();
-    
+
     console.log(`AboutProjectData from API: ${JSON.stringify(data)}`);
     if (!response.ok) {
-      throw new Error(data.error || 'Failed to fetch about project data');
+      throw new Error(data.error || "Failed to fetch about project data");
     }
-    
+
     return data.data!;
   } catch (error) {
-    handleApiError(error, 'about project');
+    handleApiError(error, "about project");
     throw error;
   }
 };
@@ -219,57 +225,58 @@ export const fetchStatsSectionDataApi = async (): Promise<StatsSectionData> => {
   try {
     const response = await fetch(`${API_BASE_URL}/projectpage/stats-section`);
     const data: ApiResponse<StatsSectionData> = await response.json();
-    
+
     console.log(`StatsSectionData from API: ${JSON.stringify(data)}`);
     if (!response.ok) {
-      throw new Error(data.error || 'Failed to fetch stats section data');
+      throw new Error(data.error || "Failed to fetch stats section data");
     }
-    
+
     return data.data!;
   } catch (error) {
-    handleApiError(error, 'stats section');
+    handleApiError(error, "stats section");
     throw error;
   }
 };
 
-export const fetchProjectCategoriesDataApi = async (): Promise<ProjectCategoriesData> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/projectpage/project-categories`);
-    const data: ApiResponse<ProjectCategoriesData> = await response.json();
-    
-    console.log(`ProjectCategoriesData from API: ${JSON.stringify(data)}`);
-    if (!response.ok) {
-      throw new Error(data.error || 'Failed to fetch project categories data');
+export const fetchProjectCategoriesDataApi =
+  async (): Promise<ProjectCategoriesData> => {
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/projectpage/project-categories`
+      );
+      const data: ApiResponse<ProjectCategoriesData> = await response.json();
+
+      console.log(`ProjectCategoriesData from API: ${JSON.stringify(data)}`);
+      if (!response.ok) {
+        throw new Error(
+          data.error || "Failed to fetch project categories data"
+        );
+      }
+
+      return data.data!;
+    } catch (error) {
+      handleApiError(error, "project categories");
+      throw error;
     }
-    
-    return data.data!;
-  } catch (error) {
-    handleApiError(error, 'project categories');
-    throw error;
-  }
-};
+  };
 
 // Main function to fetch all project page data from API
 export const fetchProjectPageDataApi = async (): Promise<ProjectPageData> => {
   try {
     // Fetch all data in parallel for better performance
-    const [
-      aboutProject,
-      statsSection,
-      projectCategories
-    ] = await Promise.all([
+    const [aboutProject, statsSection, projectCategories] = await Promise.all([
       fetchAboutProjectDataApi(),
       fetchStatsSectionDataApi(),
-      fetchProjectCategoriesDataApi()
+      fetchProjectCategoriesDataApi(),
     ]);
 
     return {
       aboutProject,
       statsSection,
-      projectCategories
+      projectCategories,
     };
   } catch (error) {
-    handleApiError(error, 'project page');
+    handleApiError(error, "project page");
     throw error;
   }
 };
@@ -278,16 +285,23 @@ export const fetchProjectPageDataApi = async (): Promise<ProjectPageData> => {
 
 // Auto-switch functions based on configuration
 export const fetchAboutProjectData = async (): Promise<AboutProjectData> => {
-  return USE_MOCK_DATA ? fetchAboutProjectDataMock() : fetchAboutProjectDataApi();
+  return USE_MOCK_DATA
+    ? fetchAboutProjectDataMock()
+    : fetchAboutProjectDataApi();
 };
 
 export const fetchStatsSectionData = async (): Promise<StatsSectionData> => {
-  return USE_MOCK_DATA ? fetchStatsSectionDataMock() : fetchStatsSectionDataApi();
+  return USE_MOCK_DATA
+    ? fetchStatsSectionDataMock()
+    : fetchStatsSectionDataApi();
 };
 
-export const fetchProjectCategoriesData = async (): Promise<ProjectCategoriesData> => {
-  return USE_MOCK_DATA ? fetchProjectCategoriesDataMock() : fetchProjectCategoriesDataApi();
-};
+export const fetchProjectCategoriesData =
+  async (): Promise<ProjectCategoriesData> => {
+    return USE_MOCK_DATA
+      ? fetchProjectCategoriesDataMock()
+      : fetchProjectCategoriesDataApi();
+  };
 
 // Main function to fetch all project page data (auto-switch)
 export const fetchProjectPageData = async (): Promise<ProjectPageData> => {
@@ -304,8 +318,8 @@ export const fetchProjectPageData = async (): Promise<ProjectPageData> => {
  * @returns Enhanced HTML content with images
  */
 export const appendProjectImagesToHtml = (
-  htmlContent: string, 
-  projectImages: string[], 
+  htmlContent: string,
+  projectImages: string[],
   title: string
 ): string => {
   if (!projectImages || projectImages.length === 0) {
@@ -324,29 +338,33 @@ export const appendProjectImagesToHtml = (
   const imageGalleryHtml = `
     <div style="">
       <div style="display: flex; flex-direction: column;">
-        ${projectImages.map((imageUrl, index) => {
-          const processedUrl = processImageUrl(imageUrl);
-          return `
+        ${projectImages
+          .map((imageUrl, index) => {
+            const processedUrl = processImageUrl(imageUrl);
+            return `
             <img 
               src="${processedUrl}" 
               alt="${title} - Hình ${index + 1}" 
-              style="width: 100%; height: 400px; object-fit: cover; margin-bottom: 1px; margin-top: 1px;"
+              style="width: 100%; height: auto; object-fit: cover; margin-bottom: 1px; margin-top: 1px;"
               loading="lazy"
             />
           `;
-        }).join('')}
+          })
+          .join("")}
       </div>
     </div>
   `;
 
   // Check if htmlContent already has an image gallery section
-  const hasImageGallery = htmlContent.includes('Hình ảnh dự án') || 
-                         htmlContent.includes('project-images') ||
-                         htmlContent.includes('image-gallery');
+  const hasImageGallery =
+    htmlContent.includes("Hình ảnh dự án") ||
+    htmlContent.includes("project-images") ||
+    htmlContent.includes("image-gallery");
 
   if (hasImageGallery) {
     // If gallery already exists, replace it with new images
-    const galleryRegex = /<div[^>]*>[\s\S]*?Hình ảnh dự án[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/i;
+    const galleryRegex =
+      /<div[^>]*>[\s\S]*?Hình ảnh dự án[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/i;
     if (galleryRegex.test(htmlContent)) {
       return htmlContent.replace(galleryRegex, imageGalleryHtml);
     }
@@ -390,14 +408,14 @@ export const checkApiHealth = async (): Promise<boolean> => {
     const response = await fetch(`${API_BASE_URL}/health`);
     return response.ok;
   } catch (error) {
-    console.error('API health check failed:', error);
+    console.error("API health check failed:", error);
     return false;
   }
 };
 
 // Utility function to get current data source
-export const getCurrentDataSource = (): 'mock' | 'api' => {
-  return USE_MOCK_DATA ? 'mock' : 'api';
+export const getCurrentDataSource = (): "mock" | "api" => {
+  return USE_MOCK_DATA ? "mock" : "api";
 };
 
 // Utility function to get mock data directly
@@ -405,7 +423,7 @@ export const getMockData = () => ({
   aboutProject: mockAboutProjectData,
   statsSection: mockStatsSectionData,
   projectCategories: mockProjectCategoriesData,
-  complete: mockProjectPageData
+  complete: mockProjectPageData,
 });
 
 // Export mock data for direct access
@@ -415,5 +433,5 @@ export {
   mockProjectCategoriesData,
   mockProjectPageData,
   mockStatsItems,
-  mockProjectCategories
-}; 
+  mockProjectCategories,
+};
