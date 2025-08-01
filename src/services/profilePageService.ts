@@ -6,26 +6,26 @@ import {
 } from "../types/profilePageTypes";
 
 // Import placeholder images for fallback
-import architecturalImage1 from "../assets/images/profilepage/1.jpg";
-import architecturalImage2 from "../assets/images/profilepage/2.jpg";
-import architecturalImage3 from "../assets/images/profilepage/3.jpg";
-import architecturalImage4 from "../assets/images/profilepage/4.1.jpg";
-import architecturalImage5 from "../assets/images/profilepage/4.jpg";
-import architecturalImage6 from "../assets/images/profilepage/5.jpg";
-import architecturalImage7 from "../assets/images/profilepage/6.jpg";
-import architecturalImage8 from "../assets/images/profilepage/7.jpg";
-import architecturalImage9 from "../assets/images/profilepage/8.jpg";
-import architecturalImage10 from "../assets/images/profilepage/9.jpg";
-import architecturalImage11 from "../assets/images/profilepage/10.jpg";
-import architecturalImage12 from "../assets/images/profilepage/11.jpg";
-import architecturalImage13 from "../assets/images/profilepage/12.jpg";
-import architecturalImage14 from "../assets/images/profilepage/13.jpg";
-import architecturalImage15 from "../assets/images/profilepage/14.jpg";
-import architecturalImage16 from "../assets/images/profilepage/15.jpg";
-import architecturalImage17 from "../assets/images/profilepage/16.jpg";
-import architecturalImage18 from "../assets/images/profilepage/17.jpg";
-import architecturalImage19 from "../assets/images/profilepage/18.jpg";
-import architecturalImage20 from "../assets/images/profilepage/19.jpg";
+import architecturalImage1 from "../assets/images/profilepage/1.png";
+import architecturalImage2 from "../assets/images/profilepage/2.png";
+import architecturalImage3 from "../assets/images/profilepage/3.png";
+import architecturalImage4 from "../assets/images/profilepage/4.1.png";
+import architecturalImage5 from "../assets/images/profilepage/4.png";
+import architecturalImage6 from "../assets/images/profilepage/5.png";
+import architecturalImage7 from "../assets/images/profilepage/6.png";
+import architecturalImage8 from "../assets/images/profilepage/7.png";
+import architecturalImage9 from "../assets/images/profilepage/8.png";
+import architecturalImage10 from "../assets/images/profilepage/9.png";
+import architecturalImage11 from "../assets/images/profilepage/10.png";
+import architecturalImage12 from "../assets/images/profilepage/11.png";
+import architecturalImage13 from "../assets/images/profilepage/12.png";
+import architecturalImage14 from "../assets/images/profilepage/13.png";
+import architecturalImage15 from "../assets/images/profilepage/14.png";
+import architecturalImage16 from "../assets/images/profilepage/15.png";
+import architecturalImage17 from "../assets/images/profilepage/16.png";
+import architecturalImage18 from "../assets/images/profilepage/17.png";
+import architecturalImage19 from "../assets/images/profilepage/18.png";
+import architecturalImage20 from "../assets/images/profilepage/19.png";
 
 // API Base URL - update this to match your backend
 const API_BASE_URL =

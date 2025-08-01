@@ -8,21 +8,21 @@ import {
 } from "../types/introPageTypes";
 import hero from "../assets/images/intropage/hero.png";
 import mission from "../assets/images/intropage/mission.png";
-import CEOImage from "../assets/images/PG NHÂN SỰ/PHAN TÔ THƯ - GIÁM ĐỐC.jpg";
-import CEOImage2 from "../assets/images/PG NHÂN SỰ/VÕ NGUYÊN PHÁP - GIÁM ĐỐC THI CÔNG.jpg";
-import employeeImage2 from "../assets/images/PG NHÂN SỰ/ĐỖ TUYẾT QUY - TRƯỞNG PHÒNG MARKETING.jpg";
-import employeeImage3 from "../assets/images/PG NHÂN SỰ/Y NHẬT MINH - TRƯỞNG PHÒNG KINH DOANH.jpg";
-import employeeImage4 from "../assets/images/PG NHÂN SỰ/CÁP NGUYỄN HỒNG PHÚC - KINH DOANH.jpg";
-import employeeImage5 from "../assets/images/PG NHÂN SỰ/ĐẶNG HỒNG SƠN - KỸ SƯ XÂY DỰNG.jpg";
-import employeeImage6 from "../assets/images/PG NHÂN SỰ/DIỆP GIA HY - KINH DOANH.jpg";
-import employeeImage7 from "../assets/images/PG NHÂN SỰ/LÊ ĐÌNH THIÊN - KIẾN TRÚC SƯ.jpg";
-import employeeImage8 from "../assets/images/PG NHÂN SỰ/LÊ DUY HUY - KĨ SƯ XÂY DỰNG.jpg";
-import employeeImage9 from "../assets/images/PG NHÂN SỰ/LÊ THỊ NGỌC DIỄM - THIẾT KẾ NỘI THẤT.jpg";
-import employeeImage10 from "../assets/images/PG NHÂN SỰ/NGUYỄN HOÀNG BẢO - KĨ SƯ XÂY.jpg";
-import employeeImage11 from "../assets/images/PG NHÂN SỰ/NGUYỄN THÀNH THẠO - KỸ SƯ MEP.jpg";
-import employeeImage12 from "../assets/images/PG NHÂN SỰ/NGUYỄN THỊ THU THẢO - KẾ TOÁN HÀNH CHÍNH.jpg";
-import employeeImage13 from "../assets/images/PG NHÂN SỰ/PHAN NHẬT HÀ - THIẾT KẾ NỘI THẤT.jpg";
-import employeeImage14 from "../assets/images/PG NHÂN SỰ/NGUYỄN THỊ THU HUYỀN - MARKETING.jpg";
+import CEOImage from "../assets/images/PG NHÂN SỰ/PHAN TÔ THƯ - GIÁM ĐỐC.png";
+import CEOImage2 from "../assets/images/PG NHÂN SỰ/VÕ NGUYÊN PHÁP - GIÁM ĐỐC THI CÔNG.png";
+import employeeImage2 from "../assets/images/PG NHÂN SỰ/ĐỖ TUYẾT QUY - TRƯỞNG PHÒNG MARKETING.png";
+import employeeImage3 from "../assets/images/PG NHÂN SỰ/Y NHẬT MINH - TRƯỞNG PHÒNG KINH DOANH.png";
+import employeeImage4 from "../assets/images/PG NHÂN SỰ/CÁP NGUYỄN HỒNG PHÚC - KINH DOANH.png";
+import employeeImage5 from "../assets/images/PG NHÂN SỰ/ĐẶNG HỒNG SƠN - KỸ SƯ XÂY DỰNG.png";
+import employeeImage6 from "../assets/images/PG NHÂN SỰ/DIỆP GIA HY - KINH DOANH.png";
+import employeeImage7 from "../assets/images/PG NHÂN SỰ/LÊ ĐÌNH THIÊN - KIẾN TRÚC SƯ.png";
+import employeeImage8 from "../assets/images/PG NHÂN SỰ/LÊ DUY HUY - KĨ SƯ XÂY DỰNG.png";
+import employeeImage9 from "../assets/images/PG NHÂN SỰ/LÊ THỊ NGỌC DIỄM - THIẾT KẾ NỘI THẤT.png";
+import employeeImage10 from "../assets/images/PG NHÂN SỰ/NGUYỄN HOÀNG BẢO - KĨ SƯ XÂY.png";
+import employeeImage11 from "../assets/images/PG NHÂN SỰ/NGUYỄN THÀNH THẠO - KỸ SƯ MEP.png";
+import employeeImage12 from "../assets/images/PG NHÂN SỰ/NGUYỄN THỊ THU THẢO - KẾ TOÁN HÀNH CHÍNH.png";
+import employeeImage13 from "../assets/images/PG NHÂN SỰ/PHAN NHẬT HÀ - THIẾT KẾ NỘI THẤT.png";
+import employeeImage14 from "../assets/images/PG NHÂN SỰ/NGUYỄN THỊ THU HUYỀN - MARKETING.png";
 
 // API Configuration
 const API_BASE_URL =
