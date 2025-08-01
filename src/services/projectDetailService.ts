@@ -1,12 +1,15 @@
 // src/services/projectDetailService.ts
 
-import { ProjectDetailData, ApiResponse } from '../types/projectDetailTypes';
-import { getProjectByProjectId } from './additionalProjectData';
-import { appendProjectImagesToHtml, processProjectImageUrls } from './projectPageService';
+import { ProjectDetailData, ApiResponse } from "../types/projectDetailTypes";
+import { getProjectByProjectId } from "./additionalProjectData";
+import {
+  appendProjectImagesToHtml,
+  processProjectImageUrls,
+} from "./projectPageService";
 
 // Environment configuration
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002';
-const API_VERSION = 'v1';
+const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:3002";
+const API_VERSION = "v1";
 const API_ENDPOINT = `${API_BASE_URL}/api/${API_VERSION}/projectdetail`;
 const USE_MOCK_DATA = true;
 
@@ -18,12 +21,13 @@ const mockProjectDetailData: ProjectDetailData = {
   area: "120m²",
   constructionDate: "2023-06-15",
   address: "123 Đường Nguyễn Văn Cừ, Quận 5, TP.HCM",
-  description: "Thiết kế nhà phố hiện đại với không gian mở và ánh sáng tự nhiên",
+  description:
+    "Thiết kế nhà phố hiện đại với không gian mở và ánh sáng tự nhiên",
   category: "house-normal",
   subCategory: "Nhà Ống",
   style: "Hiện đại",
   thumbnailImage: "/assets/images/diary-image-1.png",
-  
+
   // Embedded HTML content from server (admin can modify this - only main content area)
   htmlContent: `
     <p style="line-height: 1.6; color: #333; margin-bottom: 1rem;">Đây là dự án nhà phố hiện đại được thiết kế với phong cách tối giản nhưng không kém phần sang trọng. Công trình được hoàn thành với chất lượng cao và sự hài lòng của khách hàng.</p>
@@ -82,54 +86,54 @@ const mockProjectDetailData: ProjectDetailData = {
       </ul>
     </div>
   `,
-  
+
   projectImages: [
     "/assets/images/diary-image-1.png",
     "/assets/images/diary-image-2.png",
     "/assets/images/diary-image-3.png",
-    "/assets/images/diary-image-4.png"
+    "/assets/images/diary-image-4.png",
   ],
-  
+
   projectStatus: "Hoàn thành • 2.5 tỷ đồng",
   completionDate: "2023-12-20",
   architectName: "KTS. Lê Văn B",
   contractorName: "Công ty TNHH Xây dựng PG Design",
-  
+
   metaTitle: "Nhà Phố Hiện Đại 3 Tầng - Dự án PG Design",
-  metaDescription: "Khám phá dự án nhà phố hiện đại 3 tầng với thiết kế tinh tế và không gian sống tối ưu.",
+  metaDescription:
+    "Khám phá dự án nhà phố hiện đại 3 tầng với thiết kế tinh tế và không gian sống tối ưu.",
   tags: ["nhà phố", "hiện đại", "3 tầng", "thiết kế", "xây dựng"],
-  
+
   isActive: true,
   createdAt: "2023-06-15T10:00:00.000Z",
-  updatedAt: "2023-12-20T15:30:00.000Z"
+  updatedAt: "2023-12-20T15:30:00.000Z",
 };
-
-// Utility function to simulate API delay
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Error handling utility
 const handleApiError = (error: any, context: string) => {
   console.error(`API Error in ${context}:`, error);
-  
-  if (error.name === 'TypeError' && error.message.includes('fetch')) {
-    throw new Error('Network error - please check your connection');
+
+  if (error.name === "TypeError" && error.message.includes("fetch")) {
+    throw new Error("Network error - please check your connection");
   }
-  
+
   if (error.response?.status === 404) {
-    throw new Error('Project not found');
+    throw new Error("Project not found");
   }
-  
+
   if (error.response?.status === 500) {
-    throw new Error('Server error - please try again later');
+    throw new Error("Server error - please try again later");
   }
-  
-  throw new Error(error.message || 'An unexpected error occurred');
+
+  throw new Error(error.message || "An unexpected error occurred");
 };
 
 // Mock API functions
-export const fetchProjectDetailDataMock = async (projectId: string): Promise<ProjectDetailData> => {
+export const fetchProjectDetailDataMock = async (
+  projectId: string
+): Promise<ProjectDetailData> => {
   // await delay(800); // Simulate API delay
-  
+
   // Try to find project in additional data first
   const additionalProject = getProjectByProjectId(projectId);
   if (additionalProject) {
@@ -140,7 +144,7 @@ export const fetchProjectDetailDataMock = async (projectId: string): Promise<Pro
       processedProject.projectImages || [],
       processedProject.title
     );
-    
+
     // Convert ProjectDetail to ProjectDetailData format
     return {
       id: processedProject.projectId,
@@ -165,10 +169,10 @@ export const fetchProjectDetailDataMock = async (projectId: string): Promise<Pro
       tags: processedProject.tags || [],
       isActive: processedProject.isActive || true,
       createdAt: processedProject.createdAt || "",
-      updatedAt: processedProject.updatedAt || ""
+      updatedAt: processedProject.updatedAt || "",
     };
   }
-  
+
   // Fallback to original mock data with image processing
   const processedMockData = processProjectImageUrls(mockProjectDetailData);
   const enhancedHtmlContent = appendProjectImagesToHtml(
@@ -176,34 +180,36 @@ export const fetchProjectDetailDataMock = async (projectId: string): Promise<Pro
     processedMockData.projectImages || [],
     processedMockData.title
   );
-  
+
   return {
     ...processedMockData,
     id: projectId,
-    htmlContent: enhancedHtmlContent
+    htmlContent: enhancedHtmlContent,
   };
 };
 
 // Real API functions
-export const fetchProjectDetailDataApi = async (projectId: string): Promise<ProjectDetailData> => {
+export const fetchProjectDetailDataApi = async (
+  projectId: string
+): Promise<ProjectDetailData> => {
   try {
     const response = await fetch(`${API_ENDPOINT}/${projectId}`);
-    
+
     if (!response.ok) {
       if (response.status === 404) {
-        throw new Error('Project not found');
+        throw new Error("Project not found");
       }
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
+
     const data: ApiResponse<ProjectDetailData> = await response.json();
-    
+
     console.log(`ProjectDetailData from API for ${projectId}:`, data);
-    
+
     if (!data.success) {
-      throw new Error(data.error || 'Failed to fetch project detail data');
+      throw new Error(data.error || "Failed to fetch project detail data");
     }
-    
+
     // Process image URLs and append images to htmlContent
     const processedData = processProjectImageUrls(data.data!);
     const enhancedHtmlContent = appendProjectImagesToHtml(
@@ -211,10 +217,10 @@ export const fetchProjectDetailDataApi = async (projectId: string): Promise<Proj
       processedData.projectImages || [],
       processedData.title
     );
-    
+
     return {
       ...processedData,
-      htmlContent: enhancedHtmlContent
+      htmlContent: enhancedHtmlContent,
     };
   } catch (error) {
     handleApiError(error, `project detail ${projectId}`);
@@ -223,17 +229,19 @@ export const fetchProjectDetailDataApi = async (projectId: string): Promise<Proj
 };
 
 // Main service function
-export const fetchProjectDetailData = async (projectId: string): Promise<ProjectDetailData> => {
+export const fetchProjectDetailData = async (
+  projectId: string
+): Promise<ProjectDetailData> => {
   if (USE_MOCK_DATA) {
     return fetchProjectDetailDataMock(projectId);
   }
-  
+
   try {
     return await fetchProjectDetailDataApi(projectId);
   } catch (error) {
     // Fallback to mock data if API fails in development
-    if (process.env.NODE_ENV === 'development') {
-      console.warn('API failed, falling back to mock data:', error);
+    if (process.env.NODE_ENV === "development") {
+      console.warn("API failed, falling back to mock data:", error);
       return fetchProjectDetailDataMock(projectId);
     }
     throw error;
@@ -242,7 +250,7 @@ export const fetchProjectDetailData = async (projectId: string): Promise<Project
 
 // Data source helper
 export const getCurrentDataSource = () => {
-  return USE_MOCK_DATA ? 'mock' : 'api';
+  return USE_MOCK_DATA ? "mock" : "api";
 };
 
 // Additional service functions for CRUD operations
@@ -276,18 +284,18 @@ export const projectDetailService = {
           }
         });
       }
-      
+
       const response = await fetch(`${API_ENDPOINT}?${queryParams}`);
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const data = await response.json();
       return data.success ? data.data : [];
     } catch (error) {
-      console.error('Error fetching project details:', error);
-      if (process.env.NODE_ENV === 'development') {
+      console.error("Error fetching project details:", error);
+      if (process.env.NODE_ENV === "development") {
         return [mockProjectDetailData];
       }
       return [];
@@ -295,7 +303,9 @@ export const projectDetailService = {
   },
 
   // Create project detail
-  async createProjectDetail(projectData: Omit<ProjectDetailData, 'id'>): Promise<ProjectDetailData | null> {
+  async createProjectDetail(
+    projectData: Omit<ProjectDetailData, "id">
+  ): Promise<ProjectDetailData | null> {
     if (USE_MOCK_DATA) {
       // await delay(1000);
       return { ...projectData, id: `project-${Date.now()}` };
@@ -303,27 +313,30 @@ export const projectDetailService = {
 
     try {
       const response = await fetch(API_ENDPOINT, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(projectData),
       });
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const data = await response.json();
       return data.success ? data.data : null;
     } catch (error) {
-      console.error('Error creating project detail:', error);
+      console.error("Error creating project detail:", error);
       return null;
     }
   },
 
   // Update project detail
-  async updateProjectDetail(id: string, projectData: Partial<ProjectDetailData>): Promise<ProjectDetailData | null> {
+  async updateProjectDetail(
+    id: string,
+    projectData: Partial<ProjectDetailData>
+  ): Promise<ProjectDetailData | null> {
     if (USE_MOCK_DATA) {
       // await delay(1000);
       return { ...mockProjectDetailData, ...projectData, id };
@@ -331,21 +344,21 @@ export const projectDetailService = {
 
     try {
       const response = await fetch(`${API_ENDPOINT}/${id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(projectData),
       });
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const data = await response.json();
       return data.success ? data.data : null;
     } catch (error) {
-      console.error('Error updating project detail:', error);
+      console.error("Error updating project detail:", error);
       return null;
     }
   },
@@ -359,17 +372,17 @@ export const projectDetailService = {
 
     try {
       const response = await fetch(`${API_ENDPOINT}/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const data = await response.json();
       return data.success;
     } catch (error) {
-      console.error('Error deleting project detail:', error);
+      console.error("Error deleting project detail:", error);
       return false;
     }
   },
@@ -378,21 +391,33 @@ export const projectDetailService = {
   async getProjectCategories(): Promise<string[]> {
     if (USE_MOCK_DATA) {
       // await delay(200);
-      return ['house-normal', 'appartment', 'apartment', 'office', 'commercial'];
+      return [
+        "house-normal",
+        "appartment",
+        "apartment",
+        "office",
+        "commercial",
+      ];
     }
 
     try {
       const response = await fetch(`${API_ENDPOINT}/util/categories`);
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const data = await response.json();
       return data.success ? data.data : [];
     } catch (error) {
-      console.error('Error fetching project categories:', error);
-      return ['house-normal', 'appartment', 'apartment', 'office', 'commercial'];
+      console.error("Error fetching project categories:", error);
+      return [
+        "house-normal",
+        "appartment",
+        "apartment",
+        "office",
+        "commercial",
+      ];
     }
   },
 
@@ -400,39 +425,46 @@ export const projectDetailService = {
   async getProjectSubCategories(category?: string): Promise<string[]> {
     if (USE_MOCK_DATA) {
       // await delay(200);
-      return ['Nhà Ống', 'Nhà Biệt Thự', 'Căn Hộ', 'Văn Phòng'];
+      return ["Nhà Ống", "Nhà Biệt Thự", "Căn Hộ", "Văn Phòng"];
     }
 
     try {
       const queryParams = new URLSearchParams();
       if (category) {
-        queryParams.append('category', category);
+        queryParams.append("category", category);
       }
-      
-      const response = await fetch(`${API_ENDPOINT}/util/subcategories?${queryParams}`);
-      
+
+      const response = await fetch(
+        `${API_ENDPOINT}/util/subcategories?${queryParams}`
+      );
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const data = await response.json();
       return data.success ? data.data : [];
     } catch (error) {
-      console.error('Error fetching project subcategories:', error);
-      return ['Nhà Ống', 'Nhà Biệt Thự', 'Căn Hộ', 'Văn Phòng'];
+      console.error("Error fetching project subcategories:", error);
+      return ["Nhà Ống", "Nhà Biệt Thự", "Căn Hộ", "Văn Phòng"];
     }
   },
 
   // Search project details
-  async searchProjectDetails(query: string, filters?: {
-    category?: string;
-    subCategory?: string;
-    page?: number;
-    limit?: number;
-  }): Promise<ProjectDetailData[]> {
+  async searchProjectDetails(
+    query: string,
+    filters?: {
+      category?: string;
+      subCategory?: string;
+      page?: number;
+      limit?: number;
+    }
+  ): Promise<ProjectDetailData[]> {
     if (USE_MOCK_DATA) {
       // await delay(300);
-      return query.toLowerCase().includes('nhà phố') ? [mockProjectDetailData] : [];
+      return query.toLowerCase().includes("nhà phố")
+        ? [mockProjectDetailData]
+        : [];
     }
 
     try {
@@ -444,18 +476,20 @@ export const projectDetailService = {
           }
         });
       }
-      
-      const response = await fetch(`${API_ENDPOINT}/search/query?${queryParams}`);
-      
+
+      const response = await fetch(
+        `${API_ENDPOINT}/search/query?${queryParams}`
+      );
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const data = await response.json();
       return data.success ? data.data : [];
     } catch (error) {
-      console.error('Error searching project details:', error);
+      console.error("Error searching project details:", error);
       return [];
     }
-  }
-}; 
+  },
+};

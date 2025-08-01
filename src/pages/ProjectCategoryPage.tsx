@@ -3,13 +3,11 @@ import { useParams } from "react-router-dom";
 import "./ProjectCategoryPage.css";
 import ProjectItemCard from "../components/ProjectItemCard";
 import LoadingSpinner from "../components/LoadingSpinner";
-import { 
+import {
   ProjectCategory,
-  ProjectDetail
+  ProjectDetail,
 } from "../types/projectCategoryPageTypes";
-import { 
-  fetchCategoryWithSubCategories 
-} from "../services/projectCategoryService";
+import { fetchCategoryWithSubCategories } from "../services/projectCategoryService";
 
 interface ProjectCategoryPageProps {
   // No props needed as we'll use the service
@@ -19,7 +17,9 @@ interface ProjectCategoryPageProps {
 
 const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
-  const [categoryData, setCategoryData] = useState<ProjectCategory | null>(null);
+  const [categoryData, setCategoryData] = useState<ProjectCategory | null>(
+    null
+  );
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -31,14 +31,16 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
 
         // Load category with subcategories if categoryId exists
         if (categoryId) {
-          const categoryResult = await fetchCategoryWithSubCategories(categoryId);
+          const categoryResult = await fetchCategoryWithSubCategories(
+            categoryId
+          );
           if (categoryResult) {
             setCategoryData(categoryResult);
           }
         }
       } catch (err) {
-        console.error('Error loading project category data:', err);
-        setError('Failed to load category data');
+        console.error("Error loading project category data:", err);
+        setError("Failed to load category data");
       } finally {
         setIsLoading(false);
       }
@@ -63,9 +65,7 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
         <div className="category-not-found">
           <h1>Lỗi tải dữ liệu</h1>
           <p>{error}</p>
-          <button onClick={() => window.location.reload()}>
-            Thử lại
-          </button>
+          <button onClick={() => window.location.reload()}>Thử lại</button>
         </div>
       </div>
     );
@@ -86,13 +86,10 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
 
   return (
     <div className="project-category-page">
-      <div 
-        className="category-header"
-        data-category={categoryData.id}
-      >
-        <img 
-          src={heroImage} 
-          alt={`${categoryData.title} header image`}
+      <div className="category-header" data-category={categoryData.id}>
+        <img
+          src={heroImage}
+          alt={`${categoryData.title} header`}
           className="category-header-image"
         />
         <div className="category-header-overlay"></div>
@@ -103,36 +100,38 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
         </div>
       </div>
 
-        <div className="subcategory-content">
-          {/* Project Grid */}
-          <div className="projects-grid">
-            {categoryData.projects.map((projectDetail) => {
-              // Transform ProjectDetail to ProjectItem format for compatibility
-              const projectItem = {
-                id: projectDetail.projectId,
-                title: projectDetail.title,
-                thumbnailImage: projectDetail.thumbnailImage || '/assets/images/default-project.png',
-                clientName: projectDetail.clientName,
-                area: projectDetail.area,
-                constructionDate: projectDetail.constructionDate,
-                address: projectDetail.address,
-                description: projectDetail.description || '',
-                category: projectDetail.category,
-                style: projectDetail.style || 'Modern'
-              };
-              
-              return (
-                <ProjectItemCard
-                  key={projectDetail.id}
-                  project={projectItem}
-                  onClick={(project) => handleProjectClick(projectDetail)}
-                />
-              );
-            })}
-          </div>
+      <div className="subcategory-content">
+        {/* Project Grid */}
+        <div className="projects-grid">
+          {categoryData.projects.map((projectDetail) => {
+            // Transform ProjectDetail to ProjectItem format for compatibility
+            const projectItem = {
+              id: projectDetail.projectId,
+              title: projectDetail.title,
+              thumbnailImage:
+                projectDetail.thumbnailImage ||
+                "/assets/images/default-project.png",
+              clientName: projectDetail.clientName,
+              area: projectDetail.area,
+              constructionDate: projectDetail.constructionDate,
+              address: projectDetail.address,
+              description: projectDetail.description || "",
+              category: projectDetail.category,
+              style: projectDetail.style || "Modern",
+            };
+
+            return (
+              <ProjectItemCard
+                key={projectDetail.id}
+                project={projectItem}
+                onClick={(project) => handleProjectClick(projectDetail)}
+              />
+            );
+          })}
         </div>
+      </div>
     </div>
   );
 };
 
-export default ProjectCategoryPage; 
+export default ProjectCategoryPage;

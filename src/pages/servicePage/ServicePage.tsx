@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./ServicePage.css";
 import ServicesSection from "../../components/ServicesSection";
 import ConstructionServicesSection from "../../components/ConstructionServicesSection";
 import ServiceProcessSection from "../../components/ServiceProcessSection";
@@ -23,8 +22,6 @@ const ServicePage: React.FC = () => {
       } catch (err) {
         console.error('Error loading service page data:', err);
         setError('Failed to load service page data');
-        // Use mock data as fallback
-        // setServiceData(mockServiceData);
       } finally {
         setIsLoading(false);
       }
