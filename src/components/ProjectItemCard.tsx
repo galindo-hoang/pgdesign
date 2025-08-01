@@ -20,13 +20,16 @@ interface ProjectItemCardProps {
   onClick?: (project: ProjectItem) => void;
 }
 
-const ProjectItemCard: React.FC<ProjectItemCardProps> = ({ project, onClick }) => {
+const ProjectItemCard: React.FC<ProjectItemCardProps> = ({
+  project,
+  onClick,
+}) => {
   const navigate = useNavigate();
-  
+
   const handleCardClick = () => {
     // Navigate to project detail page
     navigate(`/project-detail/${project.id}`);
-    
+
     // Keep the onClick callback for backward compatibility
     if (onClick) {
       onClick(project);
@@ -34,27 +37,24 @@ const ProjectItemCard: React.FC<ProjectItemCardProps> = ({ project, onClick }) =
   };
 
   return (
-    <div 
-      className="project-masonry-card" 
-      onClick={handleCardClick}
-    >
+    <div className="project-masonry-card" onClick={handleCardClick}>
       <div className="project-image-container">
-        <img 
-          src={project.thumbnailImage} 
+        <img
+          src={project.thumbnailImage}
           alt={project.title}
           className="project-masonry-image"
           loading="lazy"
         />
-        
+
         {/* Category label - always visible */}
         {/* <div className="project-category-label">
           {project.subCategory}
         </div> */}
-        
+
         {/* Hover overlay with client info */}
         <div className="project-hover-overlay">
           <div className="client-info">
-            <div className="client-name">{project.clientName}</div>
+            {/* <div className="client-name">{project.clientName}</div> */}
             <div className="project-specs">
               <span className="area">{project.area}</span>
               <span className="location">{project.address}</span>
@@ -67,4 +67,4 @@ const ProjectItemCard: React.FC<ProjectItemCardProps> = ({ project, onClick }) =
 };
 
 export type { ProjectItem };
-export default ProjectItemCard; 
+export default ProjectItemCard;
