@@ -739,7 +739,7 @@ export const additionalProjectData: {
         "/assets/house-normal/ANH HƯNG - NHÀ BÈ/2.png",
         "/assets/house-normal/ANH HƯNG - NHÀ BÈ/3.png",
         "/assets/house-normal/ANH HƯNG - NHÀ BÈ/4.png",
-        "/assets/house-normal/ANH HƯNG - NHÀ BÈ/5.png",
+        "/assets/house-normal/ANH HƯNG - NHÀ BÈ/16.png",
         "/assets/house-normal/ANH HƯNG - NHÀ BÈ/6.png",
         "/assets/house-normal/ANH HƯNG - NHÀ BÈ/7.png",
         "/assets/house-normal/ANH HƯNG - NHÀ BÈ/8.png",
