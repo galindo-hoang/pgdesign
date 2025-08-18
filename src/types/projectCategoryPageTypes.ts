@@ -26,6 +26,7 @@ export interface ProjectDetail {
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
+  // subCategory: string;
 }
 
 // Project overview data for listings
