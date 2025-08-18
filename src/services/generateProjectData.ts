@@ -99,28 +99,28 @@ const generateProjectFromFolder = (
 
 // Appartment projects
 const appartmentFolders = [
-  "ANH ĐĂNG - PHÚ GIA HƯNG - GÒ VẤP",
-  "ANH LONG - OPAL GARDEN - HIỆP BÌNH HCM",
-  "CHỊ NHI - DIAMOND - TÂN PHÚ",
-  "ANH TUẤN - CITYLAND PARK HILL - GÒ VẤP",
-  "CHỊ THUY - URBAN - hIỆP bÌNH HCM",
-  "CHỊ LINH - Midoripark The Glory - BINH DUONG",
-  "CHỊ HA - PEGASUITE - Q8",
-  "ANH PHÚC - PICITY - Q12",
-  "CHỊ LAN - CITYGATE - Q8",
-  "ANH MINH - CITYLAND PARK HILL - GÒ VẤP",
+  "ANH DANG - PHU GIA HUNG - GO VAP",
+  "ANH LONG - OPAL GARDEN - HIEP BINH HCM",
+  "CHI NHI - DIAMOND - TAN PHU",
+  "ANH TUAN - CITYLAND PARK HILL - GO VAP",
+  "CHI THUY - URBAN - hIEP bINH HCM",
+  "CHI LINH - Midoripark The Glory - BINH DUONG",
+  "CHI HA - PEGASUITE - Q8",
+  "ANH PHUC - PICITY - Q12",
+  "CHI LAN - CITYGATE - Q8",
+  "ANH MINH - CITYLAND PARK HILL - GO VAP",
 ];
 
 // House-normal projects
 const houseNormalFolders = [
-  "CHỊ MƠ - LONG AN - INDOCHINE",
-  "CHỊ HƯƠNG - QUẬN 7",
-  "ANH SƠN - LONG THÀNH",
-  "CHỊ THẢO - NHÀ BÈ",
-  "ANH NAM - TIỀN GIANG",
-  "CHỊ NGOC - DONG NAI",
-  "ANH HƯNG - NHÀ BÈ",
-  "CHỊ TÚ - LONG AN",
+  "CHI MO - LONG AN - INDOCHINE",
+  "CHI HUONG - QUAN 7",
+  "ANH SON - LONG THANH",
+  "CHI THAO - NHA BE",
+  "ANH NAM - TIEN GIANG",
+  "CHI NGOC - DONG NAI",
+  "ANH HUNG - NHA BE",
+  "CHI TU - LONG AN",
 ];
 
 // Village projects
@@ -129,10 +129,10 @@ const villageFolders = ["VILLA SUMMER"];
 // House-business projects
 const houseBusinessFolders = [
   "THE K COFFEE TEA - THU DUC",
-  "Ngoc Be Cake - Gò Vấp",
+  "Ngoc Be Cake - Go Vap",
   "B COFFEE - HCM",
-  "Bamboo panel - Gò Vấp",
-  "PERSEFONI OFFICE- QUẬN 3",
+  "Bamboo panel - Go Vap",
+  "PERSEFONI OFFICE- QUAN 3",
 ];
 
 export const generateProjectData = () => {
