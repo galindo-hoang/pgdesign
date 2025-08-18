@@ -52,6 +52,7 @@ export const additionalProjectData: {
       isActive: true,
       createdAt: "2024-01-01T00:00:00Z",
       updatedAt: "2024-06-30T00:00:00Z",
+      subCategory: "",
     },
     {
       id: 2,
@@ -97,6 +98,7 @@ export const additionalProjectData: {
       isActive: true,
       createdAt: "2024-01-01T00:00:00Z",
       updatedAt: "2024-06-30T00:00:00Z",
+      subCategory: "",
     },
     {
       id: 3,
@@ -149,6 +151,7 @@ export const additionalProjectData: {
       isActive: true,
       createdAt: "2024-01-01T00:00:00Z",
       updatedAt: "2024-06-30T00:00:00Z",
+      subCategory: "",
     },
     {
       id: 4,
@@ -498,6 +501,7 @@ export const additionalProjectData: {
       isActive: true,
       createdAt: "2024-01-01T00:00:00Z",
       updatedAt: "2024-06-30T00:00:00Z",
+      subCategory: "",
     },
     {
       id: 12,
@@ -540,6 +544,7 @@ export const additionalProjectData: {
       isActive: true,
       createdAt: "2024-01-01T00:00:00Z",
       updatedAt: "2024-06-30T00:00:00Z",
+      subCategory: "",
     },
     {
       id: 13,
@@ -584,6 +589,7 @@ export const additionalProjectData: {
       isActive: true,
       createdAt: "2024-01-01T00:00:00Z",
       updatedAt: "2024-06-30T00:00:00Z",
+      subCategory: "",
     },
     // {
     //   id: 14,

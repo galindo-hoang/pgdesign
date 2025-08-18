@@ -26,7 +26,7 @@ export interface ProjectDetail {
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
-  // subCategory: string;
+  subCategory?: string; // Optional field with default empty value
 }
 
 // Project overview data for listings
@@ -97,4 +97,4 @@ export interface CategoryData {
   description: string;
   heroImage: string;
   projects: ProjectItem[];
-} 
+}

@@ -22,6 +22,8 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
   );
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>("all");
+  const [filteredProjects, setFilteredProjects] = useState<ProjectDetail[]>([]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -36,6 +38,7 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
           );
           if (categoryResult) {
             setCategoryData(categoryResult);
+            setFilteredProjects(categoryResult.projects);
           }
         }
       } catch (err) {
@@ -48,6 +51,35 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
 
     loadData();
   }, [categoryId]);
+
+  // Filter projects based on selected subcategory
+  useEffect(() => {
+    if (categoryData) {
+      if (selectedSubCategory === "all") {
+        setFilteredProjects(categoryData.projects);
+      } else {
+        const filtered = categoryData.projects.filter(
+          (project) => project.subCategory === selectedSubCategory
+        );
+        setFilteredProjects(filtered);
+      }
+    }
+  }, [selectedSubCategory, categoryData]);
+
+  // Get unique subcategories (excluding empty ones)
+  const getUniqueSubCategories = () => {
+    if (!categoryData) return [];
+
+    const subCategories = categoryData.projects
+      .map((project) => project.subCategory || "")
+      .filter((subCat) => subCat.trim() !== "")
+      .filter((value, index, self) => self.indexOf(value) === index);
+
+    return subCategories;
+  };
+
+  const uniqueSubCategories = getUniqueSubCategories();
+  const shouldShowSubCategoryNav = uniqueSubCategories.length > 1;
 
   const handleProjectClick = (project: ProjectDetail) => {
     // Navigate to detailed project page
@@ -101,9 +133,36 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
       </div>
 
       <div className="subcategory-content">
+        {/* Subcategory Navigation */}
+        {shouldShowSubCategoryNav && (
+          <div className="subcategory-nav">
+            <div className="subcategory-nav-container">
+              <button
+                className={`subcategory-nav-item ${
+                  selectedSubCategory === "all" ? "active" : ""
+                }`}
+                onClick={() => setSelectedSubCategory("all")}
+              >
+                Tất cả
+              </button>
+              {uniqueSubCategories.map((subCategory) => (
+                <button
+                  key={subCategory}
+                  className={`subcategory-nav-item ${
+                    selectedSubCategory === subCategory ? "active" : ""
+                  }`}
+                  onClick={() => setSelectedSubCategory(subCategory)}
+                >
+                  {subCategory}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Project Grid */}
         <div className="projects-grid">
-          {categoryData.projects.map((projectDetail) => {
+          {filteredProjects.map((projectDetail) => {
             // Transform ProjectDetail to ProjectItem format for compatibility
             const projectItem = {
               id: projectDetail.projectId,
