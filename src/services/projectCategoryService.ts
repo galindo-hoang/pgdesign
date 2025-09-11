@@ -31,6 +31,7 @@ const mockCategoriesData: Record<string, Omit<ProjectCategory, "projects">> = {
     description:
       "Thiết kế nhà phố hiện đại, tối ưu hóa không gian và ánh sáng tự nhiên cho cuộc sống đô thị.",
     heroImageUrl: houseNormal,
+    heroImageBlob: undefined, // Will be populated from database
     displayOrder: 0,
     isActive: true,
     projectCount: 25,
@@ -42,6 +43,7 @@ const mockCategoriesData: Record<string, Omit<ProjectCategory, "projects">> = {
     description:
       "Hòa quyện kiến trúc với thiên nhiên, tạo nên không gian sống xanh và thư thái.",
     heroImageUrl: appartment,
+    heroImageBlob: undefined, // Will be populated from database
     displayOrder: 1,
     isActive: true,
     projectCount: 18,
@@ -53,6 +55,7 @@ const mockCategoriesData: Record<string, Omit<ProjectCategory, "projects">> = {
     description:
       "Thi công phần thô với chất lượng cao, đảm bảo kết cấu vững chắc cho công trình.",
     heroImageUrl: village,
+    heroImageBlob: undefined, // Will be populated from database
     displayOrder: 2,
     isActive: true,
     projectCount: 12,
@@ -64,6 +67,7 @@ const mockCategoriesData: Record<string, Omit<ProjectCategory, "projects">> = {
     description:
       "Thiết kế và thi công nội thất sang trọng, hiện đại phù hợp với phong cách sống.",
     heroImageUrl: houseBusiness,
+    heroImageBlob: undefined, // Will be populated from database
     displayOrder: 3,
     isActive: true,
     projectCount: 30,

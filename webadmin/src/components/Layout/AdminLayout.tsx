@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
-import './AdminLayout.css';
+import React, { useState } from "react";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import "./AdminLayout.css";
 
 // Icons
-import { 
-  Home, 
-  BarChart3, 
-  FileText, 
-  Image, 
-  User, 
-  Folder, 
-  Settings, 
-  Grid3X3, 
+import {
+  Home,
+  BarChart3,
+  FileText,
+  Image,
+  User,
+  Folder,
+  Settings,
+  Grid3X3,
   Mail,
   LogOut,
   Menu,
   X,
   Bell,
-  Search
-} from 'lucide-react';
+  Search,
+} from "lucide-react";
 
 interface MenuItem {
   id: string;
@@ -31,68 +31,68 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   {
-    id: 'dashboard',
-    title: 'Dashboard',
-    path: '/',
+    id: "dashboard",
+    title: "Dashboard",
+    path: "/",
     icon: <Home />,
-    description: 'Overview and statistics'
+    description: "Overview and statistics",
   },
   {
-    id: 'analytics',
-    title: 'Analytics',
-    path: '/analytics',
+    id: "analytics",
+    title: "Analytics",
+    path: "/analytics",
     icon: <BarChart3 />,
-    description: 'Visitor analytics and charts'
+    description: "Visitor analytics and charts",
   },
   {
-    id: 'blog',
-    title: 'Blog Management',
-    path: '/blog',
+    id: "blog",
+    title: "Blog Management",
+    path: "/blog",
     icon: <FileText />,
-    description: 'Manage blog posts and content'
+    description: "Manage blog posts and content",
   },
   {
-    id: 'homepage',
-    title: 'Homepage',
-    path: '/homepage',
+    id: "homepage",
+    title: "Homepage",
+    path: "/homepage",
     icon: <Home />,
-    description: 'Homepage content management'
+    description: "Homepage content management",
   },
   {
-    id: 'intro',
-    title: 'Intro Page',
-    path: '/intro',
+    id: "intro",
+    title: "Intro Page",
+    path: "/intro",
     icon: <User />,
-    description: 'About us and intro content'
+    description: "About us and intro content",
   },
   {
-    id: 'projects',
-    title: 'Projects',
-    path: '/projects',
+    id: "projects",
+    title: "Project Categories",
+    path: "/projects",
     icon: <Folder />,
-    description: 'Project portfolio management'
+    description: "Manage project categories and portfolio",
   },
   {
-    id: 'project-details',
-    title: 'Project Details',
-    path: '/project-details',
+    id: "project-details",
+    title: "Project Details",
+    path: "/project-details",
     icon: <Image />,
-    description: 'Detailed project information'
+    description: "Detailed project information",
   },
   {
-    id: 'services',
-    title: 'Services',
-    path: '/services',
+    id: "services",
+    title: "Services",
+    path: "/services",
     icon: <Grid3X3 />,
-    description: 'Service offerings management'
+    description: "Service offerings management",
   },
   {
-    id: 'consultations',
-    title: 'Consultations',
-    path: '/consultations',
+    id: "consultations",
+    title: "Consultations",
+    path: "/consultations",
     icon: <Mail />,
-    description: 'Customer consultation requests'
-  }
+    description: "Customer consultation requests",
+  },
 ];
 
 const AdminLayout: React.FC = () => {
@@ -103,7 +103,7 @@ const AdminLayout: React.FC = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   const toggleSidebar = () => {
@@ -111,8 +111,8 @@ const AdminLayout: React.FC = () => {
   };
 
   const isActiveMenuItem = (path: string) => {
-    if (path === '/') {
-      return location.pathname === '/';
+    if (path === "/") {
+      return location.pathname === "/";
     }
     return location.pathname.startsWith(path);
   };
@@ -120,12 +120,12 @@ const AdminLayout: React.FC = () => {
   return (
     <div className="admin-layout">
       {/* Sidebar */}
-      <div className={`sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
+      <div className={`sidebar ${sidebarOpen ? "open" : "closed"}`}>
         <div className="sidebar-header">
           <div className="logo">
-            <img 
-              src="http://localhost:9000/pgdesign-assets/logo/pg-design-logo.svg" 
-              alt="PG Design" 
+            <img
+              src="http://localhost:9000/pgdesign-assets/logo/pg-design-logo.svg"
+              alt="PG Design"
               className="logo-img"
             />
           </div>
@@ -135,9 +135,11 @@ const AdminLayout: React.FC = () => {
           {menuItems.map((item) => (
             <button
               key={item.id}
-              className={`nav-item ${isActiveMenuItem(item.path) ? 'active' : ''}`}
+              className={`nav-item ${
+                isActiveMenuItem(item.path) ? "active" : ""
+              }`}
               onClick={() => navigate(item.path)}
-              title={!sidebarOpen ? item.title : ''}
+              title={!sidebarOpen ? item.title : ""}
             >
               <span className="nav-icon">{item.icon}</span>
               {sidebarOpen && (
@@ -151,34 +153,37 @@ const AdminLayout: React.FC = () => {
         </nav>
 
         <div className="sidebar-footer">
-          <button 
-            className="nav-item logout-btn" 
+          <button
+            className="nav-item logout-btn"
             onClick={handleLogout}
-            title={!sidebarOpen ? 'Logout' : ''}
+            title={!sidebarOpen ? "Logout" : ""}
           >
-            <span className="nav-icon"><LogOut /></span>
+            <span className="nav-icon">
+              <LogOut />
+            </span>
             {sidebarOpen && <span className="nav-title">Logout</span>}
           </button>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className={`main-content ${sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+      <div
+        className={`main-content ${
+          sidebarOpen ? "sidebar-open" : "sidebar-closed"
+        }`}
+      >
         {/* Header */}
         <header className="admin-header">
           <div className="header-left">
-            <button 
-              className="sidebar-toggle"
-              onClick={toggleSidebar}
-            >
+            <button className="sidebar-toggle" onClick={toggleSidebar}>
               {sidebarOpen ? <X /> : <Menu />}
             </button>
-            
+
             <div className="search-box">
               <Search className="search-icon" />
-              <input 
-                type="text" 
-                placeholder="Search..." 
+              <input
+                type="text"
+                placeholder="Search..."
                 className="search-input"
               />
             </div>
@@ -189,7 +194,7 @@ const AdminLayout: React.FC = () => {
               <Bell />
               <span className="notification-badge">3</span>
             </button>
-            
+
             <button className="header-btn">
               <Settings />
             </button>
@@ -214,13 +219,10 @@ const AdminLayout: React.FC = () => {
 
       {/* Mobile Overlay */}
       {sidebarOpen && (
-        <div 
-          className="mobile-overlay"
-          onClick={() => setSidebarOpen(false)}
-        />
+        <div className="mobile-overlay" onClick={() => setSidebarOpen(false)} />
       )}
     </div>
   );
 };
 
-export default AdminLayout; 
+export default AdminLayout;

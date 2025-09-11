@@ -14,7 +14,7 @@ export interface ProjectDetail {
   style?: string;
   thumbnailImage?: string;
   htmlContent: string;
-  projectImages?: string[];
+  projectImages?: string[]; // Array of base64 encoded image data (BLOB storage)
   projectStatus?: string; // Now includes budget information
   completionDate?: string;
   architectName?: string;
@@ -51,7 +51,8 @@ export interface CategoryInfo {
   categoryId: string;
   title: string;
   description: string;
-  heroImageUrl?: string;
+  heroImageUrl?: string; // Legacy URL field (for backward compatibility)
+  heroImageBlob?: string; // Base64 encoded image data (new BLOB storage)
   displayOrder: number;
   isActive: boolean;
 }

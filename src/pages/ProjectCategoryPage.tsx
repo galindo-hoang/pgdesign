@@ -114,7 +114,8 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
     );
   }
   // Get hero image from category data or fallback to default
-  const heroImage = categoryData.heroImageUrl;
+  // Prioritize BLOB data over URL for better performance
+  const heroImage = categoryData.heroImageBlob || categoryData.heroImageUrl;
 
   return (
     <div className="project-category-page">

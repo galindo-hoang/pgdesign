@@ -108,6 +108,7 @@ const mockProjectCategories: ProjectCategory[] = [
     title: "NHÀ PHỐ",
     projectCount: 45,
     backgroundImageUrl: houseNormal,
+    backgroundImageBlob: undefined, // Will be populated from database
     navigationPath: "/projects/house-normal",
     displayOrder: 0,
   },
@@ -117,6 +118,7 @@ const mockProjectCategories: ProjectCategory[] = [
     title: "CĂN HỘ",
     projectCount: 32,
     backgroundImageUrl: appartment,
+    backgroundImageBlob: undefined, // Will be populated from database
     navigationPath: "/projects/appartment",
     displayOrder: 1,
   },
@@ -126,6 +128,7 @@ const mockProjectCategories: ProjectCategory[] = [
     title: "Biệt thự",
     projectCount: 28,
     backgroundImageUrl: village,
+    backgroundImageBlob: undefined, // Will be populated from database
     navigationPath: "/projects/village",
     displayOrder: 2,
   },
@@ -135,6 +138,7 @@ const mockProjectCategories: ProjectCategory[] = [
     title: "Thương mại",
     projectCount: 50,
     backgroundImageUrl: houseBusiness,
+    backgroundImageBlob: undefined, // Will be populated from database
     navigationPath: "/projects/house-business",
     displayOrder: 3,
   },
@@ -311,9 +315,9 @@ export const fetchProjectPageData = async (): Promise<ProjectPageData> => {
 // ========== UTILITY FUNCTIONS ==========
 
 /**
- * Appends project images to htmlContent with proper PUBLIC_URL handling
+ * Appends project images to htmlContent with base64 BLOB data handling
  * @param htmlContent - The existing HTML content
- * @param projectImages - Array of image paths
+ * @param projectImages - Array of base64 encoded image data
  * @param title - Project title for alt text
  * @returns Enhanced HTML content with images
  */
@@ -326,12 +330,18 @@ export const appendProjectImagesToHtml = (
     return htmlContent;
   }
 
-  // Function to process image URL with PUBLIC_URL if needed
-  const processImageUrl = (imageUrl: string): string => {
-    // if (imageUrl.startsWith('/assets/')) {
-    //   return `${process.env.PUBLIC_URL}${imageUrl}`;
-    // }
-    return imageUrl;
+  // Function to process base64 image data
+  const processImageData = (imageData: string): string => {
+    // If it's already a data URL, return as is
+    if (imageData.startsWith("data:image/")) {
+      return imageData;
+    }
+    // If it's base64 without data URL prefix, add the prefix
+    if (imageData.startsWith("/9j/") || imageData.startsWith("iVBORw0KGgo")) {
+      return `data:image/jpeg;base64,${imageData}`;
+    }
+    // For backward compatibility with file paths, return as is
+    return imageData;
   };
 
   // Create image gallery HTML
@@ -339,11 +349,11 @@ export const appendProjectImagesToHtml = (
     <div style="">
       <div style="display: flex; flex-direction: column;">
         ${projectImages
-          .map((imageUrl, index) => {
-            const processedUrl = processImageUrl(imageUrl);
+          .map((imageData, index) => {
+            const processedData = processImageData(imageData);
             return `
             <img 
-              src="${processedUrl}" 
+              src="${processedData}" 
               alt="${title} - Hình ${index + 1}" 
               style="width: 100%; height: auto; object-fit: cover; margin-bottom: 1px; margin-top: 1px;"
               loading="lazy"
@@ -375,28 +385,34 @@ export const appendProjectImagesToHtml = (
 };
 
 /**
- * Processes all image URLs in a project data object
+ * Processes all image data in a project data object (handles both URLs and base64 BLOB data)
  * @param projectData - Project data object
- * @returns Project data with processed image URLs
+ * @returns Project data with processed image data
  */
 export const processProjectImageUrls = (projectData: any): any => {
   if (!projectData) return projectData;
 
-  const processImageUrl = (imageUrl: string): string => {
-    // if (imageUrl && imageUrl.startsWith('/assets/')) {
-    //   return `${process.env.PUBLIC_URL}${imageUrl}`;
-    // }
-    return imageUrl;
+  const processImageData = (imageData: string): string => {
+    // If it's already a data URL, return as is
+    if (imageData.startsWith("data:image/")) {
+      return imageData;
+    }
+    // If it's base64 without data URL prefix, add the prefix
+    if (imageData.startsWith("/9j/") || imageData.startsWith("iVBORw0KGgo")) {
+      return `data:image/jpeg;base64,${imageData}`;
+    }
+    // For backward compatibility with file paths, return as is
+    return imageData;
   };
 
   // Process thumbnail image
   if (projectData.thumbnailImage) {
-    projectData.thumbnailImage = processImageUrl(projectData.thumbnailImage);
+    projectData.thumbnailImage = processImageData(projectData.thumbnailImage);
   }
 
   // Process project images array
   if (projectData.projectImages && Array.isArray(projectData.projectImages)) {
-    projectData.projectImages = projectData.projectImages.map(processImageUrl);
+    projectData.projectImages = projectData.projectImages.map(processImageData);
   }
 
   return projectData;

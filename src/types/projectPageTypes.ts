@@ -55,7 +55,8 @@ export interface ProjectCategory {
   categoryId: string;
   title: string;
   projectCount: number;
-  backgroundImageUrl: string;
+  backgroundImageUrl: string; // Legacy URL field (for backward compatibility)
+  backgroundImageBlob?: string; // Base64 encoded image data (new BLOB storage)
   navigationPath: string;
   displayOrder: number;
 }
@@ -66,4 +67,4 @@ export interface ApiResponse<T> {
   data?: T;
   error?: string;
   message?: string;
-} 
+}

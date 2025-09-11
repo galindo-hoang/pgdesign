@@ -13,32 +13,31 @@ export interface ProjectDetailData {
   projectCategoryId: number;
   style?: string | undefined;
   thumbnailImage?: string | undefined;
-  
+
   // Embedded HTML content from server
   htmlContent: string;
-  
+
   // Additional project details
-  projectImages?: string[] | undefined;
+  projectImages?: string[] | undefined; // Array of base64 encoded image data
+  projectImagesBlob?: string[] | undefined; // Array of base64 encoded image data (new BLOB storage)
   projectStatus?: string | undefined; // Now includes budget information
   completionDate?: string | undefined;
   architectName?: string | undefined;
   contractorName?: string | undefined;
-  
+
   // SEO and metadata
   metaTitle?: string | undefined;
   metaDescription?: string | undefined;
   tags?: string[] | undefined;
-  
+
   // Homepage display control
   isOnHomePage?: boolean;
-  
+
   // Admin managed content
   isActive?: boolean;
   createdAt?: string;
   updatedAt?: string;
 }
-
-
 
 // Request types for creating/updating project details
 export interface CreateProjectDetailRequest {
@@ -54,7 +53,8 @@ export interface CreateProjectDetailRequest {
   style?: string | undefined;
   thumbnailImage?: string | undefined;
   htmlContent: string;
-  projectImages?: string[] | undefined;
+  projectImages?: string[] | undefined; // Array of base64 encoded image data
+  projectImagesBlob?: string[] | undefined; // Array of base64 encoded image data (new BLOB storage)
   projectStatus?: string | undefined; // Now includes budget information
   completionDate?: string | undefined;
   architectName?: string | undefined;
@@ -78,7 +78,8 @@ export interface UpdateProjectDetailRequest {
   style?: string | undefined;
   thumbnailImage?: string | undefined;
   htmlContent?: string | undefined;
-  projectImages?: string[] | undefined;
+  projectImages?: string[] | undefined; // Array of base64 encoded image data
+  projectImagesBlob?: string[] | undefined; // Array of base64 encoded image data (new BLOB storage)
   projectStatus?: string | undefined; // Now includes budget information
   completionDate?: string | undefined;
   architectName?: string | undefined;
@@ -105,6 +106,7 @@ export interface ProjectDetailRow {
   thumbnail_image?: string | null;
   html_content: string;
   project_images?: string | null; // JSON string
+  project_images_blob?: string | null; // JSON string of base64 encoded images
   project_status?: string | null; // Now includes budget information
   completion_date?: string | null;
   architect_name?: string | null;
@@ -117,8 +119,6 @@ export interface ProjectDetailRow {
   created_at: string;
   updated_at: string;
 }
-
-
 
 // API Response types
 export interface ApiResponse<T> {
@@ -161,4 +161,4 @@ export interface ProjectDetailFilters {
   projectCategoryId?: number;
   projectStatus?: string;
   isActive?: boolean;
-} 
+}

@@ -6,9 +6,9 @@ exports.up = async function (knex) {
     table.string("company_name").notNullable();
     table.string("service_line").notNullable();
     table.text("description").notNullable();
-    table.jsonb("capabilities").notNullable().defaultTo("[]");
+    table.json("capabilities").notNullable();
     table.string("main_image").notNullable().defaultTo("");
-    table.jsonb("side_images").notNullable().defaultTo("[]");
+    table.json("side_images").notNullable();
     table.string("benefits_title").notNullable().defaultTo("");
     table.boolean("is_active").notNullable().defaultTo(true).unique();
     table.timestamp("created_at").defaultTo(knex.fn.now());
@@ -22,7 +22,7 @@ exports.up = async function (knex) {
       table.increments("id").primary();
       table.string("title").notNullable();
       table.text("description").notNullable();
-      table.jsonb("images").notNullable().defaultTo("[]");
+      table.json("images").notNullable();
       table.string("layout_type").notNullable();
       table.integer("display_order").notNullable().defaultTo(0);
       table.boolean("is_active").notNullable().defaultTo(true);
@@ -47,7 +47,7 @@ exports.up = async function (knex) {
       table.increments("id").primary();
       table.string("title").notNullable();
       table.text("description").notNullable();
-      table.jsonb("images").notNullable().defaultTo("[]");
+      table.json("images").notNullable();
       table.string("layout_type").notNullable();
       table.integer("display_order").notNullable().defaultTo(0);
       table.boolean("is_active").notNullable().defaultTo(true);

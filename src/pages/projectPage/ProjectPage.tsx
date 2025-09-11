@@ -13,7 +13,6 @@ import { ReactComponent as HandshakeIcon } from "../../assets/icons/customer-ico
 import { ReactComponent as DesignIcon } from "../../assets/icons/design-icon.svg";
 import { ReactComponent as GearIcon } from "../../assets/icons/building-icon.svg";
 
-
 const ProjectPage: React.FC = () => {
   const [projectData, setProjectData] = useState<ProjectPageData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -21,10 +20,10 @@ const ProjectPage: React.FC = () => {
 
   // Icon mapping for stats items
   const iconMap = {
-    'experience-icon': BriefcaseIcon,
-    'customer-icon': HandshakeIcon,
-    'design-icon': DesignIcon,
-    'building-icon': GearIcon
+    "experience-icon": BriefcaseIcon,
+    "customer-icon": HandshakeIcon,
+    "design-icon": DesignIcon,
+    "building-icon": GearIcon,
   };
 
   useEffect(() => {
@@ -32,12 +31,12 @@ const ProjectPage: React.FC = () => {
       try {
         setIsLoading(true);
         setError(null);
-        
+
         const data = await fetchProjectPageData();
         setProjectData(data);
       } catch (err) {
-        console.error('Error loading project page data:', err);
-        setError('Failed to load project page data');
+        console.error("Error loading project page data:", err);
+        setError("Failed to load project page data");
       } finally {
         setIsLoading(false);
       }
@@ -54,10 +53,8 @@ const ProjectPage: React.FC = () => {
     return (
       <div className="error-container">
         <h2>Error loading project page</h2>
-        <p>{error || 'No project data available'}</p>
-        <button onClick={() => window.location.reload()}>
-          Try Again
-        </button>
+        <p>{error || "No project data available"}</p>
+        <button onClick={() => window.location.reload()}>Try Again</button>
       </div>
     );
   }
@@ -66,10 +63,10 @@ const ProjectPage: React.FC = () => {
   const stateHeader = {
     mainHeadline: projectData.statsSection.mainHeadline,
     subHeadline: projectData.statsSection.subHeadline,
-    description: projectData.statsSection.description
+    description: projectData.statsSection.description,
   };
 
-  const statIcons = projectData.statsSection.statsItems.map(item => ({
+  const statIcons = projectData.statsSection.statsItems.map((item) => ({
     id: item.id,
     icon: iconMap[item.iconName as keyof typeof iconMap] || BriefcaseIcon,
     targetValue: item.targetValue,
@@ -77,34 +74,40 @@ const ProjectPage: React.FC = () => {
     suffix: item.suffix,
     description: item.description,
     backgroundImage: item.backgroundImageUrl,
-    category: item.category
+    category: item.category,
   }));
 
   const aboutProjectSectionContent = {
     title: projectData.aboutProject.title,
     subtitle: projectData.aboutProject.subtitle,
-    backgroundImage: projectData.aboutProject.backgroundImageUrl
+    backgroundImage: projectData.aboutProject.backgroundImageUrl,
   };
 
   const projectCategoriesHeader = {
     mainTitle: projectData.projectCategories.mainTitle,
     subtitle: projectData.projectCategories.subtitle,
-    description: projectData.projectCategories.description
+    description: projectData.projectCategories.description,
   };
 
-  const projectCategories = projectData.projectCategories.categories.map(category => ({
-    id: category.categoryId,
-    title: category.title,
-    projectCount: category.projectCount,
-    backgroundImage: category.backgroundImageUrl,
-    navigationPath: category.navigationPath
-  }));
+  const projectCategories = projectData.projectCategories.categories.map(
+    (category) => ({
+      id: category.categoryId,
+      title: category.title,
+      projectCount: category.projectCount,
+      backgroundImage:
+        category.backgroundImageBlob || category.backgroundImageUrl,
+      navigationPath: category.navigationPath,
+    })
+  );
 
   return (
     <div className="project-page">
-      <AboutProjectSection content={aboutProjectSectionContent}/>
-      <StatsSection stateHeader={stateHeader} stateItems={statIcons}/>
-      <ProjectCategoriesSection header={projectCategoriesHeader} categories={projectCategories} />
+      <AboutProjectSection content={aboutProjectSectionContent} />
+      <StatsSection stateHeader={stateHeader} stateItems={statIcons} />
+      <ProjectCategoriesSection
+        header={projectCategoriesHeader}
+        categories={projectCategories}
+      />
     </div>
   );
 };
