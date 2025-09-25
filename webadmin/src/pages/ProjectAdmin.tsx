@@ -583,14 +583,14 @@ const ProjectAdmin: React.FC = () => {
                                 >
                                   <Edit />
                                 </button>
-                                <button
+                                {/* <button
                                   onClick={() =>
                                     handleDeleteCategory(category.categoryId)
                                   }
                                   className="delete-category-btn"
                                 >
                                   <Trash2 />
-                                </button>
+                                </button> */}
                               </>
                             )}
                           </div>
