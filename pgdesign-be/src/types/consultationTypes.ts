@@ -30,5 +30,21 @@ export interface ConsultationResponse {
     submittedAt: string;
     customerName: string;
     projectType: string;
+    requestId?: number;
   };
+}
+
+// Admin interfaces for consultation request management
+export interface ConsultationRequestUpdate {
+  status?: 'pending' | 'contacted' | 'in_progress' | 'completed' | 'cancelled';
+  adminNotes?: string;
+}
+
+export interface ConsultationRequestQuery {
+  status?: string;
+  search?: string;
+  page?: number;
+  limit?: number;
+  sortBy?: 'created_at' | 'full_name' | 'status';
+  sortOrder?: 'asc' | 'desc';
 } 
