@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Aspect Ratio Update - Test Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-title {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .aspect-ratio-demo {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .old-ratio {
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .new-ratio {
+            width: 200px;
+            height: 320px;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .website-ratio {
+            width: 200px;
+            height: 320px;
+            background: linear-gradient(45deg, #96ceb4, #ffeaa7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-weight: bold;
+        }
+        .feature-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .feature-list li:before {
+            content: "✓ ";
+            color: #28a745;
+            font-weight: bold;
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 class="test-title">📐 Tỉ Lệ Hình Ảnh Đã Được Cập Nhật!</h1>
+        
+        <div class="test-result success">
+            <h3>✅ Hoàn thành thành công!</h3>
+            <p><strong>Tỉ lệ hình ảnh trong SingleImageUpload đã được thay đổi để phù hợp với website chính.</strong></p>
+        </div>
+
+        <div class="comparison">
+            <div class="test-result error">
+                <h3>❌ Before (Tỉ lệ cũ):</h3>
+                <div class="aspect-ratio-demo">
+                    <div class="old-ratio">
+                        200px × 150px<br>
+                        (Tỉ lệ 4:3)
+                    </div>
+                </div>
+                <ul>
+                    <li>Width: 200px</li>
+                    <li>Height: 150px</li>
+                    <li>Aspect Ratio: 4:3 (landscape)</li>
+                    <li>Không phù hợp với website</li>
+                </ul>
+            </div>
+            
+            <div class="test-result success">
+                <h3>✅ After (Tỉ lệ mới):</h3>
+                <div class="aspect-ratio-demo">
+                    <div class="new-ratio">
+                        200px × 320px<br>
+                        (Tỉ lệ 5:8)
+                    </div>
+                </div>
+                <ul>
+                    <li>Width: 200px</li>
+                    <li>Height: 320px</li>
+                    <li>Aspect Ratio: 5:8 (portrait)</li>
+                    <li>Phù hợp với website chính</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="test-result info">
+            <h3>🌐 Website Chính (Tham khảo):</h3>
+            <div class="aspect-ratio-demo">
+                <div class="website-ratio">
+                    Category Card<br>
+                    Portrait Layout<br>
+                    (Tỉ lệ dọc)
+                </div>
+            </div>
+            <p>Category cards trên website chính có tỉ lệ dọc với height: 800px, 700px, 550px... tùy theo responsive breakpoints.</p>
+        </div>
+
+        <div class="test-result success">
+            <h3>🧪 Cách test:</h3>
+            <ol>
+                <li><strong>Truy cập:</strong> http://localhost:3001/project hoặc http://localhost:3001/about-project</li>
+                <li><strong>Vào Edit Mode</strong></li>
+                <li><strong>Upload hình ảnh:</strong> Drag & drop hoặc click để chọn</li>
+                <li><strong>Kiểm tra preview:</strong> Hình ảnh hiện có tỉ lệ dọc (200px × 320px)</li>
+                <li><strong>So sánh với website:</strong> Mở http://localhost:3000 để so sánh tỉ lệ</li>
+            </ol>
+        </div>
+
+        <div class="test-result info">
+            <h3>🔧 Technical Changes:</h3>
+            <div class="code-block">
+/* Before */
+.image-preview-single {
+  width: 200px;
+  height: 150px;  /* 4:3 ratio */
+}
+
+/* After */
+.image-preview-single {
+  width: 200px;
+  height: 320px;  /* 5:8 ratio */
+}
+            </div>
+        </div>
+
+        <div class="test-result success">
+            <h3>📊 Aspect Ratio Comparison:</h3>
+            <ul class="feature-list">
+                <li><strong>Old Ratio:</strong> 4:3 (1.33:1) - Landscape orientation</li>
+                <li><strong>New Ratio:</strong> 5:8 (0.625:1) - Portrait orientation</li>
+                <li><strong>Website Ratio:</strong> Portrait với various heights (800px, 700px, 550px...)</li>
+                <li><strong>Better Match:</strong> Tỉ lệ mới phù hợp hơn với layout dọc của website</li>
+                <li><strong>Consistent Preview:</strong> Admin preview giờ đây phản ánh đúng cách hình ảnh sẽ hiển thị</li>
+            </ul>
+        </div>
+
+        <button onclick="window.open('http://localhost:3001/project', '_blank')">
+            🚀 Test Project Admin
+        </button>
+        
+        <button onclick="window.open('http://localhost:3001/about-project', '_blank')">
+            📝 Test About Project Admin
+        </button>
+        
+        <button onclick="window.open('http://localhost:3000', '_blank')">
+            🌐 Xem Website Chính
+        </button>
+    </div>
+
+    <div class="test-container">
+        <h2 class="test-title">🎯 Benefits của Tỉ Lệ Mới</h2>
+        
+        <div class="test-result success">
+            <h3>✅ Lợi ích:</h3>
+            <ul class="feature-list">
+                <li><strong>Accurate Preview:</strong> Preview trong admin giờ đây phản ánh đúng tỉ lệ trên website</li>
+                <li><strong>Better Composition:</strong> Tỉ lệ dọc phù hợp với layout category cards</li>
+                <li><strong>Consistent Experience:</strong> Không có sự khác biệt giữa admin và website</li>
+                <li><strong>Better Image Selection:</strong> Dễ dàng chọn hình ảnh phù hợp với tỉ lệ đúng</li>
+                <li><strong>Reduced Surprises:</strong> Không bị bất ngờ khi hình ảnh hiển thị khác với preview</li>
+                <li><strong>Professional Workflow:</strong> Workflow admin chuyên nghiệp hơn</li>
+            </ul>
+        </div>
+
+        <div class="test-result info">
+            <h3>📋 Files Modified:</h3>
+            <ul class="feature-list">
+                <li><strong>/webadmin/src/components/Base64ImageUpload.css</strong>
+                    <ul style="margin-left: 20px; list-style-type: disc;">
+                        <li>Updated .image-preview-single height from 150px to 320px</li>
+                        <li>Maintained width at 200px</li>
+                        <li>Changed aspect ratio from 4:3 to 5:8</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="test-result success">
+            <h3>🎨 Visual Impact:</h3>
+            <p>Hình ảnh preview trong admin giờ đây có tỉ lệ dọc, phù hợp với cách hiển thị trên website chính. Điều này giúp người dùng admin có thể dự đoán chính xác cách hình ảnh sẽ xuất hiện cho end users.</p>
+        </div>
+    </div>
+
+    <script>
+        console.log('📐 Image aspect ratio updated successfully');
+        console.log('✅ Changed from 200x150 (4:3) to 200x320 (5:8)');
+        console.log('🎯 Better match with website main layout');
+        console.log('Ready for testing!');
+    </script>
+</body>
+</html>

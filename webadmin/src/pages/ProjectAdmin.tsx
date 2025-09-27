@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   Save,
   Edit,
-  Eye,
-  RefreshCw,
   Plus,
   Trash2,
   X,
@@ -37,7 +35,6 @@ const ProjectAdmin: React.FC = () => {
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
   const [activeTab, setActiveTab] = useState<"header" | "categories">("header");
   const [editingCategory, setEditingCategory] =
     useState<ProjectCategory | null>(null);
@@ -318,21 +315,6 @@ const ProjectAdmin: React.FC = () => {
           </div>
           <div className="header-actions">
             <button
-              onClick={() => setShowPreview(true)}
-              className="preview-btn"
-            >
-              <Eye />
-              Preview
-            </button>
-            <button
-              onClick={loadProjectData}
-              className="refresh-btn"
-              disabled={loading}
-            >
-              <RefreshCw className={loading ? "spinning" : ""} />
-              Refresh
-            </button>
-            <button
               onClick={() => setEditMode(!editMode)}
               className={`edit-btn ${editMode ? "active" : ""}`}
             >
@@ -612,25 +594,6 @@ const ProjectAdmin: React.FC = () => {
         />
       )}
 
-      {/* Preview Modal */}
-      {showPreview && (
-        <div className="preview-modal">
-          <div className="preview-header">
-            <h3>Project Categories Preview</h3>
-            <button onClick={() => setShowPreview(false)} className="close-btn">
-              <X />
-            </button>
-          </div>
-          <div className="preview-content">
-            <iframe
-              src="http://localhost:3000/projects"
-              width="100%"
-              height="800px"
-              title="Project Categories Preview"
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 };
