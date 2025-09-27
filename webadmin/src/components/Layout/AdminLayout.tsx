@@ -80,6 +80,13 @@ const menuItems: MenuItem[] = [
     description: "Detailed project information",
   },
   {
+    id: "about-project",
+    title: "About Project",
+    path: "/about-project",
+    icon: <FileText />,
+    description: "About project section management",
+  },
+  {
     id: "services",
     title: "Services",
     path: "/services",

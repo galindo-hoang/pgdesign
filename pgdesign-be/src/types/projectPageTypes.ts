@@ -10,7 +10,7 @@ export interface AboutProjectData {
   id: number;
   title: string;
   subtitle: string;
-  backgroundImageUrl: string;
+  backgroundImageBlob: string | null;
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -34,7 +34,6 @@ export interface StatsItem {
   label: string;
   suffix: string;
   description: string;
-  backgroundImageUrl: string;
   category: string;
   displayOrder: number;
 }
@@ -55,8 +54,7 @@ export interface ProjectCategory {
   categoryId: string;
   title: string;
   projectCount: number;
-  backgroundImageUrl: string; // Legacy URL field (for backward compatibility)
-  backgroundImageBlob?: string; // Base64 encoded image data (new BLOB storage)
+  backgroundImageBlob: string | null; // Base64 encoded image data
   navigationPath: string;
   displayOrder: number;
 }
@@ -66,8 +64,7 @@ export interface CreateProjectCategoryRequest {
   categoryId: string;
   title: string;
   projectCount: number;
-  backgroundImageUrl: string;
-  backgroundImageBlob?: string;
+  backgroundImageBlob: string | null;
   navigationPath: string;
   displayOrder?: number;
 }
@@ -75,8 +72,7 @@ export interface CreateProjectCategoryRequest {
 export interface UpdateProjectCategoryRequest {
   title?: string;
   projectCount?: number;
-  backgroundImageUrl?: string;
-  backgroundImageBlob?: string;
+  backgroundImageBlob?: string | null;
   navigationPath?: string;
   displayOrder?: number;
 }

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Category Image Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-title {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .feature-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .feature-list li:before {
+            content: "✓ ";
+            color: #28a745;
+            font-weight: bold;
+        }
+        .step-list {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+        .step-list li {
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 class="test-title">✅ Category Image Upload - FIXED!</h1>
+        
+        <div class="test-result success">
+            <h3>🎉 Vấn đề đã được giải quyết:</h3>
+            <p><strong>Field upload hình ảnh đã được thêm vào CategoryFormModal!</strong></p>
+        </div>
+
+        <div class="test-result info">
+            <h3>🔧 Những gì đã được thêm:</h3>
+            <ul class="feature-list">
+                <li><strong>Background Image Upload Field:</strong> Sử dụng SingleImageUpload component</li>
+                <li><strong>Form Data Integration:</strong> backgroundImageBlob được thêm vào formData</li>
+                <li><strong>Type Compatibility:</strong> Xử lý null/undefined cho API compatibility</li>
+                <li><strong>Drag & Drop Support:</strong> Hỗ trợ kéo thả hình ảnh</li>
+                <li><strong>Image Preview:</strong> Hiển thị preview ngay lập tức</li>
+                <li><strong>Image Replacement:</strong> Có thể thay thế hình ảnh đã upload</li>
+                <li><strong>Image Removal:</strong> Có thể xóa hình ảnh</li>
+                <li><strong>File Validation:</strong> Kiểm tra định dạng và kích thước file</li>
+            </ul>
+        </div>
+
+        <div class="test-result success">
+            <h3>🧪 Cách test chức năng:</h3>
+            <ol class="step-list">
+                <li><strong>Truy cập Project Admin:</strong> http://localhost:3001/project</li>
+                <li><strong>Chuyển sang tab "Categories"</strong></li>
+                <li><strong>Bật Edit Mode</strong></li>
+                <li><strong>Thêm category mới:</strong>
+                    <ul>
+                        <li>Click "Add Category"</li>
+                        <li>Điền thông tin: Category ID, Title, Project Count, Navigation Path, Display Order</li>
+                        <li><strong>✅ Upload hình ảnh:</strong> Drag & drop hoặc click để chọn file</li>
+                        <li>Click "Create Category"</li>
+                    </ul>
+                </li>
+                <li><strong>Edit category hiện có:</strong>
+                    <ul>
+                        <li>Click vào category card để edit</li>
+                        <li>Thay đổi thông tin nếu cần</li>
+                        <li><strong>✅ Thay đổi hình ảnh:</strong> Click icon hình ảnh để thay thế hoặc X để xóa</li>
+                        <li>Click "Update Category"</li>
+                    </ul>
+                </li>
+                <li><strong>Verify kết quả:</strong>
+                    <ul>
+                        <li>Hình ảnh hiển thị đúng trong category card</li>
+                        <li>Hình ảnh được lưu vào database dưới dạng base64</li>
+                        <li>Website chính hiển thị hình ảnh đúng</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="test-result info">
+            <h3>📋 Form Fields trong CategoryFormModal:</h3>
+            <ul class="feature-list">
+                <li><strong>Category ID *</strong> - Required field</li>
+                <li><strong>Title *</strong> - Required field</li>
+                <li><strong>Project Count</strong> - Number input</li>
+                <li><strong>Navigation Path *</strong> - Required field</li>
+                <li><strong>Display Order</strong> - Number input</li>
+                <li><strong>✅ Background Image</strong> - NEW! SingleImageUpload component</li>
+            </ul>
+        </div>
+
+        <div class="test-result success">
+            <h3>🔧 Technical Implementation:</h3>
+            <ul class="feature-list">
+                <li><strong>Component:</strong> SingleImageUpload với drag & drop</li>
+                <li><strong>Data Type:</strong> Base64 string trong backgroundImageBlob</li>
+                <li><strong>File Limits:</strong> Max 2MB, formats: JPEG, PNG, WebP</li>
+                <li><strong>API Integration:</strong> Tương thích với existing API endpoints</li>
+                <li><strong>Type Safety:</strong> TypeScript types đã được cập nhật</li>
+                <li><strong>Error Handling:</strong> Validation và error messages</li>
+            </ul>
+        </div>
+
+        <button onclick="window.open('http://localhost:3001/project', '_blank')">
+            🚀 Mở Project Admin
+        </button>
+        
+        <button onclick="window.open('http://localhost:3000', '_blank')">
+            🌐 Xem Website Chính
+        </button>
+    </div>
+
+    <div class="test-container">
+        <h2 class="test-title">📝 Code Changes Summary</h2>
+        
+        <div class="test-result info">
+            <h3>Files Modified:</h3>
+            <ul class="feature-list">
+                <li><strong>/webadmin/src/pages/ProjectAdmin.tsx</strong>
+                    <ul style="margin-left: 20px; list-style-type: disc;">
+                        <li>Added SingleImageUpload import</li>
+                        <li>Updated CategoryFormModal formData to include backgroundImageBlob</li>
+                        <li>Added Background Image field to form</li>
+                        <li>Fixed type compatibility (null → undefined)</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="test-result success">
+            <h3>✅ Ready to Use!</h3>
+            <p>Category image upload functionality is now fully implemented and ready for testing!</p>
+        </div>
+    </div>
+
+    <script>
+        console.log('Category Image Upload Test Page Loaded');
+        console.log('✅ Background Image field added to CategoryFormModal');
+        console.log('✅ SingleImageUpload component integrated');
+        console.log('✅ Type compatibility fixed');
+        console.log('✅ Ready for testing!');
+    </script>
+</body>
+</html>

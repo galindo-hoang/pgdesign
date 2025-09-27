@@ -4,6 +4,7 @@ import AboutProjectSection from "../../components/AboutProjectSection";
 import ProjectCategoriesSection from "../../components/ProjectCategoriesSection";
 import StatsSection from "../../components/StatsSection";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import CacheTestComponent from "../../components/CacheTestComponent";
 import { ProjectPageData } from "../../types/projectPageTypes";
 import { fetchProjectPageData } from "../../services/projectPageService";
 
@@ -17,6 +18,7 @@ const ProjectPage: React.FC = () => {
   const [projectData, setProjectData] = useState<ProjectPageData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showCacheTest, setShowCacheTest] = useState(false);
 
   // Icon mapping for stats items
   const iconMap = {
@@ -73,14 +75,13 @@ const ProjectPage: React.FC = () => {
     label: item.label,
     suffix: item.suffix,
     description: item.description,
-    backgroundImage: item.backgroundImageUrl,
     category: item.category,
   }));
 
   const aboutProjectSectionContent = {
     title: projectData.aboutProject.title,
     subtitle: projectData.aboutProject.subtitle,
-    backgroundImage: projectData.aboutProject.backgroundImageUrl,
+    backgroundImage: projectData.aboutProject.backgroundImageBlob,
   };
 
   const projectCategoriesHeader = {
@@ -91,23 +92,51 @@ const ProjectPage: React.FC = () => {
 
   const projectCategories = projectData.projectCategories.categories.map(
     (category) => ({
-      id: category.categoryId,
+      id: category.id,
+      categoryId: category.categoryId,
       title: category.title,
       projectCount: category.projectCount,
-      backgroundImage:
-        category.backgroundImageBlob || category.backgroundImageUrl,
+      backgroundImageBlob: category.backgroundImageBlob,
       navigationPath: category.navigationPath,
+      displayOrder: category.displayOrder,
     })
   );
 
   return (
     <div className="project-page">
+      {/* Cache Test Button (only in development) */}
+      {process.env.NODE_ENV === 'development' && (
+        <button
+          onClick={() => setShowCacheTest(true)}
+          style={{
+            position: 'fixed',
+            top: '20px',
+            right: '20px',
+            zIndex: 1000,
+            background: '#007bff',
+            color: 'white',
+            border: 'none',
+            padding: '10px 15px',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            fontSize: '12px'
+          }}
+        >
+          🧪 Test Cache
+        </button>
+      )}
+
       <AboutProjectSection content={aboutProjectSectionContent} />
       <StatsSection stateHeader={stateHeader} stateItems={statIcons} />
       <ProjectCategoriesSection
         header={projectCategoriesHeader}
         categories={projectCategories}
       />
+
+      {/* Cache Test Component */}
+      {showCacheTest && (
+        <CacheTestComponent onClose={() => setShowCacheTest(false)} />
+      )}
     </div>
   );
 };

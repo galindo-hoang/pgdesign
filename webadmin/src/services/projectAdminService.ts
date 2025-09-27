@@ -12,8 +12,7 @@ export interface ProjectCategory {
   categoryId: string;
   title: string;
   projectCount: number;
-  backgroundImageUrl: string;
-  backgroundImageBlob?: string; // Base64 encoded image data
+  backgroundImageBlob: string; // Base64 encoded image data
   navigationPath: string;
   displayOrder: number;
 }
@@ -33,7 +32,6 @@ export interface CreateProjectCategoryRequest {
   categoryId: string;
   title: string;
   projectCount: number;
-  backgroundImageUrl: string;
   backgroundImageBlob?: string;
   navigationPath: string;
   displayOrder?: number;
@@ -42,7 +40,6 @@ export interface CreateProjectCategoryRequest {
 export interface UpdateProjectCategoryRequest {
   title?: string;
   projectCount?: number;
-  backgroundImageUrl?: string;
   backgroundImageBlob?: string;
   navigationPath?: string;
   displayOrder?: number;

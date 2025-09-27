@@ -30,7 +30,7 @@ import homepageAdminService, {
   TestimonialData,
   ConsultationFormData,
 } from "../services/homepageAdminService";
-import ImageUpload, { ImageData } from "../components/ImageUpload";
+import MultipleImageUpload, { ImageData } from "../components/MultipleImageUpload";
 import "./HomepageAdmin.css";
 
 interface FormStates {
@@ -113,6 +113,8 @@ const HomepageAdmin: React.FC = () => {
           url,
           title: `Hero Image ${index + 1}`,
           alt: `Hero Image ${index + 1}`,
+          size: 'Unknown',
+          type: 'image/jpeg'
         }))
       );
 
@@ -122,6 +124,8 @@ const HomepageAdmin: React.FC = () => {
           url,
           title: `Project Image ${index + 1}`,
           alt: `Project Image ${index + 1}`,
+          size: 'Unknown',
+          type: 'image/jpeg'
         }))
       );
     } catch (err) {
@@ -581,7 +585,7 @@ const HomepageAdmin: React.FC = () => {
                   <p className="form-helper">
                     Upload images or drag & drop them below
                   </p>
-                  <ImageUpload
+                  <MultipleImageUpload
                     images={heroImages}
                     onImagesChange={handleHeroImagesChange}
                     maxFiles={10}
@@ -1061,7 +1065,7 @@ const HomepageAdmin: React.FC = () => {
                   <p className="form-helper">
                     Upload project images or drag & drop them below
                   </p>
-                  <ImageUpload
+                  <MultipleImageUpload
                     images={projectDiaryImages}
                     onImagesChange={handleProjectDiaryImagesChange}
                     maxFiles={20}

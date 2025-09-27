@@ -11,7 +11,6 @@ interface StatItemData {
   label: string;
   suffix: string;
   description: string;
-  backgroundImage: string;
   category: string;
 }
 
@@ -79,7 +78,6 @@ const StatsSection: React.FC<StatProps> = ({stateHeader, stateItems}) => {
               label={item.label}
               suffix={item.suffix}
               description={item.description}
-              backgroundImage={item.backgroundImage}
               category={item.category}
               startAnimation={inView}
               animationDelay={index * 150}
@@ -100,7 +98,6 @@ interface StatItemProps {
   label: string;
   suffix: string;
   description: string;
-  backgroundImage: string;
   category: string;
   startAnimation: boolean;
   animationDelay: number;
@@ -112,7 +109,6 @@ const StatItem: React.FC<StatItemProps> = ({
   label,
   suffix,
   description,
-  backgroundImage,
   category,
   startAnimation,
   animationDelay,
@@ -136,10 +132,6 @@ const StatItem: React.FC<StatItemProps> = ({
         animationDelay: `${animationDelay}ms` 
       }}
     >
-      <div 
-        className="stat-background-image"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
-      />
       <div className="stat-overlay" />
       
       <div className="stat-content-wrapper">

@@ -29,7 +29,6 @@ Get all individual project categories (simplified list).
       "categoryId": "house-normal",
       "title": "NHÀ PHỐ",
       "projectCount": 4,
-      "backgroundImageUrl": "https://example.com/image.jpg",
       "navigationPath": "/projects/house-normal",
       "displayOrder": 1
     }
@@ -59,7 +58,6 @@ Get a single project category by ID (supports both `category_id` and numeric `id
     "categoryId": "house-normal",
     "title": "NHÀ PHỐ",
     "projectCount": 4,
-    "backgroundImageUrl": "https://example.com/image.jpg",
     "navigationPath": "/projects/house-normal",
     "displayOrder": 1
   },

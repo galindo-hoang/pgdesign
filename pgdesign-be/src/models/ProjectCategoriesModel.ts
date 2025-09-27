@@ -32,7 +32,6 @@ export class ProjectCategoriesModel extends BaseModel {
         "category_id",
         "title",
         "project_count",
-        "background_image_url",
         "background_image_blob",
         "navigation_path",
         "display_order"
@@ -48,8 +47,7 @@ export class ProjectCategoriesModel extends BaseModel {
         categoryId: category.category_id,
         title: category.title,
         projectCount: category.project_count,
-        backgroundImageUrl: this.getFullImageUrl(category.background_image_url),
-        backgroundImageBlob: category.background_image_blob || null,
+        backgroundImageBlob: this.convertBufferToBase64(category.background_image_blob),
         navigationPath: category.navigation_path,
         displayOrder: category.display_order,
       })),
@@ -71,6 +69,56 @@ export class ProjectCategoriesModel extends BaseModel {
     // Convert relative path to full MinIO URL
     const baseUrl = "http://localhost:9000/pgdesign-assets";
     return `${baseUrl}${relativeUrl}`;
+  }
+
+  // Helper method to convert Buffer to base64 data URL
+  private convertBufferToBase64(buffer: any): string | null {
+    if (!buffer) return null;
+    
+    try {
+      // If it's already a string, check if it needs decoding
+      if (typeof buffer === 'string') {
+        // If it's already a data URL, return as is
+        if (buffer.startsWith('data:image/')) {
+          return buffer;
+        }
+        return buffer;
+      }
+      
+      // If it's a Buffer object, convert to base64
+      if (Buffer.isBuffer(buffer)) {
+        const bufferString = buffer.toString('utf8');
+        
+        // Check if the buffer contains a data URL string
+        if (bufferString.startsWith('data:image/')) {
+          return bufferString;
+        }
+        
+        // Otherwise, treat as binary image data
+        const base64String = buffer.toString('base64');
+        return `data:image/jpeg;base64,${base64String}`;
+      }
+      
+      // If it's a Buffer-like object with data array
+      if (buffer && typeof buffer === 'object' && Array.isArray(buffer.data)) {
+        const bufferFromArray = Buffer.from(buffer.data);
+        const bufferString = bufferFromArray.toString('utf8');
+        
+        // Check if the buffer contains a data URL string
+        if (bufferString.startsWith('data:image/')) {
+          return bufferString;
+        }
+        
+        // Otherwise, treat as binary image data
+        const base64String = bufferFromArray.toString('base64');
+        return `data:image/jpeg;base64,${base64String}`;
+      }
+      
+      return null;
+    } catch (error) {
+      console.error('Error converting buffer to base64:', error);
+      return null;
+    }
   }
 
   async createProjectCategoriesWithItems(
@@ -103,7 +151,6 @@ export class ProjectCategoriesModel extends BaseModel {
           category_id: category.categoryId,
           title: category.title,
           project_count: category.projectCount,
-          background_image_url: category.backgroundImageUrl,
           background_image_blob: category.backgroundImageBlob || null,
           navigation_path: category.navigationPath,
           display_order: category.displayOrder || index,
@@ -172,7 +219,6 @@ export class ProjectCategoriesModel extends BaseModel {
             category_id: category.categoryId,
             title: category.title,
             project_count: category.projectCount,
-            background_image_url: category.backgroundImageUrl,
             background_image_blob: category.backgroundImageBlob || null,
             navigation_path: category.navigationPath,
             display_order: category.displayOrder || index,
@@ -227,12 +273,6 @@ export class ProjectCategoriesModel extends BaseModel {
       errors.push("Project count is required and must be a number");
     }
 
-    if (
-      !data.backgroundImageUrl ||
-      typeof data.backgroundImageUrl !== "string"
-    ) {
-      errors.push("Background image URL is required and must be a string");
-    }
 
     if (!data.navigationPath || typeof data.navigationPath !== "string") {
       errors.push("Navigation path is required and must be a string");
@@ -259,12 +299,6 @@ export class ProjectCategoriesModel extends BaseModel {
       errors.push("Project count must be a number");
     }
 
-    if (
-      data.backgroundImageUrl !== undefined &&
-      (!data.backgroundImageUrl || typeof data.backgroundImageUrl !== "string")
-    ) {
-      errors.push("Background image URL must be a string");
-    }
 
     if (
       data.navigationPath !== undefined &&
@@ -305,8 +339,7 @@ export class ProjectCategoriesModel extends BaseModel {
       categoryId: categoryRow.category_id,
       title: categoryRow.title,
       projectCount: categoryRow.project_count,
-      backgroundImageUrl: categoryRow.background_image_url,
-      backgroundImageBlob: categoryRow.background_image_blob || null,
+      backgroundImageBlob: this.convertBufferToBase64(categoryRow.background_image_blob),
       navigationPath: categoryRow.navigation_path,
       displayOrder: categoryRow.display_order,
     };
@@ -323,7 +356,6 @@ export class ProjectCategoriesModel extends BaseModel {
       category_id: categoryData.categoryId,
       title: categoryData.title,
       project_count: categoryData.projectCount,
-      background_image_url: categoryData.backgroundImageUrl,
       background_image_blob: categoryData.backgroundImageBlob || null,
       navigation_path: categoryData.navigationPath,
       display_order: categoryData.displayOrder || 0,
@@ -356,8 +388,6 @@ export class ProjectCategoriesModel extends BaseModel {
     if (categoryData.title !== undefined) updateData.title = categoryData.title;
     if (categoryData.projectCount !== undefined)
       updateData.project_count = categoryData.projectCount;
-    if (categoryData.backgroundImageUrl !== undefined)
-      updateData.background_image_url = categoryData.backgroundImageUrl;
     if (categoryData.backgroundImageBlob !== undefined && categoryData.backgroundImageBlob !== null)
       updateData.background_image_blob = categoryData.backgroundImageBlob;
     if (categoryData.navigationPath !== undefined)

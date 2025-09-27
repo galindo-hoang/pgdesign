@@ -15,26 +15,13 @@ export class AboutProjectModel extends BaseModel {
       id: result.id,
       title: result.title,
       subtitle: result.subtitle,
-      backgroundImageUrl: this.getFullImageUrl(result.background_image_url),
+      backgroundImageBlob: result.background_image_blob,
       isActive: result.is_active,
       createdAt: result.created_at,
       updatedAt: result.updated_at
     };
   }
 
-  // Helper method to convert relative paths to full MinIO URLs
-  private getFullImageUrl(relativeUrl: string): string {
-    if (!relativeUrl) return '';
-    
-    // If already a full URL, return as is
-    if (relativeUrl.startsWith('http')) {
-      return relativeUrl;
-    }
-    
-    // Convert relative path to full MinIO URL
-    const baseUrl = 'http://localhost:9000/pgdesign-assets';
-    return `${baseUrl}${relativeUrl}`;
-  }
 
   async createOrUpdateAboutProject(data: AboutProjectData): Promise<AboutProjectData> {
     // First deactivate existing active about project
@@ -43,7 +30,7 @@ export class AboutProjectModel extends BaseModel {
     const insertData = {
       title: data.title,
       subtitle: data.subtitle,
-      background_image_url: data.backgroundImageUrl,
+      background_image_blob: data.backgroundImageBlob,
       is_active: true,
       created_at: new Date(),
       updated_at: new Date()
@@ -55,7 +42,7 @@ export class AboutProjectModel extends BaseModel {
       id: id as number,
       title: data.title,
       subtitle: data.subtitle,
-      backgroundImageUrl: data.backgroundImageUrl,
+      backgroundImageBlob: data.backgroundImageBlob,
       isActive: true,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -85,7 +72,7 @@ export class AboutProjectModel extends BaseModel {
 
     if (data.title !== undefined) updateData.title = data.title;
     if (data.subtitle !== undefined) updateData.subtitle = data.subtitle;
-    if (data.backgroundImageUrl !== undefined) updateData.background_image_url = data.backgroundImageUrl;
+    if (data.backgroundImageBlob !== undefined) updateData.background_image_blob = data.backgroundImageBlob;
     if (data.isActive !== undefined) updateData.is_active = data.isActive;
 
     const updated = await this.update(id, updateData);
@@ -106,9 +93,6 @@ export class AboutProjectModel extends BaseModel {
       errors.push('Subtitle is required and must be a string');
     }
 
-    if (!data.backgroundImageUrl || typeof data.backgroundImageUrl !== 'string') {
-      errors.push('Background image URL is required and must be a string');
-    }
 
     return errors;
   }

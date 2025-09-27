@@ -243,6 +243,7 @@ export class ProjectPageController {
       const projectCategoriesData =
         await ProjectCategoriesModel.getActiveProjectCategories();
 
+      console.log(JSON.stringify(projectCategoriesData?.categories[0]?.backgroundImageBlob));
       const response: ApiResponse<any> = {
         success: true,
         data: projectCategoriesData,

@@ -63,8 +63,6 @@ export class HomepageController {
             items: stats.items.map((item: any) => ({
               ...item,
               targetValue: item.target_value ?? item.targetValue ?? 0,
-              backgroundImageUrl:
-                item.background_image_url ?? item.backgroundImageUrl ?? "",
             })),
           }
         : stats;
@@ -373,8 +371,6 @@ export class HomepageController {
             items: statsData.items.map((item: any) => ({
               ...item,
               targetValue: item.target_value ?? item.targetValue ?? 0,
-              backgroundImageUrl:
-                item.background_image_url ?? item.backgroundImageUrl ?? "",
             })),
           }
         : statsData;

@@ -31,7 +31,7 @@ import homepageAdminService, {
   TestimonialData,
   ConsultationFormData
 } from '../services/homepageAdminService';
-import ImageUpload, { ImageData } from '../components/ImageUpload';
+import MultipleImageUpload, { ImageData } from '../components/MultipleImageUpload';
 import './HomepageAdmin.css';
 
 interface FormStates {
@@ -105,21 +105,27 @@ const HomepageAdminEnhanced: React.FC = () => {
         id: `hero-${index}`,
         url,
         title: `Hero Image ${index + 1}`,
-        alt: `Hero Image ${index + 1}`
+        alt: `Hero Image ${index + 1}`,
+        size: 'Unknown',
+        type: 'image/jpeg'
       })));
 
       setProjectDiaryImages(data.projectDiary.images.map((url, index) => ({
         id: `diary-${index}`,
         url,
         title: `Project Image ${index + 1}`,
-        alt: `Project Image ${index + 1}`
+        alt: `Project Image ${index + 1}`,
+        size: 'Unknown',
+        type: 'image/jpeg'
       })));
 
       setImageSliderImages(data.imageSlider.map((slide, index) => ({
         id: `slider-${slide.id}`,
         url: slide.imageUrl,
         title: slide.title,
-        alt: slide.subtitle
+        alt: slide.subtitle,
+        size: 'Unknown',
+        type: 'image/jpeg'
       })));
       
     } catch (err) {
@@ -334,7 +340,9 @@ const HomepageAdminEnhanced: React.FC = () => {
             id: `hero-new-${Date.now()}-${index}`,
             url,
             title: `Hero Image ${heroImages.length + index + 1}`,
-            alt: `Hero Image ${heroImages.length + index + 1}`
+            alt: `Hero Image ${heroImages.length + index + 1}`,
+            size: 'Unknown',
+            type: 'image/jpeg'
           }));
           setHeroImages(prev => [...prev, ...newHeroImages]);
           updateFormState('hero', { images: [...heroImages, ...newHeroImages].map(img => img.url) });
@@ -345,7 +353,9 @@ const HomepageAdminEnhanced: React.FC = () => {
             id: `diary-new-${Date.now()}-${index}`,
             url,
             title: `Project Image ${projectDiaryImages.length + index + 1}`,
-            alt: `Project Image ${projectDiaryImages.length + index + 1}`
+            alt: `Project Image ${projectDiaryImages.length + index + 1}`,
+            size: 'Unknown',
+            type: 'image/jpeg'
           }));
           setProjectDiaryImages(prev => [...prev, ...newDiaryImages]);
           updateFormState('projectDiary', { images: [...projectDiaryImages, ...newDiaryImages].map(img => img.url) });
@@ -551,7 +561,7 @@ const HomepageAdminEnhanced: React.FC = () => {
                 </div>
                 <div className="form-group">
                   <label>Hero Images</label>
-                  <ImageUpload
+                  <MultipleImageUpload
                     images={heroImages}
                     onImagesChange={handleHeroImagesChange}
                     maxFiles={10}
@@ -688,7 +698,7 @@ const HomepageAdminEnhanced: React.FC = () => {
                 </div>
                 <div className="form-group">
                   <label>Project Images</label>
-                  <ImageUpload
+                  <MultipleImageUpload
                     images={projectDiaryImages}
                     onImagesChange={handleProjectDiaryImagesChange}
                     maxFiles={20}

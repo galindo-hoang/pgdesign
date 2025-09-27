@@ -14,6 +14,7 @@ import HomepageAdmin from './pages/HomepageAdmin';
 import IntroAdmin from './pages/IntroAdmin';
 import ProjectAdmin from './pages/ProjectAdmin';
 import ProjectDetailAdmin from './pages/ProjectDetailAdmin';
+import AboutProjectAdmin from './pages/AboutProjectAdmin';
 import ServiceAdmin from './pages/ServiceAdmin';
 import ConsultationAdmin from './pages/ConsultationAdmin';
 import AnalyticsPage from './pages/AnalyticsPage';
@@ -49,6 +50,7 @@ const AppContent: React.FC = () => {
         <Route path="intro" element={<IntroAdmin />} />
         <Route path="projects" element={<ProjectAdmin />} />
         <Route path="project-details" element={<ProjectDetailAdmin />} />
+        <Route path="about-project" element={<AboutProjectAdmin />} />
         <Route path="services" element={<ServiceAdmin />} />
         <Route path="consultations" element={<ConsultationAdmin />} />
       </Route>

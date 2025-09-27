@@ -10,21 +10,84 @@ import {
 
 // Import asset images
 import hero from "../assets/images/projectpage/project-hero.png";
-import diaryImage1 from "../assets/images/diary-image-1.png";
-import houseNormal from "../assets/images/projectpage/house-normal.png";
-import appartment from "../assets/images/projectpage/appartment.png";
-import houseBusiness from "../assets/images/projectpage/house-business.png";
-import village from "../assets/images/projectpage/village.png";
-import diaryImage2 from "../assets/images/diary-image-2.png";
-import diaryImage3 from "../assets/images/diary-image-3.png";
-import diaryImage4 from "../assets/images/diary-image-4.png";
 
 // API Configuration
 const API_BASE_URL =
   process.env.REACT_APP_API_URL || "http://localhost:3002/api/v1";
 
 // Configuration for data source (can be controlled via environment variable)
-const USE_MOCK_DATA = true;
+const USE_MOCK_DATA = false;
+
+// Cache configuration
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+
+// Cache storage
+interface CacheEntry<T> {
+  data: T;
+  timestamp: number;
+}
+
+const cache = new Map<string, CacheEntry<any>>();
+
+// Promise deduplication storage to prevent duplicate concurrent requests
+const pendingRequests = new Map<string, Promise<any>>();
+
+// Cache utility functions
+const getCacheKey = (endpoint: string): string => `projectpage_${endpoint}`;
+
+const isValidCache = (entry: CacheEntry<any>): boolean => {
+  return Date.now() - entry.timestamp < CACHE_DURATION;
+};
+
+const getFromCache = <T>(key: string): T | null => {
+  const entry = cache.get(key);
+  if (entry && isValidCache(entry)) {
+    console.log(`📦 Cache hit for ${key}`);
+    return entry.data;
+  }
+  if (entry) {
+    console.log(`🗑️ Cache expired for ${key}, removing...`);
+    cache.delete(key);
+  }
+  return null;
+};
+
+const setCache = <T>(key: string, data: T): void => {
+  console.log(`💾 Caching data for ${key}`);
+  cache.set(key, {
+    data,
+    timestamp: Date.now(),
+  });
+};
+
+// Clear all cache
+export const clearProjectPageCache = (): void => {
+  console.log('🧹 Clearing all project page cache');
+  cache.clear();
+  pendingRequests.clear();
+};
+
+// Promise deduplication helper
+const withDeduplication = async <T>(
+  key: string,
+  fetchFn: () => Promise<T>
+): Promise<T> => {
+  // Check if there's already a pending request for this key
+  if (pendingRequests.has(key)) {
+    console.log(`⏳ Deduplicating request for ${key}`);
+    return pendingRequests.get(key) as Promise<T>;
+  }
+
+  // Create new request
+  const promise = fetchFn().finally(() => {
+    // Clean up pending request when done
+    pendingRequests.delete(key);
+  });
+
+  // Store pending request
+  pendingRequests.set(key, promise);
+  return promise;
+};
 
 // ========== MOCK DATA ==========
 
@@ -33,7 +96,7 @@ const mockAboutProjectData: AboutProjectData = {
   id: 1,
   title: "Dự án",
   subtitle: "PG DESIGN",
-  backgroundImageUrl: hero,
+  backgroundImageBlob: hero,
   isActive: true,
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -48,7 +111,6 @@ const mockStatsItems: StatsItem[] = [
     label: "Kinh nghiệm",
     suffix: "+",
     description: "Năm kinh nghiệm",
-    backgroundImageUrl: diaryImage1,
     category: "experience",
     displayOrder: 0,
   },
@@ -59,7 +121,6 @@ const mockStatsItems: StatsItem[] = [
     label: "Khách hàng",
     suffix: "+",
     description: "Tin tưởng & hài lòng",
-    backgroundImageUrl: diaryImage2,
     category: "customers",
     displayOrder: 1,
   },
@@ -70,7 +131,6 @@ const mockStatsItems: StatsItem[] = [
     label: "Dự án",
     suffix: "+",
     description: "Thiết kế hoàn thành",
-    backgroundImageUrl: diaryImage3,
     category: "projects",
     displayOrder: 2,
   },
@@ -81,7 +141,6 @@ const mockStatsItems: StatsItem[] = [
     label: "Chất lượng",
     suffix: "%",
     description: "Cam kết hoàn hảo",
-    backgroundImageUrl: diaryImage4,
     category: "quality",
     displayOrder: 3,
   },
@@ -100,15 +159,14 @@ const mockStatsSectionData: StatsSectionData = {
   updatedAt: new Date(),
 };
 
-// Mock Project Categories
+// Mock Project Categories - will be replaced by database data with base64 images
 const mockProjectCategories: ProjectCategory[] = [
   {
     id: 1,
     categoryId: "house-normal",
     title: "NHÀ PHỐ",
     projectCount: 45,
-    backgroundImageUrl: houseNormal,
-    backgroundImageBlob: undefined, // Will be populated from database
+    backgroundImageBlob: null, // Will be populated from database as base64
     navigationPath: "/projects/house-normal",
     displayOrder: 0,
   },
@@ -117,28 +175,25 @@ const mockProjectCategories: ProjectCategory[] = [
     categoryId: "appartment",
     title: "CĂN HỘ",
     projectCount: 32,
-    backgroundImageUrl: appartment,
-    backgroundImageBlob: undefined, // Will be populated from database
+    backgroundImageBlob: null, // Will be populated from database as base64
     navigationPath: "/projects/appartment",
     displayOrder: 1,
   },
   {
     id: 3,
     categoryId: "village",
-    title: "Biệt thự",
+    title: "BIỆT THỰ",
     projectCount: 28,
-    backgroundImageUrl: village,
-    backgroundImageBlob: undefined, // Will be populated from database
+    backgroundImageBlob: null, // Will be populated from database as base64
     navigationPath: "/projects/village",
     displayOrder: 2,
   },
   {
     id: 4,
     categoryId: "house-business",
-    title: "Thương mại",
+    title: "THƯƠNG MẠI",
     projectCount: 50,
-    backgroundImageUrl: houseBusiness,
-    backgroundImageBlob: undefined, // Will be populated from database
+    backgroundImageBlob: null, // Will be populated from database as base64
     navigationPath: "/projects/house-business",
     displayOrder: 3,
   },
@@ -209,80 +264,134 @@ const handleApiError = (error: any, section: string) => {
 
 // API Functions for each section
 export const fetchAboutProjectDataApi = async (): Promise<AboutProjectData> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/projectpage/about-project`);
-    const data: ApiResponse<AboutProjectData> = await response.json();
-
-    console.log(`AboutProjectData from API: ${JSON.stringify(data)}`);
-    if (!response.ok) {
-      throw new Error(data.error || "Failed to fetch about project data");
-    }
-
-    return data.data!;
-  } catch (error) {
-    handleApiError(error, "about project");
-    throw error;
+  const cacheKey = getCacheKey('about-project');
+  
+  // Check cache first
+  const cachedData = getFromCache<AboutProjectData>(cacheKey);
+  if (cachedData) {
+    return cachedData;
   }
+
+  // Use deduplication to prevent concurrent requests
+  return withDeduplication(cacheKey, async () => {
+    try {
+      console.log('🌐 Fetching AboutProjectData from API...');
+      const response = await fetch(`${API_BASE_URL}/projectpage/about-project`);
+      const data: ApiResponse<AboutProjectData> = await response.json();
+
+      console.log(`AboutProjectData from API: ${JSON.stringify(data)}`);
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to fetch about project data");
+      }
+
+      // Cache the result
+      setCache(cacheKey, data.data!);
+      return data.data!;
+    } catch (error) {
+      handleApiError(error, "about project");
+      throw error;
+    }
+  });
 };
 
 export const fetchStatsSectionDataApi = async (): Promise<StatsSectionData> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/projectpage/stats-section`);
-    const data: ApiResponse<StatsSectionData> = await response.json();
-
-    console.log(`StatsSectionData from API: ${JSON.stringify(data)}`);
-    if (!response.ok) {
-      throw new Error(data.error || "Failed to fetch stats section data");
-    }
-
-    return data.data!;
-  } catch (error) {
-    handleApiError(error, "stats section");
-    throw error;
+  const cacheKey = getCacheKey('stats-section');
+  
+  // Check cache first
+  const cachedData = getFromCache<StatsSectionData>(cacheKey);
+  if (cachedData) {
+    return cachedData;
   }
+
+  // Use deduplication to prevent concurrent requests
+  return withDeduplication(cacheKey, async () => {
+    try {
+      console.log('🌐 Fetching StatsSectionData from API...');
+      const response = await fetch(`${API_BASE_URL}/projectpage/stats-section`);
+      const data: ApiResponse<StatsSectionData> = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to fetch stats section data");
+      }
+
+      // Cache the result
+      setCache(cacheKey, data.data!);
+      return data.data!;
+    } catch (error) {
+      handleApiError(error, "stats section");
+      throw error;
+    }
+  });
 };
 
 export const fetchProjectCategoriesDataApi =
   async (): Promise<ProjectCategoriesData> => {
-    try {
-      const response = await fetch(
-        `${API_BASE_URL}/projectpage/project-categories`
-      );
-      const data: ApiResponse<ProjectCategoriesData> = await response.json();
-
-      console.log(`ProjectCategoriesData from API: ${JSON.stringify(data)}`);
-      if (!response.ok) {
-        throw new Error(
-          data.error || "Failed to fetch project categories data"
-        );
-      }
-
-      return data.data!;
-    } catch (error) {
-      handleApiError(error, "project categories");
-      throw error;
+    const cacheKey = getCacheKey('project-categories');
+    
+    // Check cache first
+    const cachedData = getFromCache<ProjectCategoriesData>(cacheKey);
+    if (cachedData) {
+      return cachedData;
     }
+
+    // Use deduplication to prevent concurrent requests
+    return withDeduplication(cacheKey, async () => {
+      try {
+        console.log('🌐 Fetching ProjectCategoriesData from API...');
+        const response = await fetch(
+          `${API_BASE_URL}/projectpage/project-categories`
+        );
+        const data: ApiResponse<ProjectCategoriesData> = await response.json();
+        if (!response.ok) {
+          throw new Error(
+            data.error || "Failed to fetch project categories data"
+          );
+        }
+
+        // Cache the result
+        setCache(cacheKey, data.data!);
+        return data.data!;
+      } catch (error) {
+        handleApiError(error, "project categories");
+        throw error;
+      }
+    });
   };
 
 // Main function to fetch all project page data from API
 export const fetchProjectPageDataApi = async (): Promise<ProjectPageData> => {
-  try {
-    // Fetch all data in parallel for better performance
-    const [aboutProject, statsSection, projectCategories] = await Promise.all([
-      fetchAboutProjectDataApi(),
-      fetchStatsSectionDataApi(),
-      fetchProjectCategoriesDataApi(),
-    ]);
-
-    return {
-      aboutProject,
-      statsSection,
-      projectCategories,
-    };
-  } catch (error) {
-    handleApiError(error, "project page");
-    throw error;
+  const cacheKey = getCacheKey('complete-page');
+  
+  // Check cache first for complete page data
+  const cachedData = getFromCache<ProjectPageData>(cacheKey);
+  if (cachedData) {
+    return cachedData;
   }
+
+  // Use deduplication to prevent concurrent requests for complete page
+  return withDeduplication(cacheKey, async () => {
+    try {
+      console.log('🌐 Fetching complete ProjectPageData from API...');
+      // Fetch all data in parallel for better performance
+      const [aboutProject, statsSection, projectCategories] = await Promise.all([
+        fetchAboutProjectDataApi(),
+        fetchStatsSectionDataApi(),
+        fetchProjectCategoriesDataApi(),
+      ]);
+
+      const completeData: ProjectPageData = {
+        aboutProject,
+        statsSection,
+        projectCategories,
+      };
+
+      // Cache the complete page data
+      setCache(cacheKey, completeData);
+      return completeData;
+    } catch (error) {
+      handleApiError(error, "project page");
+      throw error;
+    }
+  });
 };
 
 // ========== HYBRID FUNCTIONS (AUTO-SWITCH BETWEEN API AND MOCK) ==========
@@ -441,6 +550,33 @@ export const getMockData = () => ({
   projectCategories: mockProjectCategoriesData,
   complete: mockProjectPageData,
 });
+
+// Cache management utilities
+export const getCacheInfo = () => {
+  const cacheEntries = Array.from(cache.entries()).map(([key, entry]) => ({
+    key,
+    size: JSON.stringify(entry.data).length,
+    age: Date.now() - entry.timestamp,
+    isValid: isValidCache(entry),
+  }));
+
+  const pendingEntries = Array.from(pendingRequests.keys());
+  
+  return {
+    totalEntries: cache.size,
+    entries: cacheEntries,
+    totalSize: cacheEntries.reduce((sum, entry) => sum + entry.size, 0),
+    pendingRequests: pendingEntries,
+    totalPending: pendingRequests.size,
+  };
+};
+
+export const clearSpecificCache = (endpoint: string): boolean => {
+  const key = getCacheKey(endpoint);
+  const cacheDeleted = cache.delete(key);
+  const pendingDeleted = pendingRequests.delete(key);
+  return cacheDeleted || pendingDeleted;
+};
 
 // Export mock data for direct access
 export {

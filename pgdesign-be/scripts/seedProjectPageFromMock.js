@@ -29,7 +29,6 @@ const mockData = {
   aboutProject: {
     title: 'Dự án',
     subtitle: 'PG DESIGN',
-    backgroundImageUrl: 'thumb-intro.png', // Local file name
     isActive: true
   },
   statsSection: {
@@ -44,7 +43,6 @@ const mockData = {
         label: 'Kinh nghiệm',
         suffix: '+ năm',
         description: 'Kinh nghiệm',
-        backgroundImageUrl: 'diary-image-1.png',
         category: 'experience',
         displayOrder: 0
       },
@@ -55,7 +53,6 @@ const mockData = {
         label: 'Khách hàng',
         suffix: '+',
         description: 'Tin tưởng & hài lòng',
-        backgroundImageUrl: 'diary-image-2.png',
         category: 'customers',
         displayOrder: 1
       },
@@ -66,7 +63,6 @@ const mockData = {
         label: 'Dự án',
         suffix: '+',
         description: 'Thiết kế hoàn thành',
-        backgroundImageUrl: 'diary-image-3.png',
         category: 'projects',
         displayOrder: 2
       },
@@ -77,7 +73,6 @@ const mockData = {
         label: 'Chất lượng',
         suffix: '%',
         description: 'Cam kết hoàn hảo',
-        backgroundImageUrl: 'diary-image-4.png',
         category: 'quality',
         displayOrder: 3
       }
@@ -92,7 +87,6 @@ const mockData = {
         categoryId: 'house-normal',
         title: 'NHÀ PHỐ',
         projectCount: 45,
-        backgroundImageUrl: 'diary-image-1.png',
         navigationPath: '/projects/house-normal',
         displayOrder: 0
       },
@@ -100,7 +94,6 @@ const mockData = {
         categoryId: 'house-full',
         title: 'Xây nhà trọn gói',
         projectCount: 32,
-        backgroundImageUrl: 'diary-image-2.png',
         navigationPath: '/projects/house-full',
         displayOrder: 1
       },
@@ -108,7 +101,6 @@ const mockData = {
         categoryId: 'house-rough',
         title: 'Xây dựng phần thô',
         projectCount: 28,
-        backgroundImageUrl: 'diary-image-3.png',
         navigationPath: '/projects/house-rough',
         displayOrder: 2
       },
@@ -116,7 +108,6 @@ const mockData = {
         categoryId: 'house-interior',
         title: 'Thiết kế và thi công nội thất',
         projectCount: 50,
-        backgroundImageUrl: 'diary-image-4.png',
         navigationPath: '/projects/house-interior',
         displayOrder: 3
       }

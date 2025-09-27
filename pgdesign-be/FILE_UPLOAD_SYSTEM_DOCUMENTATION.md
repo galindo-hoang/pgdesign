@@ -186,7 +186,6 @@ updateProjectCategoryWithImage = asyncHandler(async (req: Request, res: Response
   if (req.file) {
     const fileUpload = convertMulterFileToFileUpload(req.file);
     const imageUrl = await fileUploadService.uploadImage(fileUpload, 'categories');
-    categoryData.backgroundImageUrl = imageUrl;
   }
   
   // Update category in database

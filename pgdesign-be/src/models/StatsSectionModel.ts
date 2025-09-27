@@ -39,7 +39,6 @@ export class StatsSectionModel extends BaseModel {
         label: item.label,
         suffix: item.suffix,
         description: item.description,
-        backgroundImageUrl: this.getFullImageUrl(item.background_image_url),
         category: item.category,
         displayOrder: item.display_order
       })),
@@ -95,7 +94,6 @@ export class StatsSectionModel extends BaseModel {
           label: item.label,
           suffix: item.suffix,
           description: item.description,
-          background_image_url: item.backgroundImageUrl,
           category: item.category,
           display_order: item.displayOrder || index,
           is_active: true,
@@ -164,7 +162,6 @@ export class StatsSectionModel extends BaseModel {
             label: item.label,
             suffix: item.suffix,
             description: item.description,
-            background_image_url: item.backgroundImageUrl,
             category: item.category,
             display_order: item.displayOrder || index,
             is_active: true,
@@ -228,9 +225,6 @@ export class StatsSectionModel extends BaseModel {
       errors.push('Description is required and must be a string');
     }
 
-    if (!data.backgroundImageUrl || typeof data.backgroundImageUrl !== 'string') {
-      errors.push('Background image URL is required and must be a string');
-    }
 
     if (!data.category || typeof data.category !== 'string') {
       errors.push('Category is required and must be a string');

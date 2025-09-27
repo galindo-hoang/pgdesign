@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test About Project Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-title {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .feature-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .feature-list li:before {
+            content: "✓ ";
+            color: #28a745;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 class="test-title">About Project Admin - Feature Test</h1>
+        
+        <div class="test-result info">
+            <h3>Các tính năng đã được cập nhật:</h3>
+            <ul class="feature-list">
+                <li><strong>Upload hình ảnh thay thế trong Edit Mode:</strong> Khi đã có hình ảnh, click vào icon hình ảnh để thay thế</li>
+                <li><strong>Xóa nút Preview trong Edit Mode:</strong> Nút "Show Preview" chỉ hiển thị khi không ở Edit Mode</li>
+                <li><strong>Live Preview trong Edit Mode:</strong> Hiển thị preview trực tiếp với border màu xanh khi đang edit</li>
+                <li><strong>Auto hide Preview:</strong> Tự động ẩn preview khi chuyển sang Edit Mode</li>
+                <li><strong>Reset form data:</strong> Khi cancel edit, form data được reset về giá trị ban đầu</li>
+                <li><strong>✅ FIXED: Xóa dấu 'X' trong View Mode:</strong> Hình ảnh trong view mode không còn overlay với dấu 'X' khi hover</li>
+            </ul>
+        </div>
+
+        <div class="test-result success">
+            <h3>Cách test các tính năng:</h3>
+            <ol>
+                <li><strong>Truy cập:</strong> http://localhost:3001/about-project</li>
+                <li><strong>Test Preview Mode:</strong>
+                    <ul>
+                        <li>Click "Show Preview" để xem preview của data hiện tại</li>
+                        <li>Verify rằng preview hiển thị đúng title, subtitle và background image</li>
+                        <li>✅ Hover vào hình ảnh trong view mode - không còn dấu 'X'</li>
+                    </ul>
+                </li>
+                <li><strong>Test Edit Mode:</strong>
+                    <ul>
+                        <li>Click "Edit Mode" - nút "Show Preview" sẽ biến mất</li>
+                        <li>Thay đổi title và subtitle</li>
+                        <li>Nếu đã có hình ảnh, click vào icon hình ảnh để thay thế</li>
+                        <li>Nếu chưa có hình ảnh, drag & drop hoặc click để upload</li>
+                        <li>Xem Live Preview ở dưới với border xanh</li>
+                    </ul>
+                </li>
+                <li><strong>Test Image Upload:</strong>
+                    <ul>
+                        <li>Upload hình ảnh mới (max 2MB)</li>
+                        <li>Verify preview cập nhật ngay lập tức</li>
+                        <li>Click icon hình ảnh để thay thế</li>
+                        <li>Click X để xóa hình ảnh</li>
+                    </ul>
+                </li>
+                <li><strong>Test Save/Cancel:</strong>
+                    <ul>
+                        <li>Click "Save Changes" để lưu</li>
+                        <li>Click "Cancel" để hủy và reset form</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="test-result info">
+            <h3>API Endpoints được sử dụng:</h3>
+            <ul>
+                <li><strong>GET:</strong> /api/v1/projectpage/about-project</li>
+                <li><strong>POST:</strong> /api/v1/projectpage/about-project (tạo mới)</li>
+                <li><strong>PUT:</strong> /api/v1/projectpage/about-project/:id (cập nhật)</li>
+            </ul>
+        </div>
+
+        <button onclick="window.open('http://localhost:3001/about-project', '_blank')">
+            🚀 Mở About Project Admin
+        </button>
+        
+        <button onclick="window.open('http://localhost:3000', '_blank')">
+            🌐 Mở Website Chính
+        </button>
+    </div>
+
+    <div class="test-container">
+        <h2 class="test-title">Component Structure</h2>
+        <div class="test-result info">
+            <h3>SingleImageUpload Component Features:</h3>
+            <ul class="feature-list">
+                <li>Drag & Drop support</li>
+                <li>File validation (type và size)</li>
+                <li>Base64 conversion</li>
+                <li>Image preview với overlay actions</li>
+                <li>Replace image button (ImageIcon)</li>
+                <li>Remove image button (X)</li>
+                <li>Error handling và loading states</li>
+            </ul>
+        </div>
+
+        <div class="test-result success">
+            <h3>UI/UX Improvements:</h3>
+            <ul class="feature-list">
+                <li>Clean interface với conditional rendering</li>
+                <li>Live preview trong edit mode</li>
+                <li>Visual feedback với border và icons</li>
+                <li>Responsive design</li>
+                <li>Loading states và error handling</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        console.log('About Project Admin Test Page Loaded');
+        console.log('Features implemented:');
+        console.log('✓ Image replacement in edit mode');
+        console.log('✓ Hide preview button in edit mode');
+        console.log('✓ Live preview with visual feedback');
+        console.log('✓ Auto-hide preview when entering edit mode');
+        console.log('✓ Form data reset on cancel');
+    </script>
+</body>
+</html>

@@ -336,7 +336,6 @@ export const fetchStatsData = async (): Promise<StatsData> => {
           label: item.label || '',
           suffix: item.suffix || '',
           description: item.description || '',
-          backgroundImage: item.backgroundImageUrl || experienceImg,
           category: item.category || ''
         }))
       };
@@ -742,7 +741,6 @@ export const fetchHomePageData = async (): Promise<HomePageData> => {
             label: item.label || '',
             suffix: item.suffix || '',
             description: item.description || '',
-            backgroundImage: item.backgroundImageUrl || experienceImg,
             category: item.category || ''
           }))
         },

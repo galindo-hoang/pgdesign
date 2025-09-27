@@ -49,7 +49,6 @@ GET /api/v1/projectpage
       "id": 1,
       "title": "Dự án",
       "subtitle": "PG DESIGN",
-      "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg",
       "isActive": true,
       "createdAt": "2024-01-15T10:00:00.000Z",
       "updatedAt": "2024-01-15T10:00:00.000Z"
@@ -68,7 +67,6 @@ GET /api/v1/projectpage
           "label": "Kinh nghiệm",
           "suffix": "+ năm",
           "description": "Kinh nghiệm",
-          "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
           "category": "experience",
           "displayOrder": 0
         }
@@ -88,7 +86,6 @@ GET /api/v1/projectpage
           "categoryId": "house-normal",
           "title": "NHÀ PHỐ",
           "projectCount": 45,
-          "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
           "navigationPath": "/projects/house-normal",
           "displayOrder": 0
         }
@@ -120,7 +117,6 @@ GET /api/v1/projectpage/about-project
     "id": 1,
     "title": "Dự án",
     "subtitle": "PG DESIGN",
-    "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg",
     "isActive": true,
     "createdAt": "2024-01-15T10:00:00.000Z",
     "updatedAt": "2024-01-15T10:00:00.000Z"
@@ -140,7 +136,6 @@ POST /api/v1/projectpage/about-project
 {
   "title": "Dự án",
   "subtitle": "PG DESIGN",
-  "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg"
 }
 ```
 
@@ -152,7 +147,6 @@ POST /api/v1/projectpage/about-project
     "id": 1,
     "title": "Dự án",
     "subtitle": "PG DESIGN",
-    "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg",
     "isActive": true,
     "createdAt": "2024-01-15T10:00:00.000Z",
     "updatedAt": "2024-01-15T10:00:00.000Z"
@@ -184,7 +178,6 @@ PUT /api/v1/projectpage/about-project/:id
     "id": 1,
     "title": "Updated Project Title",
     "subtitle": "Updated PG DESIGN",
-    "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg",
     "isActive": true,
     "createdAt": "2024-01-15T10:00:00.000Z",
     "updatedAt": "2024-01-15T10:30:00.000Z"
@@ -237,7 +230,6 @@ GET /api/v1/projectpage/stats-section
         "label": "Kinh nghiệm",
         "suffix": "+ năm",
         "description": "Kinh nghiệm",
-        "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
         "category": "experience",
         "displayOrder": 0
       },
@@ -249,7 +241,6 @@ GET /api/v1/projectpage/stats-section
         "label": "Khách hàng",
         "suffix": "+",
         "description": "Tin tưởng & hài lòng",
-        "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg",
         "category": "customers",
         "displayOrder": 1
       }
@@ -284,7 +275,6 @@ POST /api/v1/projectpage/stats-section
       "label": "Kinh nghiệm",
       "suffix": "+ năm",
       "description": "Kinh nghiệm",
-      "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
       "category": "experience",
       "displayOrder": 0
     },
@@ -295,7 +285,6 @@ POST /api/v1/projectpage/stats-section
       "label": "Khách hàng",
       "suffix": "+",
       "description": "Tin tưởng & hài lòng",
-      "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg",
       "category": "customers",
       "displayOrder": 1
     }
@@ -324,7 +313,6 @@ PUT /api/v1/projectpage/stats-section/:id
       "label": "Kinh nghiệm",
       "suffix": "+ năm",
       "description": "Kinh nghiệm",
-      "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
       "category": "experience",
       "displayOrder": 0
     }
@@ -373,7 +361,6 @@ GET /api/v1/projectpage/project-categories
         "categoryId": "house-normal",
         "title": "NHÀ PHỐ",
         "projectCount": 45,
-        "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
         "navigationPath": "/projects/house-normal",
         "displayOrder": 0
       },
@@ -382,7 +369,6 @@ GET /api/v1/projectpage/project-categories
         "categoryId": "house-full",
         "title": "Xây nhà trọn gói",
         "projectCount": 32,
-        "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg",
         "navigationPath": "/projects/house-full",
         "displayOrder": 1
       }
@@ -417,7 +403,6 @@ POST /api/v1/projectpage/project-categories
       "label": "Kinh nghiệm",
       "suffix": "+ năm",
       "description": "Kinh nghiệm",
-      "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
       "category": "experience",
       "displayOrder": 0
     },
@@ -428,7 +413,6 @@ POST /api/v1/projectpage/project-categories
       "label": "Khách hàng",
       "suffix": "+",
       "description": "Tin tưởng & hài lòng",
-      "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg",
       "category": "customers",
       "displayOrder": 1
     }
@@ -455,7 +439,6 @@ PUT /api/v1/projectpage/stats-section/:id
       "label": "Updated Label",
       "suffix": "+ years",
       "description": "Updated description",
-      "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/updated-image.jpg",
       "category": "updated",
       "displayOrder": 0
     }
@@ -495,7 +478,6 @@ POST /api/v1/projectpage/project-categories
       "categoryId": "house-normal",
       "title": "NHÀ PHỐ",
       "projectCount": 45,
-      "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
       "navigationPath": "/projects/house-normal",
       "displayOrder": 0
     },
@@ -503,7 +485,6 @@ POST /api/v1/projectpage/project-categories
       "categoryId": "house-full",
       "title": "Xây nhà trọn gói",
       "projectCount": 32,
-      "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/diary-image-2.jpg",
       "navigationPath": "/projects/house-full",
       "displayOrder": 1
     }
@@ -527,7 +508,6 @@ PUT /api/v1/projectpage/project-categories/:id
       "categoryId": "updated-category",
       "title": "Updated Category",
       "projectCount": 100,
-      "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/updated-image.jpg",
       "navigationPath": "/projects/updated-category",
       "displayOrder": 0
     }
@@ -558,7 +538,6 @@ curl -X POST http://localhost:3002/api/v1/projectpage/about-project \
   -d '{
     "title": "Dự án",
     "subtitle": "PG DESIGN", 
-    "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/thumb-intro.jpg"
   }'
 ```
 
@@ -580,7 +559,6 @@ curl -X POST http://localhost:3002/api/v1/projectpage/stats-section \
         "label": "Kinh nghiệm",
         "suffix": "+ năm",
         "description": "Kinh nghiệm",
-        "backgroundImageUrl": "http://localhost:9000/pgdesign-assets/images/diary-image-1.jpg",
         "category": "experience",
         "displayOrder": 0
       }

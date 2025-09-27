@@ -124,7 +124,6 @@ The Project Admin connects to the following backend endpoints:
   categoryId: string;
   title: string;
   projectCount: number;
-  backgroundImageUrl: string; // Legacy URL field
   backgroundImageBlob?: string; // Base64 encoded image data
   navigationPath: string;
   displayOrder: number;

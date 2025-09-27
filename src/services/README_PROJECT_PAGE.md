@@ -43,7 +43,6 @@ const statIcons = projectData.statsSection.statsItems.map(item => ({
   label: item.label,
   suffix: item.suffix,
   description: item.description,
-  backgroundImage: item.backgroundImageUrl,
   category: item.category
 }));
 ```
@@ -53,7 +52,6 @@ const statIcons = projectData.statsSection.statsItems.map(item => ({
 const aboutProjectSectionContent = {
   title: projectData.aboutProject.title,
   subtitle: projectData.aboutProject.subtitle,
-  backgroundImage: projectData.aboutProject.backgroundImageUrl
 };
 ```
 
@@ -69,7 +67,6 @@ const projectCategories = projectData.projectCategories.categories.map(category 
   id: category.categoryId,
   title: category.title,
   projectCount: category.projectCount,
-  backgroundImage: category.backgroundImageUrl,
   navigationPath: category.navigationPath
 }));
 ```

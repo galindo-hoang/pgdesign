@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Project Page Caching</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .log {
+            background: #f5f5f5;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 3px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Project Page Caching Test</h1>
+    
+    <div class="test-section">
+        <h2>📊 Cache Status</h2>
+        <button onclick="checkCacheStatus()">Check Cache Status</button>
+        <button onclick="clearAllCache()">Clear All Cache</button>
+        <div id="cache-status" class="log"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔄 API Call Tests</h2>
+        <button onclick="testSingleCall()">Single API Call</button>
+        <button onclick="testDoubleCall()">Double API Call (should use cache)</button>
+        <button onclick="testMultipleCallsRapid()">Multiple Rapid Calls</button>
+        <div id="api-test-results" class="log"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📝 Console Logs</h2>
+        <button onclick="clearLogs()">Clear Logs</button>
+        <div id="console-logs" class="log"></div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:3002/api/v1';
+        let logContainer = document.getElementById('console-logs');
+        
+        // Override console.log to capture logs
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            const logEntry = args.join(' ') + '\n';
+            logContainer.textContent += `[${new Date().toLocaleTimeString()}] ${logEntry}`;
+            logContainer.scrollTop = logContainer.scrollHeight;
+        };
+
+        // Test functions
+        async function testSingleCall() {
+            const resultDiv = document.getElementById('api-test-results');
+            resultDiv.innerHTML = '<span class="info">Testing single API call...</span>\n';
+            
+            try {
+                const startTime = Date.now();
+                const response = await fetch(`${API_BASE_URL}/projectpage/about-project`);
+                const data = await response.json();
+                const endTime = Date.now();
+                
+                resultDiv.innerHTML += `<span class="success">✅ Single call completed in ${endTime - startTime}ms</span>\n`;
+                resultDiv.innerHTML += `Data received: ${JSON.stringify(data, null, 2)}\n`;
+            } catch (error) {
+                resultDiv.innerHTML += `<span class="error">❌ Error: ${error.message}</span>\n`;
+            }
+        }
+
+        async function testDoubleCall() {
+            const resultDiv = document.getElementById('api-test-results');
+            resultDiv.innerHTML = '<span class="info">Testing double API call (should show caching)...</span>\n';
+            
+            try {
+                // First call
+                const startTime1 = Date.now();
+                const response1 = await fetch(`${API_BASE_URL}/projectpage/about-project`);
+                const data1 = await response1.json();
+                const endTime1 = Date.now();
+                
+                resultDiv.innerHTML += `<span class="info">First call completed in ${endTime1 - startTime1}ms</span>\n`;
+                
+                // Second call (should be faster due to potential caching at API level)
+                const startTime2 = Date.now();
+                const response2 = await fetch(`${API_BASE_URL}/projectpage/about-project`);
+                const data2 = await response2.json();
+                const endTime2 = Date.now();
+                
+                resultDiv.innerHTML += `<span class="info">Second call completed in ${endTime2 - startTime2}ms</span>\n`;
+                
+                if (JSON.stringify(data1) === JSON.stringify(data2)) {
+                    resultDiv.innerHTML += `<span class="success">✅ Both calls returned identical data</span>\n`;
+                } else {
+                    resultDiv.innerHTML += `<span class="error">❌ Data mismatch between calls</span>\n`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML += `<span class="error">❌ Error: ${error.message}</span>\n`;
+            }
+        }
+
+        async function testMultipleCallsRapid() {
+            const resultDiv = document.getElementById('api-test-results');
+            resultDiv.innerHTML = '<span class="info">Testing multiple rapid API calls...</span>\n';
+            
+            try {
+                const promises = [];
+                const startTime = Date.now();
+                
+                // Make 5 rapid calls
+                for (let i = 0; i < 5; i++) {
+                    promises.push(
+                        fetch(`${API_BASE_URL}/projectpage/about-project`)
+                            .then(res => res.json())
+                            .then(data => ({ callNumber: i + 1, data, timestamp: Date.now() }))
+                    );
+                }
+                
+                const results = await Promise.all(promises);
+                const endTime = Date.now();
+                
+                resultDiv.innerHTML += `<span class="success">✅ All 5 calls completed in ${endTime - startTime}ms</span>\n`;
+                
+                // Check if all results are identical
+                const firstResult = JSON.stringify(results[0].data);
+                const allIdentical = results.every(result => JSON.stringify(result.data) === firstResult);
+                
+                if (allIdentical) {
+                    resultDiv.innerHTML += `<span class="success">✅ All calls returned identical data</span>\n`;
+                } else {
+                    resultDiv.innerHTML += `<span class="error">❌ Some calls returned different data</span>\n`;
+                }
+                
+                results.forEach(result => {
+                    resultDiv.innerHTML += `Call ${result.callNumber}: ${result.timestamp - startTime}ms\n`;
+                });
+                
+            } catch (error) {
+                resultDiv.innerHTML += `<span class="error">❌ Error: ${error.message}</span>\n`;
+            }
+        }
+
+        async function checkCacheStatus() {
+            const statusDiv = document.getElementById('cache-status');
+            statusDiv.innerHTML = '<span class="info">Checking cache status...</span>\n';
+            
+            // This would need to be implemented in the actual service
+            // For now, just show a placeholder
+            statusDiv.innerHTML = '<span class="info">Cache status check would be implemented in the actual React app</span>\n';
+        }
+
+        function clearAllCache() {
+            const statusDiv = document.getElementById('cache-status');
+            statusDiv.innerHTML = '<span class="info">Cache clearing would be implemented in the actual React app</span>\n';
+        }
+
+        function clearLogs() {
+            document.getElementById('console-logs').textContent = '';
+        }
+
+        // Auto-check on load
+        window.onload = function() {
+            console.log('🧪 Cache testing page loaded');
+            console.log('📡 API Base URL:', API_BASE_URL);
+        };
+    </script>
+</body>
+</html>

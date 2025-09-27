@@ -20,6 +20,7 @@ import projectAdminService, {
   UpdateProjectCategoriesDataRequest,
 } from "../services/projectAdminService";
 import ImageUpload, { ImageData } from "../components/ImageUpload";
+import SingleImageUpload from "../components/SingleImageUpload";
 import "./ProjectAdmin.css";
 
 interface FormStates {
@@ -47,9 +48,46 @@ const ProjectAdmin: React.FC = () => {
     categories: [],
   });
 
-  const [categoryImages, setCategoryImages] = useState<
-    Record<number, ImageData[]>
-  >({});
+  // Legacy categoryImages state - now using base64 data directly
+  // const [categoryImages, setCategoryImages] = useState<
+  //   Record<number, ImageData[]>
+  // >({});
+
+
+  // Helper function to process image data - handle double-encoding issue
+  const processImageData = (imageData: any): string | null => {
+    // Check if imageData exists and is valid
+    if (!imageData) return null;
+    
+    // If imageData is not a string, log for debugging
+    if (typeof imageData !== 'string') {
+      console.log('imageData is not string:', typeof imageData, imageData);
+      return null;
+    }
+    
+    // Now we know imageData is a string
+    const imageString = imageData.trim();
+    if (imageString === '') return null;
+    
+    // Check if this is a double-encoded base64 string
+    if (imageString.startsWith('data:image/') && imageString.includes('base64,')) {
+      try {
+        const base64Part = imageString.split('base64,')[1];
+        const decoded = atob(base64Part);
+        
+        // If decoded string is also a data URL, use it instead
+        if (decoded.startsWith('data:image/')) {
+          console.log('Detected double-encoded image, using decoded version');
+          return decoded;
+        }
+      } catch (error) {
+        console.log('Error decoding base64:', error);
+      }
+    }
+    
+    // Return original string if no double-encoding detected
+    return imageString;
+  };
 
   useEffect(() => {
     loadProjectData();
@@ -81,17 +119,31 @@ const ProjectAdmin: React.FC = () => {
       const images: Record<number, ImageData[]> = {};
       if (Array.isArray(data.categories)) {
         data.categories.forEach((category) => {
+          // Convert base64 to data URL if exists
+          let imageUrl = '';
+          if (category.backgroundImageBlob && typeof category.backgroundImageBlob === 'string') {
+            // Check if it's already a data URL
+            if (category.backgroundImageBlob.startsWith('data:image/')) {
+              imageUrl = category.backgroundImageBlob;
+            } else {
+              // Convert raw base64 to data URL
+              imageUrl = `data:image/jpeg;base64,${category.backgroundImageBlob}`;
+            }
+          }
+          
           images[category.id] = [
             {
               id: `category-${category.id}`,
-              url: category.backgroundImageBlob || category.backgroundImageUrl,
+              url: imageUrl,
               title: `${category.title} Background`,
               alt: `${category.title} Background Image`,
+              size: 'Unknown',
+              type: 'image/jpeg'
             },
           ];
         });
       }
-      setCategoryImages(images);
+      // Legacy setCategoryImages removed - now using base64 data directly
     } catch (err) {
       console.error("Error loading project data:", err);
       setError(err instanceof Error ? err.message : "Failed to load data");
@@ -105,91 +157,6 @@ const ProjectAdmin: React.FC = () => {
       ...prev,
       [section]: { ...prev[section], ...data },
     }));
-  };
-
-  const handleImageUpload = async (
-    files: File[],
-    categoryId?: number
-  ): Promise<string[]> => {
-    setUploading(true);
-    const uploadedUrls: string[] = [];
-
-    try {
-      for (const file of files) {
-        const result = await projectAdminService.uploadCategoryImage(file);
-        uploadedUrls.push(result.blob || result.url);
-      }
-
-      return uploadedUrls;
-    } catch (error) {
-      console.error("Upload error:", error);
-      alert(`Failed to upload images: ${error}`);
-      throw error;
-    } finally {
-      setUploading(false);
-    }
-  };
-
-  const handleCategoryImageChange = async (
-    categoryId: number,
-    images: ImageData[]
-  ) => {
-    setCategoryImages((prev) => ({
-      ...prev,
-      [categoryId]: images,
-    }));
-
-    // Handle new file uploads
-    const newFiles = images.filter((img) => img.file);
-    if (newFiles.length > 0) {
-      try {
-        const files = newFiles.map((img) => img.file!);
-        const uploadedUrls = await handleImageUpload(files, categoryId);
-
-        // Update image URLs
-        const updatedImages = images.map((img, index) => {
-          if (img.file) {
-            const uploadIndex = newFiles.findIndex((f) => f.file === img.file);
-            return { ...img, url: uploadedUrls[uploadIndex], file: undefined };
-          }
-          return img;
-        });
-
-        setCategoryImages((prev) => ({
-          ...prev,
-          [categoryId]: updatedImages,
-        }));
-
-        // Update category data
-        const updatedCategories = Array.isArray(formStates.categories)
-          ? formStates.categories.map((cat) =>
-              cat.id === categoryId
-                ? {
-                    ...cat,
-                    backgroundImageBlob:
-                      updatedImages[0]?.url || cat.backgroundImageUrl,
-                  }
-                : cat
-            )
-          : [];
-        updateFormState("categories", updatedCategories);
-      } catch (error) {
-        console.error("Category image upload error:", error);
-      }
-    } else {
-      // Just update URLs without upload
-      const updatedCategories = Array.isArray(formStates.categories)
-        ? formStates.categories.map((cat) =>
-            cat.id === categoryId
-              ? {
-                  ...cat,
-                  backgroundImageBlob: images[0]?.url || cat.backgroundImageUrl,
-                }
-              : cat
-          )
-        : [];
-      updateFormState("categories", updatedCategories);
-    }
   };
 
   const handleSaveHeader = async () => {
@@ -245,19 +212,7 @@ const ProjectAdmin: React.FC = () => {
       const updatedCategories = [...formStates.categories, newCategory];
       updateFormState("categories", updatedCategories);
 
-      // Initialize image for new category
-      setCategoryImages((prev) => ({
-        ...prev,
-        [newCategory.id]: [
-          {
-            id: `category-${newCategory.id}`,
-            url:
-              newCategory.backgroundImageBlob || newCategory.backgroundImageUrl,
-            title: `${newCategory.title} Background`,
-            alt: `${newCategory.title} Background Image`,
-          },
-        ],
-      }));
+      // Legacy setCategoryImages removed - base64 data handled directly in component
 
       setShowCategoryForm(false);
       alert("Category created successfully!");
@@ -312,43 +267,6 @@ const ProjectAdmin: React.FC = () => {
     }
   };
 
-  const handleDeleteCategory = async (categoryId: string) => {
-    if (!projectData) return;
-    if (!window.confirm("Are you sure you want to delete this category?"))
-      return;
-
-    try {
-      setSaving(true);
-      await projectAdminService.deleteProjectCategory(
-        projectData.id,
-        categoryId
-      );
-
-      const updatedCategories = formStates.categories.filter(
-        (cat) => cat.categoryId !== categoryId
-      );
-      updateFormState("categories", updatedCategories);
-
-      // Remove category images
-      setCategoryImages((prev) => {
-        const newImages = { ...prev };
-        const categoryToDelete = formStates.categories.find(
-          (cat) => cat.categoryId === categoryId
-        );
-        if (categoryToDelete) {
-          delete newImages[categoryToDelete.id];
-        }
-        return newImages;
-      });
-
-      alert("Category deleted successfully!");
-    } catch (err) {
-      console.error("Error deleting category:", err);
-      alert("Failed to delete category");
-    } finally {
-      setSaving(false);
-    }
-  };
 
   if (loading) {
     return (
@@ -552,24 +470,72 @@ const ProjectAdmin: React.FC = () => {
 
             <div className="categories-grid">
               {Array.isArray(formStates.categories)
-                ? formStates.categories.map((category) => (
+                ? formStates.categories.map((category) => {
+                  const processedImage = processImageData(category.backgroundImageBlob);
+                  return (
                     <div key={category.id} className="category-card">
                       <div className="category-image">
-                        <ImageUpload
-                          images={categoryImages[category.id] || []}
-                          onImagesChange={(images) =>
-                            handleCategoryImageChange(category.id, images)
-                          }
-                          maxFiles={1}
-                          allowedTypes={[
-                            "image/jpeg",
-                            "image/png",
-                            "image/gif",
-                            "image/webp",
-                          ]}
-                          maxSize={5}
-                          showPreview={true}
-                        />
+                        {processedImage ? (
+                          <div className="category-image-preview">
+                            <img 
+                              src={processedImage || ''}
+                              alt={category.title}
+                              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            />
+                          </div>
+                        ) : (
+                          <div className="category-image-upload" style={{ border: '2px solid red' }}>
+                            {(() => {
+                              console.log('Showing upload placeholder for:', category.title);
+                              return null;
+                            })()}
+                            <input
+                              type="file"
+                              accept="image/jpeg,image/png,image/gif,image/webp"
+                              onChange={async (e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  try {
+                                    const reader = new FileReader();
+                                    reader.onload = () => {
+                                      const dataUrl = reader.result as string;
+                                      const base64 = dataUrl.split(',')[1];
+                                      const updatedCategories = formStates.categories.map((cat) =>
+                                        cat.id === category.id
+                                          ? { ...cat, backgroundImageBlob: base64 }
+                                          : cat
+                                      );
+                                      updateFormState("categories", updatedCategories);
+                                    };
+                                    reader.readAsDataURL(file);
+                                  } catch (error) {
+                                    console.error('Error processing image:', error);
+                                  }
+                                }
+                              }}
+                              style={{ display: 'none' }}
+                              id={`file-input-${category.id}`}
+                            />
+                            <label 
+                              htmlFor={`file-input-${category.id}`}
+                              className="upload-placeholder"
+                              style={{ 
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                minHeight: '150px',
+                                border: '2px dashed #d1d5db',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                color: '#6b7280'
+                              }}
+                            >
+                              <Upload size={24} />
+                              <span>Click to upload image</span>
+                            </label>
+                          </div>
+                        )}
                       </div>
                       <div className="category-info">
                         <div className="category-header">
@@ -612,7 +578,8 @@ const ProjectAdmin: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                  ))
+                  );
+                })
                 : []}
             </div>
           </div>
@@ -690,11 +657,17 @@ const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
     projectCount: category?.projectCount || 0,
     navigationPath: category?.navigationPath || "",
     displayOrder: category?.displayOrder || 0,
+    backgroundImageBlob: category?.backgroundImageBlob || null,
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSave(formData);
+    // Convert null to undefined for API compatibility
+    const submitData = {
+      ...formData,
+      backgroundImageBlob: formData.backgroundImageBlob || undefined,
+    };
+    onSave(submitData);
   };
 
   return (
@@ -715,9 +688,11 @@ const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
               onChange={(e) =>
                 setFormData({ ...formData, categoryId: e.target.value })
               }
-              className="form-input"
+              className={`form-input ${category ? 'form-input-disabled' : ''}`}
               placeholder="e.g., house-normal"
               required
+              disabled={!!category}
+              readOnly={!!category}
             />
           </div>
 
@@ -746,8 +721,10 @@ const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
                   projectCount: parseInt(e.target.value) || 0,
                 })
               }
-              className="form-input"
+              className={`form-input ${category ? 'form-input-disabled' : ''}`}
               min="0"
+              disabled={!!category}
+              readOnly={!!category}
             />
           </div>
 
@@ -759,9 +736,11 @@ const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
               onChange={(e) =>
                 setFormData({ ...formData, navigationPath: e.target.value })
               }
-              className="form-input"
+              className={`form-input ${category ? 'form-input-disabled' : ''}`}
               placeholder="e.g., /projects/house-normal"
               required
+              disabled={!!category}
+              readOnly={!!category}
             />
           </div>
 
@@ -776,8 +755,23 @@ const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
                   displayOrder: parseInt(e.target.value) || 0,
                 })
               }
-              className="form-input"
+              className={`form-input ${category ? 'form-input-disabled' : ''}`}
               min="0"
+              disabled={!!category}
+              readOnly={!!category}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Background Image</label>
+            <SingleImageUpload
+              onImageUpload={(base64Data) =>
+                setFormData({ ...formData, backgroundImageBlob: base64Data })
+              }
+              onImageRemove={() => {}}
+              currentImage={formData.backgroundImageBlob}
+              maxSizeKB={2048}
+              acceptedFormats={['image/jpeg', 'image/png', 'image/webp']}
             />
           </div>
 
