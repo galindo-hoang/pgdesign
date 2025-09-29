@@ -9,6 +9,7 @@ import {
   UpdateProjectDetailRequest,
   ProjectDetailFilters,
 } from "../types/projectDetailTypes";
+import ProjectImageBlobDetailModel, { ProjectImageBlobDetail } from "./ProjectImageBlobDetailModel";
 
 export class ProjectDetailModel extends BaseModel {
   protected override tableName = "project_details";
@@ -152,20 +153,57 @@ export class ProjectDetailModel extends BaseModel {
     }
 
     try {
-      projectImagesBlob = row.project_images_blob
-        ? JSON.parse(row.project_images_blob)
-        : undefined;
+      if (row.project_images_blob) {
+        // Try to parse as JSON first
+        try {
+          projectImagesBlob = JSON.parse(row.project_images_blob);
+        } catch (jsonError) {
+          // If JSON parsing fails, treat as single base64 string and wrap in array
+          if (typeof row.project_images_blob === 'string' && row.project_images_blob.startsWith('data:image/')) {
+            projectImagesBlob = [row.project_images_blob];
+            console.log("Converted single base64 string to array for project_images_blob");
+          } else {
+            console.error("Error parsing project_images_blob:", jsonError);
+            projectImagesBlob = undefined;
+          }
+        }
+      } else {
+        projectImagesBlob = undefined;
+      }
     } catch (error) {
-      console.error("Error parsing project_images_blob:", error);
+      console.error("Error processing project_images_blob:", error);
       projectImagesBlob = undefined;
     }
 
+    // Handle tags - MySQL JSON column returns parsed object directly
     try {
-      tags = row.tags ? JSON.parse(row.tags) : undefined;
+      if (row.tags) {
+        if (Array.isArray(row.tags)) {
+          // Already parsed by MySQL driver as JSON
+          tags = row.tags;
+        } else if (typeof row.tags === 'string') {
+          try {
+            // Try to parse as JSON string
+            tags = JSON.parse(row.tags);
+          } catch (jsonError) {
+            // If JSON parsing fails, treat as comma-separated string
+            tags = row.tags.split(',').map(tag => tag.trim());
+          }
+        } else {
+          // Handle other types (Buffer, etc.)
+          tags = Array.isArray(row.tags) ? row.tags : undefined;
+        }
+      } else {
+        tags = undefined;
+      }
     } catch (error) {
-      console.error("Error parsing tags:", error);
+      console.error("Error processing tags:", error);
       tags = undefined;
     }
+
+    // Prioritize base64 blob data over URL for images
+    const thumbnailImageFinal = row.thumbnail_image_blob || row.thumbnail_image || undefined;
+    const projectImagesFinal = projectImagesBlob || projectImages;
 
     return {
       id: row.id,
@@ -179,9 +217,10 @@ export class ProjectDetailModel extends BaseModel {
       category: row.category,
       projectCategoryId: row.project_category_id,
       style: row.style || undefined,
-      thumbnailImage: row.thumbnail_image || undefined,
+      thumbnailImage: thumbnailImageFinal,
+      thumbnailImageBlob: row.thumbnail_image_blob || undefined,
       htmlContent: row.html_content,
-      projectImages: projectImages,
+      projectImages: projectImagesFinal,
       projectImagesBlob: projectImagesBlob,
       projectStatus: row.project_status || undefined, // Now includes budget information
       completionDate: row.completion_date || undefined,
@@ -291,7 +330,77 @@ export class ProjectDetailModel extends BaseModel {
 
     if (!row) return null;
 
-    return this.transformRowToData(row);
+    return this.transformRowToDataWithImages(row);
+  }
+
+  // Enhanced method that includes images from separate table
+  private async transformRowToDataWithImages(row: ProjectDetailRow): Promise<ProjectDetailData> {
+    // Handle tags - MySQL JSON column returns parsed object directly
+    let tags;
+    try {
+      if (row.tags) {
+        if (Array.isArray(row.tags)) {
+          // Already parsed by MySQL driver as JSON
+          tags = row.tags;
+        } else if (typeof row.tags === 'string') {
+          try {
+            // Try to parse as JSON string
+            tags = JSON.parse(row.tags);
+          } catch (jsonError) {
+            // If JSON parsing fails, treat as comma-separated string
+            tags = row.tags.split(',').map(tag => tag.trim());
+          }
+        } else {
+          // Handle other types (Buffer, etc.)
+          tags = Array.isArray(row.tags) ? row.tags : undefined;
+        }
+      } else {
+        tags = undefined;
+      }
+    } catch (error) {
+      console.error("Error processing tags in transformRowToDataWithImages:", error);
+      tags = undefined;
+    }
+
+    // Get images from separate table (bypass old JSON parsing)
+    const images = await ProjectImageBlobDetailModel.getImagesByProjectDetailId(row.id);
+    
+    // Convert images to array format
+    const projectImagesBlob = images
+      .filter(img => img.imageType === 'project')
+      .sort((a, b) => a.displayOrder - b.displayOrder)
+      .map(img => img.imageBlob);
+    
+    // Create clean data object without JSON parsing issues
+    return {
+      id: row.id,
+      projectId: row.project_id,
+      title: row.title,
+      clientName: row.client_name,
+      area: row.area,
+      constructionDate: row.construction_date,
+      address: row.address,
+      description: row.description || undefined,
+      category: row.category,
+      projectCategoryId: row.project_category_id,
+      style: row.style || undefined,
+      thumbnailImage: row.thumbnail_image_blob || row.thumbnail_image || undefined,
+      thumbnailImageBlob: row.thumbnail_image_blob || undefined,
+      htmlContent: row.html_content,
+      projectImages: projectImagesBlob, // Use images from separate table
+      projectImagesBlob: projectImagesBlob.length > 0 ? projectImagesBlob : undefined,
+      projectStatus: row.project_status || undefined,
+      completionDate: row.completion_date || undefined,
+      architectName: row.architect_name || undefined,
+      contractorName: row.contractor_name || undefined,
+      metaTitle: row.meta_title || undefined,
+      metaDescription: row.meta_description || undefined,
+      tags: tags,
+      isOnHomePage: row.is_on_homepage || false,
+      isActive: row.is_active,
+      createdAt: row.created_at,
+      updatedAt: row.updated_at,
+    };
   }
 
   override async create(

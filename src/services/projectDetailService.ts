@@ -11,11 +11,12 @@ import {
 const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:3002";
 const API_VERSION = "v1";
 const API_ENDPOINT = `${API_BASE_URL}/api/${API_VERSION}/projectdetail`;
-const USE_MOCK_DATA = true;
+const USE_MOCK_DATA = false;
 
 // Mock project detail data - Project 1
 const mockProjectDetailData: ProjectDetailData = {
-  id: "project-001",
+  id: 1,
+  projectId: "project-001",
   title: "Nhà Phố Hiện Đại 3 Tầng",
   clientName: "Anh Nguyễn Văn A",
   area: "120m²",
@@ -24,7 +25,7 @@ const mockProjectDetailData: ProjectDetailData = {
   description:
     "Thiết kế nhà phố hiện đại với không gian mở và ánh sáng tự nhiên",
   category: "house-normal",
-  subCategory: "Nhà Ống",
+  projectCategoryId: 6,
   style: "Hiện đại",
   thumbnailImage: "/assets/images/diary-image-1.png",
 
@@ -104,6 +105,7 @@ const mockProjectDetailData: ProjectDetailData = {
     "Khám phá dự án nhà phố hiện đại 3 tầng với thiết kế tinh tế và không gian sống tối ưu.",
   tags: ["nhà phố", "hiện đại", "3 tầng", "thiết kế", "xây dựng"],
 
+  isOnHomePage: true,
   isActive: true,
   createdAt: "2023-06-15T10:00:00.000Z",
   updatedAt: "2023-12-20T15:30:00.000Z",
@@ -147,7 +149,8 @@ export const fetchProjectDetailDataMock = async (
 
     // Convert ProjectDetail to ProjectDetailData format
     return {
-      id: processedProject.projectId,
+      id: processedProject.id,
+      projectId: processedProject.projectId,
       title: processedProject.title,
       clientName: processedProject.clientName,
       area: processedProject.area,
@@ -155,7 +158,7 @@ export const fetchProjectDetailDataMock = async (
       address: processedProject.address,
       description: processedProject.description || "",
       category: processedProject.category,
-      subCategory: processedProject.category, // Use category as subCategory for compatibility
+      projectCategoryId: processedProject.projectCategoryId,
       style: processedProject.style || "",
       thumbnailImage: processedProject.thumbnailImage || "",
       htmlContent: enhancedHtmlContent,
@@ -167,6 +170,7 @@ export const fetchProjectDetailDataMock = async (
       metaTitle: processedProject.metaTitle || "",
       metaDescription: processedProject.metaDescription || "",
       tags: processedProject.tags || [],
+      isOnHomePage: processedProject.isOnHomePage || false,
       isActive: processedProject.isActive || true,
       createdAt: processedProject.createdAt || "",
       updatedAt: processedProject.updatedAt || "",
@@ -193,7 +197,7 @@ export const fetchProjectDetailDataApi = async (
   projectId: string
 ): Promise<ProjectDetailData> => {
   try {
-    const response = await fetch(`${API_ENDPOINT}/${projectId}`);
+    const response = await fetch(`${API_ENDPOINT}/project/${projectId}`);
 
     if (!response.ok) {
       if (response.status === 404) {
@@ -210,11 +214,21 @@ export const fetchProjectDetailDataApi = async (
       throw new Error(data.error || "Failed to fetch project detail data");
     }
 
+    // Prioritize base64 blob data over URLs
+    const responseData = data.data!;
+    const finalThumbnail = responseData.thumbnailImageBlob || responseData.thumbnailImage;
+    const finalProjectImages = responseData.projectImagesBlob || responseData.projectImages;
+    
     // Process image URLs and append images to htmlContent
-    const processedData = processProjectImageUrls(data.data!);
+    const processedData = {
+      ...responseData,
+      thumbnailImage: finalThumbnail,
+      projectImages: finalProjectImages
+    };
+    
     const enhancedHtmlContent = appendProjectImagesToHtml(
       processedData.htmlContent,
-      processedData.projectImages || [],
+      finalProjectImages || [],
       processedData.title
     );
 
@@ -308,7 +322,7 @@ export const projectDetailService = {
   ): Promise<ProjectDetailData | null> {
     if (USE_MOCK_DATA) {
       // await delay(1000);
-      return { ...projectData, id: `project-${Date.now()}` };
+      return { ...projectData, id: Date.now() };
     }
 
     try {
@@ -334,7 +348,7 @@ export const projectDetailService = {
 
   // Update project detail
   async updateProjectDetail(
-    id: string,
+    id: number,
     projectData: Partial<ProjectDetailData>
   ): Promise<ProjectDetailData | null> {
     if (USE_MOCK_DATA) {
@@ -364,7 +378,7 @@ export const projectDetailService = {
   },
 
   // Delete project detail
-  async deleteProjectDetail(id: string): Promise<boolean> {
+  async deleteProjectDetail(id: number): Promise<boolean> {
     if (USE_MOCK_DATA) {
       // await delay(500);
       return true;

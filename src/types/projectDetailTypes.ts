@@ -1,7 +1,8 @@
 // src/types/projectDetailTypes.ts
 
 export interface ProjectDetailData {
-  id: string;
+  id: number;
+  projectId: string;
   title: string;
   clientName: string;
   area: string;
@@ -9,15 +10,17 @@ export interface ProjectDetailData {
   address: string;
   description?: string;
   category: string;
-  subCategory: string;
+  projectCategoryId: number;
   style?: string;
-  thumbnailImage: string;
+  thumbnailImage?: string;
+  thumbnailImageBlob?: string; // Base64 encoded thumbnail image
 
   // Embedded HTML content from server
   htmlContent: string;
 
   // Additional project details
-  projectImages?: string[]; // Array of base64 encoded image data (BLOB storage)
+  projectImages?: string[]; // Array of image URLs
+  projectImagesBlob?: string[]; // Array of base64 encoded image data (BLOB storage)
   projectStatus?: string; // Now includes budget information
   completionDate?: string;
   architectName?: string;
@@ -27,6 +30,9 @@ export interface ProjectDetailData {
   metaTitle?: string;
   metaDescription?: string;
   tags?: string[];
+
+  // Homepage display control
+  isOnHomePage?: boolean;
 
   // Admin managed content
   isActive?: boolean;

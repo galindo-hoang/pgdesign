@@ -13,6 +13,7 @@ export interface ProjectDetailData {
   projectCategoryId: number;
   style?: string | undefined;
   thumbnailImage?: string | undefined;
+  thumbnailImageBlob?: string | undefined; // Base64 encoded thumbnail image
 
   // Embedded HTML content from server
   htmlContent: string;
@@ -104,6 +105,7 @@ export interface ProjectDetailRow {
   project_category_id: number;
   style?: string | null;
   thumbnail_image?: string | null;
+  thumbnail_image_blob?: string | null; // Base64 encoded thumbnail image
   html_content: string;
   project_images?: string | null; // JSON string
   project_images_blob?: string | null; // JSON string of base64 encoded images

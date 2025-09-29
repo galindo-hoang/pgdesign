@@ -105,7 +105,7 @@ const ProjectPage: React.FC = () => {
   return (
     <div className="project-page">
       {/* Cache Test Button (only in development) */}
-      {process.env.NODE_ENV === 'development' && (
+      {/* {process.env.NODE_ENV === 'development' && (
         <button
           onClick={() => setShowCacheTest(true)}
           style={{
@@ -124,7 +124,7 @@ const ProjectPage: React.FC = () => {
         >
           🧪 Test Cache
         </button>
-      )}
+      )} */}
 
       <AboutProjectSection content={aboutProjectSectionContent} />
       <StatsSection stateHeader={stateHeader} stateItems={statIcons} />
