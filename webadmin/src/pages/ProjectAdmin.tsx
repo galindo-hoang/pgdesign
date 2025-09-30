@@ -727,15 +727,17 @@ const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
 
           <div className="form-group">
             <label>Background Image</label>
-            <SingleImageUpload
-              onImageUpload={(base64Data) =>
-                setFormData({ ...formData, backgroundImageBlob: base64Data })
-              }
-              onImageRemove={() => {}}
-              currentImage={formData.backgroundImageBlob}
-              maxSizeKB={2048}
-              acceptedFormats={['image/jpeg', 'image/png', 'image/webp']}
-            />
+            <div onClick={(e) => e.stopPropagation()}>
+              <SingleImageUpload
+                onImageUpload={(base64Data) =>
+                  setFormData({ ...formData, backgroundImageBlob: base64Data })
+                }
+                onImageRemove={() => {}}
+                currentImage={formData.backgroundImageBlob}
+                maxSizeKB={2048}
+                acceptedFormats={['image/jpeg', 'image/png', 'image/webp']}
+              />
+            </div>
           </div>
 
           <div className="form-actions">

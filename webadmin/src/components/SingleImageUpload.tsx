@@ -114,7 +114,11 @@ const SingleImageUpload: React.FC<SingleImageUploadProps> = ({
           onDragLeave={handleDrag}
           onDragOver={handleDrag}
           onDrop={handleDrop}
-          onClick={() => fileInputRef.current?.click()}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            fileInputRef.current?.click();
+          }}
         >
           <Upload className="upload-icon" />
           <p>
@@ -137,7 +141,12 @@ const SingleImageUpload: React.FC<SingleImageUploadProps> = ({
             <img src={currentImage} alt="Uploaded image" />
             <div className="image-overlay">
               <button
-                onClick={() => fileInputRef.current?.click()}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  fileInputRef.current?.click();
+                }}
                 className="image-action-btn"
                 title="Replace image"
               >

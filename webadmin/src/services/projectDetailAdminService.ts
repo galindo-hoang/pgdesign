@@ -14,6 +14,7 @@ export interface ProjectDetailFormData {
   projectCategoryId: number;
   style: string;
   thumbnailImageBlob?: string;
+  projectImages?: string[]; // Legacy field from server
   projectImagesBlob: string[];
   projectStatus: string;
   completionDate: string;

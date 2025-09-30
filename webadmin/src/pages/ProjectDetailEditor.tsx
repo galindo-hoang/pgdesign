@@ -75,7 +75,20 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
     setLoading(true);
     try {
       const projectData = await getProjectById(id);
-      setFormData(projectData);
+      console.log('Loaded project data:', projectData);
+      console.log('Loaded projectImagesBlob:', projectData.projectImagesBlob);
+      console.log('Loaded projectImages:', projectData.projectImages);
+      console.log('Loaded projectImagesBlob length:', projectData.projectImagesBlob?.length);
+      console.log('Loaded projectImages length:', projectData.projectImages?.length);
+      
+      // Handle both projectImages and projectImagesBlob fields
+      // Prioritize projectImagesBlob, fallback to projectImages
+      const finalProjectImages = projectData.projectImagesBlob || projectData.projectImages || [];
+      
+      setFormData({
+        ...projectData,
+        projectImagesBlob: finalProjectImages
+      });
     } catch (error) {
       console.error('Error loading project:', error);
       // Handle error - maybe show error message or redirect
@@ -96,21 +109,24 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
   const handleImageUpload = (base64Data: string, index?: number) => {
     if (index !== undefined) {
       // Replace existing image
-      const newImages = [...formData.projectImagesBlob];
+      const newImages = [...(formData.projectImagesBlob || [])];
       newImages[index] = base64Data;
       setFormData(prev => ({ ...prev, projectImagesBlob: newImages }));
     } else {
       // Add new image
       setFormData(prev => ({
         ...prev,
-        projectImagesBlob: [...prev.projectImagesBlob, base64Data]
+        projectImagesBlob: [...(prev.projectImagesBlob || []), base64Data]
       }));
     }
   };
 
   // Handle image removal
   const handleImageRemove = (index: number) => {
-    const newImages = formData.projectImagesBlob.filter((_, i) => i !== index);
+    const newImages = (formData.projectImagesBlob || []).filter((_, i) => i !== index);
+    console.log('Removing image at index:', index);
+    console.log('Current images:', formData.projectImagesBlob);
+    console.log('New images after removal:', newImages);
     setFormData(prev => ({ ...prev, projectImagesBlob: newImages }));
   };
 
@@ -141,6 +157,10 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
   const handleSave = async () => {
     setSaving(true);
     try {
+      console.log('Saving project with data:', formData);
+      console.log('projectImagesBlob:', formData.projectImagesBlob);
+      console.log('projectImagesBlob length:', formData.projectImagesBlob?.length);
+      
       if (mode === 'add') {
         await createProject(formData);
       } else if (projectId) {
@@ -308,9 +328,9 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
 
             {/* Project Images Gallery */}
             <div className="form-group">
-              <label>Thư Viện Ảnh ({formData.projectImagesBlob.length})</label>
+              <label>Thư Viện Ảnh ({formData.projectImagesBlob?.length || 0})</label>
               <div className="images-gallery">
-                {formData.projectImagesBlob.map((image, index) => (
+                {(formData.projectImagesBlob || []).map((image, index) => (
                   <div key={index} className="gallery-item">
                     <img src={image} alt={`Project ${index + 1}`} />
                     <div className="gallery-actions">
