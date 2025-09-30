@@ -18,6 +18,32 @@ export class ProjectDetailModel extends BaseModel {
     super("project_details");
   }
 
+  // ===== UTILITY METHODS =====
+
+  /**
+   * Convert ISO datetime string or Date object to MySQL DATE format (YYYY-MM-DD)
+   */
+  private convertToMySQLDate(dateInput: string | Date): string {
+    try {
+      const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
+      
+      if (isNaN(date.getTime())) {
+        throw new Error('Invalid date');
+      }
+      
+      // Convert to MySQL DATE format (YYYY-MM-DD)
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      
+      return `${year}-${month}-${day}`;
+    } catch (error) {
+      console.error('Error converting date to MySQL format:', error);
+      // Return a default date or throw error based on your needs
+      throw new Error(`Invalid date format: ${dateInput}`);
+    }
+  }
+
   // ===== VALIDATION METHODS =====
 
   async validateProjectDetailData(
@@ -110,6 +136,83 @@ export class ProjectDetailModel extends BaseModel {
     return errors;
   }
 
+  // Validation for UPDATE operations (only validate provided fields)
+  async validateUpdateProjectDetailData(
+    data: Partial<UpdateProjectDetailRequest>
+  ): Promise<string[]> {
+    const errors: string[] = [];
+
+    // Only validate fields that are provided and not undefined
+    if (data.projectId !== undefined) {
+      if (!data.projectId || data.projectId.trim() === "") {
+        errors.push("projectId cannot be empty");
+      } else if (data.projectId.length > 100) {
+        errors.push("projectId must not exceed 100 characters");
+      }
+    }
+
+    if (data.title !== undefined) {
+      if (!data.title || data.title.trim() === "") {
+        errors.push("title cannot be empty");
+      } else if (data.title.length > 300) {
+        errors.push("title must not exceed 300 characters");
+      }
+    }
+
+    if (data.clientName !== undefined) {
+      if (!data.clientName || data.clientName.trim() === "") {
+        errors.push("clientName cannot be empty");
+      } else if (data.clientName.length > 200) {
+        errors.push("clientName must not exceed 200 characters");
+      }
+    }
+
+    if (data.area !== undefined) {
+      if (!data.area || data.area.trim() === "") {
+        errors.push("area cannot be empty");
+      } else if (data.area.length > 50) {
+        errors.push("area must not exceed 50 characters");
+      }
+    }
+
+    if (data.address !== undefined) {
+      if (!data.address || data.address.trim() === "") {
+        errors.push("address cannot be empty");
+      } else if (data.address.length > 500) {
+        errors.push("address must not exceed 500 characters");
+      }
+    }
+
+    if (data.category !== undefined) {
+      if (!data.category || data.category.trim() === "") {
+        errors.push("category cannot be empty");
+      } else if (data.category.length > 100) {
+        errors.push("category must not exceed 100 characters");
+      }
+    }
+
+    if (data.projectCategoryId !== undefined) {
+      if (!data.projectCategoryId || data.projectCategoryId <= 0) {
+        errors.push("projectCategoryId must be a positive number");
+      }
+    }
+
+    // Optional fields - only validate length if provided
+    const stringFields = [
+      'description', 'style', 'projectStatus', 'completionDate', 
+      'architectName', 'contractorName', 'metaTitle', 'metaDescription', 'htmlContent'
+    ];
+    
+    stringFields.forEach(field => {
+      const value = data[field as keyof UpdateProjectDetailRequest];
+      if (value !== undefined && typeof value === 'string' && value.length > 1000) {
+        errors.push(`${field} must not exceed 1000 characters`);
+      }
+    });
+
+    return errors;
+  }
+
   // Add new method to get projects for homepage
   async getHomepageProjects(): Promise<ProjectDetailData[]> {
     const rows: ProjectDetailRow[] = await db(this.tableName)
@@ -144,11 +247,25 @@ export class ProjectDetailModel extends BaseModel {
     let tags;
 
     try {
-      projectImages = row.project_images
-        ? JSON.parse(row.project_images)
-        : undefined;
+      if (row.project_images) {
+        // Try to parse as JSON first
+        try {
+          projectImages = JSON.parse(row.project_images);
+        } catch (jsonError) {
+          // If JSON parsing fails, treat as single base64 string and wrap in array
+          if (typeof row.project_images === 'string' && row.project_images.startsWith('data:image/')) {
+            projectImages = [row.project_images];
+            console.log("Converted single base64 string to array for project_images");
+          } else {
+            console.error("Error parsing project_images:", jsonError);
+            projectImages = undefined;
+          }
+        }
+      } else {
+        projectImages = undefined;
+      }
     } catch (error) {
-      console.error("Error parsing project_images:", error);
+      console.error("Error processing project_images:", error);
       projectImages = undefined;
     }
 
@@ -245,8 +362,10 @@ export class ProjectDetailModel extends BaseModel {
     if (data.title !== undefined) row.title = data.title;
     if (data.clientName !== undefined) row.client_name = data.clientName;
     if (data.area !== undefined) row.area = data.area;
-    if (data.constructionDate !== undefined)
-      row.construction_date = data.constructionDate;
+    if (data.constructionDate !== undefined) {
+      // Convert ISO datetime string to MySQL DATE format (YYYY-MM-DD)
+      row.construction_date = this.convertToMySQLDate(data.constructionDate);
+    }
     if (data.address !== undefined) row.address = data.address;
     if (data.description !== undefined)
       row.description = data.description || null;
@@ -267,8 +386,10 @@ export class ProjectDetailModel extends BaseModel {
         : null;
     if (data.projectStatus !== undefined)
       row.project_status = data.projectStatus || null;
-    if (data.completionDate !== undefined)
-      row.completion_date = data.completionDate || null;
+    if (data.completionDate !== undefined) {
+      // Convert ISO datetime string to MySQL DATE format (YYYY-MM-DD)
+      row.completion_date = data.completionDate ? this.convertToMySQLDate(data.completionDate) : null;
+    }
     if (data.architectName !== undefined)
       row.architect_name = data.architectName || null;
     if (data.contractorName !== undefined)
