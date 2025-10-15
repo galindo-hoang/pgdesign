@@ -15,10 +15,15 @@ import {
   getProjectById,
   createProject,
   updateProject,
-  fileToBase64,
-  validateImageFile,
   ProjectDetailFormData
 } from '../services/projectDetailAdminService';
+import {
+  uploadProjectDetailThumbnail,
+  uploadProjectDetailImages,
+  uploadSingleImage,
+  deleteFile,
+  validateImageFile
+} from '../services/imageUploadService';
 import './ProjectDetailEditor.css';
 
 // Types imported from service
@@ -43,7 +48,7 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
     category: 'appartment',
     projectCategoryId: 1,
     style: 'Hiện đại',
-    projectImagesBlob: [],
+    projectImages: [],
     projectStatus: 'Hoàn thành',
     completionDate: '',
     architectName: '',
@@ -76,18 +81,15 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
     try {
       const projectData = await getProjectById(id);
       console.log('Loaded project data:', projectData);
-      console.log('Loaded projectImagesBlob:', projectData.projectImagesBlob);
-      console.log('Loaded projectImages:', projectData.projectImages);
-      console.log('Loaded projectImagesBlob length:', projectData.projectImagesBlob?.length);
+      console.log('Loaded projectImages (URLs):', projectData.projectImages);
       console.log('Loaded projectImages length:', projectData.projectImages?.length);
       
-      // Handle both projectImages and projectImagesBlob fields
-      // Prioritize projectImagesBlob, fallback to projectImages
-      const finalProjectImages = projectData.projectImagesBlob || projectData.projectImages || [];
+      // Use projectImages which now contains S3 URLs
+      const finalProjectImages = projectData.projectImagesUrls || projectData.projectImages || [];
       
       setFormData({
         ...projectData,
-        projectImagesBlob: finalProjectImages
+        projectImages: finalProjectImages
       });
     } catch (error) {
       console.error('Error loading project:', error);
@@ -105,34 +107,86 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
     }));
   };
 
-  // Handle image upload
-  const handleImageUpload = (base64Data: string, index?: number) => {
-    if (index !== undefined) {
-      // Replace existing image
-      const newImages = [...(formData.projectImagesBlob || [])];
-      newImages[index] = base64Data;
-      setFormData(prev => ({ ...prev, projectImagesBlob: newImages }));
-    } else {
-      // Add new image
-      setFormData(prev => ({
-        ...prev,
-        projectImagesBlob: [...(prev.projectImagesBlob || []), base64Data]
-      }));
+  // Handle image upload - Upload to S3 and get URL
+  const handleImageUpload = async (file: File, index?: number) => {
+    try {
+      // Validate file
+      const validation = validateImageFile(file);
+      if (!validation.valid) {
+        alert(validation.error);
+        return;
+      }
+
+      // Upload to S3
+      const imageUrl = await uploadSingleImage(file, `project-details/${formData.projectId || 'temp'}`);
+      
+      if (index !== undefined) {
+        // Replace existing image
+        const newImages = [...(formData.projectImages || [])];
+        // Delete old image if exists
+        if (newImages[index]) {
+          await deleteFile(newImages[index]).catch(err => console.warn('Failed to delete old image:', err));
+        }
+        newImages[index] = imageUrl;
+        setFormData(prev => ({ ...prev, projectImages: newImages }));
+      } else {
+        // Add new image
+        setFormData(prev => ({
+          ...prev,
+          projectImages: [...(prev.projectImages || []), imageUrl]
+        }));
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      alert('Lỗi khi tải ảnh lên. Vui lòng thử lại.');
     }
   };
 
   // Handle image removal
-  const handleImageRemove = (index: number) => {
-    const newImages = (formData.projectImagesBlob || []).filter((_, i) => i !== index);
+  const handleImageRemove = async (index: number) => {
+    const imageUrl = formData.projectImages?.[index];
+    if (imageUrl) {
+      try {
+        await deleteFile(imageUrl);
+      } catch (error) {
+        console.warn('Failed to delete image from S3:', error);
+      }
+    }
+    
+    const newImages = (formData.projectImages || []).filter((_, i) => i !== index);
     console.log('Removing image at index:', index);
-    console.log('Current images:', formData.projectImagesBlob);
+    console.log('Current images:', formData.projectImages);
     console.log('New images after removal:', newImages);
-    setFormData(prev => ({ ...prev, projectImagesBlob: newImages }));
+    setFormData(prev => ({ ...prev, projectImages: newImages }));
   };
 
-  // Handle thumbnail upload
-  const handleThumbnailUpload = (base64Data: string) => {
-    setFormData(prev => ({ ...prev, thumbnailImageBlob: base64Data }));
+  // Handle thumbnail upload - Upload to S3 and get URL
+  const handleThumbnailUpload = async (file: File) => {
+    try {
+      // Validate file
+      const validation = validateImageFile(file);
+      if (!validation.valid) {
+        alert(validation.error);
+        return;
+      }
+
+      // Upload to S3 with thumbnail generation
+      const result = await uploadProjectDetailThumbnail(file, formData.projectId || 'temp');
+      
+      // Delete old thumbnail if exists
+      if (formData.thumbnailImage) {
+        await deleteFile(formData.thumbnailImage).catch(err => console.warn('Failed to delete old thumbnail:', err));
+      }
+      
+      setFormData(prev => ({ 
+        ...prev, 
+        thumbnailImage: result.thumbnailUrl,
+        thumbnailImageUrl: result.thumbnailUrl
+      }));
+    } catch (error) {
+      console.error('Error uploading thumbnail:', error);
+      alert('Lỗi khi tải thumbnail lên. Vui lòng thử lại.');
+    }
   };
 
   // Handle tag management
@@ -158,8 +212,8 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
     setSaving(true);
     try {
       console.log('Saving project with data:', formData);
-      console.log('projectImagesBlob:', formData.projectImagesBlob);
-      console.log('projectImagesBlob length:', formData.projectImagesBlob?.length);
+      console.log('projectImages (URLs):', formData.projectImages);
+      console.log('projectImages length:', formData.projectImages?.length);
       
       if (mode === 'add') {
         await createProject(formData);
@@ -175,14 +229,8 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
     }
   };
 
-  // Handle file upload with validation
-  const handleFileUpload = async (file: File): Promise<string> => {
-    const validation = validateImageFile(file);
-    if (!validation.valid) {
-      throw new Error(validation.error);
-    }
-    return await fileToBase64(file);
-  };
+  // NOTE: File upload now handled by handleImageUpload and handleThumbnailUpload
+  // which upload directly to S3 and return URLs
 
   if (loading) {
     return (
@@ -289,12 +337,22 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
             <div className="form-group">
               <label>Ảnh Đại Diện</label>
               <div className="thumbnail-upload">
-                {formData.thumbnailImageBlob ? (
+                {formData.thumbnailImage ? (
                   <div className="thumbnail-preview">
-                    <img src={formData.thumbnailImageBlob} alt="Thumbnail" />
+                    <img src={formData.thumbnailImage} alt="Thumbnail" />
                     <button 
                       className="remove-btn"
-                      onClick={() => handleInputChange('thumbnailImageBlob', undefined)}
+                      onClick={async () => {
+                        if (formData.thumbnailImage) {
+                          try {
+                            await deleteFile(formData.thumbnailImage);
+                          } catch (error) {
+                            console.warn('Failed to delete thumbnail:', error);
+                          }
+                        }
+                        handleInputChange('thumbnailImage', undefined);
+                        handleInputChange('thumbnailImageUrl', undefined);
+                      }}
                     >
                       <X size={16} />
                     </button>
@@ -310,8 +368,7 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
                         const file = e.target.files?.[0];
                         if (file) {
                           try {
-                            const base64 = await handleFileUpload(file);
-                            handleThumbnailUpload(base64);
+                            await handleThumbnailUpload(file);
                             alert('Upload ảnh đại diện thành công!');
                           } catch (error) {
                             alert(`Lỗi upload: ${error}`);
@@ -328,9 +385,9 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
 
             {/* Project Images Gallery */}
             <div className="form-group">
-              <label>Thư Viện Ảnh ({formData.projectImagesBlob?.length || 0})</label>
+              <label>Thư Viện Ảnh ({formData.projectImages?.length || 0})</label>
               <div className="images-gallery">
-                {(formData.projectImagesBlob || []).map((image, index) => (
+                {(formData.projectImages || []).map((image, index) => (
                   <div key={index} className="gallery-item">
                     <img src={image} alt={`Project ${index + 1}`} />
                     <div className="gallery-actions">
@@ -363,8 +420,7 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
                       
                       for (const file of files) {
                         try {
-                          const base64 = await handleFileUpload(file);
-                          handleImageUpload(base64);
+                          await handleImageUpload(file);
                           successCount++;
                         } catch (error) {
                           errorCount++;
@@ -591,8 +647,8 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
             </div>
             <div className="modal-content">
               <div className="project-preview">
-                {formData.thumbnailImageBlob && (
-                  <img src={formData.thumbnailImageBlob} alt="Preview" className="preview-thumbnail" />
+                {formData.thumbnailImage && (
+                  <img src={formData.thumbnailImage} alt="Preview" className="preview-thumbnail" />
                 )}
                 <div className="preview-info">
                   <h4>{formData.title || 'Tên dự án'}</h4>

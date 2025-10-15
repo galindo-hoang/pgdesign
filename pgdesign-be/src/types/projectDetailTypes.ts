@@ -12,15 +12,15 @@ export interface ProjectDetailData {
   category: string;
   projectCategoryId: number;
   style?: string | undefined;
-  thumbnailImage?: string | undefined;
-  thumbnailImageBlob?: string | undefined; // Base64 encoded thumbnail image
+  thumbnailImage?: string | undefined; // S3 URL for thumbnail
+  thumbnailImageUrl?: string | undefined; // S3 URL for thumbnail (new field)
 
   // Embedded HTML content from server
   htmlContent: string;
 
   // Additional project details
-  projectImages?: string[] | undefined; // Array of base64 encoded image data
-  projectImagesBlob?: string[] | undefined; // Array of base64 encoded image data (new BLOB storage)
+  projectImages?: string[] | undefined; // Array of S3 image URLs
+  projectImagesUrls?: string[] | undefined; // Array of S3 image URLs (new field)
   projectStatus?: string | undefined; // Now includes budget information
   completionDate?: string | undefined;
   architectName?: string | undefined;
@@ -52,10 +52,10 @@ export interface CreateProjectDetailRequest {
   category: string;
   projectCategoryId: number;
   style?: string | undefined;
-  thumbnailImage?: string | undefined;
+  thumbnailImage?: string | undefined; // S3 URL
   htmlContent: string;
-  projectImages?: string[] | undefined; // Array of base64 encoded image data
-  projectImagesBlob?: string[] | undefined; // Array of base64 encoded image data (new BLOB storage)
+  projectImages?: string[] | undefined; // Array of S3 image URLs
+  projectImagesUrls?: string[] | undefined; // Array of S3 image URLs (new field)
   projectStatus?: string | undefined; // Now includes budget information
   completionDate?: string | undefined;
   architectName?: string | undefined;
@@ -77,10 +77,10 @@ export interface UpdateProjectDetailRequest {
   category?: string | undefined;
   projectCategoryId?: number | undefined;
   style?: string | undefined;
-  thumbnailImage?: string | undefined;
+  thumbnailImage?: string | undefined; // S3 URL
   htmlContent?: string | undefined;
-  projectImages?: string[] | undefined; // Array of base64 encoded image data
-  projectImagesBlob?: string[] | undefined; // Array of base64 encoded image data (new BLOB storage)
+  projectImages?: string[] | undefined; // Array of S3 image URLs
+  projectImagesUrls?: string[] | undefined; // Array of S3 image URLs (new field)
   projectStatus?: string | undefined; // Now includes budget information
   completionDate?: string | undefined;
   architectName?: string | undefined;
@@ -104,11 +104,11 @@ export interface ProjectDetailRow {
   category: string;
   project_category_id: number;
   style?: string | null;
-  thumbnail_image?: string | null;
-  thumbnail_image_blob?: string | null; // Base64 encoded thumbnail image
+  thumbnail_image?: string | null; // S3 URL
+  thumbnail_image_url?: string | null; // S3 URL (new field)
   html_content: string;
-  project_images?: string | null; // JSON string
-  project_images_blob?: string | null; // JSON string of base64 encoded images
+  project_images?: string | null; // JSON string of S3 URLs
+  project_images_urls?: string | null; // JSON string of S3 URLs (new field)
   project_status?: string | null; // Now includes budget information
   completion_date?: string | null;
   architect_name?: string | null;

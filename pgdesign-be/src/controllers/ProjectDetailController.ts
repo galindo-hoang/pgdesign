@@ -11,8 +11,20 @@ import {
   CreateProjectDetailRequest,
   UpdateProjectDetailRequest
 } from '../types/projectDetailTypes';
+import { ProjectImageService } from '../services/projectImageService';
+import { convertMulterFileToFileUpload } from '../middleware/uploadMiddleware';
 
+/**
+ * Project Detail Controller with Dependency Injection
+ * Handles CRUD operations for project details with automatic image upload
+ */
 export class ProjectDetailController {
+  private imageService: ProjectImageService;
+
+  constructor(imageService?: ProjectImageService) {
+    // Use injected service or create new instance
+    this.imageService = imageService || new ProjectImageService();
+  }
   
   // ===== MAIN ENDPOINTS =====
   
@@ -429,6 +441,161 @@ export class ProjectDetailController {
       success: true,
       data: counts,
       message: 'Category counts retrieved successfully'
+    };
+
+    res.json(response);
+  });
+
+  // ===== IMAGE UPLOAD ENDPOINTS =====
+
+  /**
+   * Create project with automatic image upload
+   * POST /api/v1/projectdetail/with-images
+   * Handles multipart/form-data with files
+   */
+  createProjectWithImages = asyncHandler(async (req: Request, res: Response): Promise<void> => {
+    // Parse project data from body
+    const projectData: CreateProjectDetailRequest = JSON.parse(req.body.projectData || '{}');
+    
+    // Validate the data
+    const errors = await ProjectDetailModel.validateProjectDetailData(projectData);
+    if (errors.length > 0) {
+      throw createError(`Validation errors: ${errors.join(', ')}`, 400);
+    }
+
+    // Process uploaded files
+    const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+    
+    // Upload thumbnail if provided
+    if (files.thumbnail && files.thumbnail[0]) {
+      const thumbnailFile = convertMulterFileToFileUpload(files.thumbnail[0]);
+      projectData.thumbnailImage = await this.imageService.uploadThumbnail(
+        thumbnailFile,
+        projectData.projectId
+      );
+    }
+
+    // Upload gallery images if provided
+    if (files.images && files.images.length > 0) {
+      const imageFiles = files.images.map(convertMulterFileToFileUpload);
+      projectData.projectImages = await this.imageService.uploadGalleryImages(
+        imageFiles,
+        projectData.projectId
+      );
+    }
+
+    // Create project with URLs
+    const projectDetail = await ProjectDetailModel.create(projectData);
+    
+    const response: ApiResponse<ProjectDetailData> = {
+      success: true,
+      data: projectDetail,
+      message: 'Project detail created successfully with images'
+    };
+
+    res.status(201).json(response);
+  });
+
+  /**
+   * Update project with automatic image upload
+   * PUT /api/v1/projectdetail/:id/with-images
+   * Handles multipart/form-data with files
+   */
+  updateProjectWithImages = asyncHandler(async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    
+    if (!id || isNaN(parseInt(id))) {
+      throw createError('Invalid project detail ID', 400);
+    }
+
+    // Get existing project
+    const existingProject = await ProjectDetailModel.getById(parseInt(id));
+    if (!existingProject) {
+      throw createError('Project detail not found', 404);
+    }
+
+    // Parse project data from body
+    const projectData: UpdateProjectDetailRequest = JSON.parse(req.body.projectData || '{}');
+    
+    // Process uploaded files
+    const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+    
+    // Update thumbnail if new one provided
+    if (files.thumbnail && files.thumbnail[0]) {
+      const thumbnailFile = convertMulterFileToFileUpload(files.thumbnail[0]);
+      projectData.thumbnailImage = await this.imageService.replaceThumbnail(
+        existingProject.thumbnailImage,
+        thumbnailFile,
+        projectData.projectId || existingProject.projectId
+      );
+    }
+
+    // Add new gallery images if provided (keep existing ones)
+    if (files.images && files.images.length > 0) {
+      const imageFiles = files.images.map(convertMulterFileToFileUpload);
+      const existingImages = existingProject.projectImages || [];
+      projectData.projectImages = await this.imageService.addGalleryImages(
+        existingImages,
+        imageFiles,
+        projectData.projectId || existingProject.projectId
+      );
+    }
+
+    // Update project with new URLs
+    const updatedProject = await ProjectDetailModel.update(parseInt(id), projectData);
+    
+    if (!updatedProject) {
+      throw createError('Failed to update project detail', 500);
+    }
+
+    const response: ApiResponse<ProjectDetailData> = {
+      success: true,
+      data: updatedProject,
+      message: 'Project detail updated successfully with images'
+    };
+
+    res.json(response);
+  });
+
+  /**
+   * Remove specific images from project gallery
+   * DELETE /api/v1/projectdetail/:id/images
+   * Body: { imageUrls: string[] }
+   */
+  removeProjectImages = asyncHandler(async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    const { imageUrls } = req.body;
+    
+    if (!id || isNaN(parseInt(id))) {
+      throw createError('Invalid project detail ID', 400);
+    }
+
+    if (!imageUrls || !Array.isArray(imageUrls) || imageUrls.length === 0) {
+      throw createError('Image URLs array is required', 400);
+    }
+
+    // Get existing project
+    const existingProject = await ProjectDetailModel.getById(parseInt(id));
+    if (!existingProject) {
+      throw createError('Project detail not found', 404);
+    }
+
+    // Remove images from storage
+    await this.imageService.removeGalleryImages(imageUrls);
+
+    // Update project to remove URLs from database
+    const remainingImages = (existingProject.projectImages || []).filter(
+      url => !imageUrls.includes(url)
+    );
+
+    const updatedProject = await ProjectDetailModel.update(parseInt(id), {
+      projectImages: remainingImages
+    });
+
+    const response: ApiResponse<ProjectDetailData> = {
+      success: true,
+      data: updatedProject!,
+      message: `Successfully removed ${imageUrls.length} image(s)`
     };
 
     res.json(response);

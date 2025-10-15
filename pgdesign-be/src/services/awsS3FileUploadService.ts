@@ -1,20 +1,67 @@
-import minioClient, { bucketName } from '../config/minio';
+/**
+ * AWS S3 File Upload Service Implementation
+ * Example implementation of IFileUploadService for AWS S3
+ * 
+ * To use this, install AWS SDK:
+ * npm install @aws-sdk/client-s3
+ * 
+ * And configure environment variables:
+ * AWS_REGION=us-east-1
+ * AWS_ACCESS_KEY_ID=your-access-key
+ * AWS_SECRET_ACCESS_KEY=your-secret-key
+ * AWS_S3_BUCKET=your-bucket-name
+ */
+
 import sharp from 'sharp';
 import { v4 as uuidv4 } from 'uuid';
 import { createError } from '../middleware/errorHandler';
 import { FileUpload } from '../types/homePageTypes';
+import { IFileUploadService, FileUploadConfig } from '../interfaces/IFileUploadService';
 
-export class FileUploadService {
-  private allowedMimeTypes = [
-    'image/jpeg',
-    'image/jpg',
-    'image/png',
-    'image/gif',
-    'image/webp',
-    'image/svg+xml'
-  ];
+// Uncomment when @aws-sdk/client-s3 is installed:
+// import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 
-  private maxFileSize = parseInt(process.env.MAX_FILE_SIZE || '5242880'); // 5MB default
+/**
+ * AWS S3 File Upload Service
+ * Implements IFileUploadService for AWS S3 storage
+ */
+export class AWSS3FileUploadService implements IFileUploadService {
+  private config: FileUploadConfig;
+  private allowedMimeTypes: string[];
+  private maxFileSize: number;
+  // private s3Client: S3Client; // Uncomment when AWS SDK is installed
+
+  constructor(config?: FileUploadConfig) {
+    this.config = {
+      bucketName: process.env.AWS_S3_BUCKET || 'default-bucket',
+      region: process.env.AWS_REGION || 'us-east-1',
+      accessKey: process.env.AWS_ACCESS_KEY_ID,
+      secretKey: process.env.AWS_SECRET_ACCESS_KEY,
+      ...config
+    };
+
+    this.allowedMimeTypes = config?.allowedMimeTypes || [
+      'image/jpeg',
+      'image/jpg',
+      'image/png',
+      'image/gif',
+      'image/webp',
+      'image/svg+xml'
+    ];
+
+    this.maxFileSize = config?.maxFileSize || parseInt(process.env.MAX_FILE_SIZE || '5242880');
+
+    // Initialize S3 Client (uncomment when AWS SDK is installed)
+    /*
+    this.s3Client = new S3Client({
+      region: this.config.region,
+      credentials: {
+        accessKeyId: this.config.accessKey!,
+        secretAccessKey: this.config.secretKey!,
+      },
+    });
+    */
+  }
 
   validateFile(file: FileUpload): void {
     if (!this.allowedMimeTypes.includes(file.mimetype)) {
@@ -41,16 +88,24 @@ export class FileUploadService {
         processedBuffer = await this.processImage(file.buffer, file.mimetype);
       }
 
-      // Upload to MinIO
-      await minioClient.putObject(bucketName, objectName, processedBuffer, {
-        'Content-Type': file.mimetype,
-        'Cache-Control': 'max-age=31536000' // 1 year
+      // Upload to AWS S3 (uncomment when AWS SDK is installed)
+      /*
+      const command = new PutObjectCommand({
+        Bucket: this.config.bucketName,
+        Key: objectName,
+        Body: processedBuffer,
+        ContentType: file.mimetype,
+        CacheControl: 'max-age=31536000', // 1 year
+        ACL: 'public-read', // Make file publicly accessible
       });
 
-      // Return the URL
+      await this.s3Client.send(command);
+      */
+
+      // Return the public URL
       return await this.getFileUrl(objectName);
     } catch (error) {
-      console.error('Error uploading file:', error);
+      console.error('Error uploading file to S3:', error);
       throw createError('Failed to upload file', 500);
     }
   }
@@ -81,22 +136,21 @@ export class FileUploadService {
       return buffer;
     } catch (error) {
       console.error('Error processing image:', error);
-      return buffer; // Return original buffer if processing fails
+      return buffer;
     }
   }
 
   async getFileUrl(objectName: string): Promise<string> {
     try {
-      // Generate public URL instead of presigned URL
-      const endpoint = process.env.MINIO_ENDPOINT || 'localhost';
-      const port = process.env.MINIO_PORT || '9000';
-      const useSSL = process.env.MINIO_USE_SSL === 'true';
-      const protocol = useSSL ? 'https' : 'http';
+      // AWS S3 public URL format
+      const region = this.config.region;
+      const bucket = this.config.bucketName;
       
-      // For production, use the public endpoint
-      const publicEndpoint = process.env.MINIO_PUBLIC_ENDPOINT || `${endpoint}:${port}`;
+      // Standard S3 URL format
+      return `https://${bucket}.s3.${region}.amazonaws.com/${objectName}`;
       
-      return `${protocol}://${publicEndpoint}/${bucketName}/${objectName}`;
+      // Alternative: CloudFront URL if you have CDN setup
+      // return `https://your-cloudfront-domain.cloudfront.net/${objectName}`;
     } catch (error) {
       console.error('Error getting file URL:', error);
       throw createError('Failed to get file URL', 500);
@@ -105,9 +159,18 @@ export class FileUploadService {
 
   async deleteFile(objectName: string): Promise<void> {
     try {
-      await minioClient.removeObject(bucketName, objectName);
+      // Delete from AWS S3 (uncomment when AWS SDK is installed)
+      /*
+      const command = new DeleteObjectCommand({
+        Bucket: this.config.bucketName,
+        Key: objectName,
+      });
+
+      await this.s3Client.send(command);
+      */
+      console.log(`Would delete: ${objectName} from S3`);
     } catch (error) {
-      console.error('Error deleting file:', error);
+      console.error('Error deleting file from S3:', error);
       throw createError('Failed to delete file', 500);
     }
   }
@@ -119,12 +182,10 @@ export class FileUploadService {
 
   extractObjectNameFromUrl(url: string): string {
     try {
-      const urlParts = url.split('/');
-      const bucketIndex = urlParts.indexOf(bucketName);
-      if (bucketIndex !== -1 && bucketIndex < urlParts.length - 1) {
-        return urlParts.slice(bucketIndex + 1).join('/');
-      }
-      return '';
+      // Extract object key from AWS S3 URL
+      // Format: https://bucket-name.s3.region.amazonaws.com/folder/file.jpg
+      const urlObj = new URL(url);
+      return urlObj.pathname.substring(1); // Remove leading '/'
     } catch (error) {
       console.error('Error extracting object name from URL:', error);
       return '';
@@ -138,7 +199,7 @@ export class FileUploadService {
     }
   }
 
-  generateThumbnail = async (buffer: Buffer, width: number = 300, height: number = 300): Promise<Buffer> => {
+  async generateThumbnail(buffer: Buffer, width: number = 300, height: number = 300): Promise<Buffer> {
     try {
       return await sharp(buffer)
         .resize(width, height, {
@@ -151,9 +212,12 @@ export class FileUploadService {
       console.error('Error generating thumbnail:', error);
       throw createError('Failed to generate thumbnail', 500);
     }
-  };
+  }
 
-  async uploadImageWithThumbnail(file: FileUpload, folder: string = 'images'): Promise<{ original: string, thumbnail: string }> {
+  async uploadImageWithThumbnail(
+    file: FileUpload, 
+    folder: string = 'images'
+  ): Promise<{ original: string; thumbnail: string }> {
     this.validateFile(file);
 
     const fileExtension = file.originalname.split('.').pop()?.toLowerCase();
@@ -191,12 +255,23 @@ export class FileUploadService {
   }
 
   private async uploadProcessedImage(objectName: string, buffer: Buffer, mimeType: string): Promise<string> {
-    await minioClient.putObject(bucketName, objectName, buffer, {
-      'Content-Type': mimeType,
-      'Cache-Control': 'max-age=31536000'
+    // Upload to S3 (uncomment when AWS SDK is installed)
+    /*
+    const command = new PutObjectCommand({
+      Bucket: this.config.bucketName,
+      Key: objectName,
+      Body: buffer,
+      ContentType: mimeType,
+      CacheControl: 'max-age=31536000',
+      ACL: 'public-read',
     });
+
+    await this.s3Client.send(command);
+    */
+    
     return await this.getFileUrl(objectName);
   }
 }
 
-export default new FileUploadService(); 
+export default AWSS3FileUploadService;
+

@@ -3,6 +3,7 @@
 import { Router } from 'express';
 import { validateContentType } from '../middleware/validateContentType';
 import ProjectDetailController from '../controllers/ProjectDetailController';
+import { uploadFields } from '../middleware/uploadMiddleware';
 
 const router: Router = Router();
 
@@ -135,5 +136,54 @@ router.put('/bulk/update',validateContentType,ProjectDetailController.bulkUpdate
  * DELETE /api/v1/projectdetail/bulk
  */
 router.delete('/bulk/delete',validateContentType,ProjectDetailController.bulkDeleteProjectDetails);
+
+// ===== IMAGE UPLOAD ENDPOINTS =====
+
+/**
+ * Create project with automatic image upload
+ * POST /api/v1/projectdetail/with-images
+ * Content-Type: multipart/form-data
+ * Fields:
+ * - projectData: JSON string with project details
+ * - thumbnail: File (optional)
+ * - images: File[] (optional, multiple files)
+ */
+router.post(
+  '/with-images',
+  uploadFields([
+    { name: 'thumbnail', maxCount: 1 },
+    { name: 'images', maxCount: 20 }
+  ]),
+  ProjectDetailController.createProjectWithImages
+);
+
+/**
+ * Update project with automatic image upload
+ * PUT /api/v1/projectdetail/:id/with-images
+ * Content-Type: multipart/form-data
+ * Fields:
+ * - projectData: JSON string with updated project details
+ * - thumbnail: File (optional) - will replace existing thumbnail
+ * - images: File[] (optional) - will be added to existing images
+ */
+router.put(
+  '/:id/with-images',
+  uploadFields([
+    { name: 'thumbnail', maxCount: 1 },
+    { name: 'images', maxCount: 20 }
+  ]),
+  ProjectDetailController.updateProjectWithImages
+);
+
+/**
+ * Remove specific images from project gallery
+ * DELETE /api/v1/projectdetail/:id/images
+ * Body: { imageUrls: string[] }
+ */
+router.delete(
+  '/:id/images',
+  validateContentType,
+  ProjectDetailController.removeProjectImages
+);
 
 export default router; 

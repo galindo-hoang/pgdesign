@@ -12,15 +12,15 @@ export interface ProjectDetailData {
   category: string;
   projectCategoryId: number;
   style?: string;
-  thumbnailImage?: string;
-  thumbnailImageBlob?: string; // Base64 encoded thumbnail image
+  thumbnailImage?: string; // S3 URL for thumbnail
+  thumbnailImageUrl?: string; // S3 URL for thumbnail (new field)
 
   // Embedded HTML content from server
   htmlContent: string;
 
   // Additional project details
-  projectImages?: string[]; // Array of image URLs
-  projectImagesBlob?: string[]; // Array of base64 encoded image data (BLOB storage)
+  projectImages?: string[]; // Array of S3 image URLs
+  projectImagesUrls?: string[]; // Array of S3 image URLs (new field)
   projectStatus?: string; // Now includes budget information
   completionDate?: string;
   architectName?: string;

@@ -13,9 +13,10 @@ export interface ProjectDetailFormData {
   category: string;
   projectCategoryId: number;
   style: string;
-  thumbnailImageBlob?: string;
-  projectImages?: string[]; // Legacy field from server
-  projectImagesBlob: string[];
+  thumbnailImage?: string; // S3 URL
+  thumbnailImageUrl?: string; // S3 URL (new field)
+  projectImages?: string[]; // Array of S3 URLs
+  projectImagesUrls?: string[]; // Array of S3 URLs (new field)
   projectStatus: string;
   completionDate: string;
   architectName: string;
@@ -198,27 +199,6 @@ export const getProjectCategories = async (): Promise<Array<{id: number, categor
   }
 };
 
-// File conversion utilities
-export const fileToBase64 = (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = error => reject(error);
-  });
-};
-
-export const validateImageFile = (file: File): { valid: boolean; error?: string } => {
-  const maxSize = 5 * 1024 * 1024; // 5MB
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
-
-  if (!allowedTypes.includes(file.type)) {
-    return { valid: false, error: 'Chỉ hỗ trợ file JPG, PNG, WebP' };
-  }
-
-  if (file.size > maxSize) {
-    return { valid: false, error: 'File không được vượt quá 5MB' };
-  }
-
-  return { valid: true };
-};
+// NOTE: File upload utilities moved to imageUploadService.ts
+// This service now only handles API communication for project data
+// Use imageUploadService for uploading files to S3

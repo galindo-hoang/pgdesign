@@ -214,10 +214,10 @@ export const fetchProjectDetailDataApi = async (
       throw new Error(data.error || "Failed to fetch project detail data");
     }
 
-    // Prioritize base64 blob data over URLs
+    // Use S3 URLs (new system)
     const responseData = data.data!;
-    const finalThumbnail = responseData.thumbnailImageBlob || responseData.thumbnailImage;
-    const finalProjectImages = responseData.projectImagesBlob || responseData.projectImages;
+    const finalThumbnail = responseData.thumbnailImageUrl || responseData.thumbnailImage;
+    const finalProjectImages = responseData.projectImagesUrls || responseData.projectImages;
     
     // Process image URLs and append images to htmlContent
     const processedData = {
