@@ -43,13 +43,21 @@ const FloatingActionButton: React.FC = () => {
       const boundedX = Math.max(15, Math.min(newX, window.innerWidth - 75));
       const boundedY = Math.max(15, Math.min(newY, window.innerHeight - 75));
       
-      setPosition({ x: boundedX, y: boundedY });
+      // Convert from left/top to right/bottom for positioning
+      const rightPos = window.innerWidth - boundedX - 60; // 60 = button width
+      const bottomPos = window.innerHeight - boundedY - 60;
+      
+      setPosition({ x: Math.max(20, rightPos), y: Math.max(20, bottomPos) });
     }
   }, [isDragging, dragOffset]);
 
   const handleMouseUp = useCallback(() => {
-    setIsDragging(false);
-  }, []);
+    if (isDragging) {
+      setIsDragging(false);
+      // Don't auto-expand after drag
+      setIsExpanded(false);
+    }
+  }, [isDragging]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     if (buttonRef.current) {
@@ -73,13 +81,21 @@ const FloatingActionButton: React.FC = () => {
       const boundedX = Math.max(15, Math.min(newX, window.innerWidth - 75));
       const boundedY = Math.max(15, Math.min(newY, window.innerHeight - 75));
       
-      setPosition({ x: boundedX, y: boundedY });
+      // Convert from left/top to right/bottom for positioning
+      const rightPos = window.innerWidth - boundedX - 60;
+      const bottomPos = window.innerHeight - boundedY - 60;
+      
+      setPosition({ x: Math.max(20, rightPos), y: Math.max(20, bottomPos) });
     }
   }, [isDragging, dragOffset]);
 
   const handleTouchEnd = useCallback(() => {
-    setIsDragging(false);
-  }, []);
+    if (isDragging) {
+      setIsDragging(false);
+      // Don't auto-expand after drag
+      setIsExpanded(false);
+    }
+  }, [isDragging]);
 
   useEffect(() => {
     if (isDragging) {
@@ -106,6 +122,31 @@ const FloatingActionButton: React.FC = () => {
   const handleMouseLeave = () => {
     if (!isDragging) {
       setIsExpanded(false);
+    }
+  };
+
+  // Handle click outside to close
+  const handleClickOutside = useCallback((e: MouseEvent) => {
+    if (buttonRef.current && !buttonRef.current.contains(e.target as Node)) {
+      setIsExpanded(false);
+    }
+  }, []);
+
+  // Add click outside listener when expanded
+  useEffect(() => {
+    if (isExpanded) {
+      document.addEventListener('click', handleClickOutside);
+      return () => {
+        document.removeEventListener('click', handleClickOutside);
+      };
+    }
+  }, [isExpanded, handleClickOutside]);
+
+  // Toggle expanded state on main button click
+  const toggleExpanded = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!isDragging) {
+      setIsExpanded(!isExpanded);
     }
   };
 
@@ -148,7 +189,7 @@ const FloatingActionButton: React.FC = () => {
       </button>
 
       {/* Main button */}
-      <button className="fab-main-button">
+      <button className="fab-main-button" onClick={toggleExpanded}>
         <svg 
           className="fab-icon" 
           xmlns="http://www.w3.org/2000/svg" 
@@ -169,5 +210,6 @@ const FloatingActionButton: React.FC = () => {
     </div>
   );
 };
+
 
 export default FloatingActionButton; 

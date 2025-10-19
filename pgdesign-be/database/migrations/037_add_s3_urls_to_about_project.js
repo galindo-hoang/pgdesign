@@ -11,6 +11,14 @@
 exports.up = async function (knex) {
   console.log('🔄 Starting migration: Add S3 URL to about_project...');
 
+  // Check if table exists first
+  const tableExists = await knex.schema.hasTable('about_project');
+  
+  if (!tableExists) {
+    console.log('⚠️  Table about_project does not exist, skipping migration');
+    return;
+  }
+
   // Add new URL column for background image
   const hasBackgroundImageUrlColumn = await knex.schema.hasColumn('about_project', 'background_image_url');
   if (!hasBackgroundImageUrlColumn) {

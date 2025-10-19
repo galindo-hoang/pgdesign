@@ -15,7 +15,7 @@ export class AboutProjectModel extends BaseModel {
       id: result.id,
       title: result.title,
       subtitle: result.subtitle,
-      backgroundImageBlob: result.background_image_blob,
+      backgroundImageUrl: (result as any).background_image_url || (result as any).background_image_blob || null,
       isActive: result.is_active,
       createdAt: result.created_at,
       updatedAt: result.updated_at
@@ -27,10 +27,11 @@ export class AboutProjectModel extends BaseModel {
     // First deactivate existing active about project
     await this.updateByCondition({ is_active: true }, { is_active: false });
 
-    const insertData = {
+    const insertData: any = {
       title: data.title,
       subtitle: data.subtitle,
-      background_image_blob: data.backgroundImageBlob,
+      background_image_url: data.backgroundImageUrl || null,
+      background_image_blob: null, // Deprecated
       is_active: true,
       created_at: new Date(),
       updated_at: new Date()
@@ -42,7 +43,7 @@ export class AboutProjectModel extends BaseModel {
       id: id as number,
       title: data.title,
       subtitle: data.subtitle,
-      backgroundImageBlob: data.backgroundImageBlob,
+      backgroundImageUrl: data.backgroundImageUrl,
       isActive: true,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -72,7 +73,7 @@ export class AboutProjectModel extends BaseModel {
 
     if (data.title !== undefined) updateData.title = data.title;
     if (data.subtitle !== undefined) updateData.subtitle = data.subtitle;
-    if (data.backgroundImageBlob !== undefined) updateData.background_image_blob = data.backgroundImageBlob;
+    if (data.backgroundImageUrl !== undefined) updateData.background_image_url = data.backgroundImageUrl;
     if (data.isActive !== undefined) updateData.is_active = data.isActive;
 
     const updated = await this.update(id, updateData);

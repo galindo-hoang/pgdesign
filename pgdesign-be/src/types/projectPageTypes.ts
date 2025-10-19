@@ -10,7 +10,7 @@ export interface AboutProjectData {
   id: number;
   title: string;
   subtitle: string;
-  backgroundImageBlob: string | null;
+  backgroundImageUrl: string | null; // S3/MinIO URL
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -54,7 +54,7 @@ export interface ProjectCategory {
   categoryId: string;
   title: string;
   projectCount: number;
-  backgroundImageBlob: string | null; // Base64 encoded image data
+  backgroundImageUrl: string | null; // S3/MinIO URL
   navigationPath: string;
   displayOrder: number;
 }
@@ -64,7 +64,7 @@ export interface CreateProjectCategoryRequest {
   categoryId: string;
   title: string;
   projectCount: number;
-  backgroundImageBlob: string | null;
+  backgroundImageUrl: string | null; // S3/MinIO URL
   navigationPath: string;
   displayOrder?: number;
 }
@@ -72,7 +72,7 @@ export interface CreateProjectCategoryRequest {
 export interface UpdateProjectCategoryRequest {
   title?: string;
   projectCount?: number;
-  backgroundImageBlob?: string | null;
+  backgroundImageUrl?: string | null; // S3/MinIO URL
   navigationPath?: string;
   displayOrder?: number;
 }

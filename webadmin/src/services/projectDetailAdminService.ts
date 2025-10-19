@@ -77,36 +77,80 @@ export const getProjectById = async (projectId: string): Promise<ProjectDetailFo
   }
 };
 
-// Create new project
-export const createProject = async (projectData: Omit<ProjectDetailFormData, 'id'>): Promise<ProjectDetailFormData> => {
+// Create new project with automatic image upload
+export const createProject = async (
+  projectData: Omit<ProjectDetailFormData, 'id'>,
+  thumbnailFile?: File | null,
+  imageFiles?: File[]
+): Promise<ProjectDetailFormData> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/projectdetail`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(projectData),
-    });
+    const hasFiles = thumbnailFile || (imageFiles && imageFiles.length > 0);
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    if (hasFiles) {
+      // Use FormData for multipart upload
+      const formData = new FormData();
+      formData.append('projectData', JSON.stringify(projectData));
+      
+      if (thumbnailFile) {
+        formData.append('thumbnail', thumbnailFile);
+      }
+      
+      if (imageFiles && imageFiles.length > 0) {
+        imageFiles.forEach(file => formData.append('images', file));
+      }
+
+      const response = await fetch(`${API_BASE_URL}/projectdetail`, {
+        method: 'POST',
+        body: formData
+        // No Content-Type header - browser sets it with boundary
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data: ApiResponse<ProjectDetailFormData> = await response.json();
+      
+      if (!data.success || !data.data) {
+        throw new Error(data.message || 'Failed to create project');
+      }
+
+      return data.data;
+    } else {
+      // Use JSON for simple request
+      const response = await fetch(`${API_BASE_URL}/projectdetail`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(projectData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data: ApiResponse<ProjectDetailFormData> = await response.json();
+      
+      if (!data.success || !data.data) {
+        throw new Error(data.message || 'Failed to create project');
+      }
+
+      return data.data;
     }
-
-    const data: ApiResponse<ProjectDetailFormData> = await response.json();
-    
-    if (!data.success || !data.data) {
-      throw new Error(data.message || 'Failed to create project');
-    }
-
-    return data.data;
   } catch (error) {
     console.error('Error creating project:', error);
     throw error;
   }
 };
 
-// Update existing project
-export const updateProject = async (projectId: string, projectData: ProjectDetailFormData): Promise<ProjectDetailFormData> => {
+// Update existing project with automatic image upload
+export const updateProject = async (
+  projectId: string, 
+  projectData: ProjectDetailFormData,
+  thumbnailFile?: File | null,
+  imageFiles?: File[]
+): Promise<ProjectDetailFormData> => {
   try {
     // First get the project to find its numeric ID
     const existingProject = await getProjectById(projectId);
@@ -115,26 +159,59 @@ export const updateProject = async (projectId: string, projectData: ProjectDetai
       throw new Error('Could not find project numeric ID');
     }
 
-    // Use numeric ID for PUT request
-    const response = await fetch(`${API_BASE_URL}/projectdetail/${existingProject.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(projectData),
-    });
+    const hasFiles = thumbnailFile || (imageFiles && imageFiles.length > 0);
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    if (hasFiles) {
+      // Use FormData for multipart upload
+      const formData = new FormData();
+      formData.append('projectData', JSON.stringify(projectData));
+      
+      if (thumbnailFile) {
+        formData.append('thumbnail', thumbnailFile);
+      }
+      
+      if (imageFiles && imageFiles.length > 0) {
+        imageFiles.forEach(file => formData.append('images', file));
+      }
+
+      const response = await fetch(`${API_BASE_URL}/projectdetail/${existingProject.id}`, {
+        method: 'PUT',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data: ApiResponse<ProjectDetailFormData> = await response.json();
+      
+      if (!data.success || !data.data) {
+        throw new Error(data.message || 'Failed to update project');
+      }
+
+      return data.data;
+    } else {
+      // Use JSON for simple request
+      const response = await fetch(`${API_BASE_URL}/projectdetail/${existingProject.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(projectData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data: ApiResponse<ProjectDetailFormData> = await response.json();
+      
+      if (!data.success || !data.data) {
+        throw new Error(data.message || 'Failed to update project');
+      }
+
+      return data.data;
     }
-
-    const data: ApiResponse<ProjectDetailFormData> = await response.json();
-    
-    if (!data.success || !data.data) {
-      throw new Error(data.message || 'Failed to update project');
-    }
-
-    return data.data;
   } catch (error) {
     console.error('Error updating project:', error);
     throw error;

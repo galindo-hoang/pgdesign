@@ -32,6 +32,7 @@ export class ProjectCategoriesModel extends BaseModel {
         "category_id",
         "title",
         "project_count",
+        "background_image_url",
         "background_image_blob",
         "navigation_path",
         "display_order"
@@ -47,7 +48,7 @@ export class ProjectCategoriesModel extends BaseModel {
         categoryId: category.category_id,
         title: category.title,
         projectCount: category.project_count,
-        backgroundImageBlob: this.convertBufferToBase64(category.background_image_blob),
+        backgroundImageUrl: category.background_image_url || this.convertBufferToBase64(category.background_image_blob),
         navigationPath: category.navigation_path,
         displayOrder: category.display_order,
       })),
@@ -151,7 +152,8 @@ export class ProjectCategoriesModel extends BaseModel {
           category_id: category.categoryId,
           title: category.title,
           project_count: category.projectCount,
-          background_image_blob: category.backgroundImageBlob || null,
+          background_image_url: category.backgroundImageUrl || null,
+          background_image_blob: null, // Deprecated
           navigation_path: category.navigationPath,
           display_order: category.displayOrder || index,
           is_active: true,
@@ -219,7 +221,8 @@ export class ProjectCategoriesModel extends BaseModel {
             category_id: category.categoryId,
             title: category.title,
             project_count: category.projectCount,
-            background_image_blob: category.backgroundImageBlob || null,
+            background_image_url: category.backgroundImageUrl || null,
+            background_image_blob: null, // Deprecated
             navigation_path: category.navigationPath,
             display_order: category.displayOrder || index,
             is_active: true,
@@ -339,7 +342,7 @@ export class ProjectCategoriesModel extends BaseModel {
       categoryId: categoryRow.category_id,
       title: categoryRow.title,
       projectCount: categoryRow.project_count,
-      backgroundImageBlob: this.convertBufferToBase64(categoryRow.background_image_blob),
+      backgroundImageUrl: categoryRow.background_image_url || this.convertBufferToBase64(categoryRow.background_image_blob),
       navigationPath: categoryRow.navigation_path,
       displayOrder: categoryRow.display_order,
     };
@@ -356,7 +359,8 @@ export class ProjectCategoriesModel extends BaseModel {
       category_id: categoryData.categoryId,
       title: categoryData.title,
       project_count: categoryData.projectCount,
-      background_image_blob: categoryData.backgroundImageBlob || null,
+      background_image_url: categoryData.backgroundImageUrl || null,
+      background_image_blob: null, // Deprecated
       navigation_path: categoryData.navigationPath,
       display_order: categoryData.displayOrder || 0,
       is_active: true,
@@ -388,8 +392,8 @@ export class ProjectCategoriesModel extends BaseModel {
     if (categoryData.title !== undefined) updateData.title = categoryData.title;
     if (categoryData.projectCount !== undefined)
       updateData.project_count = categoryData.projectCount;
-    if (categoryData.backgroundImageBlob !== undefined && categoryData.backgroundImageBlob !== null)
-      updateData.background_image_blob = categoryData.backgroundImageBlob;
+    if (categoryData.backgroundImageUrl !== undefined && categoryData.backgroundImageUrl !== null)
+      updateData.background_image_url = categoryData.backgroundImageUrl;
     if (categoryData.navigationPath !== undefined)
       updateData.navigation_path = categoryData.navigationPath;
     if (categoryData.displayOrder !== undefined)

@@ -129,17 +129,42 @@ export class ProjectDetailController {
   /**
    * Create new project detail
    * POST /api/v1/projectdetail
+   * Supports both JSON and multipart/form-data (with automatic image upload)
    */
   createProjectDetail = asyncHandler(async (req: Request, res: Response) => {
-    const data: CreateProjectDetailRequest = req.body;
+    // Get project data (either from body directly or from multipart field)
+    const projectData: CreateProjectDetailRequest = req.body.projectData 
+      ? JSON.parse(req.body.projectData)
+      : req.body;
+
+    // Check if request has files
+    const files = req.files as { [fieldname: string]: Express.Multer.File[] } | undefined;
+    
+    // Upload thumbnail if provided
+    if (files?.thumbnail?.[0]) {
+      const thumbnailFile = convertMulterFileToFileUpload(files.thumbnail[0]);
+      projectData.thumbnailImage = await this.imageService.uploadThumbnail(
+        thumbnailFile,
+        projectData.projectId
+      );
+    }
+
+    // Upload gallery images if provided
+    if (files?.images && files.images.length > 0) {
+      const imageFiles = files.images.map(convertMulterFileToFileUpload);
+      projectData.projectImages = await this.imageService.uploadGalleryImages(
+        imageFiles,
+        projectData.projectId
+      );
+    }
     
     // Validate the data
-    const errors = await ProjectDetailModel.validateProjectDetailData(data);
+    const errors = await ProjectDetailModel.validateProjectDetailData(projectData);
     if (errors.length > 0) {
       throw createError(`Validation errors: ${errors.join(', ')}`, 400);
     }
 
-    const projectDetail = await ProjectDetailModel.create(data);
+    const projectDetail = await ProjectDetailModel.create(projectData);
     
     const response: ApiResponse<ProjectDetailData> = {
       success: true,
@@ -153,29 +178,57 @@ export class ProjectDetailController {
   /**
    * Update project detail
    * PUT /api/v1/projectdetail/:id
+   * Supports both JSON and multipart/form-data (with automatic image upload)
    */
   updateProjectDetail = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
-    const data: UpdateProjectDetailRequest = req.body;
     
     if (!id || isNaN(parseInt(id))) {
       throw createError('Invalid project detail ID', 400);
     }
 
-    // Temporarily skip all validation for UPDATE operations
-    console.log('UPDATE: Skipping all validation for partial update, data:', JSON.stringify(data));
-    
-    // TODO: Implement proper partial validation later
-    // const projectDetailModel = new ProjectDetailModel();
-    // const errors = await projectDetailModel.validateUpdateProjectDetailData(data);
-    // if (errors.length > 0) {
-    //   throw createError(`Update validation errors: ${errors.join(', ')}`, 400);
-    // }
+    // Get existing project
+    const existingProject = await ProjectDetailModel.getById(parseInt(id));
+    if (!existingProject) {
+      throw createError('Project detail not found', 404);
+    }
 
-    const projectDetail = await ProjectDetailModel.update(parseInt(id), data);
+    // Get project data (either from body directly or from multipart field)
+    const projectData: UpdateProjectDetailRequest = req.body.projectData 
+      ? JSON.parse(req.body.projectData)
+      : req.body;
+
+    // Check if request has files
+    const files = req.files as { [fieldname: string]: Express.Multer.File[] } | undefined;
+    
+    // Update thumbnail if new one provided
+    if (files?.thumbnail?.[0]) {
+      const thumbnailFile = convertMulterFileToFileUpload(files.thumbnail[0]);
+      projectData.thumbnailImage = await this.imageService.replaceThumbnail(
+        existingProject.thumbnailImage,
+        thumbnailFile,
+        projectData.projectId || existingProject.projectId
+      );
+    }
+
+    // Add new gallery images if provided (keep existing ones)
+    if (files?.images && files.images.length > 0) {
+      const imageFiles = files.images.map(convertMulterFileToFileUpload);
+      const existingImages = existingProject.projectImages || [];
+      projectData.projectImages = await this.imageService.addGalleryImages(
+        existingImages,
+        imageFiles,
+        projectData.projectId || existingProject.projectId
+      );
+    }
+
+    // Temporarily skip all validation for UPDATE operations
+    console.log('UPDATE: Partial update with files:', !!files);
+
+    const projectDetail = await ProjectDetailModel.update(parseInt(id), projectData);
     
     if (!projectDetail) {
-      throw createError('Project detail not found', 404);
+      throw createError('Failed to update project detail', 500);
     }
 
     const response: ApiResponse<ProjectDetailData> = {
@@ -446,116 +499,7 @@ export class ProjectDetailController {
     res.json(response);
   });
 
-  // ===== IMAGE UPLOAD ENDPOINTS =====
-
-  /**
-   * Create project with automatic image upload
-   * POST /api/v1/projectdetail/with-images
-   * Handles multipart/form-data with files
-   */
-  createProjectWithImages = asyncHandler(async (req: Request, res: Response): Promise<void> => {
-    // Parse project data from body
-    const projectData: CreateProjectDetailRequest = JSON.parse(req.body.projectData || '{}');
-    
-    // Validate the data
-    const errors = await ProjectDetailModel.validateProjectDetailData(projectData);
-    if (errors.length > 0) {
-      throw createError(`Validation errors: ${errors.join(', ')}`, 400);
-    }
-
-    // Process uploaded files
-    const files = req.files as { [fieldname: string]: Express.Multer.File[] };
-    
-    // Upload thumbnail if provided
-    if (files.thumbnail && files.thumbnail[0]) {
-      const thumbnailFile = convertMulterFileToFileUpload(files.thumbnail[0]);
-      projectData.thumbnailImage = await this.imageService.uploadThumbnail(
-        thumbnailFile,
-        projectData.projectId
-      );
-    }
-
-    // Upload gallery images if provided
-    if (files.images && files.images.length > 0) {
-      const imageFiles = files.images.map(convertMulterFileToFileUpload);
-      projectData.projectImages = await this.imageService.uploadGalleryImages(
-        imageFiles,
-        projectData.projectId
-      );
-    }
-
-    // Create project with URLs
-    const projectDetail = await ProjectDetailModel.create(projectData);
-    
-    const response: ApiResponse<ProjectDetailData> = {
-      success: true,
-      data: projectDetail,
-      message: 'Project detail created successfully with images'
-    };
-
-    res.status(201).json(response);
-  });
-
-  /**
-   * Update project with automatic image upload
-   * PUT /api/v1/projectdetail/:id/with-images
-   * Handles multipart/form-data with files
-   */
-  updateProjectWithImages = asyncHandler(async (req: Request, res: Response): Promise<void> => {
-    const { id } = req.params;
-    
-    if (!id || isNaN(parseInt(id))) {
-      throw createError('Invalid project detail ID', 400);
-    }
-
-    // Get existing project
-    const existingProject = await ProjectDetailModel.getById(parseInt(id));
-    if (!existingProject) {
-      throw createError('Project detail not found', 404);
-    }
-
-    // Parse project data from body
-    const projectData: UpdateProjectDetailRequest = JSON.parse(req.body.projectData || '{}');
-    
-    // Process uploaded files
-    const files = req.files as { [fieldname: string]: Express.Multer.File[] };
-    
-    // Update thumbnail if new one provided
-    if (files.thumbnail && files.thumbnail[0]) {
-      const thumbnailFile = convertMulterFileToFileUpload(files.thumbnail[0]);
-      projectData.thumbnailImage = await this.imageService.replaceThumbnail(
-        existingProject.thumbnailImage,
-        thumbnailFile,
-        projectData.projectId || existingProject.projectId
-      );
-    }
-
-    // Add new gallery images if provided (keep existing ones)
-    if (files.images && files.images.length > 0) {
-      const imageFiles = files.images.map(convertMulterFileToFileUpload);
-      const existingImages = existingProject.projectImages || [];
-      projectData.projectImages = await this.imageService.addGalleryImages(
-        existingImages,
-        imageFiles,
-        projectData.projectId || existingProject.projectId
-      );
-    }
-
-    // Update project with new URLs
-    const updatedProject = await ProjectDetailModel.update(parseInt(id), projectData);
-    
-    if (!updatedProject) {
-      throw createError('Failed to update project detail', 500);
-    }
-
-    const response: ApiResponse<ProjectDetailData> = {
-      success: true,
-      data: updatedProject,
-      message: 'Project detail updated successfully with images'
-    };
-
-    res.json(response);
-  });
+  // ===== IMAGE MANAGEMENT ENDPOINTS =====
 
   /**
    * Remove specific images from project gallery

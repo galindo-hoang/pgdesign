@@ -40,20 +40,50 @@ router.get(
 /**
  * Create new project detail
  * POST /api/v1/projectdetail
+ * Supports both JSON and multipart/form-data (with automatic image upload)
+ * 
+ * JSON Request:
+ * Content-Type: application/json
+ * Body: { projectId, title, ... }
+ * 
+ * Multipart Request (with images):
+ * Content-Type: multipart/form-data
+ * Fields:
+ * - projectData: JSON string with project details
+ * - thumbnail: File (optional)
+ * - images: File[] (optional, multiple files)
  */
 router.post(
   '/',
-  validateContentType,
+  uploadFields([
+    { name: 'thumbnail', maxCount: 1 },
+    { name: 'images', maxCount: 20 }
+  ]),
   ProjectDetailController.createProjectDetail
 );
 
 /**
  * Update project detail
  * PUT /api/v1/projectdetail/:id
+ * Supports both JSON and multipart/form-data (with automatic image upload)
+ * 
+ * JSON Request:
+ * Content-Type: application/json
+ * Body: { title, description, ... }
+ * 
+ * Multipart Request (with images):
+ * Content-Type: multipart/form-data
+ * Fields:
+ * - projectData: JSON string with updated project details
+ * - thumbnail: File (optional) - will replace existing thumbnail
+ * - images: File[] (optional) - will be added to existing images
  */
 router.put(
   '/:id',
-  validateContentType,
+  uploadFields([
+    { name: 'thumbnail', maxCount: 1 },
+    { name: 'images', maxCount: 20 }
+  ]),
   ProjectDetailController.updateProjectDetail
 );
 
@@ -137,43 +167,7 @@ router.put('/bulk/update',validateContentType,ProjectDetailController.bulkUpdate
  */
 router.delete('/bulk/delete',validateContentType,ProjectDetailController.bulkDeleteProjectDetails);
 
-// ===== IMAGE UPLOAD ENDPOINTS =====
-
-/**
- * Create project with automatic image upload
- * POST /api/v1/projectdetail/with-images
- * Content-Type: multipart/form-data
- * Fields:
- * - projectData: JSON string with project details
- * - thumbnail: File (optional)
- * - images: File[] (optional, multiple files)
- */
-router.post(
-  '/with-images',
-  uploadFields([
-    { name: 'thumbnail', maxCount: 1 },
-    { name: 'images', maxCount: 20 }
-  ]),
-  ProjectDetailController.createProjectWithImages
-);
-
-/**
- * Update project with automatic image upload
- * PUT /api/v1/projectdetail/:id/with-images
- * Content-Type: multipart/form-data
- * Fields:
- * - projectData: JSON string with updated project details
- * - thumbnail: File (optional) - will replace existing thumbnail
- * - images: File[] (optional) - will be added to existing images
- */
-router.put(
-  '/:id/with-images',
-  uploadFields([
-    { name: 'thumbnail', maxCount: 1 },
-    { name: 'images', maxCount: 20 }
-  ]),
-  ProjectDetailController.updateProjectWithImages
-);
+// ===== IMAGE MANAGEMENT ENDPOINTS =====
 
 /**
  * Remove specific images from project gallery
