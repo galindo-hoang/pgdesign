@@ -200,7 +200,8 @@ export class MinIOFileUploadService implements IFileUploadService {
       
       // Process main image
       if (file.mimetype !== 'image/svg+xml') {
-        processedBuffer = await this.processImage(file.buffer, file.mimetype);
+        const processed = await this.processImage(file.buffer, file.mimetype);
+        processedBuffer = processed.buffer;
       }
 
       // Generate thumbnail

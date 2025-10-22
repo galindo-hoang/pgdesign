@@ -97,6 +97,7 @@ const mockAboutProjectData: AboutProjectData = {
   title: "Dự án",
   subtitle: "PG DESIGN",
   backgroundImageBlob: hero,
+  backgroundImageUrl: "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/project-hero.png",
   isActive: true,
   createdAt: new Date(),
   updatedAt: new Date(),

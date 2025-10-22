@@ -6,11 +6,11 @@ import {
   ConstructionServiceData,
 } from "../types/servicePageTypes";
 
-import heroImage from "../assets/images/servicepage/service-hero.png";
-import service1 from "../assets/images/servicepage/service1.png";
-import service2 from "../assets/images/servicepage/service2.png";
-import service3 from "../assets/images/servicepage/service3.png";
-import service4 from "../assets/images/servicepage/service4.png";
+const heroImage = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/servicepage/service-hero.png';;
+const service1 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/servicepage/service1.png';;
+const service2 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/servicepage/service2.png';;
+const service3 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/servicepage/service3.png';;
+const service4 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/servicepage/service4.png';;
 
 // API Configuration
 const API_BASE_URL =

@@ -41,7 +41,8 @@ export class ImageBlobService {
 
       // Process image if it's not SVG
       if (file.mimetype !== "image/svg+xml") {
-        processedBuffer = await this.processImage(file.buffer, file.mimetype);
+        const processed = await this.processImage(file.buffer, file.mimetype);
+        processedBuffer = Buffer.from(processed.buffer);
       }
 
       // Convert to base64
@@ -119,7 +120,8 @@ export class ImageBlobService {
 
       // Process main image
       if (file.mimetype !== "image/svg+xml") {
-        processedBuffer = await this.processImage(file.buffer, file.mimetype);
+        const processed = await this.processImage(file.buffer, file.mimetype);
+        processedBuffer = Buffer.from(processed.buffer);
       }
 
       // Generate thumbnail

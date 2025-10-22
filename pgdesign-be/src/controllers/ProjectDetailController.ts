@@ -458,7 +458,7 @@ export class ProjectDetailController {
   // ===== CATEGORY ENDPOINTS =====
 
   /**
-   * Get projects by category (direct relationship)
+   * Get projects by category (direct relationship) - Simplified response
    */
   getProjectsByCategory = asyncHandler(async (req: Request, res: Response): Promise<void> => {
     const categoryId = req.params.categoryId;
@@ -474,10 +474,20 @@ export class ProjectDetailController {
 
     const projects = await ProjectDetailModel.getAll(filters);
 
-    const response: ApiResponse<ProjectDetailData[]> = {
+    // Transform to simplified response with only essential fields
+    const simplifiedProjects = projects.map(project => ({
+      id: project.id,
+      projectId: project.projectId,
+      title: project.title,
+      thumbnail: project.thumbnailImageUrl || project.thumbnailImage,
+      area: project.area,
+      location: project.address
+    }));
+
+    const response: ApiResponse<any[]> = {
       success: true,
-      data: projects,
-      message: `Found ${projects.length} projects for category: ${categoryId}`
+      data: simplifiedProjects,
+      message: `Found ${simplifiedProjects.length} projects for category: ${categoryId}`
     };
 
     res.json(response);

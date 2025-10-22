@@ -1,15 +1,15 @@
 import { ConstructionProcessData } from '../types/profilePageTypes';
 
 // Import placeholder images - replace with actual construction/design images
-import interiorImage1 from '../assets/images/profilepage/Rectangle 44.png';
-import interiorImage2 from '../assets/images/profilepage/Rectangle 43.png';
-import constructionImage1 from '../assets/images/profilepage/Rectangle 46.png';
-import constructionImage2 from '../assets/images/profilepage/Rectangle 45.png';
-import constructionImage3 from '../assets/images/profilepage/Rectangle 51.png';
-import constructionSingleImage from '../assets/images/profilepage/Rectangle 47.png';
-import workerImage1 from '../assets/images/profilepage/Rectangle 50.png';
-import workerImage2 from '../assets/images/profilepage/Rectangle 49.png';
-import workerImage3 from '../assets/images/profilepage/Rectangle 52.png';
+const interiorImage1 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 44.png';;
+const interiorImage2 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 43.png';;
+const constructionImage1 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 46.png';;
+const constructionImage2 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 45.png';;
+const constructionImage3 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 51.png';;
+const constructionSingleImage = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 47.png';;
+const workerImage1 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 50.png';;
+const workerImage2 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 49.png';;
+const workerImage3 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 52.png';;
 
 // Mock data - replace with API calls later
 const mockConstructionProcessData: ConstructionProcessData = {

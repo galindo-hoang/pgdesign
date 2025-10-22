@@ -1,16 +1,16 @@
 import { TechnicalAdvantagesData } from '../types/profilePageTypes';
 
 // Import placeholder images - replace with actual project images
-import constructionImage1 from '../assets/images/profilepage/Rectangle 54.png';
-import constructionImage2 from '../assets/images/profilepage/Rectangle 53.png';
-import constructionImage3 from '../assets/images/profilepage/Rectangle 55.png';
-import constructionImage4 from '../assets/images/profilepage/Rectangle 57.png';
-import constructionImage5 from '../assets/images/profilepage/Rectangle 56.png';
-import constructionImage6 from '../assets/images/profilepage/Rectangle 58.png';
-import constructionImage7 from '../assets/images/profilepage/Rectangle 59.png';
-import constructionImage8 from '../assets/images/profilepage/Rectangle 61.png';
-import constructionImage9 from '../assets/images/profilepage/Rectangle 60.png';
-import constructionImage10 from '../assets/images/profilepage/Rectangle 62.png';
+const constructionImage1 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 54.png';;
+const constructionImage2 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 53.png';;
+const constructionImage3 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 55.png';;
+const constructionImage4 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 57.png';;
+const constructionImage5 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 56.png';;
+const constructionImage6 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 58.png';;
+const constructionImage7 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 59.png';;
+const constructionImage8 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 61.png';;
+const constructionImage9 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 60.png';;
+const constructionImage10 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/Rectangle 62.png';;
 
 // Mock data - replace with API calls later
 const mockTechnicalAdvantagesData: TechnicalAdvantagesData = {

@@ -7,10 +7,10 @@ import {
 
 import { additionalProjectData } from "./additionalProjectData";
 
-import houseNormal from "../assets/images/projectpage/house-normal.png";
-import appartment from "../assets/images/projectpage/appartment.png";
-import houseBusiness from "../assets/images/projectpage/house-business.png";
-import village from "../assets/images/projectpage/village.png";
+const houseNormal = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/house-normal.png';;
+const appartment = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/appartment.png';;
+const houseBusiness = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/house-business.png';;
+const village = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/village.png';;
 
 // API Configuration
 const API_BASE_URL =
@@ -266,7 +266,7 @@ const fetchCategoryWithProjectsApi = async (
           categoryId: categoryId,
           title: categoryId.toUpperCase().replace(/-/g, " "),
           description: `Category ${categoryId}`,
-          heroImageUrl: "/assets/images/default-hero.png",
+          heroImageUrl: 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/default-hero.png',
           displayOrder: 0,
           isActive: true,
         };
@@ -301,7 +301,7 @@ const fetchCategoryProjectForHomePageApi = async (): Promise<
       `🌐 Real API: Fetching projects for HomePage (isOnHomePage: true)`
     );
 
-    const response = await fetch(`${API_BASE_URL}/projectdetail/homepage`, {
+    const response = await fetch(`${API_BASE_URL}/homepage`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

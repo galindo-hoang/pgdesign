@@ -1,7 +1,7 @@
 import { CapabilitiesData } from '../types/profilePageTypes';
 
 // Import placeholder images - you can replace these with actual architectural renderings
-import architecturalImage1 from '../assets/images/profilepage/image.png';
+const architecturalImage1 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/image.png';;
 
 // Mock data - replace with API calls later
 const mockCapabilitiesData: CapabilitiesData = {

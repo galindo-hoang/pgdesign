@@ -24,30 +24,30 @@ import { ReactComponent as WorkProcessFlowDiagram1 } from "../assets/icons/work-
 import { ReactComponent as WorkProcessFlowDiagram2 } from "../assets/icons/work-process-flow-diagram-2.svg";
 
 // Import images
-import hero1 from "../assets/images/homepage/hero1.png";
-import hero2 from "../assets/images/homepage/hero2.png";
-import hero3 from "../assets/images/homepage/hero3.png";
-import hero4 from "../assets/images/homepage/hero4.png";
-import projectDiary1 from "../assets/images/homepage/projectdiary1.png";
-import projectDiary2 from "../assets/images/homepage/projectdiary2.png";
-import projectDiary3 from "../assets/images/homepage/projectdiary3.png";
-import projectDiary4 from "../assets/images/homepage/projectdiary4.png";
-import projectDiary5 from "../assets/images/homepage/projectdiary5.png";
-import projectDiary6 from "../assets/images/homepage/projectdiary6.png";
-import projectDiary7 from "../assets/images/homepage/projectdiary7.png";
-import projectDiary8 from "../assets/images/homepage/projectdiary8.png";
-import thumbIntro from "../assets/images/thumb-intro.png";
-import thumbIntro1 from "../assets/images/diary-image-1.png";
-import thumbIntro2 from "../assets/images/diary-image-2.png";
-import thumbIntro3 from "../assets/images/diary-image-3.png";
-import solutionImg1 from "../assets/images/homepage/solution1.png";
-import solutionImg2 from "../assets/images/homepage/solution2.png";
-import solutionImg3 from "../assets/images/homepage/solution3.png";
-import solutionImg4 from "../assets/images/homepage/solution4.png";
-import experienceImg from "../assets/images/diary-image-1.png";
-import customerImg from "../assets/images/diary-image-2.png";
-import projectImg from "../assets/images/diary-image-3.png";
-import qualityImg from "../assets/images/diary-image-4.png";
+const hero1 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/homepage/hero1.png';;
+const hero2 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/homepage/hero2.png';;
+const hero3 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/homepage/hero3.png';;
+const hero4 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/homepage/hero4.png';;
+const projectDiary1 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/homepage/projectdiary1.png';;
+const projectDiary2 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/homepage/projectdiary2.png';;
+const projectDiary3 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/homepage/projectdiary3.png';;
+const projectDiary4 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/homepage/projectdiary4.png';;
+const projectDiary5 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/homepage/projectdiary5.png';;
+const projectDiary6 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/homepage/projectdiary6.png';;
+const projectDiary7 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/homepage/projectdiary7.png';;
+const projectDiary8 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/homepage/projectdiary8.png';;
+const thumbIntro = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/thumb-intro.png';;
+const thumbIntro1 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-1.png';;
+const thumbIntro2 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-2.png';;
+const thumbIntro3 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-3.png';;
+const solutionImg1 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/homepage/solution1.png';;
+const solutionImg2 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/homepage/solution2.png';;
+const solutionImg3 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/homepage/solution3.png';;
+const solutionImg4 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/homepage/solution4.png';;
+const experienceImg = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-1.png';;
+const customerImg = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-2.png';;
+const projectImg = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-3.png';;
+const qualityImg = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-4.png';;
 
 // API Configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
@@ -696,6 +696,7 @@ export const fetchHomePageData = async (): Promise<HomePageData> => {
         consultationForm
       };
     } else {
+      alert(`${API_BASE_URL}/homepage`)
       // Make real API call to get all data at once
       const response = await fetch(`${API_BASE_URL}/homepage`, {
         method: 'GET',

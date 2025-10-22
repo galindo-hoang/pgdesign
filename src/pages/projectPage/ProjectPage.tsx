@@ -81,7 +81,7 @@ const ProjectPage: React.FC = () => {
   const aboutProjectSectionContent = {
     title: projectData.aboutProject.title,
     subtitle: projectData.aboutProject.subtitle,
-    backgroundImage: projectData.aboutProject.backgroundImageBlob,
+    backgroundImage: projectData.aboutProject.backgroundImageUrl,
   };
 
   const projectCategoriesHeader = {

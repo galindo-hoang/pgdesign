@@ -1,0 +1,2521 @@
+{
+  "imports": [
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "import": "import sampleImage1 from \"../assets/images/diary-image-1.png\"",
+      "path": "../assets/images/diary-image-1.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "import": "import sampleImage2 from \"../assets/images/diary-image-2.png\"",
+      "path": "../assets/images/diary-image-2.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "import": "import sampleImage3 from \"../assets/images/diary-image-3.png\"",
+      "path": "../assets/images/diary-image-3.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "import": "import sampleImage4 from \"../assets/images/diary-image-4.png\"",
+      "path": "../assets/images/diary-image-4.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "import": "import consultationImage from \"../assets/images/thumb-intro.png\"",
+      "path": "../assets/images/thumb-intro.png"
+    },
+    {
+      "file": "../../src/services/capabilitiesService.ts",
+      "import": "import architecturalImage1 from '../assets/images/profilepage/image.png'",
+      "path": "../assets/images/profilepage/image.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "import": "import interiorImage1 from '../assets/images/profilepage/Rectangle 44.png'",
+      "path": "../assets/images/profilepage/Rectangle 44.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "import": "import interiorImage2 from '../assets/images/profilepage/Rectangle 43.png'",
+      "path": "../assets/images/profilepage/Rectangle 43.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "import": "import constructionImage1 from '../assets/images/profilepage/Rectangle 46.png'",
+      "path": "../assets/images/profilepage/Rectangle 46.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "import": "import constructionImage2 from '../assets/images/profilepage/Rectangle 45.png'",
+      "path": "../assets/images/profilepage/Rectangle 45.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "import": "import constructionImage3 from '../assets/images/profilepage/Rectangle 51.png'",
+      "path": "../assets/images/profilepage/Rectangle 51.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "import": "import constructionSingleImage from '../assets/images/profilepage/Rectangle 47.png'",
+      "path": "../assets/images/profilepage/Rectangle 47.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "import": "import workerImage1 from '../assets/images/profilepage/Rectangle 50.png'",
+      "path": "../assets/images/profilepage/Rectangle 50.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "import": "import workerImage2 from '../assets/images/profilepage/Rectangle 49.png'",
+      "path": "../assets/images/profilepage/Rectangle 49.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "import": "import workerImage3 from '../assets/images/profilepage/Rectangle 52.png'",
+      "path": "../assets/images/profilepage/Rectangle 52.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import { ReactComponent as BriefcaseIcon } from \"../assets/icons/experience-icon.svg\"",
+      "path": "../assets/icons/experience-icon.svg"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import { ReactComponent as HandshakeIcon } from \"../assets/icons/customer-icon.svg\"",
+      "path": "../assets/icons/customer-icon.svg"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import { ReactComponent as DesignIcon } from \"../assets/icons/design-icon.svg\"",
+      "path": "../assets/icons/design-icon.svg"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import { ReactComponent as GearIcon } from \"../assets/icons/building-icon.svg\"",
+      "path": "../assets/icons/building-icon.svg"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import { ReactComponent as DesignProcessIcon } from \"../assets/icons/design-icon.svg\"",
+      "path": "../assets/icons/design-icon.svg"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import { ReactComponent as ConstructionProcessIcon } from \"../assets/icons/building-icon.svg\"",
+      "path": "../assets/icons/building-icon.svg"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import { ReactComponent as WorkProcessFlowDiagram1 } from \"../assets/icons/work-process-flow-diagram-1.svg\"",
+      "path": "../assets/icons/work-process-flow-diagram-1.svg"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import { ReactComponent as WorkProcessFlowDiagram2 } from \"../assets/icons/work-process-flow-diagram-2.svg\"",
+      "path": "../assets/icons/work-process-flow-diagram-2.svg"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import hero1 from \"../assets/images/homepage/hero1.png\"",
+      "path": "../assets/images/homepage/hero1.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import hero2 from \"../assets/images/homepage/hero2.png\"",
+      "path": "../assets/images/homepage/hero2.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import hero3 from \"../assets/images/homepage/hero3.png\"",
+      "path": "../assets/images/homepage/hero3.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import hero4 from \"../assets/images/homepage/hero4.png\"",
+      "path": "../assets/images/homepage/hero4.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import projectDiary1 from \"../assets/images/homepage/projectdiary1.png\"",
+      "path": "../assets/images/homepage/projectdiary1.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import projectDiary2 from \"../assets/images/homepage/projectdiary2.png\"",
+      "path": "../assets/images/homepage/projectdiary2.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import projectDiary3 from \"../assets/images/homepage/projectdiary3.png\"",
+      "path": "../assets/images/homepage/projectdiary3.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import projectDiary4 from \"../assets/images/homepage/projectdiary4.png\"",
+      "path": "../assets/images/homepage/projectdiary4.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import projectDiary5 from \"../assets/images/homepage/projectdiary5.png\"",
+      "path": "../assets/images/homepage/projectdiary5.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import projectDiary6 from \"../assets/images/homepage/projectdiary6.png\"",
+      "path": "../assets/images/homepage/projectdiary6.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import projectDiary7 from \"../assets/images/homepage/projectdiary7.png\"",
+      "path": "../assets/images/homepage/projectdiary7.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import projectDiary8 from \"../assets/images/homepage/projectdiary8.png\"",
+      "path": "../assets/images/homepage/projectdiary8.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import thumbIntro from \"../assets/images/thumb-intro.png\"",
+      "path": "../assets/images/thumb-intro.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import thumbIntro1 from \"../assets/images/diary-image-1.png\"",
+      "path": "../assets/images/diary-image-1.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import thumbIntro2 from \"../assets/images/diary-image-2.png\"",
+      "path": "../assets/images/diary-image-2.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import thumbIntro3 from \"../assets/images/diary-image-3.png\"",
+      "path": "../assets/images/diary-image-3.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import solutionImg1 from \"../assets/images/homepage/solution1.png\"",
+      "path": "../assets/images/homepage/solution1.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import solutionImg2 from \"../assets/images/homepage/solution2.png\"",
+      "path": "../assets/images/homepage/solution2.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import solutionImg3 from \"../assets/images/homepage/solution3.png\"",
+      "path": "../assets/images/homepage/solution3.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import solutionImg4 from \"../assets/images/homepage/solution4.png\"",
+      "path": "../assets/images/homepage/solution4.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import experienceImg from \"../assets/images/diary-image-1.png\"",
+      "path": "../assets/images/diary-image-1.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import customerImg from \"../assets/images/diary-image-2.png\"",
+      "path": "../assets/images/diary-image-2.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import projectImg from \"../assets/images/diary-image-3.png\"",
+      "path": "../assets/images/diary-image-3.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "import": "import qualityImg from \"../assets/images/diary-image-4.png\"",
+      "path": "../assets/images/diary-image-4.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import hero from \"../assets/images/intropage/hero.png\"",
+      "path": "../assets/images/intropage/hero.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import mission from \"../assets/images/intropage/mission.png\"",
+      "path": "../assets/images/intropage/mission.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import CEOImage from \"../assets/images/PG NHÂN SỰ/PHAN TÔ THƯ - GIÁM ĐỐC.png\"",
+      "path": "../assets/images/PG NHÂN SỰ/PHAN TÔ THƯ - GIÁM ĐỐC.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import CEOImage2 from \"../assets/images/PG NHÂN SỰ/VÕ NGUYÊN PHÁP - GIÁM ĐỐC THI CÔNG.png\"",
+      "path": "../assets/images/PG NHÂN SỰ/VÕ NGUYÊN PHÁP - GIÁM ĐỐC THI CÔNG.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import employeeImage2 from \"../assets/images/PG NHÂN SỰ/ĐỖ TUYẾT QUY - TRƯỞNG PHÒNG MARKETING.png\"",
+      "path": "../assets/images/PG NHÂN SỰ/ĐỖ TUYẾT QUY - TRƯỞNG PHÒNG MARKETING.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import employeeImage3 from \"../assets/images/PG NHÂN SỰ/Y NHẬT MINH - TRƯỞNG PHÒNG KINH DOANH.png\"",
+      "path": "../assets/images/PG NHÂN SỰ/Y NHẬT MINH - TRƯỞNG PHÒNG KINH DOANH.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import employeeImage4 from \"../assets/images/PG NHÂN SỰ/CÁP NGUYỄN HỒNG PHÚC - KINH DOANH.png\"",
+      "path": "../assets/images/PG NHÂN SỰ/CÁP NGUYỄN HỒNG PHÚC - KINH DOANH.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import employeeImage5 from \"../assets/images/PG NHÂN SỰ/ĐẶNG HỒNG SƠN - KỸ SƯ XÂY DỰNG.png\"",
+      "path": "../assets/images/PG NHÂN SỰ/ĐẶNG HỒNG SƠN - KỸ SƯ XÂY DỰNG.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import employeeImage6 from \"../assets/images/PG NHÂN SỰ/DIỆP GIA HY - KINH DOANH.png\"",
+      "path": "../assets/images/PG NHÂN SỰ/DIỆP GIA HY - KINH DOANH.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import employeeImage7 from \"../assets/images/PG NHÂN SỰ/LÊ ĐÌNH THIÊN - KIẾN TRÚC SƯ.png\"",
+      "path": "../assets/images/PG NHÂN SỰ/LÊ ĐÌNH THIÊN - KIẾN TRÚC SƯ.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import employeeImage8 from \"../assets/images/PG NHÂN SỰ/LÊ DUY HUY - KĨ SƯ XÂY DỰNG.png\"",
+      "path": "../assets/images/PG NHÂN SỰ/LÊ DUY HUY - KĨ SƯ XÂY DỰNG.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import employeeImage9 from \"../assets/images/PG NHÂN SỰ/LÊ THỊ NGỌC DIỄM - THIẾT KẾ NỘI THẤT.png\"",
+      "path": "../assets/images/PG NHÂN SỰ/LÊ THỊ NGỌC DIỄM - THIẾT KẾ NỘI THẤT.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import employeeImage10 from \"../assets/images/PG NHÂN SỰ/NGUYỄN HOÀNG BẢO - KĨ SƯ XÂY.png\"",
+      "path": "../assets/images/PG NHÂN SỰ/NGUYỄN HOÀNG BẢO - KĨ SƯ XÂY.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import employeeImage11 from \"../assets/images/PG NHÂN SỰ/NGUYỄN THÀNH THẠO - KỸ SƯ MEP.png\"",
+      "path": "../assets/images/PG NHÂN SỰ/NGUYỄN THÀNH THẠO - KỸ SƯ MEP.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import employeeImage12 from \"../assets/images/PG NHÂN SỰ/NGUYỄN THỊ THU THẢO - KẾ TOÁN HÀNH CHÍNH.png\"",
+      "path": "../assets/images/PG NHÂN SỰ/NGUYỄN THỊ THU THẢO - KẾ TOÁN HÀNH CHÍNH.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import employeeImage13 from \"../assets/images/PG NHÂN SỰ/PHAN NHẬT HÀ - THIẾT KẾ NỘI THẤT.png\"",
+      "path": "../assets/images/PG NHÂN SỰ/PHAN NHẬT HÀ - THIẾT KẾ NỘI THẤT.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "import": "import employeeImage14 from \"../assets/images/PG NHÂN SỰ/NGUYỄN THỊ THU HUYỀN - MARKETING.png\"",
+      "path": "../assets/images/PG NHÂN SỰ/NGUYỄN THỊ THU HUYỀN - MARKETING.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage1 from \"../assets/images/profilepage/1.png\"",
+      "path": "../assets/images/profilepage/1.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage2 from \"../assets/images/profilepage/2.png\"",
+      "path": "../assets/images/profilepage/2.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage3 from \"../assets/images/profilepage/3.png\"",
+      "path": "../assets/images/profilepage/3.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage4 from \"../assets/images/profilepage/4.1.png\"",
+      "path": "../assets/images/profilepage/4.1.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage5 from \"../assets/images/profilepage/4.png\"",
+      "path": "../assets/images/profilepage/4.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage6 from \"../assets/images/profilepage/5.png\"",
+      "path": "../assets/images/profilepage/5.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage7 from \"../assets/images/profilepage/6.png\"",
+      "path": "../assets/images/profilepage/6.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage8 from \"../assets/images/profilepage/7.png\"",
+      "path": "../assets/images/profilepage/7.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage9 from \"../assets/images/profilepage/8.png\"",
+      "path": "../assets/images/profilepage/8.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage10 from \"../assets/images/profilepage/9.png\"",
+      "path": "../assets/images/profilepage/9.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage11 from \"../assets/images/profilepage/10.png\"",
+      "path": "../assets/images/profilepage/10.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage12 from \"../assets/images/profilepage/11.png\"",
+      "path": "../assets/images/profilepage/11.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage13 from \"../assets/images/profilepage/12.png\"",
+      "path": "../assets/images/profilepage/12.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage14 from \"../assets/images/profilepage/13.png\"",
+      "path": "../assets/images/profilepage/13.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage15 from \"../assets/images/profilepage/14.png\"",
+      "path": "../assets/images/profilepage/14.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage16 from \"../assets/images/profilepage/15.png\"",
+      "path": "../assets/images/profilepage/15.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage17 from \"../assets/images/profilepage/16.png\"",
+      "path": "../assets/images/profilepage/16.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage18 from \"../assets/images/profilepage/17.png\"",
+      "path": "../assets/images/profilepage/17.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage19 from \"../assets/images/profilepage/18.png\"",
+      "path": "../assets/images/profilepage/18.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "import": "import architecturalImage20 from \"../assets/images/profilepage/19.png\"",
+      "path": "../assets/images/profilepage/19.png"
+    },
+    {
+      "file": "../../src/services/projectCategoryService.ts",
+      "import": "import houseNormal from \"../assets/images/projectpage/house-normal.png\"",
+      "path": "../assets/images/projectpage/house-normal.png"
+    },
+    {
+      "file": "../../src/services/projectCategoryService.ts",
+      "import": "import appartment from \"../assets/images/projectpage/appartment.png\"",
+      "path": "../assets/images/projectpage/appartment.png"
+    },
+    {
+      "file": "../../src/services/projectCategoryService.ts",
+      "import": "import houseBusiness from \"../assets/images/projectpage/house-business.png\"",
+      "path": "../assets/images/projectpage/house-business.png"
+    },
+    {
+      "file": "../../src/services/projectCategoryService.ts",
+      "import": "import village from \"../assets/images/projectpage/village.png\"",
+      "path": "../assets/images/projectpage/village.png"
+    },
+    {
+      "file": "../../src/services/servicePageService.ts",
+      "import": "import heroImage from \"../assets/images/servicepage/service-hero.png\"",
+      "path": "../assets/images/servicepage/service-hero.png"
+    },
+    {
+      "file": "../../src/services/servicePageService.ts",
+      "import": "import service1 from \"../assets/images/servicepage/service1.png\"",
+      "path": "../assets/images/servicepage/service1.png"
+    },
+    {
+      "file": "../../src/services/servicePageService.ts",
+      "import": "import service2 from \"../assets/images/servicepage/service2.png\"",
+      "path": "../assets/images/servicepage/service2.png"
+    },
+    {
+      "file": "../../src/services/servicePageService.ts",
+      "import": "import service3 from \"../assets/images/servicepage/service3.png\"",
+      "path": "../assets/images/servicepage/service3.png"
+    },
+    {
+      "file": "../../src/services/servicePageService.ts",
+      "import": "import service4 from \"../assets/images/servicepage/service4.png\"",
+      "path": "../assets/images/servicepage/service4.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "import": "import constructionImage1 from '../assets/images/profilepage/Rectangle 54.png'",
+      "path": "../assets/images/profilepage/Rectangle 54.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "import": "import constructionImage2 from '../assets/images/profilepage/Rectangle 53.png'",
+      "path": "../assets/images/profilepage/Rectangle 53.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "import": "import constructionImage3 from '../assets/images/profilepage/Rectangle 55.png'",
+      "path": "../assets/images/profilepage/Rectangle 55.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "import": "import constructionImage4 from '../assets/images/profilepage/Rectangle 57.png'",
+      "path": "../assets/images/profilepage/Rectangle 57.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "import": "import constructionImage5 from '../assets/images/profilepage/Rectangle 56.png'",
+      "path": "../assets/images/profilepage/Rectangle 56.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "import": "import constructionImage6 from '../assets/images/profilepage/Rectangle 58.png'",
+      "path": "../assets/images/profilepage/Rectangle 58.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "import": "import constructionImage7 from '../assets/images/profilepage/Rectangle 59.png'",
+      "path": "../assets/images/profilepage/Rectangle 59.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "import": "import constructionImage8 from '../assets/images/profilepage/Rectangle 61.png'",
+      "path": "../assets/images/profilepage/Rectangle 61.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "import": "import constructionImage9 from '../assets/images/profilepage/Rectangle 60.png'",
+      "path": "../assets/images/profilepage/Rectangle 60.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "import": "import constructionImage10 from '../assets/images/profilepage/Rectangle 62.png'",
+      "path": "../assets/images/profilepage/Rectangle 62.png"
+    }
+  ],
+  "paths": [
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH DANG - PHU GIA HUNG - GO VAP/phu-gia-hung-01.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH DANG - PHU GIA HUNG - GO VAP/phu-gia-hung-01.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH DANG - PHU GIA HUNG - GO VAP/phu-gia-hung-02.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH DANG - PHU GIA HUNG - GO VAP/phu-gia-hung-03.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH DANG - PHU GIA HUNG - GO VAP/phu-gia-hung-04.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH DANG - PHU GIA HUNG - GO VAP/phu-gia-hung-05.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH DANG - PHU GIA HUNG - GO VAP/phu-gia-hung-06.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH DANG - PHU GIA HUNG - GO VAP/phu-gia-hung-07.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH DANG - PHU GIA HUNG - GO VAP/phu-gia-hung-08.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH DANG - PHU GIA HUNG - GO VAP/phu-gia-hung-09.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH DANG - PHU GIA HUNG - GO VAP/phu-gia-hung-10.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH DANG - PHU GIA HUNG - GO VAP/phu-gia-hung-11.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH DANG - PHU GIA HUNG - GO VAP/phu-gia-hung-12.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH LONG - OPAL GARDEN - HIEP BINH HCM/0.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH LONG - OPAL GARDEN - HIEP BINH HCM/0.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH LONG - OPAL GARDEN - HIEP BINH HCM/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH LONG - OPAL GARDEN - HIEP BINH HCM/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH LONG - OPAL GARDEN - HIEP BINH HCM/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH LONG - OPAL GARDEN - HIEP BINH HCM/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH LONG - OPAL GARDEN - HIEP BINH HCM/5.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH LONG - OPAL GARDEN - HIEP BINH HCM/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH LONG - OPAL GARDEN - HIEP BINH HCM/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH LONG - OPAL GARDEN - HIEP BINH HCM/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH LONG - OPAL GARDEN - HIEP BINH HCM/9.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH LONG - OPAL GARDEN - HIEP BINH HCM/10.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH LONG - OPAL GARDEN - HIEP BINH HCM/11.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH LONG - OPAL GARDEN - HIEP BINH HCM/12.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH LONG - OPAL GARDEN - HIEP BINH HCM/13.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/0.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/0.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/5.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/9.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/10.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/11.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/12.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/13.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/14.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/15.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/16.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/17.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/18.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/19.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/20.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI NHI - DIAMOND - TAN PHU/21.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/5.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/9.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/11.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/13.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/15.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/17.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/18.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/19.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/21.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/22.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/23.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH TUAN - CITYLAND PARK HILL - GO VAP/24.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI THUY - URBAN - hIEP bINH HCM/0.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI THUY - URBAN - hIEP bINH HCM/0.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI THUY - URBAN - hIEP bINH HCM/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI THUY - URBAN - hIEP bINH HCM/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI THUY - URBAN - hIEP bINH HCM/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI THUY - URBAN - hIEP bINH HCM/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI THUY - URBAN - hIEP bINH HCM/5.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI THUY - URBAN - hIEP bINH HCM/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI THUY - URBAN - hIEP bINH HCM/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LINH - Midoripark The Glory - BINH DUONG/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LINH - Midoripark The Glory - BINH DUONG/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LINH - Midoripark The Glory - BINH DUONG/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LINH - Midoripark The Glory - BINH DUONG/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LINH - Midoripark The Glory - BINH DUONG/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LINH - Midoripark The Glory - BINH DUONG/5.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LINH - Midoripark The Glory - BINH DUONG/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LINH - Midoripark The Glory - BINH DUONG/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LINH - Midoripark The Glory - BINH DUONG/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/5.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/9.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/10.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/11.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/12.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/13.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/14.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/15.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/16.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/17.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI HA - PEGASUITE - Q8/18.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH PHUC - PICITY - Q12/picity-q12-01.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH PHUC - PICITY - Q12/picity-q12-01.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH PHUC - PICITY - Q12/picity-q12-02.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH PHUC - PICITY - Q12/picity-q12-03.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH PHUC - PICITY - Q12/picity-q12-04.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH PHUC - PICITY - Q12/picity-q12-05.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH PHUC - PICITY - Q12/picity-q12-06.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH PHUC - PICITY - Q12/picity-q12-07.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH PHUC - PICITY - Q12/picity-q12-08.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH PHUC - PICITY - Q12/picity-q12-09.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH PHUC - PICITY - Q12/picity-q12-10.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH PHUC - PICITY - Q12/picity-q12-11.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH PHUC - PICITY - Q12/picity-q12-12.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH PHUC - PICITY - Q12/picity-q12-13.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH PHUC - PICITY - Q12/picity-q12-14.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/5.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/9.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/10.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/11.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/12.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/13.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/14.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/15.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/16.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/CHI LAN - CITYGATE - Q8/17.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH MINH - CITYLAND PARK HILL - GO VAP/0.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH MINH - CITYLAND PARK HILL - GO VAP/0.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH MINH - CITYLAND PARK HILL - GO VAP/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH MINH - CITYLAND PARK HILL - GO VAP/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH MINH - CITYLAND PARK HILL - GO VAP/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH MINH - CITYLAND PARK HILL - GO VAP/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH MINH - CITYLAND PARK HILL - GO VAP/5.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH MINH - CITYLAND PARK HILL - GO VAP/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH MINH - CITYLAND PARK HILL - GO VAP/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH MINH - CITYLAND PARK HILL - GO VAP/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/appartment/ANH MINH - CITYLAND PARK HILL - GO VAP/9.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI MO - LONG AN - INDOCHINE/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI MO - LONG AN - INDOCHINE/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI MO - LONG AN - INDOCHINE/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI MO - LONG AN - INDOCHINE/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI MO - LONG AN - INDOCHINE/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI MO - LONG AN - INDOCHINE/5.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI MO - LONG AN - INDOCHINE/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI MO - LONG AN - INDOCHINE/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI MO - LONG AN - INDOCHINE/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI HUONG - QUAN 7/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI HUONG - QUAN 7/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI HUONG - QUAN 7/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI HUONG - QUAN 7/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI HUONG - QUAN 7/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI HUONG - QUAN 7/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI HUONG - QUAN 7/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI HUONG - QUAN 7/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI HUONG - QUAN 7/9.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI HUONG - QUAN 7/10.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI HUONG - QUAN 7/11.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI HUONG - QUAN 7/12.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI HUONG - QUAN 7/13.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH SON - LONG THANH/nha-pho-long-thanh-01.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH SON - LONG THANH/nha-pho-long-thanh-01.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH SON - LONG THANH/nha-pho-long-thanh-02.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH SON - LONG THANH/nha-pho-long-thanh-03.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH SON - LONG THANH/nha-pho-long-thanh-04.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH SON - LONG THANH/nha-pho-long-thanh-05.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH SON - LONG THANH/nha-pho-long-thanh-06.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH SON - LONG THANH/nha-pho-long-thanh-07.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH SON - LONG THANH/nha-pho-long-thanh-08.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH SON - LONG THANH/nha-pho-long-thanh-09.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH SON - LONG THANH/nha-pho-long-thanh-10.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH SON - LONG THANH/nha-pho-long-thanh-11.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH SON - LONG THANH/nha-pho-long-thanh-12.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH SON - LONG THANH/nha-pho-long-thanh-13.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH NAM - TIEN GIANG/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH NAM - TIEN GIANG/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH NAM - TIEN GIANG/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH NAM - TIEN GIANG/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH NAM - TIEN GIANG/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/5.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/9.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/10.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/11.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/12.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/13.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/14.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/15.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/16.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI NGOC - DONG NAI/25.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH HUNG - NHA BE/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH HUNG - NHA BE/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH HUNG - NHA BE/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH HUNG - NHA BE/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH HUNG - NHA BE/17.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH HUNG - NHA BE/16.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH HUNG - NHA BE/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH HUNG - NHA BE/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH HUNG - NHA BE/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH HUNG - NHA BE/9.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH HUNG - NHA BE/10.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH HUNG - NHA BE/11.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH HUNG - NHA BE/12.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH HUNG - NHA BE/13.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH HUNG - NHA BE/14.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/ANH HUNG - NHA BE/15.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI TU - LONG AN/nha-pho-long-an-01.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI TU - LONG AN/nha-pho-long-an-01.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI TU - LONG AN/nha-pho-long-an-02.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI TU - LONG AN/nha-pho-long-an-03.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI TU - LONG AN/nha-pho-long-an-04.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI TU - LONG AN/nha-pho-long-an-05.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI TU - LONG AN/nha-pho-long-an-06.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI TU - LONG AN/nha-pho-long-an-07.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/CHI TU - LONG AN/nha-pho-long-an-08.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/anh Hoang - nha be/NHA MAU 2 - VIEW 1.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/anh Hoang - nha be/NHA MAU 2 - VIEW 1.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/anh Hoang - nha be/NHA MAU 2 - VIEW 2.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/anh Hoang - nha be/NHA MAU 2 - VIEW 3.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/anh Hoang - nha be/NHA MAU 2 - VIEW 4.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/anh Hoang - nha be/NHA MAU 2 - VIEW 5.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/anh Hoang - nha be/NHA MAU 2 - VIEW 6.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/anh Hoang - nha be/NHA MAU 2 - VIEW 7.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/anh Hoang - nha be/NHA MAU 2 - VIEW 8.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/anh Hoang - nha be/NHA MAU 2 - VIEW 9.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/anh Hoang - nha be/NHA MAU 2 - VIEW 10.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/Chi Linh - Quan 8/MAU 1-2.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/Chi Linh - Quan 8/MAU 1-2.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-normal/Chi Linh - Quan 8/MAU 1-3.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/VILLA SUMMER - QUAN 7/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/VILLA SUMMER - QUAN 7/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/VILLA SUMMER - QUAN 7/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/VILLA SUMMER - QUAN 7/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/VILLA SUMMER - QUAN 7/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/VILLA SUMMER - QUAN 7/5.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/VILLA SUMMER - QUAN 7/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/VILLA SUMMER - QUAN 7/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/VILLA SUMMER - QUAN 7/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/VILLA SUMMER - QUAN 7/9.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/VILLA SUMMER - QUAN 7/10.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 1/1-VIEW.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 1/1-VIEW.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 1/VIEW 01.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 1/VIEW 02.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 1/VIEW 03.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 1/VIEW 03.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 1/VIEW 05.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 1/VIEW 06.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 1/VIEW 07.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 1/VIEW 08.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 2/view 01.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 2/view 01.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 2/view 02.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 2/view 03.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 3/view 01.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 3/view 01.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 3/view 02.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 3/view 03.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 3/view 04.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 3/1- view 05.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 3/view 06.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 3/view 07.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 3/view 09.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/biet thu vuon - Mai Nhat 3/view 10.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/Mau 2 - Mai Nhat/view 01.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/Mau 2 - Mai Nhat/view 01.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/Mau 2 - Mai Nhat/2-view 02.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/village/Mau 2 - Mai Nhat/1-view 03.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/THE K COFFEE TEA - THU DUC/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/THE K COFFEE TEA - THU DUC/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/THE K COFFEE TEA - THU DUC/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/THE K COFFEE TEA - THU DUC/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/THE K COFFEE TEA - THU DUC/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/THE K COFFEE TEA - THU DUC/5.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/THE K COFFEE TEA - THU DUC/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/THE K COFFEE TEA - THU DUC/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/THE K COFFEE TEA - THU DUC/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/THE K COFFEE TEA - THU DUC/9.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/THE K COFFEE TEA - THU DUC/10.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Ngoc Be Cake - Go Vap/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Ngoc Be Cake - Go Vap/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Ngoc Be Cake - Go Vap/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Ngoc Be Cake - Go Vap/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Ngoc Be Cake - Go Vap/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Ngoc Be Cake - Go Vap/5.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Ngoc Be Cake - Go Vap/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Ngoc Be Cake - Go Vap/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Ngoc Be Cake - Go Vap/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Ngoc Be Cake - Go Vap/9.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/B COFFEE - HCM/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/B COFFEE - HCM/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/B COFFEE - HCM/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/B COFFEE - HCM/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/B COFFEE - HCM/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/B COFFEE - HCM/5.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/B COFFEE - HCM/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/B COFFEE - HCM/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/B COFFEE - HCM/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/B COFFEE - HCM/9.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/B COFFEE - HCM/10.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/0.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/0.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/5.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/9.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/10.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/11.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/12.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/13.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/14.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/15.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/19.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/20.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/Bamboo panel - Go Vap/21.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/1.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/2.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/3.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/4.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/5.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/6.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/7.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/8.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/9.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/10.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/11.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/12.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/13.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/14.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/15.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/16.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/PERSEFONI OFFICE- QUAN 3/17.png"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/VAN PHONG 89 - HO BA KIEN/view 01.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/VAN PHONG 89 - HO BA KIEN/view 01.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/VAN PHONG 89 - HO BA KIEN/view 02.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/VAN PHONG 89 - HO BA KIEN/view 03.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/VAN PHONG 89 - HO BA KIEN/view 04.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/VAN PHONG 89 - HO BA KIEN/view 05.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/WEPLOY OFFICE - Quan 1/VIEW 01.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/WEPLOY OFFICE - Quan 1/VIEW 01.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/WEPLOY OFFICE - Quan 1/VIEW 02.jpg"
+    },
+    {
+      "file": "../../src/services/additionalProjectData.ts",
+      "path": "/assets/house-business/WEPLOY OFFICE - Quan 1/VIEW 03.jpg"
+    },
+    {
+      "file": "../../src/services/blogDetailService.ts",
+      "path": "/assets/blog/12 xu hướng/Picture1.png"
+    },
+    {
+      "file": "../../src/services/blogDetailService.ts",
+      "path": "/assets/blog/21+ mẫu/Picture1.png"
+    },
+    {
+      "file": "../../src/services/blogDetailService.ts",
+      "path": "/assets/blog/4-tips-tao-diem-nhan-bep-sang-trong/Picture1.png"
+    },
+    {
+      "file": "../../src/services/blogDetailService.ts",
+      "path": "/assets/blog/6+ tip/Picture1.png"
+    },
+    {
+      "file": "../../src/services/blogDetailService.ts",
+      "path": "/assets/blog/khám phá/Picture1.png"
+    },
+    {
+      "file": "../../src/services/blogDetailService.ts",
+      "path": "/assets/blog/nhà đẹp/Picture1.png"
+    },
+    {
+      "file": "../../src/services/blogDetailService.ts",
+      "path": "/assets/blog/phối màu/Picture1.png"
+    },
+    {
+      "file": "../../src/services/blogDetailService.ts",
+      "path": "/assets/blog/top 7/Picture1.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "path": "../assets/images/diary-image-1.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "path": "../assets/images/diary-image-2.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "path": "../assets/images/diary-image-3.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "path": "../assets/images/diary-image-4.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "path": "../assets/images/thumb-intro.png"
+    },
+    {
+      "file": "../../src/services/capabilitiesService.ts",
+      "path": "../assets/images/profilepage/image.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "path": "../assets/images/profilepage/Rectangle 44.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "path": "../assets/images/profilepage/Rectangle 43.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "path": "../assets/images/profilepage/Rectangle 46.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "path": "../assets/images/profilepage/Rectangle 45.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "path": "../assets/images/profilepage/Rectangle 51.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "path": "../assets/images/profilepage/Rectangle 47.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "path": "../assets/images/profilepage/Rectangle 50.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "path": "../assets/images/profilepage/Rectangle 49.png"
+    },
+    {
+      "file": "../../src/services/constructionProcessService.ts",
+      "path": "../assets/images/profilepage/Rectangle 52.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/icons/experience-icon.svg"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/icons/customer-icon.svg"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/icons/design-icon.svg"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/icons/building-icon.svg"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/icons/design-icon.svg"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/icons/building-icon.svg"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/icons/work-process-flow-diagram-1.svg"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/icons/work-process-flow-diagram-2.svg"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/homepage/hero1.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/homepage/hero2.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/homepage/hero3.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/homepage/hero4.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/homepage/projectdiary1.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/homepage/projectdiary2.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/homepage/projectdiary3.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/homepage/projectdiary4.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/homepage/projectdiary5.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/homepage/projectdiary6.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/homepage/projectdiary7.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/homepage/projectdiary8.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/thumb-intro.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/diary-image-1.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/diary-image-2.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/diary-image-3.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/homepage/solution1.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/homepage/solution2.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/homepage/solution3.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/homepage/solution4.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/diary-image-1.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/diary-image-2.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/diary-image-3.png"
+    },
+    {
+      "file": "../../src/services/homePageService.ts",
+      "path": "../assets/images/diary-image-4.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/intropage/hero.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/intropage/mission.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/PG NHÂN SỰ/PHAN TÔ THƯ - GIÁM ĐỐC.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/PG NHÂN SỰ/VÕ NGUYÊN PHÁP - GIÁM ĐỐC THI CÔNG.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/PG NHÂN SỰ/ĐỖ TUYẾT QUY - TRƯỞNG PHÒNG MARKETING.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/PG NHÂN SỰ/Y NHẬT MINH - TRƯỞNG PHÒNG KINH DOANH.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/PG NHÂN SỰ/CÁP NGUYỄN HỒNG PHÚC - KINH DOANH.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/PG NHÂN SỰ/ĐẶNG HỒNG SƠN - KỸ SƯ XÂY DỰNG.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/PG NHÂN SỰ/DIỆP GIA HY - KINH DOANH.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/PG NHÂN SỰ/LÊ ĐÌNH THIÊN - KIẾN TRÚC SƯ.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/PG NHÂN SỰ/LÊ DUY HUY - KĨ SƯ XÂY DỰNG.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/PG NHÂN SỰ/LÊ THỊ NGỌC DIỄM - THIẾT KẾ NỘI THẤT.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/PG NHÂN SỰ/NGUYỄN HOÀNG BẢO - KĨ SƯ XÂY.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/PG NHÂN SỰ/NGUYỄN THÀNH THẠO - KỸ SƯ MEP.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/PG NHÂN SỰ/NGUYỄN THỊ THU THẢO - KẾ TOÁN HÀNH CHÍNH.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/PG NHÂN SỰ/PHAN NHẬT HÀ - THIẾT KẾ NỘI THẤT.png"
+    },
+    {
+      "file": "../../src/services/introPageService.ts",
+      "path": "../assets/images/PG NHÂN SỰ/NGUYỄN THỊ THU HUYỀN - MARKETING.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/1.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/2.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/3.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/4.1.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/4.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/5.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/6.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/7.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/8.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/9.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/10.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/11.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/12.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/13.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/14.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/15.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/16.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/17.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/18.png"
+    },
+    {
+      "file": "../../src/services/profilePageService.ts",
+      "path": "../assets/images/profilepage/19.png"
+    },
+    {
+      "file": "../../src/services/projectCategoryService.ts",
+      "path": "../assets/images/projectpage/house-normal.png"
+    },
+    {
+      "file": "../../src/services/projectCategoryService.ts",
+      "path": "../assets/images/projectpage/appartment.png"
+    },
+    {
+      "file": "../../src/services/projectCategoryService.ts",
+      "path": "../assets/images/projectpage/house-business.png"
+    },
+    {
+      "file": "../../src/services/projectCategoryService.ts",
+      "path": "../assets/images/projectpage/village.png"
+    },
+    {
+      "file": "../../src/services/projectCategoryService.ts",
+      "path": "/assets/images/default-hero.png"
+    },
+    {
+      "file": "../../src/services/projectDetailService.ts",
+      "path": "/assets/images/diary-image-1.png"
+    },
+    {
+      "file": "../../src/services/projectDetailService.ts",
+      "path": "/assets/images/diary-image-1.png"
+    },
+    {
+      "file": "../../src/services/projectDetailService.ts",
+      "path": "/assets/images/diary-image-2.png"
+    },
+    {
+      "file": "../../src/services/projectDetailService.ts",
+      "path": "/assets/images/diary-image-3.png"
+    },
+    {
+      "file": "../../src/services/projectDetailService.ts",
+      "path": "/assets/images/diary-image-4.png"
+    },
+    {
+      "file": "../../src/services/projectDetailService.ts",
+      "path": "/assets/images/diary-image-1.png"
+    },
+    {
+      "file": "../../src/services/projectDetailService.ts",
+      "path": "/assets/images/diary-image-2.png"
+    },
+    {
+      "file": "../../src/services/projectDetailService.ts",
+      "path": "/assets/images/diary-image-3.png"
+    },
+    {
+      "file": "../../src/services/projectDetailService.ts",
+      "path": "/assets/images/diary-image-4.png"
+    },
+    {
+      "file": "../../src/services/servicePageService.ts",
+      "path": "../assets/images/servicepage/service-hero.png"
+    },
+    {
+      "file": "../../src/services/servicePageService.ts",
+      "path": "../assets/images/servicepage/service1.png"
+    },
+    {
+      "file": "../../src/services/servicePageService.ts",
+      "path": "../assets/images/servicepage/service2.png"
+    },
+    {
+      "file": "../../src/services/servicePageService.ts",
+      "path": "../assets/images/servicepage/service3.png"
+    },
+    {
+      "file": "../../src/services/servicePageService.ts",
+      "path": "../assets/images/servicepage/service4.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "path": "../assets/images/profilepage/Rectangle 54.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "path": "../assets/images/profilepage/Rectangle 53.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "path": "../assets/images/profilepage/Rectangle 55.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "path": "../assets/images/profilepage/Rectangle 57.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "path": "../assets/images/profilepage/Rectangle 56.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "path": "../assets/images/profilepage/Rectangle 58.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "path": "../assets/images/profilepage/Rectangle 59.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "path": "../assets/images/profilepage/Rectangle 61.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "path": "../assets/images/profilepage/Rectangle 60.png"
+    },
+    {
+      "file": "../../src/services/technicalAdvantagesService.ts",
+      "path": "../assets/images/profilepage/Rectangle 62.png"
+    }
+  ],
+  "base64": [
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "base64": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBo..."
+    }
+  ],
+  "urls": [
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "url": "https://image1.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "url": "https://image2.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "url": "https://image1.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "url": "https://image2.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "url": "https://image3.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "url": "https://news1.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "url": "https://news2.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "url": "https://tip1.png"
+    },
+    {
+      "file": "../../src/services/blogPageService.ts",
+      "url": "https://tip2.png"
+    }
+  ]
+}

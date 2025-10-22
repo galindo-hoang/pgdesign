@@ -6,26 +6,26 @@ import {
 } from "../types/profilePageTypes";
 
 // Import placeholder images for fallback
-import architecturalImage1 from "../assets/images/profilepage/1.png";
-import architecturalImage2 from "../assets/images/profilepage/2.png";
-import architecturalImage3 from "../assets/images/profilepage/3.png";
-import architecturalImage4 from "../assets/images/profilepage/4.1.png";
-import architecturalImage5 from "../assets/images/profilepage/4.png";
-import architecturalImage6 from "../assets/images/profilepage/5.png";
-import architecturalImage7 from "../assets/images/profilepage/6.png";
-import architecturalImage8 from "../assets/images/profilepage/7.png";
-import architecturalImage9 from "../assets/images/profilepage/8.png";
-import architecturalImage10 from "../assets/images/profilepage/9.png";
-import architecturalImage11 from "../assets/images/profilepage/10.png";
-import architecturalImage12 from "../assets/images/profilepage/11.png";
-import architecturalImage13 from "../assets/images/profilepage/12.png";
-import architecturalImage14 from "../assets/images/profilepage/13.png";
-import architecturalImage15 from "../assets/images/profilepage/14.png";
-import architecturalImage16 from "../assets/images/profilepage/15.png";
-import architecturalImage17 from "../assets/images/profilepage/16.png";
-import architecturalImage18 from "../assets/images/profilepage/17.png";
-import architecturalImage19 from "../assets/images/profilepage/18.png";
-import architecturalImage20 from "../assets/images/profilepage/19.png";
+const architecturalImage1 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/1.png';;
+const architecturalImage2 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/2.png';;
+const architecturalImage3 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/3.png';;
+const architecturalImage4 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/4.1.png';;
+const architecturalImage5 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/4.png';;
+const architecturalImage6 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/5.png';;
+const architecturalImage7 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/6.png';;
+const architecturalImage8 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/7.png';;
+const architecturalImage9 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/8.png';;
+const architecturalImage10 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/9.png';;
+const architecturalImage11 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/10.png';;
+const architecturalImage12 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/11.png';;
+const architecturalImage13 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/12.png';;
+const architecturalImage14 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/13.png';;
+const architecturalImage15 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/14.png';;
+const architecturalImage16 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/15.png';;
+const architecturalImage17 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/16.png';;
+const architecturalImage18 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/17.png';;
+const architecturalImage19 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/18.png';;
+const architecturalImage20 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/profilepage/19.png';;
 
 // API Base URL - update this to match your backend
 const API_BASE_URL =

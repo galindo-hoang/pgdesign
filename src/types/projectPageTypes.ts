@@ -11,6 +11,7 @@ export interface AboutProjectData {
   title: string;
   subtitle: string;
   backgroundImageBlob: string | null;
+  backgroundImageUrl: string | null;
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;

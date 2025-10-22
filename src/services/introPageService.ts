@@ -6,23 +6,23 @@ import {
   TeamData,
   ApiResponse,
 } from "../types/introPageTypes";
-import hero from "../assets/images/intropage/hero.png";
-import mission from "../assets/images/intropage/mission.png";
-import CEOImage from "../assets/images/PG NHÂN SỰ/PHAN TÔ THƯ - GIÁM ĐỐC.png";
-import CEOImage2 from "../assets/images/PG NHÂN SỰ/VÕ NGUYÊN PHÁP - GIÁM ĐỐC THI CÔNG.png";
-import employeeImage2 from "../assets/images/PG NHÂN SỰ/ĐỖ TUYẾT QUY - TRƯỞNG PHÒNG MARKETING.png";
-import employeeImage3 from "../assets/images/PG NHÂN SỰ/Y NHẬT MINH - TRƯỞNG PHÒNG KINH DOANH.png";
-import employeeImage4 from "../assets/images/PG NHÂN SỰ/CÁP NGUYỄN HỒNG PHÚC - KINH DOANH.png";
-import employeeImage5 from "../assets/images/PG NHÂN SỰ/ĐẶNG HỒNG SƠN - KỸ SƯ XÂY DỰNG.png";
-import employeeImage6 from "../assets/images/PG NHÂN SỰ/DIỆP GIA HY - KINH DOANH.png";
-import employeeImage7 from "../assets/images/PG NHÂN SỰ/LÊ ĐÌNH THIÊN - KIẾN TRÚC SƯ.png";
-import employeeImage8 from "../assets/images/PG NHÂN SỰ/LÊ DUY HUY - KĨ SƯ XÂY DỰNG.png";
-import employeeImage9 from "../assets/images/PG NHÂN SỰ/LÊ THỊ NGỌC DIỄM - THIẾT KẾ NỘI THẤT.png";
-import employeeImage10 from "../assets/images/PG NHÂN SỰ/NGUYỄN HOÀNG BẢO - KĨ SƯ XÂY.png";
-import employeeImage11 from "../assets/images/PG NHÂN SỰ/NGUYỄN THÀNH THẠO - KỸ SƯ MEP.png";
-import employeeImage12 from "../assets/images/PG NHÂN SỰ/NGUYỄN THỊ THU THẢO - KẾ TOÁN HÀNH CHÍNH.png";
-import employeeImage13 from "../assets/images/PG NHÂN SỰ/PHAN NHẬT HÀ - THIẾT KẾ NỘI THẤT.png";
-import employeeImage14 from "../assets/images/PG NHÂN SỰ/NGUYỄN THỊ THU HUYỀN - MARKETING.png";
+const hero = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/intropage/pg-employee/hero.png';;
+const mission = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/intropage/pg-employee/mission.png';;
+const CEOImage = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/PHAN TÔ THƯ - GIÁM ĐỐC.png';;
+const CEOImage2 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/VÕ NGUYÊN PHÁP - GIÁM ĐỐC THI CÔNG.png';;
+const employeeImage2 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/ĐỖ TUYẾT QUY - TRƯỞNG PHÒNG MARKETING.png';;
+const employeeImage3 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/Y NHẬT MINH - TRƯỞNG PHÒNG KINH DOANH.png';;
+const employeeImage4 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/CÁP NGUYỄN HỒNG PHÚC - KINH DOANH.png';;
+const employeeImage5 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/ĐẶNG HỒNG SƠN - KỸ SƯ XÂY DỰNG.png';;
+const employeeImage6 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/DIỆP GIA HY - KINH DOANH.png';;
+const employeeImage7 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/LÊ ĐÌNH THIÊN - KIẾN TRÚC SƯ.png';;
+const employeeImage8 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/LÊ DUY HUY - KĨ SƯ XÂY DỰNG.png';;
+const employeeImage9 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/LÊ THỊ NGỌC DIỄM - THIẾT KẾ NỘI THẤT.png';;
+const employeeImage10 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/NGUYỄN HOÀNG BẢO - KĨ SƯ XÂY.png';;
+const employeeImage11 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/NGUYỄN THÀNH THẠO - KỸ SƯ MEP.png';;
+const employeeImage12 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/NGUYỄN THỊ THU THẢO - KẾ TOÁN HÀNH CHÍNH.png';;
+const employeeImage13 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/PHAN NHẬT HÀ - THIẾT KẾ NỘI THẤT.png';;
+const employeeImage14 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/NGUYỄN THỊ THU HUYỀN - MARKETING.png';;
 
 // API Configuration
 const API_BASE_URL =

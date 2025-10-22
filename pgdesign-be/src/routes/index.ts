@@ -9,11 +9,15 @@ import blogpageRoutes from "./blogpage";
 import projectsubcategoriesRoutes from "./projectsubcategories";
 import uploadRoutes from "./upload";
 import profileRoutes from "./profile";
+import { ProjectPageController } from "../controllers/ProjectPageController";
 
 const router: Router = Router();
 
 // API version
 const API_VERSION = "v1";
+
+// Initialize controller
+const projectPageController = new ProjectPageController();
 
 // Homepage routes
 router.use(`/${API_VERSION}/homepage`, homepageRoutes);
@@ -44,6 +48,9 @@ router.use(`/${API_VERSION}/upload`, uploadRoutes);
 
 // Profile page routes
 router.use(`/${API_VERSION}/profile`, profileRoutes);
+
+// About project route (standalone)
+router.get(`/${API_VERSION}/about-project`, projectPageController.getAboutProjectData);
 
 // Health check
 router.get("/health", (req, res) => {

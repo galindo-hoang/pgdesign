@@ -14,11 +14,11 @@ import {
 } from '../types/blogPageTypes';
 
 // Import sample images
-import sampleImage1 from "../assets/images/diary-image-1.png";
-import sampleImage2 from "../assets/images/diary-image-2.png";
-import sampleImage3 from "../assets/images/diary-image-3.png";
-import sampleImage4 from "../assets/images/diary-image-4.png";
-import consultationImage from "../assets/images/thumb-intro.png";
+const sampleImage1 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-1.png';;
+const sampleImage2 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-2.png';;
+const sampleImage3 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-3.png';;
+const sampleImage4 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-4.png';;
+const consultationImage = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/thumb-intro.png';;
 
 // API Configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
