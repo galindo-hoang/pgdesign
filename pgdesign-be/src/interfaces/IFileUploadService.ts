@@ -72,9 +72,9 @@ export interface IFileUploadService {
    * Process image (resize, optimize, convert format)
    * @param buffer - Image buffer
    * @param mimeType - Original mime type
-   * @returns Processed image buffer
+   * @returns Processed image buffer and content type
    */
-  processImage(buffer: Buffer, mimeType: string): Promise<Buffer>;
+  processImage(buffer: Buffer, mimeType: string): Promise<{buffer: Buffer, contentType: string}>;
 
   /**
    * Generate thumbnail from image buffer

@@ -54,7 +54,8 @@ export interface ProjectCategory {
   categoryId: string;
   title: string;
   projectCount: number;
-  backgroundImageBlob: string | null; // Base64 encoded image data
+  backgroundImageBlob?: string | null; // Deprecated: Base64 encoded image data
+  backgroundImageUrl?: string | null; // S3 URL for background image
   navigationPath: string;
   displayOrder: number;
 }

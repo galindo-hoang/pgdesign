@@ -82,10 +82,13 @@ export class AWSS3FileUploadService implements IFileUploadService {
 
     try {
       let processedBuffer = file.buffer;
+      let actualContentType = file.mimetype;
 
       // Process image if it's not SVG
       if (file.mimetype !== 'image/svg+xml') {
-        processedBuffer = await this.processImage(file.buffer, file.mimetype);
+        const processed = await this.processImage(file.buffer, file.mimetype);
+        processedBuffer = processed.buffer;
+        actualContentType = processed.contentType;
       }
 
       // Upload to AWS S3 (uncomment when AWS SDK is installed)
@@ -94,7 +97,7 @@ export class AWSS3FileUploadService implements IFileUploadService {
         Bucket: this.config.bucketName,
         Key: objectName,
         Body: processedBuffer,
-        ContentType: file.mimetype,
+        ContentType: actualContentType,
         CacheControl: 'max-age=31536000', // 1 year
         ACL: 'public-read', // Make file publicly accessible
       });
@@ -110,33 +113,45 @@ export class AWSS3FileUploadService implements IFileUploadService {
     }
   }
 
-  async processImage(buffer: Buffer, mimeType: string): Promise<Buffer> {
+  async processImage(buffer: Buffer, mimeType: string): Promise<{buffer: Buffer, contentType: string}> {
     try {
       const sharpInstance = sharp(buffer);
       const metadata = await sharpInstance.metadata();
 
       // Resize if image is too large
       if (metadata.width && metadata.width > 1920) {
-        return await sharpInstance
-          .resize(1920, null, {
-            withoutEnlargement: true,
-            fit: 'inside'
-          })
-          .jpeg({ quality: 85 })
-          .toBuffer();
+        return {
+          buffer: await sharpInstance
+            .resize(1920, null, {
+              withoutEnlargement: true,
+              fit: 'inside'
+            })
+            .jpeg({ quality: 85 })
+            .toBuffer(),
+          contentType: 'image/jpeg'
+        };
       }
 
       // Convert to WebP for better compression (optional)
       if (process.env.CONVERT_TO_WEBP === 'true') {
-        return await sharpInstance
-          .webp({ quality: 85 })
-          .toBuffer();
+        return {
+          buffer: await sharpInstance
+            .webp({ quality: 85 })
+            .toBuffer(),
+          contentType: 'image/webp'
+        };
       }
 
-      return buffer;
+      return {
+        buffer: buffer,
+        contentType: mimeType
+      };
     } catch (error) {
       console.error('Error processing image:', error);
-      return buffer;
+      return {
+        buffer: buffer,
+        contentType: mimeType
+      };
     }
   }
 
@@ -231,8 +246,11 @@ export class AWSS3FileUploadService implements IFileUploadService {
       let processedBuffer = file.buffer;
       
       // Process main image
+      let actualContentType = file.mimetype;
       if (file.mimetype !== 'image/svg+xml') {
-        processedBuffer = await this.processImage(file.buffer, file.mimetype);
+        const processed = await this.processImage(file.buffer, file.mimetype);
+        processedBuffer = processed.buffer;
+        actualContentType = processed.contentType;
       }
 
       // Generate thumbnail
@@ -240,7 +258,7 @@ export class AWSS3FileUploadService implements IFileUploadService {
 
       // Upload both files in parallel
       const [originalUrl, thumbnailUrl] = await Promise.all([
-        this.uploadProcessedImage(originalObjectName, processedBuffer, file.mimetype),
+        this.uploadProcessedImage(originalObjectName, processedBuffer, actualContentType),
         this.uploadProcessedImage(thumbnailObjectName, thumbnailBuffer, 'image/jpeg')
       ]);
 

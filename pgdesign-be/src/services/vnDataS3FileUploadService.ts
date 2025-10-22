@@ -64,7 +64,7 @@ export class VNDataS3FileUploadService implements IFileUploadService {
       useSSL: true,
       accessKey: this.config.accessKey!,
       secretKey: this.config.secretKey!,
-      region: this.config.region,
+      region: this.config.region || 'hcm-r2',
     });
 
     console.log(`✅ VNData S3 Service initialized: ${endpointUrl}/${this.bucketName}`);
@@ -89,15 +89,23 @@ export class VNDataS3FileUploadService implements IFileUploadService {
 
     try {
       let processedBuffer = file.buffer;
+      let actualContentType = file.mimetype;
 
       // Process image if it's not SVG
       if (file.mimetype !== 'image/svg+xml') {
-        processedBuffer = await this.processImage(file.buffer, file.mimetype);
+        const processed = await this.processImage(file.buffer, file.mimetype);
+        processedBuffer = processed.buffer;
+        actualContentType = processed.contentType;
       }
 
-      // Upload to VNData S3
+      console.log(`📤 Uploading: ${fileName}`);
+      console.log(`   Original Content-Type: ${file.mimetype}`);
+      console.log(`   Actual Content-Type: ${actualContentType}`);
+      console.log(`   Match: ${file.mimetype === actualContentType ? '✅' : '❌'}`);
+
+      // Upload to VNData S3 with CORRECT Content-Type
       await this.s3Client.putObject(this.bucketName, objectName, processedBuffer, {
-        'Content-Type': file.mimetype,
+        'Content-Type': actualContentType,
         'Cache-Control': 'max-age=31536000',
       });
 
@@ -109,33 +117,64 @@ export class VNDataS3FileUploadService implements IFileUploadService {
     }
   }
 
-  async processImage(buffer: Buffer, mimeType: string): Promise<Buffer> {
+  async processImage(buffer: Buffer, mimeType: string): Promise<{buffer: Buffer, contentType: string}> {
     try {
       const sharpInstance = sharp(buffer);
       const metadata = await sharpInstance.metadata();
 
-      // Resize if image is too large
+      // Resize if image is too large (but keep original format)
       if (metadata.width && metadata.width > 1920) {
-        return await sharpInstance
-          .resize(1920, null, {
-            withoutEnlargement: true,
-            fit: 'inside'
-          })
-          .jpeg({ quality: 85 })
-          .toBuffer();
+        console.log(`🔄 Resizing image from ${metadata.width}px to 1920px (keeping ${mimeType} format)`);
+        
+        // Resize based on original format
+        let resized = sharpInstance.resize(1920, null, {
+          withoutEnlargement: true,
+          fit: 'inside'
+        });
+
+        // Keep original format WITHOUT compression
+        switch (mimeType) {
+          case 'image/jpeg':
+          case 'image/jpg':
+            return {
+              buffer: await resized.jpeg({ quality: 100 }).toBuffer(),
+              contentType: 'image/jpeg'
+            };
+          case 'image/png':
+            return {
+              buffer: await resized.png({ compressionLevel: 0 }).toBuffer(),
+              contentType: 'image/png'
+            };
+          case 'image/webp':
+            return {
+              buffer: await resized.webp({ quality: 100 }).toBuffer(),
+              contentType: 'image/webp'
+            };
+          case 'image/gif':
+            return {
+              buffer: await resized.toBuffer(),
+              contentType: 'image/gif'
+            };
+          default:
+            return {
+              buffer: await resized.toBuffer(),
+              contentType: mimeType
+            };
+        }
       }
 
-      // Convert to WebP for better compression (optional)
-      if (process.env.CONVERT_TO_WEBP === 'true') {
-        return await sharpInstance
-          .webp({ quality: 85 })
-          .toBuffer();
-      }
-
-      return buffer;
+      // No resize needed, return original buffer
+      console.log(`✅ Image size OK (${metadata.width}px), keeping original format: ${mimeType}`);
+      return {
+        buffer: buffer,
+        contentType: mimeType
+      };
     } catch (error) {
       console.error('Error processing image:', error);
-      return buffer;
+      return {
+        buffer: buffer,
+        contentType: mimeType
+      };
     }
   }
 
@@ -219,8 +258,11 @@ export class VNDataS3FileUploadService implements IFileUploadService {
       let processedBuffer = file.buffer;
       
       // Process main image
+      let actualContentType = file.mimetype;
       if (file.mimetype !== 'image/svg+xml') {
-        processedBuffer = await this.processImage(file.buffer, file.mimetype);
+        const processed = await this.processImage(file.buffer, file.mimetype);
+        processedBuffer = processed.buffer;
+        actualContentType = processed.contentType;
       }
 
       // Generate thumbnail
@@ -228,7 +270,7 @@ export class VNDataS3FileUploadService implements IFileUploadService {
 
       // Upload both files in parallel
       const [originalUrl, thumbnailUrl] = await Promise.all([
-        this.uploadProcessedImage(originalObjectName, processedBuffer, file.mimetype),
+        this.uploadProcessedImage(originalObjectName, processedBuffer, actualContentType),
         this.uploadProcessedImage(thumbnailObjectName, thumbnailBuffer, 'image/jpeg')
       ]);
 

@@ -248,18 +248,24 @@ export class ProjectDetailModel extends BaseModel {
 
     try {
       if (row.project_images) {
-        // Try to parse as JSON first
-        try {
-          projectImages = JSON.parse(row.project_images);
-        } catch (jsonError) {
-          // If JSON parsing fails, treat as single base64 string and wrap in array
-          if (typeof row.project_images === 'string' && row.project_images.startsWith('data:image/')) {
-            projectImages = [row.project_images];
-            console.log("Converted single base64 string to array for project_images");
-          } else {
-            console.error("Error parsing project_images:", jsonError);
-            projectImages = undefined;
+        // MySQL driver auto-parses JSON columns, check if already parsed
+        if (Array.isArray(row.project_images)) {
+          projectImages = row.project_images;
+        } else if (typeof row.project_images === 'string') {
+          // Try to parse as JSON if it's a string
+          try {
+            projectImages = JSON.parse(row.project_images);
+          } catch (jsonError) {
+            // If JSON parsing fails, treat as single URL/base64 string and wrap in array
+            if (row.project_images.startsWith('data:image/') || row.project_images.startsWith('http')) {
+              projectImages = [row.project_images];
+            } else {
+              console.error("Error parsing project_images:", jsonError);
+              projectImages = undefined;
+            }
           }
+        } else {
+          projectImages = undefined;
         }
       } else {
         projectImages = undefined;
@@ -274,15 +280,22 @@ export class ProjectDetailModel extends BaseModel {
       // Prioritize new URLs field, fall back to old field
       const urlsField = (row as any).project_images_urls || row.project_images;
       if (urlsField) {
-        try {
-          projectImagesBlob = JSON.parse(urlsField);
-        } catch (jsonError) {
-          // If JSON parsing fails, wrap single URL in array
-          if (typeof urlsField === 'string' && urlsField.startsWith('http')) {
-            projectImagesBlob = [urlsField];
-          } else {
-            projectImagesBlob = undefined;
+        // MySQL driver auto-parses JSON columns, check if already parsed
+        if (Array.isArray(urlsField)) {
+          projectImagesBlob = urlsField;
+        } else if (typeof urlsField === 'string') {
+          try {
+            projectImagesBlob = JSON.parse(urlsField);
+          } catch (jsonError) {
+            // If JSON parsing fails, wrap single URL in array
+            if (urlsField.startsWith('http')) {
+              projectImagesBlob = [urlsField];
+            } else {
+              projectImagesBlob = undefined;
+            }
           }
+        } else {
+          projectImagesBlob = undefined;
         }
       } else {
         projectImagesBlob = undefined;
@@ -319,7 +332,8 @@ export class ProjectDetailModel extends BaseModel {
 
     // Use S3 URLs instead of base64 data
     const thumbnailImageFinal = row.thumbnail_image_url || row.thumbnail_image || undefined;
-    const projectImagesFinal = projectImages; // Already contains URLs
+    // Prioritize project_images_urls (new S3 URLs), fall back to project_images (old localhost URLs)
+    const projectImagesFinal = projectImagesBlob || projectImages;
 
     return {
       id: row.id,
@@ -337,7 +351,7 @@ export class ProjectDetailModel extends BaseModel {
       thumbnailImageUrl: row.thumbnail_image_url || undefined,
       htmlContent: row.html_content,
       projectImages: projectImagesFinal,
-      projectImagesUrls: projectImages, // New URL field
+      projectImagesUrls: projectImagesFinal, // Same as projectImages for backward compatibility
       projectStatus: row.project_status || undefined, // Now includes budget information
       completionDate: row.completion_date || undefined,
       architectName: row.architect_name || undefined,
@@ -441,7 +455,7 @@ export class ProjectDetailModel extends BaseModel {
 
     if (!row) return null;
 
-    return this.transformRowToData(row);
+    return this.transformRowToDataWithImages(row);
   }
 
   async findByProjectId(projectId: string): Promise<ProjectDetailData | null> {
@@ -488,10 +502,37 @@ export class ProjectDetailModel extends BaseModel {
     const images = await ProjectImageBlobDetailModel.getImagesByProjectDetailId(row.id);
     
     // Convert images to array format - treating imageBlob as URL now
-    const projectImagesUrls = images
+    let projectImagesFromTable = images
       .filter(img => img.imageType === 'project')
       .sort((a, b) => a.displayOrder - b.displayOrder)
       .map(img => img.imageBlob); // This field will contain URLs instead of base64
+    
+    // Fallback to project_images_urls or project_images from main table if separate table is empty
+    let projectImagesFinal = projectImagesFromTable;
+    if (projectImagesFromTable.length === 0) {
+      const urlsField = (row as any).project_images_urls || row.project_images;
+      if (urlsField) {
+        if (Array.isArray(urlsField)) {
+          projectImagesFinal = urlsField;
+        } else if (typeof urlsField === 'string') {
+          try {
+            projectImagesFinal = JSON.parse(urlsField);
+          } catch (e) {
+            projectImagesFinal = [];
+          }
+        }
+      }
+      // Prioritize project_images_urls over project_images
+      if ((row as any).project_images_urls && Array.isArray((row as any).project_images_urls)) {
+        projectImagesFinal = (row as any).project_images_urls;
+      } else if ((row as any).project_images_urls && typeof (row as any).project_images_urls === 'string') {
+        try {
+          projectImagesFinal = JSON.parse((row as any).project_images_urls);
+        } catch (e) {
+          // Keep fallback value
+        }
+      }
+    }
     
     // Create clean data object
     return {
@@ -509,8 +550,8 @@ export class ProjectDetailModel extends BaseModel {
       thumbnailImage: row.thumbnail_image_url || row.thumbnail_image || undefined,
       thumbnailImageUrl: row.thumbnail_image_url || undefined,
       htmlContent: row.html_content,
-      projectImages: projectImagesUrls, // Use URLs from separate table
-      projectImagesUrls: projectImagesUrls.length > 0 ? projectImagesUrls : undefined,
+      projectImages: projectImagesFinal, // Use URLs from separate table or main table
+      projectImagesUrls: projectImagesFinal.length > 0 ? projectImagesFinal : undefined,
       projectStatus: row.project_status || undefined,
       completionDate: row.completion_date || undefined,
       architectName: row.architect_name || undefined,

@@ -55,15 +55,18 @@ export class MinIOFileUploadService implements IFileUploadService {
 
     try {
       let processedBuffer = file.buffer;
+      let actualContentType = file.mimetype;
 
       // Process image if it's not SVG
       if (file.mimetype !== 'image/svg+xml') {
-        processedBuffer = await this.processImage(file.buffer, file.mimetype);
+        const processed = await this.processImage(file.buffer, file.mimetype);
+        processedBuffer = processed.buffer;
+        actualContentType = processed.contentType;
       }
 
       // Upload to MinIO
       await minioClient.putObject(bucketName, objectName, processedBuffer, {
-        'Content-Type': file.mimetype,
+        'Content-Type': actualContentType,
         'Cache-Control': 'max-age=31536000' // 1 year
       });
 
@@ -75,33 +78,45 @@ export class MinIOFileUploadService implements IFileUploadService {
     }
   }
 
-  async processImage(buffer: Buffer, mimeType: string): Promise<Buffer> {
+  async processImage(buffer: Buffer, mimeType: string): Promise<{buffer: Buffer, contentType: string}> {
     try {
       const sharpInstance = sharp(buffer);
       const metadata = await sharpInstance.metadata();
 
       // Resize if image is too large
       if (metadata.width && metadata.width > 1920) {
-        return await sharpInstance
-          .resize(1920, null, {
-            withoutEnlargement: true,
-            fit: 'inside'
-          })
-          .jpeg({ quality: 85 })
-          .toBuffer();
+        return {
+          buffer: await sharpInstance
+            .resize(1920, null, {
+              withoutEnlargement: true,
+              fit: 'inside'
+            })
+            .jpeg({ quality: 85 })
+            .toBuffer(),
+          contentType: 'image/jpeg'
+        };
       }
 
       // Convert to WebP for better compression (optional)
       if (process.env.CONVERT_TO_WEBP === 'true') {
-        return await sharpInstance
-          .webp({ quality: 85 })
-          .toBuffer();
+        return {
+          buffer: await sharpInstance
+            .webp({ quality: 85 })
+            .toBuffer(),
+          contentType: 'image/webp'
+        };
       }
 
-      return buffer;
+      return {
+        buffer: buffer,
+        contentType: mimeType
+      };
     } catch (error) {
       console.error('Error processing image:', error);
-      return buffer; // Return original buffer if processing fails
+      return {
+        buffer: buffer,
+        contentType: mimeType
+      };
     }
   }
 

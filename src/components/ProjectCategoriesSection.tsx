@@ -7,7 +7,8 @@ interface ProjectCategory {
   categoryId: string;
   title: string;
   projectCount: number;
-  backgroundImageBlob: string | null;
+  backgroundImageBlob?: string | null; // Deprecated
+  backgroundImageUrl: string | null; // S3 URL
   navigationPath: string;
   displayOrder: number;
 }
@@ -90,7 +91,8 @@ const ProjectCategoriesSection: React.FC<ProjectCategoriesSectionProps> = ({
 
         <div className="categories-grid">
           {categories.map((category) => {
-            const processedImage = processImageData(category.backgroundImageBlob);
+            // Prioritize backgroundImageUrl (S3) over backgroundImageBlob (deprecated)
+            const imageUrl = category.backgroundImageUrl || processImageData(category.backgroundImageBlob || null);
             return (
             <div
               key={category.categoryId}
@@ -100,10 +102,10 @@ const ProjectCategoriesSection: React.FC<ProjectCategoriesSectionProps> = ({
             <div 
               className="category-background"
               style={{ 
-                backgroundImage: processedImage 
-                  ? `url(${processedImage})` 
+                backgroundImage: imageUrl 
+                  ? `url(${imageUrl})` 
                   : 'linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)',
-                backgroundColor: !processedImage ? '#f0f0f0' : 'transparent'
+                backgroundColor: !imageUrl ? '#f0f0f0' : 'transparent'
               }}
             />
             <div className="category-overlay"></div>

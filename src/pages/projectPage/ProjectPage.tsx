@@ -96,7 +96,8 @@ const ProjectPage: React.FC = () => {
       categoryId: category.categoryId,
       title: category.title,
       projectCount: category.projectCount,
-      backgroundImageBlob: category.backgroundImageBlob,
+      backgroundImageBlob: category.backgroundImageBlob || null,
+      backgroundImageUrl: category.backgroundImageUrl || null,
       navigationPath: category.navigationPath,
       displayOrder: category.displayOrder,
     })

@@ -166,7 +166,8 @@ const mockProjectCategories: ProjectCategory[] = [
     categoryId: "house-normal",
     title: "NHÀ PHỐ",
     projectCount: 45,
-    backgroundImageBlob: null, // Will be populated from database as base64
+    backgroundImageBlob: null, // Deprecated: Will be populated from database as base64
+    backgroundImageUrl: null, // S3 URL for background image
     navigationPath: "/projects/house-normal",
     displayOrder: 0,
   },
@@ -175,7 +176,8 @@ const mockProjectCategories: ProjectCategory[] = [
     categoryId: "appartment",
     title: "CĂN HỘ",
     projectCount: 32,
-    backgroundImageBlob: null, // Will be populated from database as base64
+    backgroundImageBlob: null, // Deprecated: Will be populated from database as base64
+    backgroundImageUrl: null, // S3 URL for background image
     navigationPath: "/projects/appartment",
     displayOrder: 1,
   },
@@ -184,7 +186,8 @@ const mockProjectCategories: ProjectCategory[] = [
     categoryId: "village",
     title: "BIỆT THỰ",
     projectCount: 28,
-    backgroundImageBlob: null, // Will be populated from database as base64
+    backgroundImageBlob: null, // Deprecated: Will be populated from database as base64
+    backgroundImageUrl: null, // S3 URL for background image
     navigationPath: "/projects/village",
     displayOrder: 2,
   },
@@ -193,7 +196,8 @@ const mockProjectCategories: ProjectCategory[] = [
     categoryId: "house-business",
     title: "THƯƠNG MẠI",
     projectCount: 50,
-    backgroundImageBlob: null, // Will be populated from database as base64
+    backgroundImageBlob: null, // Deprecated: Will be populated from database as base64
+    backgroundImageUrl: null, // S3 URL for background image
     navigationPath: "/projects/house-business",
     displayOrder: 3,
   },
