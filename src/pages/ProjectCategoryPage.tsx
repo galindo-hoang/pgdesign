@@ -169,6 +169,7 @@ const ProjectCategoryPage: React.FC<ProjectCategoryPageProps> = () => {
               id: projectDetail.projectId,
               title: projectDetail.title,
               thumbnailImage:
+                projectDetail.thumbnail || // Use 'thumbnail' field from API response
                 projectDetail.thumbnailImage ||
                 "/assets/images/default-project.png",
               clientName: projectDetail.clientName,

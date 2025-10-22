@@ -12,7 +12,8 @@ export interface ProjectDetail {
   category: string;
   projectCategoryId: number; // Direct reference to category
   style?: string;
-  thumbnailImage?: string;
+  thumbnail?: string; // Field from API response
+  thumbnailImage?: string; // Legacy field
   htmlContent: string;
   projectImages?: string[]; // Array of base64 encoded image data (BLOB storage)
   projectStatus?: string; // Now includes budget information

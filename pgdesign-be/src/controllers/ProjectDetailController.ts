@@ -481,7 +481,7 @@ export class ProjectDetailController {
       title: project.title,
       thumbnail: project.thumbnailImageUrl || project.thumbnailImage,
       area: project.area,
-      location: project.address
+      address: project.address
     }));
 
     const response: ApiResponse<any[]> = {
