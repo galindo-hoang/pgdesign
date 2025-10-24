@@ -9,7 +9,8 @@ import {
   Search,
   Edit,
   Trash2,
-  Eye
+  Eye,
+  Loader2
 } from 'lucide-react';
 import { deleteProject } from '../services/projectDetailAdminService';
 
@@ -28,6 +29,7 @@ interface ProjectDetail {
   category: string;
   projectCategoryId: number;
   style: string;
+  thumbnail?: string; // VNData S3 URL from API
   thumbnailImage?: string;
   thumbnailImageBlob?: string;
   projectImages: string[];
@@ -61,6 +63,7 @@ const ProjectDetailAdmin: React.FC = () => {
   const [projects, setProjects] = useState<ProjectDetail[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<ProjectDetail[]>([]);
   const [loading, setLoading] = useState(false);
+  const [deletingProjects, setDeletingProjects] = useState<Set<string>>(new Set());
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -192,14 +195,24 @@ const ProjectDetailAdmin: React.FC = () => {
 
   const handleDeleteProject = async (project: ProjectDetail) => {
     if (window.confirm(`Bạn có chắc chắn muốn xóa dự án "${project.title}"?`)) {
+      // Add project to deleting set
+      setDeletingProjects(prev => new Set(prev).add(project.projectId));
+      
       try {
         await deleteProject(project.projectId);
         console.log('Project deleted successfully:', project.projectId);
         // Reload projects after deletion
-        loadProjects();
+        await loadProjects();
       } catch (error) {
         console.error('Error deleting project:', error);
         alert(`Lỗi xóa dự án: ${error}`);
+      } finally {
+        // Remove project from deleting set
+        setDeletingProjects(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(project.projectId);
+          return newSet;
+        });
       }
     }
   };
@@ -216,13 +229,25 @@ const ProjectDetailAdmin: React.FC = () => {
 
   // Get thumbnail image
   const getThumbnailImage = (project: ProjectDetail) => {
-    return project.thumbnailImageBlob || project.thumbnailImage || '/default-project.png';
+    // Return a valid image URL or null to prevent infinite loops
+    if (project.thumbnailImageBlob) {
+      return project.thumbnailImageBlob;
+    }
+    if (project.thumbnailImage) {
+      return project.thumbnailImage;
+    }
+    // Check for thumbnail field from API response (VNData S3 URL)
+    if (project.thumbnail) {
+      return project.thumbnail;
+    }
+    // Use a data URL for a simple placeholder to avoid file loading issues
+    return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2Y3ZjdmNyIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+Tm8gSW1hZ2U8L3RleHQ+PC9zdmc+';
   };
 
   // Initialize component
   useEffect(() => {
     loadProjects();
-  }, [loadProjects]);
+  }, []); // Remove loadProjects dependency to prevent infinite re-render
 
   // Get pagination range
   const getPaginationRange = () => {
@@ -338,7 +363,11 @@ const ProjectDetailAdmin: React.FC = () => {
                           alt={project.title}
                           className="project-thumbnail"
                           onError={(e) => {
-                            (e.target as HTMLImageElement).src = '/default-project.png';
+                            const target = e.target as HTMLImageElement;
+                            // Only set placeholder if not already set to prevent infinite loop
+                            if (!target.src.includes('data:image/svg+xml')) {
+                              target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2Y3ZjdmNyIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+Tm8gSW1hZ2U8L3RleHQ+PC9zdmc+';
+                            }
                           }}
                         />
                       </td>
@@ -376,8 +405,13 @@ const ProjectDetailAdmin: React.FC = () => {
                             className="btn-icon btn-delete"
                             onClick={() => handleDeleteProject(project)}
                             title="Delete Project"
+                            disabled={deletingProjects.has(project.projectId)}
                           >
-                            <Trash2 size={16} />
+                            {deletingProjects.has(project.projectId) ? (
+                              <Loader2 size={16} className="animate-spin" />
+                            ) : (
+                              <Trash2 size={16} />
+                            )}
                           </button>
                         </div>
                       </td>

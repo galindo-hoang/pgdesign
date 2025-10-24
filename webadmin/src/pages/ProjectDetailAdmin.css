@@ -362,6 +362,34 @@
   color: #dc2626;
 }
 
+.btn-delete:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #f9fafb;
+  border-color: #e5e7eb;
+  color: #9ca3af;
+}
+
+.btn-delete:disabled:hover {
+  background: #f9fafb;
+  border-color: #e5e7eb;
+  color: #9ca3af;
+}
+
+/* Loading animation */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Empty State */
 .empty-state {
   text-align: center;

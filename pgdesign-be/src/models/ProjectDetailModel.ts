@@ -423,50 +423,77 @@ export class ProjectDetailModel extends BaseModel {
   // ===== MAIN CRUD METHODS =====
 
   async getAll(filters?: ProjectDetailFilters): Promise<ProjectDetailData[]> {
-    let query = db(this.tableName)
-      .select("*")
-      .where("is_active", true)
-      .orderBy("created_at", "desc");
+    const trx = await db.transaction();
+    
+    try {
+      let query = trx(this.tableName)
+        .select("*")
+        .where("is_active", true)
+        .orderBy("created_at", "desc");
 
-    if (filters) {
-      if (filters.category) {
-        query = query.where("category", filters.category);
+      if (filters) {
+        if (filters.category) {
+          query = query.where("category", filters.category);
+        }
+        if (filters.projectCategoryId) {
+          query = query.where("project_category_id", filters.projectCategoryId);
+        }
+        if (filters.projectStatus) {
+          query = query.where("project_status", filters.projectStatus);
+        }
+        if (filters.isActive !== undefined) {
+          query = query.where("is_active", filters.isActive);
+        }
       }
-      if (filters.projectCategoryId) {
-        query = query.where("project_category_id", filters.projectCategoryId);
-      }
-      if (filters.projectStatus) {
-        query = query.where("project_status", filters.projectStatus);
-      }
-      if (filters.isActive !== undefined) {
-        query = query.where("is_active", filters.isActive);
-      }
+
+      const rows: ProjectDetailRow[] = await query;
+      await trx.commit();
+      
+      return rows.map((row) => this.transformRowToData(row));
+    } catch (error) {
+      await trx.rollback();
+      throw error;
     }
-
-    const rows: ProjectDetailRow[] = await query;
-    return rows.map((row) => this.transformRowToData(row));
   }
 
   async getById(id: number): Promise<ProjectDetailData | null> {
-    const row: ProjectDetailRow = await db(this.tableName)
-      .select("*")
-      .where({ id })
-      .first();
+    const trx = await db.transaction();
+    
+    try {
+      const row: ProjectDetailRow = await trx(this.tableName)
+        .select("*")
+        .where({ id })
+        .first();
 
-    if (!row) return null;
+      await trx.commit();
 
-    return this.transformRowToDataWithImages(row);
+      if (!row) return null;
+
+      return this.transformRowToDataWithImages(row);
+    } catch (error) {
+      await trx.rollback();
+      throw error;
+    }
   }
 
   async findByProjectId(projectId: string): Promise<ProjectDetailData | null> {
-    const row: ProjectDetailRow = await db(this.tableName)
-      .select("*")
-      .where({ project_id: projectId })
-      .first();
+    const trx = await db.transaction();
+    
+    try {
+      const row: ProjectDetailRow = await trx(this.tableName)
+        .select("*")
+        .where({ project_id: projectId })
+        .first();
 
-    if (!row) return null;
+      await trx.commit();
 
-    return this.transformRowToDataWithImages(row);
+      if (!row) return null;
+
+      return this.transformRowToDataWithImages(row);
+    } catch (error) {
+      await trx.rollback();
+      throw error;
+    }
   }
 
   // Enhanced method that includes images from separate table
@@ -621,12 +648,20 @@ export class ProjectDetailModel extends BaseModel {
   }
 
   override async delete(id: number): Promise<boolean> {
-    const updated = await db(this.tableName).where({ id }).update({
-      is_active: false,
-      updated_at: new Date(),
-    });
+    const trx = await db.transaction();
+    
+    try {
+      const updated = await trx(this.tableName).where({ id }).update({
+        is_active: false,
+        updated_at: new Date(),
+      });
 
-    return updated > 0;
+      await trx.commit();
+      return updated > 0;
+    } catch (error) {
+      await trx.rollback();
+      throw error;
+    }
   }
 
   override async hardDelete(id: number): Promise<boolean> {
@@ -653,68 +688,93 @@ export class ProjectDetailModel extends BaseModel {
     total: number;
     totalPages: number;
   }> {
-    const offset = (page - 1) * limit;
+    const trx = await db.transaction();
+    
+    try {
+      const offset = (page - 1) * limit;
 
-    let query = db(this.tableName).where("is_active", true);
+      let query = trx(this.tableName).where("is_active", true);
 
-    if (filters) {
-      if (filters.category) {
-        query = query.where("category", filters.category);
+      if (filters) {
+        if (filters.category) {
+          query = query.where("category", filters.category);
+        }
+        if (filters.projectCategoryId) {
+          query = query.where("project_category_id", filters.projectCategoryId);
+        }
+        if (filters.projectStatus) {
+          query = query.where("project_status", filters.projectStatus);
+        }
+        if (filters.isActive !== undefined) {
+          query = query.where("is_active", filters.isActive);
+        }
       }
-      if (filters.projectCategoryId) {
-        query = query.where("project_category_id", filters.projectCategoryId);
-      }
-      if (filters.projectStatus) {
-        query = query.where("project_status", filters.projectStatus);
-      }
-      if (filters.isActive !== undefined) {
-        query = query.where("is_active", filters.isActive);
-      }
+
+      const [data, totalCount] = await Promise.all([
+        query
+          .clone()
+          .select("*")
+          .orderBy("created_at", "desc")
+          .limit(limit)
+          .offset(offset),
+        query.clone().count("* as count").first(),
+      ]);
+
+      await trx.commit();
+
+      const total = totalCount ? parseInt(totalCount.count as string) : 0;
+      const totalPages = Math.ceil(total / limit);
+
+      const projects = data.map((row) => this.transformRowToData(row));
+
+      return {
+        projects,
+        total,
+        totalPages,
+      };
+    } catch (error) {
+      await trx.rollback();
+      throw error;
     }
-
-    const [data, totalCount] = await Promise.all([
-      query
-        .clone()
-        .select("*")
-        .orderBy("created_at", "desc")
-        .limit(limit)
-        .offset(offset),
-      query.clone().count("* as count").first(),
-    ]);
-
-    const total = totalCount ? parseInt(totalCount.count as string) : 0;
-    const totalPages = Math.ceil(total / limit);
-
-    const projects = data.map((row) => this.transformRowToData(row));
-
-    return {
-      projects,
-      total,
-      totalPages,
-    };
   }
 
   async getCategories(): Promise<string[]> {
-    const result = await db(this.tableName)
-      .distinct("category")
-      .where("is_active", true)
-      .orderBy("category");
+    const trx = await db.transaction();
+    
+    try {
+      const result = await trx(this.tableName)
+        .distinct("category")
+        .where("is_active", true)
+        .orderBy("category");
 
-    return result.map((row) => row.category);
+      await trx.commit();
+      return result.map((row) => row.category);
+    } catch (error) {
+      await trx.rollback();
+      throw error;
+    }
   }
 
   async getCategoryCounts(): Promise<any[]> {
-    const result = await db(this.tableName)
-      .select("category")
-      .count("* as count")
-      .where("is_active", true)
-      .groupBy("category")
-      .orderBy("category");
+    const trx = await db.transaction();
+    
+    try {
+      const result = await trx(this.tableName)
+        .select("category")
+        .count("* as count")
+        .where("is_active", true)
+        .groupBy("category")
+        .orderBy("category");
 
-    return result.map((row) => ({
-      category: row.category,
-      count: Number(row.count),
-    }));
+      await trx.commit();
+      return result.map((row) => ({
+        category: row.category,
+        count: Number(row.count),
+      }));
+    } catch (error) {
+      await trx.rollback();
+      throw error;
+    }
   }
 }
 

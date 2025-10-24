@@ -10,6 +10,7 @@ import projectsubcategoriesRoutes from "./projectsubcategories";
 import uploadRoutes from "./upload";
 import profileRoutes from "./profile";
 import { ProjectPageController } from "../controllers/ProjectPageController";
+import { healthCheck, getPoolStatus } from "../config/database";
 
 const router: Router = Router();
 
@@ -53,12 +54,43 @@ router.use(`/${API_VERSION}/profile`, profileRoutes);
 router.get(`/${API_VERSION}/about-project`, projectPageController.getAboutProjectData);
 
 // Health check
-router.get("/health", (req, res) => {
-  res.json({
-    status: "OK",
-    timestamp: new Date().toISOString(),
-    version: API_VERSION,
-  });
+router.get("/health", async (req, res) => {
+  try {
+    const dbHealth = await healthCheck();
+    const poolStatus = getPoolStatus();
+    
+    res.json({
+      status: "OK",
+      timestamp: new Date().toISOString(),
+      version: API_VERSION,
+      database: dbHealth,
+      connectionPool: poolStatus
+    });
+  } catch (error) {
+    res.status(503).json({
+      status: "ERROR",
+      timestamp: new Date().toISOString(),
+      version: API_VERSION,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// Database pool status endpoint
+router.get("/pool-status", (req, res) => {
+  try {
+    const poolStatus = getPoolStatus();
+    res.json({
+      success: true,
+      data: poolStatus,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
 });
 
 export default router;

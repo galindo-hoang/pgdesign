@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Save,
   Edit,
@@ -86,11 +86,7 @@ const ProjectAdmin: React.FC = () => {
     return imageString;
   };
 
-  useEffect(() => {
-    loadProjectData();
-  }, []);
-
-  const loadProjectData = async () => {
+  const loadProjectData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -116,16 +112,10 @@ const ProjectAdmin: React.FC = () => {
       const images: Record<number, ImageData[]> = {};
       if (Array.isArray(data.categories)) {
         data.categories.forEach((category) => {
-          // Convert base64 to data URL if exists
+          // Use S3 URL directly
           let imageUrl = '';
-          if (category.backgroundImageBlob && typeof category.backgroundImageBlob === 'string') {
-            // Check if it's already a data URL
-            if (category.backgroundImageBlob.startsWith('data:image/')) {
-              imageUrl = category.backgroundImageBlob;
-            } else {
-              // Convert raw base64 to data URL
-              imageUrl = `data:image/jpeg;base64,${category.backgroundImageBlob}`;
-            }
+          if (category.backgroundImageUrl && typeof category.backgroundImageUrl === 'string') {
+            imageUrl = category.backgroundImageUrl;
           }
           
           images[category.id] = [
@@ -147,12 +137,28 @@ const ProjectAdmin: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+    
+    const loadData = async () => {
+      if (isMounted) {
+        await loadProjectData();
+      }
+    };
+    
+    loadData();
+    
+    return () => {
+      isMounted = false;
+    };
+  }, [loadProjectData]);
 
   const updateFormState = (section: keyof FormStates, data: any) => {
     setFormStates((prev) => ({
       ...prev,
-      [section]: { ...prev[section], ...data },
+      [section]: data, // Replace the entire section data instead of merging
     }));
   };
 
@@ -453,69 +459,31 @@ const ProjectAdmin: React.FC = () => {
             <div className="categories-grid">
               {Array.isArray(formStates.categories)
                 ? formStates.categories.map((category) => {
-                  const processedImage = processImageData(category.backgroundImageBlob);
                   return (
                     <div key={category.id} className="category-card">
                       <div className="category-image">
-                        {processedImage ? (
+                        {category.backgroundImageUrl ? (
                           <div className="category-image-preview">
                             <img 
-                              src={processedImage || ''}
+                              src={category.backgroundImageUrl}
                               alt={category.title}
                               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                              onError={(e) => {
+                                e.currentTarget.style.display = 'none';
+                                e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                              }}
                             />
+                            <div className="category-image-upload hidden" style={{ border: '2px dashed #ccc' }}>
+                              <div className="upload-placeholder">
+                                <span>Click to upload image</span>
+                              </div>
+                            </div>
                           </div>
                         ) : (
-                          <div className="category-image-upload" style={{ border: '2px solid red' }}>
-                            {(() => {
-                              console.log('Showing upload placeholder for:', category.title);
-                              return null;
-                            })()}
-                            <input
-                              type="file"
-                              accept="image/jpeg,image/png,image/gif,image/webp"
-                              onChange={async (e) => {
-                                const file = e.target.files?.[0];
-                                if (file) {
-                                  try {
-                                    const reader = new FileReader();
-                                    reader.onload = () => {
-                                      const dataUrl = reader.result as string;
-                                      const base64 = dataUrl.split(',')[1];
-                                      const updatedCategories = formStates.categories.map((cat) =>
-                                        cat.id === category.id
-                                          ? { ...cat, backgroundImageBlob: base64 }
-                                          : cat
-                                      );
-                                      updateFormState("categories", updatedCategories);
-                                    };
-                                    reader.readAsDataURL(file);
-                                  } catch (error) {
-                                    console.error('Error processing image:', error);
-                                  }
-                                }
-                              }}
-                              style={{ display: 'none' }}
-                              id={`file-input-${category.id}`}
-                            />
-                            <label 
-                              htmlFor={`file-input-${category.id}`}
-                              className="upload-placeholder"
-                              style={{ 
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                minHeight: '150px',
-                                border: '2px dashed #d1d5db',
-                                borderRadius: '8px',
-                                cursor: 'pointer',
-                                color: '#6b7280'
-                              }}
-                            >
-                              <Upload size={24} />
+                          <div className="category-image-upload" style={{ border: '2px dashed #ccc' }}>
+                            <div className="upload-placeholder">
                               <span>Click to upload image</span>
-                            </label>
+                            </div>
                           </div>
                         )}
                       </div>
@@ -531,14 +499,6 @@ const ProjectAdmin: React.FC = () => {
                                 >
                                   <Edit />
                                 </button>
-                                {/* <button
-                                  onClick={() =>
-                                    handleDeleteCategory(category.categoryId)
-                                  }
-                                  className="delete-category-btn"
-                                >
-                                  <Trash2 />
-                                </button> */}
                               </>
                             )}
                           </div>
@@ -615,20 +575,16 @@ const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
   saving,
 }) => {
   const [formData, setFormData] = useState({
-    categoryId: category?.categoryId || "",
     title: category?.title || "",
-    projectCount: category?.projectCount || 0,
-    navigationPath: category?.navigationPath || "",
-    displayOrder: category?.displayOrder || 0,
-    backgroundImageBlob: category?.backgroundImageBlob || null,
+    backgroundImageUrl: category?.backgroundImageUrl || "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Convert null to undefined for API compatibility
+    // Convert empty string to undefined for API compatibility
     const submitData = {
       ...formData,
-      backgroundImageBlob: formData.backgroundImageBlob || undefined,
+      backgroundImageUrl: formData.backgroundImageUrl || undefined,
     };
     onSave(submitData);
   };
@@ -644,22 +600,6 @@ const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
         </div>
         <form onSubmit={handleSubmit} className="category-form">
           <div className="form-group">
-            <label>Category ID *</label>
-            <input
-              type="text"
-              value={formData.categoryId}
-              onChange={(e) =>
-                setFormData({ ...formData, categoryId: e.target.value })
-              }
-              className={`form-input ${category ? 'form-input-disabled' : ''}`}
-              placeholder="e.g., house-normal"
-              required
-              disabled={!!category}
-              readOnly={!!category}
-            />
-          </div>
-
-          <div className="form-group">
             <label>Title *</label>
             <input
               type="text"
@@ -674,70 +614,121 @@ const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
           </div>
 
           <div className="form-group">
-            <label>Project Count</label>
-            <input
-              type="number"
-              value={formData.projectCount}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  projectCount: parseInt(e.target.value) || 0,
-                })
-              }
-              className={`form-input ${category ? 'form-input-disabled' : ''}`}
-              min="0"
-              disabled={!!category}
-              readOnly={!!category}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Navigation Path *</label>
-            <input
-              type="text"
-              value={formData.navigationPath}
-              onChange={(e) =>
-                setFormData({ ...formData, navigationPath: e.target.value })
-              }
-              className={`form-input ${category ? 'form-input-disabled' : ''}`}
-              placeholder="e.g., /projects/house-normal"
-              required
-              disabled={!!category}
-              readOnly={!!category}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Display Order</label>
-            <input
-              type="number"
-              value={formData.displayOrder}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  displayOrder: parseInt(e.target.value) || 0,
-                })
-              }
-              className={`form-input ${category ? 'form-input-disabled' : ''}`}
-              min="0"
-              disabled={!!category}
-              readOnly={!!category}
-            />
-          </div>
-
-          <div className="form-group">
             <label>Background Image</label>
-            <div onClick={(e) => e.stopPropagation()}>
-              <SingleImageUpload
-                onImageUpload={(base64Data) =>
-                  setFormData({ ...formData, backgroundImageBlob: base64Data })
+            {!category && (
+              <input
+                type="url"
+                value={formData.backgroundImageUrl}
+                onChange={(e) =>
+                  setFormData({ ...formData, backgroundImageUrl: e.target.value })
                 }
-                onImageRemove={() => {}}
-                currentImage={formData.backgroundImageBlob}
-                maxSizeKB={2048}
-                acceptedFormats={['image/jpeg', 'image/png', 'image/webp']}
+                className="form-input"
+                placeholder="https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/category.png"
               />
-            </div>
+            )}
+            {formData.backgroundImageUrl && (
+              <div 
+                className="image-preview-container" 
+                style={{ 
+                  marginTop: '10px',
+                  position: 'relative',
+                  display: 'inline-block'
+                }}
+              >
+                <img 
+                  src={formData.backgroundImageUrl} 
+                  alt="Background preview" 
+                  style={{ 
+                    maxWidth: '200px', 
+                    maxHeight: '150px', 
+                    objectFit: 'cover',
+                    borderRadius: '4px',
+                    border: '1px solid #ddd',
+                    display: 'block'
+                  }}
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+                {category && (
+                  <div 
+                    className="image-upload-overlay"
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: '4px',
+                      opacity: 0,
+                      transition: 'opacity 0.3s ease',
+                      cursor: 'pointer'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.opacity = '1';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.opacity = '0';
+                    }}
+                    onClick={() => {
+                      document.getElementById(`file-input-${category.id}`)?.click();
+                    }}
+                  >
+                    <div style={{ color: 'white', textAlign: 'center' }}>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7,10 12,15 17,10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                      </svg>
+                      <div style={{ fontSize: '12px', marginTop: '4px' }}>Upload Image</div>
+                    </div>
+                  </div>
+                )}
+                <input
+                  type="file"
+                  id={`file-input-${category?.id || 'new'}`}
+                  accept="image/jpeg,image/png,image/gif,image/webp"
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      try {
+                        // Upload file to server
+                        const formData = new FormData();
+                        formData.append('image', file);
+                        formData.append('section', 'project-categories');
+
+                        const response = await fetch(
+                          `${process.env.REACT_APP_API_URL || 'http://localhost:3002'}/api/v1/upload/image`,
+                          {
+                            method: 'POST',
+                            body: formData,
+                          }
+                        );
+
+                        if (response.ok) {
+                          const result = await response.json();
+                          if (result.success && result.data?.url) {
+                            setFormData(prev => ({ 
+                              ...prev, 
+                              backgroundImageUrl: result.data.url 
+                            }));
+                          }
+                        } else {
+                          console.error('Upload failed:', response.statusText);
+                        }
+                      } catch (error) {
+                        console.error('Error uploading image:', error);
+                      }
+                    }
+                  }}
+                  style={{ display: 'none' }}
+                />
+              </div>
+            )}
           </div>
 
           <div className="form-actions">

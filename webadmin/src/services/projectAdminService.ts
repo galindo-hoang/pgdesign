@@ -12,7 +12,7 @@ export interface ProjectCategory {
   categoryId: string;
   title: string;
   projectCount: number;
-  backgroundImageBlob: string; // Base64 encoded image data
+  backgroundImageUrl: string; // S3 URL for background image
   navigationPath: string;
   displayOrder: number;
 }
@@ -32,7 +32,7 @@ export interface CreateProjectCategoryRequest {
   categoryId: string;
   title: string;
   projectCount: number;
-  backgroundImageBlob?: string;
+  backgroundImageUrl?: string;
   navigationPath: string;
   displayOrder?: number;
 }
@@ -40,7 +40,7 @@ export interface CreateProjectCategoryRequest {
 export interface UpdateProjectCategoryRequest {
   title?: string;
   projectCount?: number;
-  backgroundImageBlob?: string;
+  backgroundImageUrl?: string;
   navigationPath?: string;
   displayOrder?: number;
 }

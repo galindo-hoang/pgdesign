@@ -16,46 +16,61 @@ export class ProjectCategoriesModel extends BaseModel {
   }
 
   async getActiveProjectCategories(): Promise<ProjectCategoriesData | null> {
-    const result = await this.findOneByCondition({ is_active: true });
+    // Use a transaction to ensure proper connection handling
+    const trx = await db.transaction();
+    
+    try {
+      const result = await trx(this.tableName)
+        .where({ is_active: true })
+        .first();
 
-    if (!result) return null;
+      if (!result) {
+        await trx.commit();
+        return null;
+      }
 
-    // Get project categories
-    const categories = await db("project_categories")
-      .where({
-        categories_data_id: result.id,
-        is_active: true,
-      })
-      .orderBy("display_order", "asc")
-      .select(
-        "id",
-        "category_id",
-        "title",
-        "project_count",
-        "background_image_url",
-        "background_image_blob",
-        "navigation_path",
-        "display_order"
-      );
+      // Get project categories with stored project counts (temporary fix)
+      const categories = await trx("project_categories")
+        .where({
+          categories_data_id: result.id,
+          is_active: true,
+        })
+        .orderBy("display_order", "asc")
+        .select(
+          "id",
+          "category_id",
+          "title",
+          "project_count",
+          "background_image_url",
+          "background_image_blob",
+          "navigation_path",
+          "display_order"
+        );
 
-    return {
-      id: result.id,
-      mainTitle: result.main_title,
-      subtitle: result.subtitle,
-      description: result.description,
-      categories: categories.map((category: any) => ({
-        id: category.id,
-        categoryId: category.category_id,
-        title: category.title,
-        projectCount: category.project_count,
-        backgroundImageUrl: category.background_image_url || this.convertBufferToBase64(category.background_image_blob),
-        navigationPath: category.navigation_path,
-        displayOrder: category.display_order,
-      })),
-      isActive: result.is_active,
-      createdAt: result.created_at,
-      updatedAt: result.updated_at,
-    };
+      await trx.commit();
+
+      return {
+        id: result.id,
+        mainTitle: result.main_title,
+        subtitle: result.subtitle,
+        description: result.description,
+        categories: categories.map((category: any) => ({
+          id: category.id,
+          categoryId: category.category_id,
+          title: category.title,
+          projectCount: category.project_count || 0, // Use stored count temporarily
+          backgroundImageUrl: category.background_image_url || this.convertBufferToBase64(category.background_image_blob),
+          navigationPath: category.navigation_path,
+          displayOrder: category.display_order,
+        })),
+        isActive: result.is_active,
+        createdAt: result.created_at,
+        updatedAt: result.updated_at,
+      };
+    } catch (error) {
+      await trx.rollback();
+      throw error;
+    }
   }
 
   // Helper method to convert relative paths to full MinIO URLs
@@ -315,37 +330,46 @@ export class ProjectCategoriesModel extends BaseModel {
 
   // Get a single project category by ID (either category_id or id)
   async getProjectCategoryById(id: string): Promise<ProjectCategory | null> {
-    let categoryRow;
+    const trx = await db.transaction();
+    
+    try {
+      let categoryRow;
 
-    // First try to find by category_id
-    categoryRow = await db("project_categories")
-      .where({
-        category_id: id,
-        is_active: true,
-      })
-      .first();
-
-    // If not found by category_id, try by id (numeric)
-    if (!categoryRow && !isNaN(parseInt(id))) {
-      categoryRow = await db("project_categories")
+      // First try to find by category_id
+      categoryRow = await trx("project_categories")
         .where({
-          id: parseInt(id),
+          category_id: id,
           is_active: true,
         })
         .first();
+
+      // If not found by category_id, try by id (numeric)
+      if (!categoryRow && !isNaN(parseInt(id))) {
+        categoryRow = await trx("project_categories")
+          .where({
+            id: parseInt(id),
+            is_active: true,
+          })
+          .first();
+      }
+
+      await trx.commit();
+
+      if (!categoryRow) return null;
+
+      return {
+        id: categoryRow.id,
+        categoryId: categoryRow.category_id,
+        title: categoryRow.title,
+        projectCount: categoryRow.project_count,
+        backgroundImageUrl: categoryRow.background_image_url || this.convertBufferToBase64(categoryRow.background_image_blob),
+        navigationPath: categoryRow.navigation_path,
+        displayOrder: categoryRow.display_order,
+      };
+    } catch (error) {
+      await trx.rollback();
+      throw error;
     }
-
-    if (!categoryRow) return null;
-
-    return {
-      id: categoryRow.id,
-      categoryId: categoryRow.category_id,
-      title: categoryRow.title,
-      projectCount: categoryRow.project_count,
-      backgroundImageUrl: categoryRow.background_image_url || this.convertBufferToBase64(categoryRow.background_image_blob),
-      navigationPath: categoryRow.navigation_path,
-      displayOrder: categoryRow.display_order,
-    };
   }
 
   // ========== INDIVIDUAL PROJECT CATEGORY MANAGEMENT ==========
@@ -354,30 +378,38 @@ export class ProjectCategoriesModel extends BaseModel {
     categoriesDataId: number,
     categoryData: CreateProjectCategoryRequest
   ): Promise<ProjectCategory> {
-    const categoryRow = {
-      categories_data_id: categoriesDataId,
-      category_id: categoryData.categoryId,
-      title: categoryData.title,
-      project_count: categoryData.projectCount,
-      background_image_url: categoryData.backgroundImageUrl || null,
-      background_image_blob: null, // Deprecated
-      navigation_path: categoryData.navigationPath,
-      display_order: categoryData.displayOrder || 0,
-      is_active: true,
-      created_at: new Date(),
-      updated_at: new Date(),
-    };
+    const trx = await db.transaction();
+    
+    try {
+      const categoryRow = {
+        categories_data_id: categoriesDataId,
+        category_id: categoryData.categoryId,
+        title: categoryData.title,
+        project_count: categoryData.projectCount,
+        background_image_url: categoryData.backgroundImageUrl || null,
+        background_image_blob: null, // Deprecated
+        navigation_path: categoryData.navigationPath,
+        display_order: categoryData.displayOrder || 0,
+        is_active: true,
+        created_at: new Date(),
+        updated_at: new Date(),
+      };
 
-    await db("project_categories").insert(categoryRow);
+      await trx("project_categories").insert(categoryRow);
+      await trx.commit();
 
-    const newCategory = await this.getProjectCategoryById(
-      categoryData.categoryId
-    );
-    if (!newCategory) {
-      throw new Error("Failed to retrieve created category");
+      const newCategory = await this.getProjectCategoryById(
+        categoryData.categoryId
+      );
+      if (!newCategory) {
+        throw new Error("Failed to retrieve created category");
+      }
+
+      return newCategory;
+    } catch (error) {
+      await trx.rollback();
+      throw error;
     }
-
-    return newCategory;
   }
 
   async updateProjectCategory(
@@ -385,47 +417,64 @@ export class ProjectCategoriesModel extends BaseModel {
     categoryId: string,
     categoryData: UpdateProjectCategoryRequest
   ): Promise<ProjectCategory | null> {
-    const updateData: any = {
-      updated_at: new Date(),
-    };
+    const trx = await db.transaction();
+    
+    try {
+      const updateData: any = {
+        updated_at: new Date(),
+      };
 
-    if (categoryData.title !== undefined) updateData.title = categoryData.title;
-    if (categoryData.projectCount !== undefined)
-      updateData.project_count = categoryData.projectCount;
-    if (categoryData.backgroundImageUrl !== undefined && categoryData.backgroundImageUrl !== null)
-      updateData.background_image_url = categoryData.backgroundImageUrl;
-    if (categoryData.navigationPath !== undefined)
-      updateData.navigation_path = categoryData.navigationPath;
-    if (categoryData.displayOrder !== undefined)
-      updateData.display_order = categoryData.displayOrder;
+      if (categoryData.title !== undefined) updateData.title = categoryData.title;
+      if (categoryData.projectCount !== undefined)
+        updateData.project_count = categoryData.projectCount;
+      if (categoryData.backgroundImageUrl !== undefined && categoryData.backgroundImageUrl !== null)
+        updateData.background_image_url = categoryData.backgroundImageUrl;
+      if (categoryData.navigationPath !== undefined)
+        updateData.navigation_path = categoryData.navigationPath;
+      if (categoryData.displayOrder !== undefined)
+        updateData.display_order = categoryData.displayOrder;
 
-    await db("project_categories")
-      .where({
-        categories_data_id: categoriesDataId,
-        category_id: categoryId,
-        is_active: true,
-      })
-      .update(updateData);
+      await trx("project_categories")
+        .where({
+          categories_data_id: categoriesDataId,
+          category_id: categoryId,
+          is_active: true,
+        })
+        .update(updateData);
 
-    return await this.getProjectCategoryById(categoryId);
+      await trx.commit();
+
+      return await this.getProjectCategoryById(categoryId);
+    } catch (error) {
+      await trx.rollback();
+      throw error;
+    }
   }
 
   async deleteProjectCategory(
     categoriesDataId: number,
     categoryId: string
   ): Promise<boolean> {
-    const deleted = await db("project_categories")
-      .where({
-        categories_data_id: categoriesDataId,
-        category_id: categoryId,
-        is_active: true,
-      })
-      .update({
-        is_active: false,
-        updated_at: new Date(),
-      });
+    const trx = await db.transaction();
+    
+    try {
+      const deleted = await trx("project_categories")
+        .where({
+          categories_data_id: categoriesDataId,
+          category_id: categoryId,
+          is_active: true,
+        })
+        .update({
+          is_active: false,
+          updated_at: new Date(),
+        });
 
-    return deleted > 0;
+      await trx.commit();
+      return deleted > 0;
+    } catch (error) {
+      await trx.rollback();
+      throw error;
+    }
   }
 }
 
