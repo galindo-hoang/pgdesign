@@ -29,10 +29,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => {
     // Check if user is already logged in (from localStorage)
     const savedAuth = localStorage.getItem('pgdesign_admin_auth');
+    console.log('Checking saved auth:', savedAuth);
+    
     if (savedAuth) {
       try {
         const authData = JSON.parse(savedAuth);
+        console.log('Parsed auth data:', authData);
+        
         if (authData.isAuthenticated && authData.user) {
+          console.log('Setting authenticated state to true');
           setIsAuthenticated(true);
           setUser(authData.user);
         }

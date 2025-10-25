@@ -24,8 +24,15 @@ import AnalyticsPage from './pages/AnalyticsPage';
 import { AuthProvider, useAuth } from './hooks/useAuth';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isAuthenticated } = useAuth();
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
+  const { isAuthenticated, loading } = useAuth();
+  
+  console.log('ProtectedRoute - isAuthenticated:', isAuthenticated, 'loading:', loading);
+  
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
 };
 
 const AppContent: React.FC = () => {
@@ -34,7 +41,7 @@ const AppContent: React.FC = () => {
   return (
     <Routes>
       <Route path="/login" element={
-        isAuthenticated ? <Navigate to="/" replace /> : <LoginPage />
+        isAuthenticated ? <Navigate to="/" /> : <LoginPage />
       } />
       
       <Route path="/" element={
@@ -58,7 +65,7 @@ const AppContent: React.FC = () => {
         <Route path="consultations" element={<ConsultationAdmin />} />
       </Route>
       
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 };

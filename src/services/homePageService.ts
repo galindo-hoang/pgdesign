@@ -53,7 +53,7 @@ const qualityImg = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
 
 // Feature flag for mock data
-const USE_MOCK_DATA = true;
+const USE_MOCK_DATA = false;
 
 // Cache for image slider data to prevent unnecessary API calls
 let imageSliderCache: {

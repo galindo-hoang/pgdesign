@@ -25,7 +25,7 @@ const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api
 const API_TIMEOUT = 10000; // 10 seconds
 
 // Configuration for data source (can be controlled via environment variable)
-const USE_MOCK_DATA = true;
+const USE_MOCK_DATA = false;
 
 // ========== MOCK DATA ==========
 
@@ -486,27 +486,108 @@ export const fetchBlogPageDataApi = async (): Promise<BlogPageData> => {
 
 // Auto-switch functions based on configuration
 export const fetchBlogHeroData = async (): Promise<BlogHeroData> => {
-  return USE_MOCK_DATA ? fetchBlogHeroDataMock() : fetchBlogHeroDataApi();
+  if (USE_MOCK_DATA) {
+    return fetchBlogHeroDataMock();
+  }
+  
+  try {
+    return await fetchBlogHeroDataApi();
+  } catch (error) {
+    handleApiErrorWithFallback(error, 'fetchBlogHeroData');
+    return fetchBlogHeroDataMock();
+  }
 };
 
 export const fetchProjectItems = async (filters?: BlogPageFilters): Promise<ProjectGalleryData> => {
-  return USE_MOCK_DATA ? fetchProjectItemsMock(filters) : fetchProjectItemsApi(filters);
+  if (USE_MOCK_DATA) {
+    return fetchProjectItemsMock(filters);
+  }
+  
+  try {
+    return await fetchProjectItemsApi(filters);
+  } catch (error) {
+    handleApiErrorWithFallback(error, 'fetchProjectItems');
+    return fetchProjectItemsMock(filters);
+  }
 };
 
 export const fetchContentSection = async (): Promise<ContentSection> => {
-  return USE_MOCK_DATA ? fetchContentSectionMock() : fetchContentSectionApi();
+  if (USE_MOCK_DATA) {
+    return fetchContentSectionMock();
+  }
+  
+  try {
+    return await fetchContentSectionApi();
+  } catch (error) {
+    handleApiErrorWithFallback(error, 'fetchContentSection');
+    return fetchContentSectionMock();
+  }
 };
 
 export const fetchConsultationCTA = async (): Promise<ConsultationCTA> => {
-  return USE_MOCK_DATA ? fetchConsultationCTAMock() : fetchConsultationCTAApi();
+  if (USE_MOCK_DATA) {
+    return fetchConsultationCTAMock();
+  }
+  
+  try {
+    return await fetchConsultationCTAApi();
+  } catch (error) {
+    handleApiErrorWithFallback(error, 'fetchConsultationCTA');
+    return fetchConsultationCTAMock();
+  }
 };
 
 // Main function to fetch all blog page data (auto-switch)
 export const fetchBlogPageData = async (): Promise<BlogPageData> => {
-  return USE_MOCK_DATA ? fetchBlogPageDataMock() : fetchBlogPageDataApi();
+  if (USE_MOCK_DATA) {
+    return fetchBlogPageDataMock();
+  }
+  
+  try {
+    return await fetchBlogPageDataApi();
+  } catch (error) {
+    handleApiErrorWithFallback(error, 'fetchBlogPageData');
+    return fetchBlogPageDataMock();
+  }
 };
 
 // ========== UTILITY FUNCTIONS ==========
+
+// Utility function to handle API errors with fallback
+const handleApiErrorWithFallback = (error: any, functionName: string): void => {
+  console.warn(`API call failed for ${functionName}, falling back to mock data:`, error);
+  
+  // Log additional details for debugging
+  if (error instanceof Error) {
+    console.warn(`Error message: ${error.message}`);
+    console.warn(`Error stack: ${error.stack}`);
+  }
+  
+  // You can add additional error reporting here (e.g., send to analytics)
+  // reportErrorToAnalytics(error, functionName);
+};
+
+// Utility function to test API fallback behavior
+export const testApiFallback = async (): Promise<{ apiWorking: boolean; fallbackUsed: boolean }> => {
+  try {
+    // Try to fetch a simple endpoint
+    const response = await fetch(`${API_BASE_URL}/health`, {
+      method: 'GET',
+      signal: AbortSignal.timeout(5000) // 5 second timeout
+    });
+    
+    return {
+      apiWorking: response.ok,
+      fallbackUsed: !response.ok
+    };
+  } catch (error) {
+    console.warn('API health check failed:', error);
+    return {
+      apiWorking: false,
+      fallbackUsed: true
+    };
+  }
+};
 
 // Utility function to check API health
 export const checkApiHealth = async (): Promise<boolean> => {

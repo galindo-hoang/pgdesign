@@ -70,7 +70,11 @@ const BlogNewsCard: React.FC<BlogNewsCardProps> = ({
           className="news-image"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
-            target.src = '/src/assets/images/default-news-thumbnail.png';
+            // Prevent infinite loop by checking if already using placeholder
+            if (!target.src.includes('data:image/svg+xml')) {
+              // Use data URL SVG placeholder instead of non-existent file
+              target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xNTAgMTAwTDEzMCA4MEwxNzAgODBMMTUwIDEwMFoiIGZpbGw9IiM5Q0EzQUYiLz4KPHRleHQgeD0iMTUwIiB5PSIxMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2QjcyODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+TmV3cyBJbWFnZTwvdGV4dD4KPC9zdmc+';
+            }
           }}
         />
       </div>
