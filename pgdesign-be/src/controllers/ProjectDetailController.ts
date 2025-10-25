@@ -336,6 +336,44 @@ export class ProjectDetailController {
     res.json(response);
   });
 
+  /**
+   * Get projects for homepage slider (isOnHomePage = true)
+   * GET /api/v1/projectdetail/homepage
+   */
+  getHomepageProjects = asyncHandler(async (req: Request, res: Response) => {
+    const projects = await ProjectDetailModel.getHomepageProjects();
+    
+    const response: ApiResponse<any[]> = {
+      success: true,
+      data: projects,
+      message: 'Homepage projects retrieved successfully'
+    };
+
+    res.json(response);
+  });
+
+  /**
+   * Generate next project code for a category
+   * GET /api/v1/projectdetail/util/generate-code/:category
+   */
+  generateProjectCode = asyncHandler(async (req: Request, res: Response) => {
+    const { category } = req.params;
+    
+    if (!category) {
+      throw createError('Category parameter is required', 400);
+    }
+
+    const projectCode = await ProjectDetailModel.generateNextProjectCode(category);
+    
+    const response: ApiResponse<string> = {
+      success: true,
+      data: projectCode,
+      message: `Project code generated successfully for category: ${category}`
+    };
+
+    res.json(response);
+  });
+
 
 
   // ===== SEARCH ENDPOINTS =====

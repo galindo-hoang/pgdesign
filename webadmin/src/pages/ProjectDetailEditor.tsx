@@ -9,7 +9,8 @@ import {
   Upload, 
   X,
   Plus,
-  Trash2
+  Trash2,
+  Loader2
 } from 'lucide-react';
 import {
   getProjectById,
@@ -17,6 +18,7 @@ import {
   updateProject,
   ProjectDetailFormData
 } from '../services/projectDetailAdminService';
+import { generateProjectCode } from '../services/projectCodeService';
 import {
   uploadProjectDetailThumbnail,
   uploadProjectDetailImages,
@@ -66,9 +68,18 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
   const [showPreview, setShowPreview] = useState(false);
   const [newTag, setNewTag] = useState('');
   
+  // Temporary editing state management
+  const [originalFormData, setOriginalFormData] = useState<ProjectDetailFormData | null>(null);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [originalThumbnailFile, setOriginalThumbnailFile] = useState<File | null>(null);
+  const [originalPendingImageFiles, setOriginalPendingImageFiles] = useState<File[]>([]);
+  
   // File state - store files to upload when saving
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [pendingImageFiles, setPendingImageFiles] = useState<File[]>([]);
+  
+  // Image deletion loading state
+  const [deletingImages, setDeletingImages] = useState<Set<number>>(new Set());
   
   // ReactQuill ref
   const quillRef = useRef<ReactQuill>(null);
@@ -91,10 +102,15 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
       // Use projectImages which now contains S3 URLs
       const finalProjectImages = projectData.projectImagesUrls || projectData.projectImages || [];
       
-      setFormData({
+      const loadedFormData = {
         ...projectData,
         projectImages: finalProjectImages
-      });
+      };
+      
+      setFormData(loadedFormData);
+      // Store original data for comparison
+      setOriginalFormData(loadedFormData);
+      setHasUnsavedChanges(false);
     } catch (error) {
       console.error('Error loading project:', error);
       // Handle error - maybe show error message or redirect
@@ -103,12 +119,61 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
     }
   };
 
+  // Check if there are unsaved changes
+  const checkUnsavedChanges = () => {
+    if (!originalFormData) return false;
+    
+    // Compare form data
+    const formDataChanged = JSON.stringify(formData) !== JSON.stringify(originalFormData);
+    
+    // Compare thumbnail file
+    const thumbnailChanged = thumbnailFile !== originalThumbnailFile;
+    
+    // Compare pending image files
+    const imagesChanged = JSON.stringify(pendingImageFiles) !== JSON.stringify(originalPendingImageFiles);
+    
+    return formDataChanged || thumbnailChanged || imagesChanged;
+  };
+
+  // Update unsaved changes state whenever form data changes
+  useEffect(() => {
+    setHasUnsavedChanges(checkUnsavedChanges());
+  }, [formData, thumbnailFile, pendingImageFiles, originalFormData, originalThumbnailFile, originalPendingImageFiles]);
+
+  // Warn user about unsaved changes when trying to leave
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (hasUnsavedChanges) {
+        e.preventDefault();
+        e.returnValue = 'Bạn có thay đổi chưa lưu. Bạn có chắc chắn muốn rời khỏi trang?';
+        return e.returnValue;
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [hasUnsavedChanges]);
+
   // Handle form changes
-  const handleInputChange = (field: keyof ProjectDetailFormData, value: any) => {
+  const handleInputChange = async (field: keyof ProjectDetailFormData, value: any) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
     }));
+
+    // Auto-generate project code when category changes (only for new projects)
+    if (field === 'category' && mode === 'add') {
+      try {
+        const generatedCode = await generateProjectCode(value);
+        setFormData(prev => ({
+          ...prev,
+          projectId: generatedCode
+        }));
+      } catch (error) {
+        console.error('Failed to generate project code:', error);
+        // Fallback to manual input if generation fails
+      }
+    }
   };
 
   // Handle image selection - Just collect files, upload when saving
@@ -133,28 +198,43 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
 
   // Handle image removal
   const handleImageRemove = async (index: number) => {
-    const imageUrl = formData.projectImages?.[index];
+    // Add to deleting set
+    setDeletingImages(prev => new Set(prev).add(index));
     
-    // Check if this is a local preview URL or S3 URL
-    const isLocalUrl = imageUrl?.startsWith('blob:');
-    
-    if (isLocalUrl) {
-      // Remove from pending files
-      setPendingImageFiles(prev => prev.filter((_, i) => i !== index));
-      // Revoke local URL
-      URL.revokeObjectURL(imageUrl!);
-    } else if (imageUrl) {
-      // Delete from S3 for existing images
-      try {
-        await deleteFile(imageUrl);
-      } catch (error) {
-        console.warn('Failed to delete image from S3:', error);
+    try {
+      const imageUrl = formData.projectImages?.[index];
+      
+      // Check if this is a local preview URL or S3 URL
+      const isLocalUrl = imageUrl?.startsWith('blob:');
+      
+      if (isLocalUrl) {
+        // Remove from pending files
+        setPendingImageFiles(prev => prev.filter((_, i) => i !== index));
+        // Revoke local URL
+        URL.revokeObjectURL(imageUrl!);
+      } else if (imageUrl) {
+        // Delete from S3 for existing images
+        try {
+          await deleteFile(imageUrl);
+        } catch (error) {
+          console.warn('Failed to delete image from S3:', error);
+        }
       }
+      
+      // Remove from display
+      const newImages = (formData.projectImages || []).filter((_, i) => i !== index);
+      setFormData(prev => ({ ...prev, projectImages: newImages }));
+    } catch (error) {
+      console.error('Error removing image:', error);
+      alert('Lỗi khi xóa hình ảnh. Vui lòng thử lại.');
+    } finally {
+      // Remove from deleting set
+      setDeletingImages(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(index);
+        return newSet;
+      });
     }
-    
-    // Remove from display
-    const newImages = (formData.projectImages || []).filter((_, i) => i !== index);
-    setFormData(prev => ({ ...prev, projectImages: newImages }));
   };
 
   // Handle thumbnail selection - Just collect file, upload when saving
@@ -195,6 +275,25 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
     }));
   };
 
+  // Discard all unsaved changes and revert to original state
+  const handleDiscardChanges = () => {
+    if (window.confirm('Bạn có chắc chắn muốn hủy tất cả thay đổi chưa lưu?')) {
+      if (originalFormData) {
+        setFormData(originalFormData);
+      }
+      setThumbnailFile(originalThumbnailFile);
+      setPendingImageFiles(originalPendingImageFiles);
+      setHasUnsavedChanges(false);
+      
+      // Cleanup any blob URLs that were created
+      formData.projectImages?.forEach(url => {
+        if (url.startsWith('blob:')) {
+          URL.revokeObjectURL(url);
+        }
+      });
+    }
+  };
+
   // Handle save - Upload images automatically when saving
   const handleSave = async () => {
     setSaving(true);
@@ -210,6 +309,12 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
         // Update project with files - API will handle upload
         await updateProject(projectId, formData, thumbnailFile, pendingImageFiles);
       }
+      
+      // Update original data after successful save
+      setOriginalFormData(formData);
+      setOriginalThumbnailFile(thumbnailFile);
+      setOriginalPendingImageFiles(pendingImageFiles);
+      setHasUnsavedChanges(false);
       
       // Cleanup local URLs
       formData.projectImages?.forEach(url => {
@@ -261,13 +366,25 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
             <Eye size={18} />
             Xem trước
           </button>
+          
+          {hasUnsavedChanges && (
+            <button 
+              className="btn-discard"
+              onClick={handleDiscardChanges}
+              title="Hủy tất cả thay đổi chưa lưu"
+            >
+              <X size={18} />
+              Hủy thay đổi
+            </button>
+          )}
+          
           <button 
-            className="btn-save"
+            className={`btn-save ${hasUnsavedChanges ? 'btn-save-unsaved' : ''}`}
             onClick={handleSave}
             disabled={saving}
           >
             <Save size={18} />
-            {saving ? 'Đang lưu...' : 'Lưu'}
+            {saving ? 'Đang lưu...' : hasUnsavedChanges ? 'Lưu thay đổi' : 'Lưu'}
           </button>
         </div>
       </div>
@@ -392,8 +509,14 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
                       <button 
                         className="btn-remove"
                         onClick={() => handleImageRemove(index)}
+                        disabled={deletingImages.has(index)}
+                        title={deletingImages.has(index) ? "Đang xóa..." : "Xóa hình ảnh"}
                       >
-                        <Trash2 size={16} />
+                        {deletingImages.has(index) ? (
+                          <Loader2 size={16} className="animate-spin" />
+                        ) : (
+                          <Trash2 size={16} />
+                        )}
                       </button>
                     </div>
                   </div>
@@ -451,7 +574,14 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
                   value={formData.projectId}
                   onChange={(e) => handleInputChange('projectId', e.target.value)}
                   placeholder="VD: APARTMENT001"
+                  readOnly={mode === 'add'}
+                  className={mode === 'add' ? 'readonly-field' : ''}
                 />
+                {mode === 'add' && (
+                  <small className="field-note">
+                    Mã dự án sẽ được tự động tạo dựa trên danh mục
+                  </small>
+                )}
               </div>
               <div className="form-group">
                 <label>Tên Dự Án *</label>

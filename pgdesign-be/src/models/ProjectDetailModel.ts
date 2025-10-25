@@ -213,17 +213,6 @@ export class ProjectDetailModel extends BaseModel {
     return errors;
   }
 
-  // Add new method to get projects for homepage
-  async getHomepageProjects(): Promise<ProjectDetailData[]> {
-    const rows: ProjectDetailRow[] = await db(this.tableName)
-      .select("*")
-      .where({ is_on_homepage: true, is_active: true })
-      .orderBy("created_at", "desc")
-      .limit(10); // Limit to 10 projects for homepage
-
-    return rows.map((row) => this.transformRowToData(row));
-  }
-
   // Add method to toggle homepage status
   async toggleHomepageStatus(
     id: number,
@@ -771,6 +760,87 @@ export class ProjectDetailModel extends BaseModel {
         category: row.category,
         count: Number(row.count),
       }));
+    } catch (error) {
+      await trx.rollback();
+      throw error;
+    }
+  }
+
+  // Get projects for homepage slider (isOnHomePage = true)
+  async getHomepageProjects(): Promise<any[]> {
+    const trx = await db.transaction();
+    
+    try {
+      const result = await trx(this.tableName)
+        .select(
+          'id',
+          'project_id',
+          'title',
+          'client_name',
+          'area',
+          'thumbnail_image'
+        )
+        .where('is_on_homepage', true)
+        .where('is_active', true)
+        .orderBy('created_at', 'desc');
+
+      await trx.commit();
+      return result.map((row) => ({
+        id: row.id,
+        projectId: row.project_id,
+        title: row.title,
+        clientName: row.client_name,
+        area: row.area,
+        thumbnailImage: row.thumbnail_image
+      }));
+    } catch (error) {
+      await trx.rollback();
+      throw error;
+    }
+  }
+
+  // Generate next project code based on category
+  async generateNextProjectCode(category: string): Promise<string> {
+    const trx = await db.transaction();
+    
+    try {
+      // Category mapping to prefix
+      const categoryPrefixes: { [key: string]: string } = {
+        'appartment': 'APPARTMENT',
+        'house-normal': 'HOUSE-NORMAL',
+        'village': 'VILLAGE',
+        'house-business': 'HOUSE-BUSINESS'
+      };
+
+      const prefix = categoryPrefixes[category];
+      if (!prefix) {
+        throw new Error(`Invalid category: ${category}`);
+      }
+
+      // Find the highest existing project code for this category
+      const existingProjects = await trx(this.tableName)
+        .select('project_id')
+        .where('project_id', 'like', `${prefix}%`)
+        .orderBy('project_id', 'desc')
+        .limit(1);
+
+      let nextNumber = 1;
+      
+      if (existingProjects.length > 0) {
+        const lastProjectId = existingProjects[0].project_id;
+        // Extract number from project ID (e.g., "APPARTMENT001" -> 1)
+        const match = lastProjectId.match(new RegExp(`${prefix}(\\d+)`));
+        if (match) {
+          nextNumber = parseInt(match[1]) + 1;
+        }
+      }
+
+      // Format with leading zeros (e.g., 1 -> "001")
+      const formattedNumber = nextNumber.toString().padStart(3, '0');
+      const projectCode = `${prefix}${formattedNumber}`;
+
+      await trx.commit();
+      return projectCode;
     } catch (error) {
       await trx.rollback();
       throw error;

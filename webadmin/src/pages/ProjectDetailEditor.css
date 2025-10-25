@@ -1,4 +1,21 @@
 /* Project Detail Editor Styles */
+
+/* Readonly field styling */
+.readonly-field {
+  background-color: #f5f5f5 !important;
+  color: #666 !important;
+  cursor: not-allowed !important;
+  border-color: #ddd !important;
+}
+
+.field-note {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+}
+
 .project-detail-editor {
   min-height: 100vh;
   background: #f8fafc;
@@ -79,7 +96,8 @@
 }
 
 .btn-preview,
-.btn-save {
+.btn-save,
+.btn-discard {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -100,6 +118,17 @@
   background: #e5e7eb;
 }
 
+.btn-discard {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.btn-discard:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
 .btn-save {
   background: #10b981;
   color: white;
@@ -107,6 +136,24 @@
 
 .btn-save:hover {
   background: #059669;
+}
+
+.btn-save-unsaved {
+  background: #f59e0b;
+  animation: pulse-unsaved 2s infinite;
+}
+
+.btn-save-unsaved:hover {
+  background: #d97706;
+}
+
+@keyframes pulse-unsaved {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
 }
 
 .btn-save:disabled {
@@ -447,6 +494,35 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-remove:hover {
+  background: #dc2626;
+}
+
+.btn-remove:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #9ca3af;
+}
+
+.btn-remove:disabled:hover {
+  background: #9ca3af;
+}
+
+/* Loading animation */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .add-image-btn {

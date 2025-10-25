@@ -712,6 +712,16 @@ export const fetchHomePageData = async (): Promise<HomePageData> => {
       
       const data = await response.json();
       const apiData = data.data;
+
+      const a = apiData.imageSlider.map((slide: any) => ({
+        id: slide.id,
+        imageUrl: slide.image_url || '',
+        title: slide.title || '',
+        subtitle: slide.subtitle || '',
+        size: slide.size || ''
+      }))
+
+      console.log('zoe: a', a);
       
       return {
         hero: {

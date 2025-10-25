@@ -134,6 +134,24 @@ router.get(
 );
 
 /**
+ * Get projects for homepage slider (isOnHomePage = true)
+ * GET /api/v1/projectdetail/util/homepage
+ */
+router.get(
+  '/util/homepage',
+  ProjectDetailController.getHomepageProjects
+);
+
+/**
+ * Generate next project code for a category
+ * GET /api/v1/projectdetail/util/generate-code/:category
+ */
+router.get(
+  '/util/generate-code/:category',
+  ProjectDetailController.generateProjectCode
+);
+
+/**
  * Get project counts by category
  * GET /api/v1/projectdetail/util/category-counts
  */

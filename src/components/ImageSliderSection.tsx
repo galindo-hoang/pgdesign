@@ -1,25 +1,72 @@
 // src/components/ImageSlider.tsx
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "./ImageSliderSection.css";
 import { ImageSlideData } from "../types/homePageTypes";
+import { getHomepageProjects } from "../services/homepageProjectService";
 
-// Props for the ImageSlider component
+// Props for the ImageSlider component (now optional since we fetch data internally)
 interface ImageSliderProps {
-  slides: ImageSlideData[];
+  slides?: ImageSlideData[]; // Optional for backward compatibility
 }
 
-const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides }) => {
+const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides: propSlides }) => {
   const sliderRef = useRef<Slider>(null);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const [slides, setSlides] = useState<ImageSlideData[]>(propSlides || []);
+  const [loading, setLoading] = useState(!propSlides);
+  const [error, setError] = useState<string | null>(null);
 
-  console.log(`zoeeee: ${JSON.stringify(slides)}`)
+  // Fetch homepage projects if no slides provided
+  useEffect(() => {
+    if (!propSlides) {
+      const fetchHomepageProjects = async () => {
+        try {
+          setLoading(true);
+          const homepageProjects = await getHomepageProjects();
+          console.log('zoe: homepageProjects', homepageProjects);
+          setSlides(homepageProjects);
+          setError(null);
+        } catch (err) {
+          console.error('Failed to fetch homepage projects:', err);
+          setError('Failed to load projects');
+          setSlides([]);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchHomepageProjects();
+    }
+  }, [propSlides]);
+
+  console.log(`ImageSlider: ${JSON.stringify(slides)}`);
+  
+  if (loading) {
+    return (
+      <div className="image-slider-container">
+        <div style={{ textAlign: 'center', padding: '2rem' }}>
+          <p>Loading projects...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="image-slider-container">
+        <div style={{ textAlign: 'center', padding: '2rem' }}>
+          <p>Error: {error}</p>
+        </div>
+      </div>
+    );
+  }
   
   if (!slides || slides.length === 0) {
     return (
       <div className="image-slider-container">
-        <p>No slides available</p>
+        <p>No projects available</p>
       </div>
     );
   }
