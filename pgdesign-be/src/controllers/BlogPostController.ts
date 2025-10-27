@@ -63,6 +63,52 @@ export const getBlogPost = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
+export const getBlogPostBySlug = asyncHandler(async (req: Request, res: Response) => {
+  try {
+    const { slug } = req.params;
+    
+    console.log('🔍 getBlogPostBySlug called');
+    console.log('📥 Request slug:', slug);
+    
+    if (!slug) {
+      console.log('❌ No slug provided');
+      return res.status(400).json({
+        success: false,
+        error: 'Blog post slug is required'
+      });
+    }
+
+    console.log('📝 Searching for blog post with slug:', slug);
+    const post = await BlogPostModel.findBySlug(slug);
+    
+    if (!post) {
+      console.log('❌ Blog post not found for slug:', slug);
+      return res.status(404).json({
+        success: false,
+        error: 'Blog post not found'
+      });
+    }
+
+    console.log('✅ Blog post found:', {
+      id: post.id,
+      title: post.title?.substring(0, 50) + '...',
+      slug: post.slug,
+      hasHtmlContent: !!post.htmlContent
+    });
+
+    return res.status(200).json({
+      success: true,
+      data: post
+    });
+  } catch (error) {
+    console.error('❌ Error in getBlogPostBySlug:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'Failed to fetch blog post'
+    });
+  }
+});
+
 export const createBlogPost = asyncHandler(async (req: Request, res: Response) => {
   try {
     const { title, content, author, status, publishDate, views, featured } = req.body;
@@ -74,12 +120,13 @@ export const createBlogPost = asyncHandler(async (req: Request, res: Response) =
       });
     }
 
-    const postData: Omit<BlogPostData, 'id'> = {
+    // Auto-generate publishDate on backend
+    const postData: any = {
       title,
       content,
       author: author || 'Admin',
       status: status || 'draft',
-      publishDate: publishDate || new Date().toISOString().split('T')[0],
+      publishDate: new Date().toISOString().split('T')[0], // Always generate on backend
       views: views || 0,
       featured: featured || false
     };
@@ -127,7 +174,13 @@ export const updateBlogPost = asyncHandler(async (req: Request, res: Response) =
       });
     }
 
-    const updatedPost = await BlogPostModel.update(postId, req.body);
+    // Auto-generate publishDate if not provided
+    const updateData = {
+      ...req.body,
+      publishDate: req.body.publishDate || new Date().toISOString().split('T')[0]
+    };
+
+    const updatedPost = await BlogPostModel.update(postId, updateData);
 
     return res.status(200).json({
       success: true,

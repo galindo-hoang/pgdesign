@@ -12,6 +12,7 @@ import './BlogPostEditor.css';
 
 // Import the local BlogContentSection component
 import BlogContentSection, { BlogContentSectionRef } from '../components/BlogContentSection';
+import { createBlogPost, updateBlogPost, getBlogPost, BlogPost, BlogResponse } from '../services/blogService';
 
 interface BlogPostData {
   id?: string;
@@ -66,6 +67,9 @@ const BlogPostEditor: React.FC = () => {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [editorContent, setEditorContent] = useState<string>('');
   const [slugManuallyEdited, setSlugManuallyEdited] = useState(false);
+  const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+  const [metadataImages, setMetadataImages] = useState<string[]>([]);
+  const [uploadingImages, setUploadingImages] = useState(false);
 
   // Ref for BlogContentSection
   const blogContentSectionRef = useRef<BlogContentSectionRef>(null);
@@ -73,36 +77,68 @@ const BlogPostEditor: React.FC = () => {
   const loadPostData = useCallback(async () => {
     setLoading(true);
     try {
-      // Simulate API call to fetch post data
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      if (!id) {
+        setLoading(false);
+        return;
+      }
+
+      // Call API to fetch post data
+      const result = await getBlogPost(id);
       
-      // Mock data for editing
-      const mockPost: BlogPostData = {
-        id: id,
-        title: 'Thiết kế nội thất phòng khách hiện đại',
-        subtitle: 'Xu hướng thiết kế 2024',
-        excerpt: 'Khám phá những xu hướng thiết kế nội thất phòng khách hiện đại với những gam màu tươi sáng và không gian mở...',
-        thumbnail: '/assets/images/blog/hero-image.png',
-        viewCount: 1250,
-        hashtags: ['thiết kế nội thất', 'phòng khách', 'hiện đại'],
-        publishDate: '2024-01-15',
-        slug: 'thiet-ke-noi-that-phong-khach-hien-dai',
-        htmlContent: '<h1>Thiết kế nội thất phòng khách hiện đại</h1><p>Nội dung bài viết...</p>',
-        author: 'Admin',
-        readTime: '5 phút',
-        category: 'Thiết kế nội thất',
-        status: 'published',
-        featured: true,
-        seoTitle: 'Thiết kế nội thất phòng khách hiện đại 2024',
-        seoDescription: 'Khám phá xu hướng thiết kế nội thất phòng khách hiện đại với những ý tưởng độc đáo',
-        seoKeywords: ['thiết kế nội thất', 'phòng khách', 'hiện đại', '2024']
-      };
-      
-      setPostData(mockPost);
-      setThumbnailPreview(mockPost.thumbnail);
-      setEditorContent(mockPost.htmlContent);
+      if (result.success && result.data) {
+        const post = result.data;
+        
+        // Parse publishDate to YYYY-MM-DD format
+        let parsedPublishDate = post.publishDate || new Date().toISOString().split('T')[0];
+        try {
+          const date = new Date(post.publishDate);
+          if (!isNaN(date.getTime())) {
+            parsedPublishDate = date.toISOString().split('T')[0];
+          }
+        } catch (e) {
+          console.warn('Failed to parse publishDate:', e);
+        }
+
+        setPostData({
+          id: post.id,
+          title: post.title,
+          subtitle: post.subtitle || '',
+          excerpt: post.excerpt || post.content,
+          thumbnail: post.thumbnail || '', // Get thumbnail from API
+          viewCount: post.views,
+          hashtags: post.hashtags || [],
+          publishDate: parsedPublishDate,
+          slug: post.slug || '',
+          htmlContent: post.htmlContent || '',
+          author: post.author,
+          readTime: post.readTime || '',
+          category: post.category || '',
+          status: post.status,
+          featured: post.featured,
+          seoTitle: '',
+          seoDescription: '',
+          seoKeywords: []
+        });
+
+        // Set thumbnail preview if thumbnail exists
+        if (post.thumbnail) {
+          setThumbnailPreview(post.thumbnail);
+        }
+        
+        // Set metadata images if they exist
+        if (post.metadataImages && post.metadataImages.length > 0) {
+          setMetadataImages(post.metadataImages);
+        }
+        
+        // Set editor content from htmlContent
+        setEditorContent(post.htmlContent || '');
+      } else {
+        console.error('Failed to load blog post:', result.error);
+        alert('Failed to load blog post data');
+      }
     } catch (error) {
       console.error('Error loading post:', error);
+      alert('Error loading blog post data');
     } finally {
       setLoading(false);
     }
@@ -113,6 +149,13 @@ const BlogPostEditor: React.FC = () => {
       loadPostData();
     }
   }, [isEditing, loadPostData]);
+
+  // Sync htmlContent to editor when postData changes
+  useEffect(() => {
+    if (postData.htmlContent && !editorContent) {
+      setEditorContent(postData.htmlContent);
+    }
+  }, [postData.htmlContent, editorContent]);
 
   const handleInputChange = (field: keyof BlogPostData, value: any) => {
     setPostData(prev => ({
@@ -138,15 +181,88 @@ const BlogPostEditor: React.FC = () => {
     }));
   };
 
-  const handleThumbnailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleThumbnailChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      setThumbnailFile(file);
+      
+      // Create preview
       const reader = new FileReader();
       reader.onload = (e) => {
         setThumbnailPreview(e.target?.result as string);
       };
       reader.readAsDataURL(file);
+      
+      // Upload and get URL
+      try {
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('section', 'blog-thumbnails');
+
+        const response = await fetch('http://localhost:3002/api/v1/upload/image', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          if (result.success && result.data?.url) {
+            setPostData(prev => ({
+              ...prev,
+              thumbnail: result.data.url
+            }));
+          }
+        } else {
+          console.error('Thumbnail upload failed:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error uploading thumbnail:', error);
+      }
     }
+  };
+
+  const handleMetadataImagesChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files || []);
+    if (files.length > 0) {
+      setUploadingImages(true);
+      
+      try {
+        const uploadedUrls: string[] = [];
+        
+        // Upload each file
+        for (const file of files) {
+          const formData = new FormData();
+          formData.append('image', file);
+          formData.append('section', 'blog-metadata');
+
+          const response = await fetch('http://localhost:3002/api/v1/upload/image', {
+            method: 'POST',
+            body: formData,
+          });
+
+          if (response.ok) {
+            const result = await response.json();
+            if (result.success && result.data?.url) {
+              uploadedUrls.push(result.data.url);
+            }
+          }
+        }
+        
+        // Add URLs to metadata images
+        setMetadataImages(prev => [...prev, ...uploadedUrls]);
+      } catch (error) {
+        console.error('Error uploading metadata images:', error);
+        alert('Error uploading images. Please try again.');
+      } finally {
+        setUploadingImages(false);
+        // Reset input
+        event.target.value = '';
+      }
+    }
+  };
+
+  const handleRemoveMetadataImage = (index: number) => {
+    setMetadataImages(prev => prev.filter((_, i) => i !== index));
   };
 
   const handleEditorChange = (content: string) => {
@@ -182,12 +298,37 @@ const BlogPostEditor: React.FC = () => {
         }));
       }
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      console.log('Saving post:', postData);
-      alert(isEditing ? 'Post updated successfully!' : 'Post created successfully!');
-      navigate('/blog');
+      // Prepare data for API
+      // Note: publishDate will be auto-generated by backend
+      const postPayload: any = {
+        title: postData.title,
+        subtitle: postData.subtitle || '',
+        content: postData.excerpt, // Use excerpt as content for API
+        htmlContent: postData.htmlContent,
+        author: postData.author || 'Admin',
+        status: postData.status,
+        // publishDate removed - backend will auto-generate
+        views: postData.viewCount,
+        featured: postData.featured,
+        slug: postData.slug,
+        thumbnail: postData.thumbnail,
+        metadataImages: metadataImages // Store metadata images URLs
+      };
+
+      // Call API
+      let result;
+      if (isEditing && id) {
+        result = await updateBlogPost(id, postPayload);
+      } else {
+        result = await createBlogPost(postPayload);
+      }
+
+      if (result.success) {
+        alert(isEditing ? 'Post updated successfully!' : 'Post created successfully!');
+        navigate('/blog');
+      } else {
+        throw new Error(result.error || 'Failed to save blog post');
+      }
     } catch (error) {
       console.error('Error saving post:', error);
       alert('Error saving post. Please try again.');
@@ -239,6 +380,11 @@ const BlogPostEditor: React.FC = () => {
 
   // Auto-generate slug when title changes
   const handleTitleChange = (value: string) => {
+    // Don't allow title change when editing
+    if (isEditing) {
+      return;
+    }
+    
     handleInputChange('title', value);
     
     // Always auto-generate slug from title
@@ -327,7 +473,19 @@ const BlogPostEditor: React.FC = () => {
                 onChange={(e) => handleTitleChange(e.target.value)}
                 placeholder="Enter post title"
                 className="form-input"
+                readOnly={isEditing}
+                disabled={isEditing}
+                style={isEditing ? { 
+                  background: '#f5f5f5', 
+                  cursor: 'not-allowed',
+                  opacity: 0.6 
+                } : {}}
               />
+              {isEditing && (
+                <small style={{ color: '#6c757d', fontSize: '12px', display: 'block', marginTop: '0.25rem' }}>
+                  Title không thể chỉnh sửa khi đang edit bài viết
+                </small>
+              )}
             </div>
 
             <div className="form-group">
@@ -356,23 +514,20 @@ const BlogPostEditor: React.FC = () => {
 
             <div className="form-group">
               <label htmlFor="slug">Slug *</label>
-              <div className="slug-input-group">
-                <input
-                  type="text"
-                  id="slug"
-                  value={postData.slug}
-                  placeholder="post-url-slug"
-                  className="form-input"
-                  readOnly
-                  style={{ background: '#f5f5f5', cursor: 'not-allowed' }}
-                />
-                <button 
-                  className="generate-slug-btn"
-                  onClick={handleGenerateSlug}
-                >
-                  Regenerate
-                </button>
-              </div>
+              <input
+                type="text"
+                id="slug"
+                value={postData.slug || ''}
+                placeholder={postData.slug ? '' : 'post-url-slug'}
+                className="form-input"
+                readOnly
+                disabled
+                style={{ 
+                  background: '#f5f5f5', 
+                  cursor: 'not-allowed',
+                  opacity: 0.6
+                }}
+              />
               <small style={{ color: '#6c757d', fontSize: '12px', display: 'block', marginTop: '0.25rem' }}>
                 Slug được tự động tạo dựa trên title
               </small>
@@ -576,6 +731,48 @@ const BlogPostEditor: React.FC = () => {
                 ))}
               </div>
             </div> */}
+          </div>
+
+          {/* Thư Viện Ảnh */}
+          <div className="editor-section">
+            <h2>Thư Viện Ảnh ({metadataImages.length})</h2>
+            
+            <div className="form-group">
+              <div className="images-gallery">
+                {metadataImages.map((imageUrl, index) => (
+                  <div key={index} className="gallery-item">
+                    <img src={imageUrl} alt={`Metadata ${index + 1}`} />
+                    <div className="gallery-actions">
+                      <button 
+                        className="btn-remove"
+                        onClick={() => handleRemoveMetadataImage(index)}
+                        title="Xóa hình ảnh"
+                      >
+                        <X size={16} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+                
+                {/* Add Image Button */}
+                <label className="add-image-btn" style={{ pointerEvents: uploadingImages ? 'none' : 'auto' }}>
+                  {uploadingImages ? (
+                    <div>Uploading...</div>
+                  ) : (
+                    <>
+                      <Plus size={24} />
+                      <span>THÊM ẢNH</span>
+                    </>
+                  )}
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={handleMetadataImagesChange}
+                  />
+                </label>
+              </div>
+            </div>
           </div>
         </div>
       </div>

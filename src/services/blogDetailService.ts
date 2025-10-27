@@ -1,6 +1,7 @@
 // src/services/blogDetailService.ts
 
 import { BlogDetailData } from '../types/blogDetailTypes';
+import { getBlogPostBySlug, BlogPost } from './blogPostsService';
 
 // Mock data for blog details - corresponds to public/assets/blog folders
 const mockBlogDetails: { [key: string]: BlogDetailData } = {
@@ -1351,37 +1352,70 @@ const mockBlogDetails: { [key: string]: BlogDetailData } = {
   }
 };
 
+// Helper function to transform BlogPost to BlogDetailData
+const transformBlogPostToDetail = (blogPost: BlogPost): BlogDetailData => {
+  return {
+    id: blogPost.id,
+    title: blogPost.title,
+    subtitle: blogPost.subtitle,
+    excerpt: blogPost.excerpt || blogPost.content,
+    thumbnail: blogPost.thumbnail || '/assets/blog/default.png',
+    viewCount: blogPost.views,
+    hashtags: blogPost.hashtags || [],
+    publishDate: blogPost.publishDate,
+    slug: blogPost.slug || '',
+    htmlContent: blogPost.htmlContent || blogPost.content,
+    author: blogPost.author,
+    readTime: blogPost.readTime,
+    category: blogPost.category,
+    metadataImages: blogPost.metadataImages
+  };
+};
+
 // Function to fetch blog detail data by slug or ID
 export const fetchBlogDetailData = async (identifier: string): Promise<BlogDetailData> => {
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 500));
-
-  // Check if identifier is a slug
-  let blogDetail = mockBlogDetails[identifier];
-  
-  if (!blogDetail) {
-    // Check if identifier is an ID
-    const idToSlugMap: { [key: string]: string } = {
-      "1": "12-xu-huong-thiet-ke-khong-gian-xanh",
-      "2": "21-mau-ke-tivi-duoi-gam-cau-thang", 
-      "3": "4-tips-tao-diem-nhan-bep-sang-trong",
-      "4": "6-tip-ve-sinh-ban-an-go-don-gian",
-      "5": "4-phong-cach-tu-quan-ao-dep",
-      "6": "nha-dep-mix-chat-lieu-dung-cach",
-      "7": "cach-phoi-mau-noi-that-dep-sang-trong",
-      "8": "top-7-vat-lieu-op-tuong-gia-chu-can-biet"
-    };
+  try {
+    // Try to fetch from API first
+    const blogPost = await getBlogPostBySlug(identifier);
     
-    const slug = idToSlugMap[identifier];
-    if (slug) {
-      blogDetail = mockBlogDetails[slug];
+    if (blogPost) {
+      return transformBlogPostToDetail(blogPost);
     }
+    
+    // Fallback to mock data if API fails
+    console.warn('Blog post not found in API, falling back to mock data');
+    
+    // Check if identifier is a slug
+    let blogDetail = mockBlogDetails[identifier];
+    
+    if (!blogDetail) {
+      // Check if identifier is an ID
+      const idToSlugMap: { [key: string]: string } = {
+        "1": "12-xu-huong-thiet-ke-khong-gian-xanh",
+        "2": "21-mau-ke-tivi-duoi-gam-cau-thang", 
+        "3": "4-tips-tao-diem-nhan-bep-sang-trong",
+        "4": "6-tip-ve-sinh-ban-an-go-don-gian",
+        "5": "4-phong-cach-tu-quan-ao-dep",
+        "6": "nha-dep-mix-chat-lieu-dung-cach",
+        "7": "cach-phoi-mau-noi-that-dep-sang-trong",
+        "8": "top-7-vat-lieu-op-tuong-gia-chu-can-biet"
+      };
+      
+      const slug = idToSlugMap[identifier];
+      if (slug) {
+        blogDetail = mockBlogDetails[slug];
+      }
+    }
+    
+    if (!blogDetail) {
+      throw new Error('Blog not found');
+    }
+    
+    return blogDetail;
+  } catch (error) {
+    console.error('Error fetching blog detail:', error);
+    throw error;
   }
-  
-  if (!blogDetail) {
-    throw new Error('Blog not found');
-  }
-  return blogDetail;
 };
 
 
@@ -1451,6 +1485,46 @@ export const getFileInfo = async (folderName: string): Promise<{ size: number; l
     console.error(`Error getting file info for ${folderName}:`, error);
     return { size: 0, lastModified: '', exists: false };
   }
+};
+
+/**
+ * Appends blog metadata images to htmlContent
+ * @param htmlContent - The existing HTML content
+ * @param metadataImages - Array of image URLs
+ * @param title - Blog title for alt text
+ * @returns Enhanced HTML content with images
+ */
+export const appendBlogMetadataImagesToHtml = (
+  htmlContent: string,
+  metadataImages: string[],
+  title: string
+): string => {
+  if (!metadataImages || metadataImages.length === 0) {
+    return htmlContent;
+  }
+
+  // Create image gallery HTML
+  const imageGalleryHtml = `
+    <div style="margin-top: 2rem;">
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        ${metadataImages
+          .map((imageUrl, index) => {
+            return `
+            <img 
+              src="${imageUrl}" 
+              alt="${title} - Hình ${index + 1}" 
+              style="width: 100%; height: auto; object-fit: cover; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);"
+              loading="lazy"
+            />
+          `;
+          })
+          .join("")}
+      </div>
+    </div>
+  `;
+
+  // Append the image gallery to the end of htmlContent
+  return htmlContent + imageGalleryHtml;
 };
 
 // Function to validate if a blog folder exists and has required files

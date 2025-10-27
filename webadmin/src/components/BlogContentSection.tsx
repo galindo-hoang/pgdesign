@@ -127,18 +127,18 @@ const BlogContentSection = forwardRef<BlogContentSectionRef, BlogContentSectionP
                 [{ 'color': [] }, { 'background': [] }],
                 [{ 'align': [] }],
                 [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                ['link', 'image'],
+                ['link'],
                 ['clean']
               ]
             }}
-            formats={[
-              'header',
-              'bold', 'italic', 'underline', 'strike',
-              'color', 'background',
-              'align',
-              'list', 'bullet',
-              'link', 'image'
-            ]}
+            // formats={[
+            //   'header',
+            //   'bold', 'italic', 'underline', 'strike',
+            //   'color', 'background',
+            //   'align',
+            //   'list', 'bullet',
+            //   'link'
+            // ]}
           />
 
           {/* Preview Modal */}

@@ -696,7 +696,6 @@ export const fetchHomePageData = async (): Promise<HomePageData> => {
         consultationForm
       };
     } else {
-      alert(`${API_BASE_URL}/homepage`)
       // Make real API call to get all data at once
       const response = await fetch(`${API_BASE_URL}/homepage`, {
         method: 'GET',

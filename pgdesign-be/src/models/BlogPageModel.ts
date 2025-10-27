@@ -106,7 +106,8 @@ export class BlogPageModel extends BaseModel {
   // ========== PROJECT ITEMS OPERATIONS ==========
 
   async getProjectItems(filters?: BlogPageFilters): Promise<ProjectGalleryData> {
-    let query = db('blog_project_items').where('is_active', true);
+    // Query from blog_posts instead of blog_project_items
+    let query = db('blog_posts').where('is_active', true).whereNotNull('area');
 
     // Apply filters
     if (filters) {
@@ -132,7 +133,7 @@ export class BlogPageModel extends BaseModel {
     const totalProjectsCount = typeof totalCount?.count === 'string' ? parseInt(totalCount.count) : (totalCount?.count || 0);
 
     return {
-      projects: projects.map(this.transformProjectItemEntityToData),
+      projects: projects.map(this.transformBlogPostToProjectItem),
       totalProjects: totalProjectsCount,
       hasMore: offset + limit < totalProjectsCount
     };
@@ -357,7 +358,8 @@ export class BlogPageModel extends BaseModel {
   // ========== SEARCH AND FILTERING ==========
 
   async searchProjects(filters: BlogPageSearchFilters): Promise<ProjectGalleryData> {
-    let query = db('blog_project_items');
+    // Query from blog_posts instead of blog_project_items
+    let query = db('blog_posts').whereNotNull('area');
 
     // Apply filters
     if (filters.query) {
@@ -407,7 +409,7 @@ export class BlogPageModel extends BaseModel {
     const totalProjectsCount = typeof totalCount?.count === 'string' ? parseInt(totalCount.count) : (totalCount?.count || 0);
 
     return {
-      projects: projects.map(this.transformProjectItemEntityToData),
+      projects: projects.map(this.transformBlogPostToProjectItem),
       totalProjects: totalProjectsCount,
       hasMore: offset + limit < totalProjectsCount
     };
@@ -428,7 +430,8 @@ export class BlogPageModel extends BaseModel {
       updateData.display_order = data.updates.displayOrder;
     }
 
-    const updated = await db('blog_project_items')
+    // Query from blog_posts instead of blog_project_items
+    const updated = await db('blog_posts')
       .whereIn('id', data.ids)
       .update(updateData);
 
@@ -436,12 +439,13 @@ export class BlogPageModel extends BaseModel {
   }
 
   async bulkDeleteProjects(data: BulkDeleteRequest): Promise<number> {
+    // Query from blog_posts instead of blog_project_items
     if (data.hardDelete) {
-      return await db('blog_project_items')
+      return await db('blog_posts')
         .whereIn('id', data.ids)
         .del();
     } else {
-      return await db('blog_project_items')
+      return await db('blog_posts')
         .whereIn('id', data.ids)
         .update({ is_active: false, updated_at: new Date() });
     }
@@ -473,6 +477,22 @@ export class BlogPageModel extends BaseModel {
       displayOrder: entity.display_order,
       createdAt: entity.created_at!,
       updatedAt: entity.updated_at!
+    };
+  }
+
+  private transformBlogPostToProjectItem(row: any): BlogProjectItem {
+    return {
+      id: row.slug || row.id.toString(),
+      title: row.title,
+      image: row.thumbnail || '',
+      area: row.area || '',
+      style: row.style || '',
+      client: row.client_name || '',
+      location: row.location || '',
+      isActive: row.is_active !== undefined ? row.is_active : true,
+      displayOrder: row.display_order || 0,
+      createdAt: row.created_at ? new Date(row.created_at) : new Date(),
+      updatedAt: row.updated_at ? new Date(row.updated_at) : new Date()
     };
   }
 

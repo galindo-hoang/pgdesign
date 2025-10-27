@@ -116,6 +116,48 @@
   font-style: italic !important;
 }
 
+/* Quill Editor List Styles - Force display */
+.ql-editor ul,
+.ql-editor ol {
+  padding-left: 1.5em !important;
+  margin: 1em 0 !important;
+}
+
+.ql-editor ul {
+  list-style-type: disc !important;
+  list-style-position: outside !important;
+}
+
+.ql-editor ol {
+  list-style-type: decimal !important;
+  list-style-position: outside !important;
+}
+
+.ql-editor li {
+  display: list-item !important;
+  list-style-position: outside !important;
+  padding-left: 0.5em !important;
+  margin: 0.25em 0 !important;
+}
+
+.ql-editor ul li,
+.ql-editor ol li {
+  display: list-item !important;
+}
+
+.ql-editor blockquote {
+  border-left: 4px solid #007bff;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #6c757d;
+}
+
+/* Force list items to show bullets/numbers */
+.ql-editor li::before {
+  display: none !important;
+}
+
 /* Quill Toolbar Buttons */
 .ql-toolbar button {
   color: #495057 !important;

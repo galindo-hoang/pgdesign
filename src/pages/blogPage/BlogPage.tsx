@@ -17,12 +17,42 @@ import {
 // Import LoadingSpinner component
 import LoadingSpinner from "../../components/LoadingSpinner";
 
+// Import blog posts service
+import { getAllBlogPosts } from "../../services/blogPostsService";
+
 
 const BlogPage: React.FC = () => {
   // State management
   const [blogData, setBlogData] = useState<BlogPageData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [newsData, setNewsData] = useState<any[]>([]);
+
+  // Load blog posts on component mount
+  useEffect(() => {
+    const loadBlogPosts = async () => {
+      try {
+        const posts = await getAllBlogPosts();
+        // Transform blog posts to news items format
+        const newsItems = posts.map(post => ({
+          id: post.id,
+          title: post.title,
+          excerpt: post.content.substring(0, 200) + '...', // Limit excerpt to 200 chars
+          thumbnail: post.thumbnail || '/assets/blog/default.png',
+          viewCount: post.views,
+          hashtags: [], // You can add hashtags later
+          publishDate: post.publishDate,
+          slug: post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+        }));
+        setNewsData(newsItems);
+      } catch (err) {
+        console.error('Error loading blog posts:', err);
+        setNewsData([]);
+      }
+    };
+
+    loadBlogPosts();
+  }, []);
 
   // Mock news data - replace with actual API call
   const mockNewsData = [
@@ -212,7 +242,7 @@ const BlogPage: React.FC = () => {
 
       {/* News Section */}
       <NewsSection
-        news={mockNewsData}
+        news={newsData.length > 0 ? newsData : mockNewsData}
         title="Tin Tức & Bài Viết"
         subtitle="Khám phá những bài viết mới nhất về thiết kế nội thất từ PG Design"
         loading={false} // newsLoading state was removed, so it's always false

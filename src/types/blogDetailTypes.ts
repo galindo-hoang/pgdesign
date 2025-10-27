@@ -15,6 +15,7 @@ export interface BlogDetailData {
   author?: string;
   readTime?: string;
   category?: string;
+  metadataImages?: string[];
 }
 
 // Blog Detail Service Response

@@ -9,6 +9,15 @@ export interface BlogPost {
   publishDate: string;
   views: number;
   featured: boolean;
+  thumbnail: string;
+  metadataImages: string[];
+  htmlContent?: string;
+  slug?: string;
+  subtitle?: string;
+  excerpt?: string;
+  hashtags?: string[];
+  readTime?: string;
+  category?: string;
 }
 
 export interface BlogResponse {
@@ -33,6 +42,20 @@ export const getAllBlogPosts = async (): Promise<BlogResponse> => {
   }
 };
 
+export const getBlogPost = async (id: string): Promise<{ success: boolean; data?: BlogPost; error?: string }> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/blogposts/${id}`);
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('Error fetching blog post:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to fetch blog post'
+    };
+  }
+};
+
 export const deleteBlogPost = async (id: string): Promise<BlogResponse> => {
   try {
     const response = await fetch(`${API_BASE_URL}/blogposts/${id}`, {
@@ -45,6 +68,46 @@ export const deleteBlogPost = async (id: string): Promise<BlogResponse> => {
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Failed to delete blog post'
+    };
+  }
+};
+
+export const createBlogPost = async (post: Partial<BlogPost>): Promise<BlogResponse> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/blogposts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(post),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('Error creating blog post:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to create blog post'
+    };
+  }
+};
+
+export const updateBlogPost = async (id: string, post: Partial<BlogPost>): Promise<BlogResponse> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/blogposts/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(post),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('Error updating blog post:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to update blog post'
     };
   }
 };

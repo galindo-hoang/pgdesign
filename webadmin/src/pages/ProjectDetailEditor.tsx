@@ -425,18 +425,18 @@ const ProjectDetailEditor: React.FC<ProjectDetailEditorProps> = ({ mode }) => {
                   [{ 'color': [] }, { 'background': [] }],
                   [{ 'align': [] }],
                   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                  ['link', 'image'],
+                  ['link'],
                   ['clean']
                 ]
               }}
-              formats={[
-                'header',
-                'bold', 'italic', 'underline', 'strike',
-                'color', 'background',
-                'align',
-                'list', 'bullet',
-                'link', 'image'
-              ]}
+              // formats={[
+              //   'header',
+              //   'bold', 'italic', 'underline', 'strike',
+              //   'color', 'background',
+              //   'align',
+              //   'list', 'bullet',
+              //   'link'
+              // ]}
               style={{ minHeight: '400px' }}
             />
           </div>

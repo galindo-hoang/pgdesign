@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./BlogDetailPage.css";
 import { BlogDetailData } from "../../types/blogDetailTypes";
 import { ConsultationCTA } from "../../types/blogPageTypes";
-import { fetchBlogDetailData } from "../../services/blogDetailService";
+import { fetchBlogDetailData, appendBlogMetadataImagesToHtml } from "../../services/blogDetailService";
 import { fetchConsultationCTA } from "../../services/blogPageService";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ConsultationCTASection from "../../components/ConsultationCTASection";
@@ -16,6 +16,7 @@ const BlogDetailPage: React.FC = () => {
   const [consultationCTAData, setConsultationCTAData] = useState<ConsultationCTA | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [enhancedHtmlContent, setEnhancedHtmlContent] = useState<string | null>(null);
 
   useEffect(() => {
     const loadData = async () => {
@@ -33,6 +34,17 @@ const BlogDetailPage: React.FC = () => {
           fetchConsultationCTA()
         ]);
         
+        // Append metadata images to HTML content if they exist
+        let finalHtmlContent = blogDetailData.htmlContent;
+        if (blogDetailData.metadataImages && blogDetailData.metadataImages.length > 0) {
+          finalHtmlContent = appendBlogMetadataImagesToHtml(
+            blogDetailData.htmlContent,
+            blogDetailData.metadataImages,
+            blogDetailData.title
+          );
+        }
+        
+        setEnhancedHtmlContent(finalHtmlContent);
         setBlogData(blogDetailData);
         setConsultationCTAData(consultationData);
 
@@ -137,11 +149,11 @@ const BlogDetailPage: React.FC = () => {
         <div className="hero-overlay">
           <div className="hero-content">
 
-            <div className="blog-meta">
+            {/* <div className="blog-meta">
               <span className="category">{blogData.category}</span>
               <span className="publish-date">{formatDate(blogData.publishDate)}</span>
               <span className="read-time">{blogData.readTime}</span>
-            </div>
+            </div> */}
             <h1 className="blog-title">{blogData.title}</h1>
             {blogData.subtitle && (
               <h2 className="blog-subtitle">{blogData.subtitle}</h2>
@@ -162,12 +174,12 @@ const BlogDetailPage: React.FC = () => {
         <div className="content-grid">
           {/* Main Content */}
           <div className="main-content">
-            <div 
-              className="embedded-html-content"
-              dangerouslySetInnerHTML={{ __html: blogData.htmlContent }}
-            />
-            
-            
+            {enhancedHtmlContent && (
+              <div 
+                className="embedded-html-content"
+                dangerouslySetInnerHTML={{ __html: enhancedHtmlContent }}
+              />
+            )}
           </div>
           
           {/* Sidebar - Only Related Articles */}
