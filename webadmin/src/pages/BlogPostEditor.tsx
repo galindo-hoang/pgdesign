@@ -241,14 +241,12 @@ const BlogPostEditor: React.FC = () => {
   const handleTitleChange = (value: string) => {
     handleInputChange('title', value);
     
-    // Auto-generate slug if it's empty or if user hasn't manually edited it
-    if (!postData.slug || (!slugManuallyEdited && postData.slug === generateSlugFromTitle(postData.title))) {
-      const newSlug = generateSlugFromTitle(value);
-      setPostData(prev => ({
-        ...prev,
-        slug: newSlug
-      }));
-    }
+    // Always auto-generate slug from title
+    const newSlug = generateSlugFromTitle(value);
+    setPostData(prev => ({
+      ...prev,
+      slug: newSlug
+    }));
   };
 
   // Manual slug generation (for the button)
@@ -363,25 +361,21 @@ const BlogPostEditor: React.FC = () => {
                   type="text"
                   id="slug"
                   value={postData.slug}
-                  onChange={(e) => handleSlugChange(e.target.value)}
                   placeholder="post-url-slug"
                   className="form-input"
+                  readOnly
+                  style={{ background: '#f5f5f5', cursor: 'not-allowed' }}
                 />
                 <button 
                   className="generate-slug-btn"
                   onClick={handleGenerateSlug}
                 >
-                  Generate
+                  Regenerate
                 </button>
-                {slugManuallyEdited && (
-                  <button 
-                    className="reset-slug-btn"
-                    onClick={handleResetSlug}
-                  >
-                    Reset
-                  </button>
-                )}
               </div>
+              <small style={{ color: '#6c757d', fontSize: '12px', display: 'block', marginTop: '0.25rem' }}>
+                Slug được tự động tạo dựa trên title
+              </small>
             </div>
           </div>
 

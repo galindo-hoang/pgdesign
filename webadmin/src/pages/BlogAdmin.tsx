@@ -12,17 +12,7 @@ import {
   User
 } from 'lucide-react';
 import './BlogAdmin.css';
-
-interface BlogPost {
-  id: string;
-  title: string;
-  content: string;
-  author: string;
-  status: 'published' | 'draft' | 'archived';
-  publishDate: string;
-  views: number;
-  featured: boolean;
-}
+import { getAllBlogPosts, deleteBlogPost, BlogPost } from '../services/blogService';
 
 const BlogAdmin: React.FC = () => {
   const navigate = useNavigate();
@@ -35,54 +25,21 @@ const BlogAdmin: React.FC = () => {
     const fetchPosts = async () => {
       setLoading(true);
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const mockPosts: BlogPost[] = [
-        {
-          id: '1',
-          title: 'Thiết kế nội thất phòng khách hiện đại',
-          content: 'Xu hướng thiết kế nội thất phòng khách hiện đại với những gam màu tươi sáng...',
-          author: 'Admin',
-          status: 'published',
-          publishDate: '2024-01-15',
-          views: 1250,
-          featured: true
-        },
-        {
-          id: '2',
-          title: 'Bí quyết chọn màu sắc cho không gian sống',
-          content: 'Màu sắc đóng vai trò quan trọng trong việc tạo nên cảm xúc và không khí...',
-          author: 'Admin',
-          status: 'published',
-          publishDate: '2024-01-10',
-          views: 890,
-          featured: false
-        },
-        {
-          id: '3',
-          title: 'Thiết kế phòng ngủ master sang trọng',
-          content: 'Phòng ngủ master cần được thiết kế với sự chú ý đặc biệt đến không gian...',
-          author: 'Admin',
-          status: 'draft',
-          publishDate: '2024-01-20',
-          views: 0,
-          featured: false
-        },
-        {
-          id: '4',
-          title: 'Xu hướng thiết kế bếp năm 2024',
-          content: 'Những xu hướng mới nhất trong thiết kế bếp với công nghệ thông minh...',
-          author: 'Admin',
-          status: 'published',
-          publishDate: '2024-01-05',
-          views: 2100,
-          featured: true
+      try {
+        const result = await getAllBlogPosts();
+        
+        if (result.success && result.data) {
+          setPosts(result.data);
+        } else {
+          console.error('Failed to fetch blog posts:', result.error);
+          alert('Failed to load blog posts');
         }
-      ];
-      
-      setPosts(mockPosts);
-      setLoading(false);
+      } catch (error) {
+        console.error('Error fetching blog posts:', error);
+        alert('Error loading blog posts');
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchPosts();
@@ -104,9 +61,22 @@ const BlogAdmin: React.FC = () => {
     return badges[status as keyof typeof badges] || badges.draft;
   };
 
-  const handleDeletePost = (id: string) => {
+  const handleDeletePost = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this post?')) {
-      setPosts(posts.filter(post => post.id !== id));
+      try {
+        const result = await deleteBlogPost(id);
+        
+        if (result.success) {
+          setPosts(posts.filter(post => post.id !== id));
+          alert('Post deleted successfully');
+        } else {
+          console.error('Failed to delete post:', result.error);
+          alert('Failed to delete post');
+        }
+      } catch (error) {
+        console.error('Error deleting post:', error);
+        alert('Error deleting post');
+      }
     }
   };
 

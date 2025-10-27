@@ -6,6 +6,7 @@ import servicepageRoutes from "./servicepage";
 import consultationRoutes from "./consultation";
 import projectdetailRoutes from "./projectdetail";
 import blogpageRoutes from "./blogpage";
+import blogpostsRoutes from "./blogposts";
 import projectsubcategoriesRoutes from "./projectsubcategories";
 import uploadRoutes from "./upload";
 import profileRoutes from "./profile";
@@ -40,6 +41,9 @@ router.use(`/${API_VERSION}/projectdetail`, projectdetailRoutes);
 
 // Blog page routes
 router.use(`/${API_VERSION}/blogpage`, blogpageRoutes);
+
+// Blog posts routes
+router.use(`/${API_VERSION}/blogposts`, blogpostsRoutes);
 
 // Project subcategories routes
 router.use(`/${API_VERSION}/projectsubcategories`, projectsubcategoriesRoutes);
