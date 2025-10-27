@@ -37,12 +37,12 @@ const BlogPage: React.FC = () => {
         const newsItems = posts.map(post => ({
           id: post.id,
           title: post.title,
-          excerpt: post.content.substring(0, 200) + '...', // Limit excerpt to 200 chars
+          excerpt: post.excerpt || post.content.substring(0, 200) + '...', // Use excerpt if available
           thumbnail: post.thumbnail || '/assets/blog/default.png',
           viewCount: post.views,
-          hashtags: [], // You can add hashtags later
+          hashtags: post.hashtags || [], // Use hashtags from post if available
           publishDate: post.publishDate,
-          slug: post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+          slug: post.slug || post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/--+/g, '-') // Use post.slug if available, otherwise generate from title
         }));
         setNewsData(newsItems);
       } catch (err) {
@@ -179,11 +179,17 @@ const BlogPage: React.FC = () => {
   };
 
   const handleNewsClick = (newsId: string) => {
-    // Find the news item by ID
-    const newsItem = mockNewsData.find(item => item.id === newsId);
+    // Get the actual displayed data (could be from API or mock)
+    const displayedData = newsData.length > 0 ? newsData : mockNewsData;
+    
+    // Find the news item by ID in the displayed data
+    const newsItem = displayedData.find(item => item.id === newsId);
     if (newsItem && newsItem.slug) {
       // Navigate to blog detail page using the slug
       window.location.href = `/blog/${newsItem.slug}`;
+    } else if (newsItem) {
+      // If no slug, use the ID
+      window.location.href = `/blog/${newsItem.id}`;
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { useRef, useImperativeHandle, forwardRef } from 'react';
+import React, { useRef, useImperativeHandle, forwardRef, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'quill/dist/quill.snow.css';
 import './BlogContentSection.css';
@@ -42,6 +42,30 @@ const BlogContentSection = forwardRef<BlogContentSectionRef, BlogContentSectionP
   modalTitle = "Content Preview"
 }, ref) => {
   const quillRef = useRef<ReactQuill>(null);
+  const previousHtmlContentRef = useRef<string>('');
+
+  // Update editor content when htmlContent prop changes from empty to having content
+  // This is needed because ReactQuill doesn't update automatically when value prop changes
+  useEffect(() => {
+    if (quillRef.current && htmlContent && htmlContent !== previousHtmlContentRef.current) {
+      const editor = quillRef.current.getEditor();
+      const currentContent = editor.root.innerHTML.trim();
+      
+      // Update if htmlContent just became available (loading existing blog post)
+      // or if the content is significantly different
+      if (previousHtmlContentRef.current === '' && htmlContent !== '') {
+        // Initial load with content
+        editor.root.innerHTML = htmlContent;
+        previousHtmlContentRef.current = htmlContent;
+      } else if (currentContent === '' || currentContent === '<p><br></p>' || currentContent === '<p></p>') {
+        // Editor is empty but we have content
+        editor.root.innerHTML = htmlContent;
+        previousHtmlContentRef.current = htmlContent;
+      }
+    } else if (!htmlContent) {
+      previousHtmlContentRef.current = '';
+    }
+  }, [htmlContent]);
 
   useImperativeHandle(ref, () => ({
     getEditorContent: () => {
