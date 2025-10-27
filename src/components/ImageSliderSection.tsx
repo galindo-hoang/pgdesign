@@ -81,7 +81,7 @@ const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides: propSlides }) 
      centerPadding: "70px", // Space around the center slide (adjust as needed)
      autoplay: true, // Disable auto-scroll
      autoplaySpeed: 1500, // Time between slides (not used when autoplay is false)
-     arrows: false, // Hide default arrows (you can add custom ones if needed)
+     arrows: true, // Hide default arrows (you can add custom ones if needed)
      swipe: true, // <--- Ensure this is true (it's default true)
      draggable: true, // <--- Ensure this is true (it's default true for desktop)
      touchMove: true, // <--- Ensure this is true (it's default true for mobile)
@@ -101,7 +101,7 @@ const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides: propSlides }) 
            slidesToScroll: 1,
            centerPadding: "20px",
            dots: false,
-           arrows: false,
+           arrows: true,
          },
        },
        {
@@ -111,7 +111,7 @@ const ImageSliderSection: React.FC<ImageSliderProps> = ({ slides: propSlides }) 
            slidesToScroll: 1,
            centerPadding: "0px",
            dots: false,
-           arrows: false,
+           arrows: true,
          },
        },
      ],
