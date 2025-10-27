@@ -37,10 +37,6 @@ const Footer: React.FC = () => {
           <img src={PhoneIcon} alt="Hotline" className="info-icon" />
           <p className="info-title">HOTLINE</p>
           <span>
-            <a href="tel:0978208351" className="info-text">
-              0978 208 351
-            </a>
-            {"   --   "}
             <a href="tel:0822059091" className="info-text">
               0822 059 091
             </a>
@@ -50,14 +46,14 @@ const Footer: React.FC = () => {
         <div className="footer-info-column">
           <img src={LocationIcon} alt="Địa Chỉ" className="info-icon" />
           <p className="info-title">ĐỊA CHỈ</p>
-          <p className="info-text">số 77, Đường D05, KĐT Vạn Phúc</p>
-          <p className="info-text">P. Hiệp Bình Phước, TP. Thủ Đức</p>
+          <p className="info-text">Số 77, Đường D05, KĐT Vạn Phúc</p>
+          <p className="info-text">P. Hiệp Bình, TP. Thủ Đức</p>
         </div>
 
         <div className="footer-info-column">
           <img src={LocationIcon} alt="Xưởng Sản Xuất" className="info-icon" />
           <p className="info-title">XƯỞNG SẢN XUẤT</p>
-          <p className="info-text">28 Đ.41 Tam Bình, P.Hiệp Bình Chánh </p>
+          <p className="info-text">28 Đ.41 Tam Bình, P.Hiệp Bình</p>
           <p className="info-text">TP.Thủ Đức, TP. Hồ Chí Minh.</p>
         </div>
       </div>
@@ -66,7 +62,7 @@ const Footer: React.FC = () => {
 
       <div className="footer-social-section">
         <a
-          href="https://www.facebook.com/"
+          href="https://www.facebook.com/thietkethicongnoithatPG"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -87,7 +83,7 @@ const Footer: React.FC = () => {
           <img src={TiktokIcon} alt="TikTok" className="social-icon" />
         </a>
         <a
-          href="https://www.youtube.com/"
+          href="https://www.tiktok.com/@pg_interior_design"
           target="_blank"
           rel="noopener noreferrer"
         >
