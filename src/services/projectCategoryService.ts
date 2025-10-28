@@ -7,14 +7,18 @@ import {
 
 import { additionalProjectData } from "./additionalProjectData";
 
-const houseNormal = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/house-normal.png';;
-const appartment = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/appartment.png';;
-const houseBusiness = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/house-business.png';;
-const village = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/village.png';;
+const houseNormal =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/house-normal.png";
+const appartment =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/appartment.png";
+const houseBusiness =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/house-business.png";
+const village =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/village.png";
 
 // API Configuration
 const API_BASE_URL =
-  process.env.REACT_APP_API_URL || "http://localhost:3002/api/v1";
+  process.env.REACT_APP_API_URL || "https://be.pgdesign.vn/api/v1";
 const API_TIMEOUT = 10000; // 10 seconds
 
 // Configuration for data source
@@ -33,9 +37,9 @@ const retryWithBackoff = async <T>(
   try {
     return await fn();
   } catch (error: any) {
-    if (retries > 0 && error.name !== 'AbortError') {
+    if (retries > 0 && error.name !== "AbortError") {
       console.log(`🔄 Retrying in ${delay}ms... (${retries} retries left)`);
-      await new Promise(resolve => setTimeout(resolve, delay));
+      await new Promise((resolve) => setTimeout(resolve, delay));
       return retryWithBackoff(fn, retries - 1, delay * 2);
     }
     throw error;
@@ -85,15 +89,20 @@ const setCache = <T>(key: string, data: T): void => {
 const pendingRequests = new Map<string, Promise<any>>();
 const requestCounters = new Map<string, number>();
 
-const withDeduplication = async <T>(key: string, requestFn: () => Promise<T>): Promise<T> => {
+const withDeduplication = async <T>(
+  key: string,
+  requestFn: () => Promise<T>
+): Promise<T> => {
   // Increment request counter
   const currentCount = (requestCounters.get(key) || 0) + 1;
   requestCounters.set(key, currentCount);
-  
+
   console.log(`🚨 Request #${currentCount} for ${key}`);
-  
+
   if (pendingRequests.has(key)) {
-    console.log(`⏳ BLOCKING duplicate request #${currentCount} for ${key} - using existing promise`);
+    console.log(
+      `⏳ BLOCKING duplicate request #${currentCount} for ${key} - using existing promise`
+    );
     return pendingRequests.get(key)!;
   }
 
@@ -104,7 +113,7 @@ const withDeduplication = async <T>(key: string, requestFn: () => Promise<T>): P
     // Reset counter after a delay to allow new requests
     setTimeout(() => requestCounters.delete(key), 1000);
   });
-  
+
   pendingRequests.set(key, promise);
   return promise;
 };
@@ -219,7 +228,7 @@ const fetchCategoryWithProjectsApi = async (
   categoryId: string
 ): Promise<ProjectCategory> => {
   const cacheKey = getCacheKey(`category-${categoryId}`);
-  
+
   // Check cache first
   const cachedData = getFromCache<ProjectCategory>(cacheKey);
   if (cachedData) {
@@ -230,7 +239,9 @@ const fetchCategoryWithProjectsApi = async (
   return withDeduplication(cacheKey, async () => {
     return retryWithBackoff(async () => {
       const timestamp = new Date().toISOString();
-      console.log(`🌐 Real API [${timestamp}]: Fetching category ${categoryId} with projects`);
+      console.log(
+        `🌐 Real API [${timestamp}]: Fetching category ${categoryId} with projects`
+      );
 
       // Create abort controller for timeout
       const controller = new AbortController();
@@ -254,10 +265,13 @@ const fetchCategoryWithProjectsApi = async (
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const projectsData: ApiResponse<ProjectDetail[]> = await response.json();
+        const projectsData: ApiResponse<ProjectDetail[]> =
+          await response.json();
 
         if (!projectsData.success) {
-          throw new Error(projectsData.message || "Failed to fetch projects data");
+          throw new Error(
+            projectsData.message || "Failed to fetch projects data"
+          );
         }
 
         // Get category info (you might need a separate API call for this)
@@ -266,7 +280,8 @@ const fetchCategoryWithProjectsApi = async (
           categoryId: categoryId,
           title: categoryId.toUpperCase().replace(/-/g, " "),
           description: `Category ${categoryId}`,
-          heroImageUrl: 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/default-hero.png',
+          heroImageUrl:
+            "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/default-hero.png",
           displayOrder: 0,
           isActive: true,
         };
@@ -280,10 +295,9 @@ const fetchCategoryWithProjectsApi = async (
         // Cache the result
         setCache(cacheKey, result);
         return result;
-
       } catch (error: any) {
         clearTimeout(timeoutId);
-        if (error.name === 'AbortError') {
+        if (error.name === "AbortError") {
           console.warn(`Request timeout for category ${categoryId}`);
           throw new Error(`Request timeout - please try again`);
         }

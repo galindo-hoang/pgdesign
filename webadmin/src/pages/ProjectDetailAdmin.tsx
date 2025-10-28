@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { 
-  Building2, 
-  Home, 
-  TreePine, 
+import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Building2,
+  Home,
+  TreePine,
   Store,
   Plus,
   Search,
   Edit,
   Trash2,
   Eye,
-  Loader2
-} from 'lucide-react';
-import { deleteProject } from '../services/projectDetailAdminService';
+  Loader2,
+} from "lucide-react";
+import { deleteProject } from "../services/projectDetailAdminService";
 
-import './ProjectDetailAdmin.css';
+import "./ProjectDetailAdmin.css";
 
 // Types
 interface ProjectDetail {
@@ -57,14 +57,17 @@ interface ProjectCategory {
 
 const ProjectDetailAdmin: React.FC = () => {
   const navigate = useNavigate();
-  
+
   // State management
-  const [selectedCategory, setSelectedCategory] = useState<string>('appartment');
+  const [selectedCategory, setSelectedCategory] =
+    useState<string>("appartment");
   const [projects, setProjects] = useState<ProjectDetail[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<ProjectDetail[]>([]);
   const [loading, setLoading] = useState(false);
-  const [deletingProjects, setDeletingProjects] = useState<Set<string>>(new Set());
-  const [searchTerm, setSearchTerm] = useState('');
+  const [deletingProjects, setDeletingProjects] = useState<Set<string>>(
+    new Set()
+  );
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const projectsPerPage = 10;
@@ -72,67 +75,72 @@ const ProjectDetailAdmin: React.FC = () => {
   // Project categories configuration
   const projectCategories: ProjectCategory[] = [
     {
-      id: 'appartment',
-      title: 'APARTMENT',
+      id: "appartment",
+      title: "APARTMENT",
       icon: <Building2 className="category-icon" />,
       count: 0,
-      color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+      color: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     },
     {
-      id: 'house-normal',
-      title: 'HOUSE NORMAL',
+      id: "house-normal",
+      title: "HOUSE NORMAL",
       icon: <Home className="category-icon" />,
       count: 0,
-      color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
+      color: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
     },
     {
-      id: 'village',
-      title: 'VILLA',
+      id: "village",
+      title: "VILLA",
       icon: <TreePine className="category-icon" />,
       count: 0,
-      color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+      color: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
     },
     {
-      id: 'house-business',
-      title: 'COMMERCIAL',
+      id: "house-business",
+      title: "COMMERCIAL",
       icon: <Store className="category-icon" />,
       count: 0,
-      color: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
-    }
+      color: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
+    },
   ];
 
   // Load projects data
-  const loadProjects = useCallback(async (category: string = selectedCategory) => {
-    setLoading(true);
-    try {
-      console.log(`Loading projects for category: ${category}`);
-      const response = await fetch(`http://localhost:3002/api/v1/projectdetail/category/${category}`);
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      console.log('API Response:', data);
-      
-      if (data.success && data.data) {
-        setProjects(data.data);
-        setFilteredProjects(data.data);
-        calculateTotalPages(data.data.length);
-        console.log(`Loaded ${data.data.length} projects`);
-      } else {
-        console.warn('API returned unsuccessful response or no data');
+  const loadProjects = useCallback(
+    async (category: string = selectedCategory) => {
+      setLoading(true);
+      try {
+        console.log(`Loading projects for category: ${category}`);
+        const response = await fetch(
+          `https://be.pgdesign.vn/api/v1/projectdetail/category/${category}`
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("API Response:", data);
+
+        if (data.success && data.data) {
+          setProjects(data.data);
+          setFilteredProjects(data.data);
+          calculateTotalPages(data.data.length);
+          console.log(`Loaded ${data.data.length} projects`);
+        } else {
+          console.warn("API returned unsuccessful response or no data");
+          setProjects([]);
+          setFilteredProjects([]);
+        }
+      } catch (error) {
+        console.error("Error loading projects:", error);
         setProjects([]);
         setFilteredProjects([]);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error('Error loading projects:', error);
-      setProjects([]);
-      setFilteredProjects([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [selectedCategory]);
+    },
+    [selectedCategory]
+  );
 
   // Calculate total pages
   const calculateTotalPages = (totalItems: number) => {
@@ -143,7 +151,7 @@ const ProjectDetailAdmin: React.FC = () => {
   const handleCategorySelect = (categoryId: string) => {
     setSelectedCategory(categoryId);
     setCurrentPage(1);
-    setSearchTerm('');
+    setSearchTerm("");
     loadProjects(categoryId);
   };
 
@@ -151,20 +159,21 @@ const ProjectDetailAdmin: React.FC = () => {
   const handleSearch = (term: string) => {
     setSearchTerm(term);
     setCurrentPage(1);
-    
+
     if (!term.trim()) {
       setFilteredProjects(projects);
       calculateTotalPages(projects.length);
       return;
     }
 
-    const filtered = projects.filter(project =>
-      project.title.toLowerCase().includes(term.toLowerCase()) ||
-      project.clientName.toLowerCase().includes(term.toLowerCase()) ||
-      project.address.toLowerCase().includes(term.toLowerCase()) ||
-      project.projectId.toLowerCase().includes(term.toLowerCase())
+    const filtered = projects.filter(
+      (project) =>
+        project.title.toLowerCase().includes(term.toLowerCase()) ||
+        project.clientName.toLowerCase().includes(term.toLowerCase()) ||
+        project.address.toLowerCase().includes(term.toLowerCase()) ||
+        project.projectId.toLowerCase().includes(term.toLowerCase())
     );
-    
+
     setFilteredProjects(filtered);
     calculateTotalPages(filtered.length);
   };
@@ -186,7 +195,7 @@ const ProjectDetailAdmin: React.FC = () => {
 
   // CRUD operations
   const handleAddProject = () => {
-    navigate('/project-details/add');
+    navigate("/project-details/add");
   };
 
   const handleEditProject = (project: ProjectDetail) => {
@@ -196,19 +205,19 @@ const ProjectDetailAdmin: React.FC = () => {
   const handleDeleteProject = async (project: ProjectDetail) => {
     if (window.confirm(`Bạn có chắc chắn muốn xóa dự án "${project.title}"?`)) {
       // Add project to deleting set
-      setDeletingProjects(prev => new Set(prev).add(project.projectId));
-      
+      setDeletingProjects((prev) => new Set(prev).add(project.projectId));
+
       try {
         await deleteProject(project.projectId);
-        console.log('Project deleted successfully:', project.projectId);
+        console.log("Project deleted successfully:", project.projectId);
         // Reload projects after deletion
         await loadProjects();
       } catch (error) {
-        console.error('Error deleting project:', error);
+        console.error("Error deleting project:", error);
         alert(`Lỗi xóa dự án: ${error}`);
       } finally {
         // Remove project from deleting set
-        setDeletingProjects(prev => {
+        setDeletingProjects((prev) => {
           const newSet = new Set(prev);
           newSet.delete(project.projectId);
           return newSet;
@@ -219,12 +228,15 @@ const ProjectDetailAdmin: React.FC = () => {
 
   const handleViewProject = (project: ProjectDetail) => {
     // Open preview dialog or navigate to project detail view
-    window.open(`http://localhost:3000/project-detail/${project.projectId}`, '_blank');
+    window.open(
+      `http://localhost:3000/project-detail/${project.projectId}`,
+      "_blank"
+    );
   };
 
   // Format date
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('vi-VN');
+    return new Date(dateString).toLocaleDateString("vi-VN");
   };
 
   // Get thumbnail image
@@ -241,7 +253,7 @@ const ProjectDetailAdmin: React.FC = () => {
       return project.thumbnail;
     }
     // Use a data URL for a simple placeholder to avoid file loading issues
-    return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2Y3ZjdmNyIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+Tm8gSW1hZ2U8L3RleHQ+PC9zdmc+';
+    return "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2Y3ZjdmNyIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+Tm8gSW1hZ2U8L3RleHQ+PC9zdmc+";
   };
 
   // Initialize component
@@ -255,15 +267,15 @@ const ProjectDetailAdmin: React.FC = () => {
     const maxVisible = 5;
     let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
     let end = Math.min(totalPages, start + maxVisible - 1);
-    
+
     if (end - start + 1 < maxVisible) {
       start = Math.max(1, end - maxVisible + 1);
     }
-    
+
     for (let i = start; i <= end; i++) {
       range.push(i);
     }
-    
+
     return range;
   };
 
@@ -272,7 +284,9 @@ const ProjectDetailAdmin: React.FC = () => {
       {/* Header */}
       <div className="admin-header">
         <h1>Project Detail Management</h1>
-        <p className="subtitle">Manage detailed project information and specifications</p>
+        <p className="subtitle">
+          Manage detailed project information and specifications
+        </p>
       </div>
 
       {/* Category Navigation */}
@@ -282,16 +296,19 @@ const ProjectDetailAdmin: React.FC = () => {
           {projectCategories.map((category) => (
             <div
               key={category.id}
-              className={`category-nav-item ${selectedCategory === category.id ? 'active' : ''}`}
+              className={`category-nav-item ${
+                selectedCategory === category.id ? "active" : ""
+              }`}
               onClick={() => handleCategorySelect(category.id)}
             >
-              <div className="category-nav-icon">
-                {category.icon}
-              </div>
+              <div className="category-nav-icon">{category.icon}</div>
               <div className="category-nav-content">
                 <h3 className="category-nav-title">{category.title}</h3>
                 <p className="category-nav-count">
-                  {selectedCategory === category.id ? (filteredProjects?.length || 0) : 0} projects
+                  {selectedCategory === category.id
+                    ? filteredProjects?.length || 0
+                    : 0}{" "}
+                  projects
                 </p>
               </div>
             </div>
@@ -304,18 +321,31 @@ const ProjectDetailAdmin: React.FC = () => {
         {/* Projects Header */}
         <div className="projects-header">
           <h2 className="projects-title">
-            {projectCategories.find(cat => cat.id === selectedCategory)?.title} Projects
+            {
+              projectCategories.find((cat) => cat.id === selectedCategory)
+                ?.title
+            }{" "}
+            Projects
           </h2>
           <div className="projects-actions">
             <div className="search-container">
-              <Search size={20} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#6b7280' }} />
+              <Search
+                size={20}
+                style={{
+                  position: "absolute",
+                  left: "12px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  color: "#6b7280",
+                }}
+              />
               <input
                 type="text"
                 placeholder="Search projects..."
                 className="search-input"
                 value={searchTerm}
                 onChange={(e) => handleSearch(e.target.value)}
-                style={{ paddingLeft: '40px' }}
+                style={{ paddingLeft: "40px" }}
               />
             </div>
             <button className="btn-add" onClick={handleAddProject}>
@@ -335,7 +365,10 @@ const ProjectDetailAdmin: React.FC = () => {
           <div className="empty-state">
             <Building2 className="empty-state-icon" />
             <h3>No projects found</h3>
-            <p>No projects available for this category. Start by adding a new project.</p>
+            <p>
+              No projects available for this category. Start by adding a new
+              project.
+            </p>
           </div>
         ) : (
           <>
@@ -365,23 +398,32 @@ const ProjectDetailAdmin: React.FC = () => {
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
                             // Only set placeholder if not already set to prevent infinite loop
-                            if (!target.src.includes('data:image/svg+xml')) {
-                              target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2Y3ZjdmNyIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+Tm8gSW1hZ2U8L3RleHQ+PC9zdmc+';
+                            if (!target.src.includes("data:image/svg+xml")) {
+                              target.src =
+                                "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2Y3ZjdmNyIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+Tm8gSW1hZ2U8L3RleHQ+PC9zdmc+";
                             }
                           }}
                         />
                       </td>
                       <td>
                         <div className="project-title">{project.title}</div>
-                        <div className="project-meta">ID: {project.projectId}</div>
+                        <div className="project-meta">
+                          ID: {project.projectId}
+                        </div>
                         <div className="project-meta">{project.style}</div>
                       </td>
                       <td>{project.clientName}</td>
                       <td>{project.area}</td>
                       <td>{project.address}</td>
                       <td>
-                        <span className={`status-badge ${project.isActive ? 'status-active' : 'status-inactive'}`}>
-                          {project.isActive ? 'Active' : 'Inactive'}
+                        <span
+                          className={`status-badge ${
+                            project.isActive
+                              ? "status-active"
+                              : "status-inactive"
+                          }`}
+                        >
+                          {project.isActive ? "Active" : "Inactive"}
                         </span>
                       </td>
                       <td>{formatDate(project.constructionDate)}</td>
@@ -431,17 +473,19 @@ const ProjectDetailAdmin: React.FC = () => {
                 >
                   Previous
                 </button>
-                
+
                 {getPaginationRange().map((page) => (
                   <button
                     key={page}
-                    className={`pagination-btn ${currentPage === page ? 'active' : ''}`}
+                    className={`pagination-btn ${
+                      currentPage === page ? "active" : ""
+                    }`}
                     onClick={() => handlePageChange(page)}
                   >
                     {page}
                   </button>
                 ))}
-                
+
                 <button
                   className="pagination-btn"
                   onClick={() => handlePageChange(currentPage + 1)}
@@ -449,9 +493,10 @@ const ProjectDetailAdmin: React.FC = () => {
                 >
                   Next
                 </button>
-                
+
                 <div className="pagination-info">
-                  Page {currentPage} of {totalPages} ({filteredProjects.length} total projects)
+                  Page {currentPage} of {totalPages} ({filteredProjects.length}{" "}
+                  total projects)
                 </div>
               </div>
             )}
@@ -462,4 +507,4 @@ const ProjectDetailAdmin: React.FC = () => {
   );
 };
 
-export default ProjectDetailAdmin; 
+export default ProjectDetailAdmin;

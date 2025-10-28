@@ -50,38 +50,40 @@ const ProjectAdmin: React.FC = () => {
   //   Record<number, ImageData[]>
   // >({});
 
-
   // Helper function to process image data - handle double-encoding issue
   const processImageData = (imageData: any): string | null => {
     // Check if imageData exists and is valid
     if (!imageData) return null;
-    
+
     // If imageData is not a string, log for debugging
-    if (typeof imageData !== 'string') {
-      console.log('imageData is not string:', typeof imageData, imageData);
+    if (typeof imageData !== "string") {
+      console.log("imageData is not string:", typeof imageData, imageData);
       return null;
     }
-    
+
     // Now we know imageData is a string
     const imageString = imageData.trim();
-    if (imageString === '') return null;
-    
+    if (imageString === "") return null;
+
     // Check if this is a double-encoded base64 string
-    if (imageString.startsWith('data:image/') && imageString.includes('base64,')) {
+    if (
+      imageString.startsWith("data:image/") &&
+      imageString.includes("base64,")
+    ) {
       try {
-        const base64Part = imageString.split('base64,')[1];
+        const base64Part = imageString.split("base64,")[1];
         const decoded = atob(base64Part);
-        
+
         // If decoded string is also a data URL, use it instead
-        if (decoded.startsWith('data:image/')) {
-          console.log('Detected double-encoded image, using decoded version');
+        if (decoded.startsWith("data:image/")) {
+          console.log("Detected double-encoded image, using decoded version");
           return decoded;
         }
       } catch (error) {
-        console.log('Error decoding base64:', error);
+        console.log("Error decoding base64:", error);
       }
     }
-    
+
     // Return original string if no double-encoding detected
     return imageString;
   };
@@ -113,19 +115,22 @@ const ProjectAdmin: React.FC = () => {
       if (Array.isArray(data.categories)) {
         data.categories.forEach((category) => {
           // Use S3 URL directly
-          let imageUrl = '';
-          if (category.backgroundImageUrl && typeof category.backgroundImageUrl === 'string') {
+          let imageUrl = "";
+          if (
+            category.backgroundImageUrl &&
+            typeof category.backgroundImageUrl === "string"
+          ) {
             imageUrl = category.backgroundImageUrl;
           }
-          
+
           images[category.id] = [
             {
               id: `category-${category.id}`,
               url: imageUrl,
               title: `${category.title} Background`,
               alt: `${category.title} Background Image`,
-              size: 'Unknown',
-              type: 'image/jpeg'
+              size: "Unknown",
+              type: "image/jpeg",
             },
           ];
         });
@@ -141,15 +146,15 @@ const ProjectAdmin: React.FC = () => {
 
   useEffect(() => {
     let isMounted = true;
-    
+
     const loadData = async () => {
       if (isMounted) {
         await loadProjectData();
       }
     };
-    
+
     loadData();
-    
+
     return () => {
       isMounted = false;
     };
@@ -269,7 +274,6 @@ const ProjectAdmin: React.FC = () => {
       setSaving(false);
     }
   };
-
 
   if (loading) {
     return (
@@ -459,69 +463,82 @@ const ProjectAdmin: React.FC = () => {
             <div className="categories-grid">
               {Array.isArray(formStates.categories)
                 ? formStates.categories.map((category) => {
-                  return (
-                    <div key={category.id} className="category-card">
-                      <div className="category-image">
-                        {category.backgroundImageUrl ? (
-                          <div className="category-image-preview">
-                            <img 
-                              src={category.backgroundImageUrl}
-                              alt={category.title}
-                              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                              onError={(e) => {
-                                e.currentTarget.style.display = 'none';
-                                e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                              }}
-                            />
-                            <div className="category-image-upload hidden" style={{ border: '2px dashed #ccc' }}>
+                    return (
+                      <div key={category.id} className="category-card">
+                        <div className="category-image">
+                          {category.backgroundImageUrl ? (
+                            <div className="category-image-preview">
+                              <img
+                                src={category.backgroundImageUrl}
+                                alt={category.title}
+                                style={{
+                                  width: "100%",
+                                  height: "100%",
+                                  objectFit: "cover",
+                                }}
+                                onError={(e) => {
+                                  e.currentTarget.style.display = "none";
+                                  e.currentTarget.nextElementSibling?.classList.remove(
+                                    "hidden"
+                                  );
+                                }}
+                              />
+                              <div
+                                className="category-image-upload hidden"
+                                style={{ border: "2px dashed #ccc" }}
+                              >
+                                <div className="upload-placeholder">
+                                  <span>Click to upload image</span>
+                                </div>
+                              </div>
+                            </div>
+                          ) : (
+                            <div
+                              className="category-image-upload"
+                              style={{ border: "2px dashed #ccc" }}
+                            >
                               <div className="upload-placeholder">
                                 <span>Click to upload image</span>
                               </div>
                             </div>
-                          </div>
-                        ) : (
-                          <div className="category-image-upload" style={{ border: '2px dashed #ccc' }}>
-                            <div className="upload-placeholder">
-                              <span>Click to upload image</span>
+                          )}
+                        </div>
+                        <div className="category-info">
+                          <div className="category-header">
+                            <h3>{category.title}</h3>
+                            <div className="category-actions">
+                              {editMode && (
+                                <>
+                                  <button
+                                    onClick={() => setEditingCategory(category)}
+                                    className="edit-category-btn"
+                                  >
+                                    <Edit />
+                                  </button>
+                                </>
+                              )}
                             </div>
                           </div>
-                        )}
-                      </div>
-                      <div className="category-info">
-                        <div className="category-header">
-                          <h3>{category.title}</h3>
-                          <div className="category-actions">
-                            {editMode && (
-                              <>
-                                <button
-                                  onClick={() => setEditingCategory(category)}
-                                  className="edit-category-btn"
-                                >
-                                  <Edit />
-                                </button>
-                              </>
-                            )}
+                          <div className="category-details">
+                            <p>
+                              <strong>Category ID:</strong>{" "}
+                              {category.categoryId}
+                            </p>
+                            <p>
+                              <strong>Projects:</strong> {category.projectCount}
+                            </p>
+                            <p>
+                              <strong>Navigation:</strong>{" "}
+                              {category.navigationPath}
+                            </p>
+                            <p>
+                              <strong>Order:</strong> {category.displayOrder}
+                            </p>
                           </div>
                         </div>
-                        <div className="category-details">
-                          <p>
-                            <strong>Category ID:</strong> {category.categoryId}
-                          </p>
-                          <p>
-                            <strong>Projects:</strong> {category.projectCount}
-                          </p>
-                          <p>
-                            <strong>Navigation:</strong>{" "}
-                            {category.navigationPath}
-                          </p>
-                          <p>
-                            <strong>Order:</strong> {category.displayOrder}
-                          </p>
-                        </div>
                       </div>
-                    </div>
-                  );
-                })
+                    );
+                  })
                 : []}
             </div>
           </div>
@@ -553,7 +570,6 @@ const ProjectAdmin: React.FC = () => {
           saving={saving}
         />
       )}
-
     </div>
   );
 };
@@ -620,77 +636,91 @@ const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
                 type="url"
                 value={formData.backgroundImageUrl}
                 onChange={(e) =>
-                  setFormData({ ...formData, backgroundImageUrl: e.target.value })
+                  setFormData({
+                    ...formData,
+                    backgroundImageUrl: e.target.value,
+                  })
                 }
                 className="form-input"
                 placeholder="https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/category.png"
               />
             )}
             {formData.backgroundImageUrl && (
-              <div 
-                className="image-preview-container" 
-                style={{ 
-                  marginTop: '10px',
-                  position: 'relative',
-                  display: 'inline-block'
+              <div
+                className="image-preview-container"
+                style={{
+                  marginTop: "10px",
+                  position: "relative",
+                  display: "inline-block",
                 }}
               >
-                <img 
-                  src={formData.backgroundImageUrl} 
-                  alt="Background preview" 
-                  style={{ 
-                    maxWidth: '200px', 
-                    maxHeight: '150px', 
-                    objectFit: 'cover',
-                    borderRadius: '4px',
-                    border: '1px solid #ddd',
-                    display: 'block'
+                <img
+                  src={formData.backgroundImageUrl}
+                  alt="Background preview"
+                  style={{
+                    maxWidth: "200px",
+                    maxHeight: "150px",
+                    objectFit: "cover",
+                    borderRadius: "4px",
+                    border: "1px solid #ddd",
+                    display: "block",
                   }}
                   onError={(e) => {
-                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.style.display = "none";
                   }}
                 />
                 {category && (
-                  <div 
+                  <div
                     className="image-upload-overlay"
                     style={{
-                      position: 'absolute',
+                      position: "absolute",
                       top: 0,
                       left: 0,
                       right: 0,
                       bottom: 0,
-                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      borderRadius: '4px',
+                      backgroundColor: "rgba(0, 0, 0, 0.5)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: "4px",
                       opacity: 0,
-                      transition: 'opacity 0.3s ease',
-                      cursor: 'pointer'
+                      transition: "opacity 0.3s ease",
+                      cursor: "pointer",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.opacity = '1';
+                      e.currentTarget.style.opacity = "1";
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.opacity = '0';
+                      e.currentTarget.style.opacity = "0";
                     }}
                     onClick={() => {
-                      document.getElementById(`file-input-${category.id}`)?.click();
+                      document
+                        .getElementById(`file-input-${category.id}`)
+                        ?.click();
                     }}
                   >
-                    <div style={{ color: 'white', textAlign: 'center' }}>
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                        <polyline points="7,10 12,15 17,10"/>
-                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    <div style={{ color: "white", textAlign: "center" }}>
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7,10 12,15 17,10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
                       </svg>
-                      <div style={{ fontSize: '12px', marginTop: '4px' }}>Upload Image</div>
+                      <div style={{ fontSize: "12px", marginTop: "4px" }}>
+                        Upload Image
+                      </div>
                     </div>
                   </div>
                 )}
                 <input
                   type="file"
-                  id={`file-input-${category?.id || 'new'}`}
+                  id={`file-input-${category?.id || "new"}`}
                   accept="image/jpeg,image/png,image/gif,image/webp"
                   onChange={async (e) => {
                     const file = e.target.files?.[0];
@@ -698,13 +728,16 @@ const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
                       try {
                         // Upload file to server
                         const formData = new FormData();
-                        formData.append('image', file);
-                        formData.append('section', 'project-categories');
+                        formData.append("image", file);
+                        formData.append("section", "project-categories");
 
                         const response = await fetch(
-                          `${process.env.REACT_APP_API_URL || 'http://localhost:3002'}/api/v1/upload/image`,
+                          `${
+                            process.env.REACT_APP_API_URL ||
+                            "https://be.pgdesign.vn"
+                          }/api/v1/upload/image`,
                           {
-                            method: 'POST',
+                            method: "POST",
                             body: formData,
                           }
                         );
@@ -712,20 +745,20 @@ const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
                         if (response.ok) {
                           const result = await response.json();
                           if (result.success && result.data?.url) {
-                            setFormData(prev => ({ 
-                              ...prev, 
-                              backgroundImageUrl: result.data.url 
+                            setFormData((prev) => ({
+                              ...prev,
+                              backgroundImageUrl: result.data.url,
                             }));
                           }
                         } else {
-                          console.error('Upload failed:', response.statusText);
+                          console.error("Upload failed:", response.statusText);
                         }
                       } catch (error) {
-                        console.error('Error uploading image:', error);
+                        console.error("Error uploading image:", error);
                       }
                     }
                   }}
-                  style={{ display: 'none' }}
+                  style={{ display: "none" }}
                 />
               </div>
             )}

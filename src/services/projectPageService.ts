@@ -13,7 +13,7 @@ import hero from "../assets/images/projectpage/project-hero.png";
 
 // API Configuration
 const API_BASE_URL =
-  process.env.REACT_APP_API_URL || "http://localhost:3002/api/v1";
+  process.env.REACT_APP_API_URL || "https://be.pgdesign.vn/api/v1";
 
 // Configuration for data source (can be controlled via environment variable)
 const USE_MOCK_DATA = false;
@@ -62,7 +62,7 @@ const setCache = <T>(key: string, data: T): void => {
 
 // Clear all cache
 export const clearProjectPageCache = (): void => {
-  console.log('🧹 Clearing all project page cache');
+  console.log("🧹 Clearing all project page cache");
   cache.clear();
   pendingRequests.clear();
 };
@@ -97,7 +97,8 @@ const mockAboutProjectData: AboutProjectData = {
   title: "Dự án",
   subtitle: "PG DESIGN",
   backgroundImageBlob: hero,
-  backgroundImageUrl: "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/project-hero.png",
+  backgroundImageUrl:
+    "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/projectpage/project-hero.png",
   isActive: true,
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -269,8 +270,8 @@ const handleApiError = (error: any, section: string) => {
 
 // API Functions for each section
 export const fetchAboutProjectDataApi = async (): Promise<AboutProjectData> => {
-  const cacheKey = getCacheKey('about-project');
-  
+  const cacheKey = getCacheKey("about-project");
+
   // Check cache first
   const cachedData = getFromCache<AboutProjectData>(cacheKey);
   if (cachedData) {
@@ -280,7 +281,7 @@ export const fetchAboutProjectDataApi = async (): Promise<AboutProjectData> => {
   // Use deduplication to prevent concurrent requests
   return withDeduplication(cacheKey, async () => {
     try {
-      console.log('🌐 Fetching AboutProjectData from API...');
+      console.log("🌐 Fetching AboutProjectData from API...");
       const response = await fetch(`${API_BASE_URL}/projectpage/about-project`);
       const data: ApiResponse<AboutProjectData> = await response.json();
 
@@ -300,8 +301,8 @@ export const fetchAboutProjectDataApi = async (): Promise<AboutProjectData> => {
 };
 
 export const fetchStatsSectionDataApi = async (): Promise<StatsSectionData> => {
-  const cacheKey = getCacheKey('stats-section');
-  
+  const cacheKey = getCacheKey("stats-section");
+
   // Check cache first
   const cachedData = getFromCache<StatsSectionData>(cacheKey);
   if (cachedData) {
@@ -311,7 +312,7 @@ export const fetchStatsSectionDataApi = async (): Promise<StatsSectionData> => {
   // Use deduplication to prevent concurrent requests
   return withDeduplication(cacheKey, async () => {
     try {
-      console.log('🌐 Fetching StatsSectionData from API...');
+      console.log("🌐 Fetching StatsSectionData from API...");
       const response = await fetch(`${API_BASE_URL}/projectpage/stats-section`);
       const data: ApiResponse<StatsSectionData> = await response.json();
       if (!response.ok) {
@@ -330,8 +331,8 @@ export const fetchStatsSectionDataApi = async (): Promise<StatsSectionData> => {
 
 export const fetchProjectCategoriesDataApi =
   async (): Promise<ProjectCategoriesData> => {
-    const cacheKey = getCacheKey('project-categories');
-    
+    const cacheKey = getCacheKey("project-categories");
+
     // Check cache first
     const cachedData = getFromCache<ProjectCategoriesData>(cacheKey);
     if (cachedData) {
@@ -341,7 +342,7 @@ export const fetchProjectCategoriesDataApi =
     // Use deduplication to prevent concurrent requests
     return withDeduplication(cacheKey, async () => {
       try {
-        console.log('🌐 Fetching ProjectCategoriesData from API...');
+        console.log("🌐 Fetching ProjectCategoriesData from API...");
         const response = await fetch(
           `${API_BASE_URL}/projectpage/project-categories`
         );
@@ -364,8 +365,8 @@ export const fetchProjectCategoriesDataApi =
 
 // Main function to fetch all project page data from API
 export const fetchProjectPageDataApi = async (): Promise<ProjectPageData> => {
-  const cacheKey = getCacheKey('complete-page');
-  
+  const cacheKey = getCacheKey("complete-page");
+
   // Check cache first for complete page data
   const cachedData = getFromCache<ProjectPageData>(cacheKey);
   if (cachedData) {
@@ -375,13 +376,15 @@ export const fetchProjectPageDataApi = async (): Promise<ProjectPageData> => {
   // Use deduplication to prevent concurrent requests for complete page
   return withDeduplication(cacheKey, async () => {
     try {
-      console.log('🌐 Fetching complete ProjectPageData from API...');
+      console.log("🌐 Fetching complete ProjectPageData from API...");
       // Fetch all data in parallel for better performance
-      const [aboutProject, statsSection, projectCategories] = await Promise.all([
-        fetchAboutProjectDataApi(),
-        fetchStatsSectionDataApi(),
-        fetchProjectCategoriesDataApi(),
-      ]);
+      const [aboutProject, statsSection, projectCategories] = await Promise.all(
+        [
+          fetchAboutProjectDataApi(),
+          fetchStatsSectionDataApi(),
+          fetchProjectCategoriesDataApi(),
+        ]
+      );
 
       const completeData: ProjectPageData = {
         aboutProject,
@@ -566,7 +569,7 @@ export const getCacheInfo = () => {
   }));
 
   const pendingEntries = Array.from(pendingRequests.keys());
-  
+
   return {
     totalEntries: cache.size,
     entries: cacheEntries,

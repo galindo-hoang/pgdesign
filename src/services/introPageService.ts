@@ -6,27 +6,44 @@ import {
   TeamData,
   ApiResponse,
 } from "../types/introPageTypes";
-const hero = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/intropage/pg-employee/hero.png';;
-const mission = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/intropage/pg-employee/mission.png';;
-const CEOImage = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/PHAN TÔ THƯ - GIÁM ĐỐC.png';;
-const CEOImage2 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/VÕ NGUYÊN PHÁP - GIÁM ĐỐC THI CÔNG.png';;
-const employeeImage2 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/ĐỖ TUYẾT QUY - TRƯỞNG PHÒNG MARKETING.png';;
-const employeeImage3 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/Y NHẬT MINH - TRƯỞNG PHÒNG KINH DOANH.png';;
-const employeeImage4 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/CÁP NGUYỄN HỒNG PHÚC - KINH DOANH.png';;
-const employeeImage5 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/ĐẶNG HỒNG SƠN - KỸ SƯ XÂY DỰNG.png';;
-const employeeImage6 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/DIỆP GIA HY - KINH DOANH.png';;
-const employeeImage7 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/LÊ ĐÌNH THIÊN - KIẾN TRÚC SƯ.png';;
-const employeeImage8 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/LÊ DUY HUY - KĨ SƯ XÂY DỰNG.png';;
-const employeeImage9 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/LÊ THỊ NGỌC DIỄM - THIẾT KẾ NỘI THẤT.png';;
-const employeeImage10 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/NGUYỄN HOÀNG BẢO - KĨ SƯ XÂY.png';;
-const employeeImage11 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/NGUYỄN THÀNH THẠO - KỸ SƯ MEP.png';;
-const employeeImage12 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/NGUYỄN THỊ THU THẢO - KẾ TOÁN HÀNH CHÍNH.png';;
-const employeeImage13 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/PHAN NHẬT HÀ - THIẾT KẾ NỘI THẤT.png';;
-const employeeImage14 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/NGUYỄN THỊ THU HUYỀN - MARKETING.png';;
+const hero =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/intropage/pg-employee/hero.png";
+const mission =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/intropage/pg-employee/mission.png";
+const CEOImage =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/PHAN TÔ THƯ - GIÁM ĐỐC.png";
+const CEOImage2 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/VÕ NGUYÊN PHÁP - GIÁM ĐỐC THI CÔNG.png";
+const employeeImage2 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/ĐỖ TUYẾT QUY - TRƯỞNG PHÒNG MARKETING.png";
+const employeeImage3 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/Y NHẬT MINH - TRƯỞNG PHÒNG KINH DOANH.png";
+const employeeImage4 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/CÁP NGUYỄN HỒNG PHÚC - KINH DOANH.png";
+const employeeImage5 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/ĐẶNG HỒNG SƠN - KỸ SƯ XÂY DỰNG.png";
+const employeeImage6 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/DIỆP GIA HY - KINH DOANH.png";
+const employeeImage7 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/LÊ ĐÌNH THIÊN - KIẾN TRÚC SƯ.png";
+const employeeImage8 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/LÊ DUY HUY - KĨ SƯ XÂY DỰNG.png";
+const employeeImage9 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/LÊ THỊ NGỌC DIỄM - THIẾT KẾ NỘI THẤT.png";
+const employeeImage10 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/NGUYỄN HOÀNG BẢO - KĨ SƯ XÂY.png";
+const employeeImage11 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/NGUYỄN THÀNH THẠO - KỸ SƯ MEP.png";
+const employeeImage12 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/NGUYỄN THỊ THU THẢO - KẾ TOÁN HÀNH CHÍNH.png";
+const employeeImage13 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/PHAN NHẬT HÀ - THIẾT KẾ NỘI THẤT.png";
+const employeeImage14 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/NGUYỄN THỊ THU HUYỀN - MARKETING.png";
 
 // API Configuration
 const API_BASE_URL =
-  process.env.REACT_APP_API_URL || "http://localhost:3002/api/v1";
+  process.env.REACT_APP_API_URL || "https://be.pgdesign.vn/api/v1";
 
 // Configuration for data source (can be controlled via environment variable)
 const USE_MOCK_DATA = true;

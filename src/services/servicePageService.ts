@@ -6,15 +6,20 @@ import {
   ConstructionServiceData,
 } from "../types/servicePageTypes";
 
-const heroImage = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/servicepage/service-hero.png';;
-const service1 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/servicepage/service1.png';;
-const service2 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/servicepage/service2.png';;
-const service3 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/servicepage/service3.png';;
-const service4 = 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/servicepage/service4.png';;
+const heroImage =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/servicepage/service-hero.png";
+const service1 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/servicepage/service1.png";
+const service2 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/servicepage/service2.png";
+const service3 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/servicepage/service3.png";
+const service4 =
+  "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/servicepage/service4.png";
 
 // API Configuration
 const API_BASE_URL =
-  process.env.REACT_APP_API_URL || "http://localhost:3002/api/v1";
+  process.env.REACT_APP_API_URL || "https://be.pgdesign.vn/api/v1";
 
 // Configuration for data source (can be controlled via environment variable)
 const USE_MOCK_DATA = true;

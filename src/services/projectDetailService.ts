@@ -8,7 +8,7 @@ import {
 } from "./projectPageService";
 
 // Environment configuration
-const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:3002";
+const API_BASE_URL = process.env.REACT_APP_API_URL || "https://be.pgdesign.vn";
 const API_VERSION = "v1";
 const API_ENDPOINT = `${API_BASE_URL}/api/${API_VERSION}/projectdetail`;
 const USE_MOCK_DATA = false;
@@ -27,7 +27,8 @@ const mockProjectDetailData: ProjectDetailData = {
   category: "house-normal",
   projectCategoryId: 6,
   style: "Hiện đại",
-  thumbnailImage: 'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-1.png',
+  thumbnailImage:
+    "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-1.png",
 
   // Embedded HTML content from server (admin can modify this - only main content area)
   htmlContent: `
@@ -89,10 +90,10 @@ const mockProjectDetailData: ProjectDetailData = {
   `,
 
   projectImages: [
-    'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-1.png',
-    'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-2.png',
-    'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-3.png',
-    'https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-4.png',
+    "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-1.png",
+    "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-2.png",
+    "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-3.png",
+    "https://s3-hcm-r2.s3cloud.vn/pgdesign-new/images/diary-image-4.png",
   ],
 
   projectStatus: "Hoàn thành • 2.5 tỷ đồng",
@@ -216,16 +217,18 @@ export const fetchProjectDetailDataApi = async (
 
     // Use S3 URLs (new system)
     const responseData = data.data!;
-    const finalThumbnail = responseData.thumbnailImageUrl || responseData.thumbnailImage;
-    const finalProjectImages = responseData.projectImagesUrls || responseData.projectImages;
-    
+    const finalThumbnail =
+      responseData.thumbnailImageUrl || responseData.thumbnailImage;
+    const finalProjectImages =
+      responseData.projectImagesUrls || responseData.projectImages;
+
     // Process image URLs and append images to htmlContent
     const processedData = {
       ...responseData,
       thumbnailImage: finalThumbnail,
-      projectImages: finalProjectImages
+      projectImages: finalProjectImages,
     };
-    
+
     const enhancedHtmlContent = appendProjectImagesToHtml(
       processedData.htmlContent,
       finalProjectImages || [],

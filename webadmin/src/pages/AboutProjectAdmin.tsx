@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Save, Edit, Eye, RefreshCw, X } from 'lucide-react';
-import SingleImageUpload from '../components/SingleImageUpload';
-import './AboutProjectAdmin.css';
+import React, { useState, useEffect } from "react";
+import { Save, Edit, Eye, RefreshCw, X } from "lucide-react";
+import SingleImageUpload from "../components/SingleImageUpload";
+import "./AboutProjectAdmin.css";
 
 interface AboutProjectData {
   id: number;
@@ -21,7 +21,8 @@ interface ApiResponse<T> {
 }
 
 const AboutProjectAdmin: React.FC = () => {
-  const [aboutProjectData, setAboutProjectData] = useState<AboutProjectData | null>(null);
+  const [aboutProjectData, setAboutProjectData] =
+    useState<AboutProjectData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -29,12 +30,13 @@ const AboutProjectAdmin: React.FC = () => {
   const [showPreview, setShowPreview] = useState(false);
 
   const [formData, setFormData] = useState({
-    title: '',
-    subtitle: '',
+    title: "",
+    subtitle: "",
     backgroundImageBlob: null as string | null,
   });
 
-  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
+  const API_BASE_URL =
+    process.env.REACT_APP_API_URL || "https://be.pgdesign.vn/api/v1";
 
   useEffect(() => {
     loadAboutProjectData();
@@ -49,7 +51,7 @@ const AboutProjectAdmin: React.FC = () => {
       const data: ApiResponse<AboutProjectData> = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to fetch about project data');
+        throw new Error(data.error || "Failed to fetch about project data");
       }
 
       if (data.data) {
@@ -61,8 +63,8 @@ const AboutProjectAdmin: React.FC = () => {
         });
       }
     } catch (err) {
-      console.error('Error loading about project data:', err);
-      setError(err instanceof Error ? err.message : 'Failed to load data');
+      console.error("Error loading about project data:", err);
+      setError(err instanceof Error ? err.message : "Failed to load data");
     } finally {
       setLoading(false);
     }
@@ -82,19 +84,22 @@ const AboutProjectAdmin: React.FC = () => {
       let response;
       if (aboutProjectData?.id) {
         // Update existing
-        response = await fetch(`${API_BASE_URL}/projectpage/about-project/${aboutProjectData.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-        });
+        response = await fetch(
+          `${API_BASE_URL}/projectpage/about-project/${aboutProjectData.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          }
+        );
       } else {
         // Create new
         response = await fetch(`${API_BASE_URL}/projectpage/about-project`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(payload),
         });
@@ -103,29 +108,28 @@ const AboutProjectAdmin: React.FC = () => {
       const data: ApiResponse<AboutProjectData> = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to save about project data');
+        throw new Error(data.error || "Failed to save about project data");
       }
 
       if (data.data) {
         setAboutProjectData(data.data);
         setEditMode(false);
-        alert('About project data saved successfully!');
+        alert("About project data saved successfully!");
       }
     } catch (err) {
-      console.error('Error saving about project data:', err);
-      setError(err instanceof Error ? err.message : 'Failed to save data');
+      console.error("Error saving about project data:", err);
+      setError(err instanceof Error ? err.message : "Failed to save data");
     } finally {
       setSaving(false);
     }
   };
 
   const handleImageUpload = (base64Data: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      backgroundImageBlob: base64Data
+      backgroundImageBlob: base64Data,
     }));
   };
-
 
   const toggleEditMode = () => {
     if (editMode) {
@@ -181,27 +185,23 @@ const AboutProjectAdmin: React.FC = () => {
           {!editMode && (
             <button
               onClick={() => setShowPreview(!showPreview)}
-              className={`preview-btn ${showPreview ? 'active' : ''}`}
+              className={`preview-btn ${showPreview ? "active" : ""}`}
             >
               <Eye />
-              {showPreview ? 'Hide Preview' : 'Show Preview'}
+              {showPreview ? "Hide Preview" : "Show Preview"}
             </button>
           )}
           <button
             onClick={toggleEditMode}
-            className={`edit-btn ${editMode ? 'active' : ''}`}
+            className={`edit-btn ${editMode ? "active" : ""}`}
           >
             {editMode ? <X /> : <Edit />}
-            {editMode ? 'Cancel' : 'Edit Mode'}
+            {editMode ? "Cancel" : "Edit Mode"}
           </button>
           {editMode && (
-            <button
-              onClick={handleSave}
-              className="save-btn"
-              disabled={saving}
-            >
+            <button onClick={handleSave} className="save-btn" disabled={saving}>
               <Save />
-              {saving ? 'Saving...' : 'Save Changes'}
+              {saving ? "Saving..." : "Save Changes"}
             </button>
           )}
         </div>
@@ -216,7 +216,9 @@ const AboutProjectAdmin: React.FC = () => {
               <input
                 type="text"
                 value={formData.title}
-                onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, title: e.target.value }))
+                }
                 className="form-input"
                 placeholder="Enter title (e.g., Dự án)"
               />
@@ -227,7 +229,9 @@ const AboutProjectAdmin: React.FC = () => {
               <input
                 type="text"
                 value={formData.subtitle}
-                onChange={(e) => setFormData(prev => ({ ...prev, subtitle: e.target.value }))}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, subtitle: e.target.value }))
+                }
                 className="form-input"
                 placeholder="Enter subtitle (e.g., PG DESIGN)"
               />
@@ -237,10 +241,10 @@ const AboutProjectAdmin: React.FC = () => {
               <label>Background Image</label>
               <SingleImageUpload
                 onImageUpload={handleImageUpload}
-                onImageRemove={() => {}} 
+                onImageRemove={() => {}}
                 currentImage={formData.backgroundImageBlob}
                 maxSizeKB={2048}
-                acceptedFormats={['image/jpeg', 'image/png', 'image/webp']}
+                acceptedFormats={["image/jpeg", "image/png", "image/webp"]}
               />
             </div>
           </div>
@@ -251,20 +255,26 @@ const AboutProjectAdmin: React.FC = () => {
               <div className="data-display">
                 <div className="data-item">
                   <label>Title:</label>
-                  <span>{aboutProjectData?.title || 'Not set'}</span>
+                  <span>{aboutProjectData?.title || "Not set"}</span>
                 </div>
                 <div className="data-item">
                   <label>Subtitle:</label>
-                  <span>{aboutProjectData?.subtitle || 'Not set'}</span>
+                  <span>{aboutProjectData?.subtitle || "Not set"}</span>
                 </div>
                 <div className="data-item">
                   <label>Background Image:</label>
                   {aboutProjectData?.backgroundImageBlob ? (
                     <div className="image-display-readonly">
-                      <img 
-                        src={aboutProjectData.backgroundImageBlob} 
-                        alt="Background" 
-                        style={{ maxWidth: '300px', maxHeight: '200px', objectFit: 'cover', borderRadius: '8px', border: '2px solid #e5e7eb' }}
+                      <img
+                        src={aboutProjectData.backgroundImageBlob}
+                        alt="Background"
+                        style={{
+                          maxWidth: "300px",
+                          maxHeight: "200px",
+                          objectFit: "cover",
+                          borderRadius: "8px",
+                          border: "2px solid #e5e7eb",
+                        }}
                       />
                     </div>
                   ) : (
@@ -273,14 +283,20 @@ const AboutProjectAdmin: React.FC = () => {
                 </div>
                 <div className="data-item">
                   <label>Status:</label>
-                  <span className={`status ${aboutProjectData?.isActive ? 'active' : 'inactive'}`}>
-                    {aboutProjectData?.isActive ? 'Active' : 'Inactive'}
+                  <span
+                    className={`status ${
+                      aboutProjectData?.isActive ? "active" : "inactive"
+                    }`}
+                  >
+                    {aboutProjectData?.isActive ? "Active" : "Inactive"}
                   </span>
                 </div>
                 {aboutProjectData?.updatedAt && (
                   <div className="data-item">
                     <label>Last Updated:</label>
-                    <span>{new Date(aboutProjectData.updatedAt).toLocaleString()}</span>
+                    <span>
+                      {new Date(aboutProjectData.updatedAt).toLocaleString()}
+                    </span>
                   </div>
                 )}
               </div>
@@ -292,33 +308,45 @@ const AboutProjectAdmin: React.FC = () => {
         {showPreview && !editMode && (
           <div className="preview-section">
             <h3>Preview</h3>
-            <div 
+            <div
               className="about-project-preview"
               style={{
-                backgroundImage: aboutProjectData?.backgroundImageBlob ? `url(${aboutProjectData.backgroundImageBlob})` : 'none',
-                backgroundColor: aboutProjectData?.backgroundImageBlob ? 'transparent' : '#f0f0f0',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                height: '400px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                padding: '2rem',
-                color: 'white',
-                position: 'relative'
+                backgroundImage: aboutProjectData?.backgroundImageBlob
+                  ? `url(${aboutProjectData.backgroundImageBlob})`
+                  : "none",
+                backgroundColor: aboutProjectData?.backgroundImageBlob
+                  ? "transparent"
+                  : "#f0f0f0",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                height: "400px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-start",
+                padding: "2rem",
+                color: "white",
+                position: "relative",
               }}
             >
-              <div style={{ 
-                background: 'rgba(0,0,0,0.5)', 
-                padding: '2rem', 
-                borderRadius: '8px',
-                maxWidth: '500px'
-              }}>
-                <h2 style={{ margin: '0 0 0.5rem 0', fontSize: '2.5rem' }}>
-                  {aboutProjectData?.title || 'Title'}
+              <div
+                style={{
+                  background: "rgba(0,0,0,0.5)",
+                  padding: "2rem",
+                  borderRadius: "8px",
+                  maxWidth: "500px",
+                }}
+              >
+                <h2 style={{ margin: "0 0 0.5rem 0", fontSize: "2.5rem" }}>
+                  {aboutProjectData?.title || "Title"}
                 </h2>
                 {aboutProjectData?.subtitle && (
-                  <h3 style={{ margin: '0', fontSize: '1.5rem', fontWeight: 'normal' }}>
+                  <h3
+                    style={{
+                      margin: "0",
+                      fontSize: "1.5rem",
+                      fontWeight: "normal",
+                    }}
+                  >
                     {aboutProjectData.subtitle}
                   </h3>
                 )}
@@ -331,36 +359,48 @@ const AboutProjectAdmin: React.FC = () => {
         {editMode && (
           <div className="edit-preview-section">
             <h3>Live Preview</h3>
-            <div 
+            <div
               className="about-project-preview"
               style={{
-                backgroundImage: formData.backgroundImageBlob ? `url(${formData.backgroundImageBlob})` : 'none',
-                backgroundColor: formData.backgroundImageBlob ? 'transparent' : '#f0f0f0',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                height: '400px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                padding: '2rem',
-                color: 'white',
-                position: 'relative',
-                marginTop: '2rem',
-                border: '2px dashed #007bff',
-                borderRadius: '8px'
+                backgroundImage: formData.backgroundImageBlob
+                  ? `url(${formData.backgroundImageBlob})`
+                  : "none",
+                backgroundColor: formData.backgroundImageBlob
+                  ? "transparent"
+                  : "#f0f0f0",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                height: "400px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-start",
+                padding: "2rem",
+                color: "white",
+                position: "relative",
+                marginTop: "2rem",
+                border: "2px dashed #007bff",
+                borderRadius: "8px",
               }}
             >
-              <div style={{ 
-                background: 'rgba(0,0,0,0.5)', 
-                padding: '2rem', 
-                borderRadius: '8px',
-                maxWidth: '500px'
-              }}>
-                <h2 style={{ margin: '0 0 0.5rem 0', fontSize: '2.5rem' }}>
-                  {formData.title || 'Title'}
+              <div
+                style={{
+                  background: "rgba(0,0,0,0.5)",
+                  padding: "2rem",
+                  borderRadius: "8px",
+                  maxWidth: "500px",
+                }}
+              >
+                <h2 style={{ margin: "0 0 0.5rem 0", fontSize: "2.5rem" }}>
+                  {formData.title || "Title"}
                 </h2>
                 {formData.subtitle && (
-                  <h3 style={{ margin: '0', fontSize: '1.5rem', fontWeight: 'normal' }}>
+                  <h3
+                    style={{
+                      margin: "0",
+                      fontSize: "1.5rem",
+                      fontWeight: "normal",
+                    }}
+                  >
                     {formData.subtitle}
                   </h3>
                 )}

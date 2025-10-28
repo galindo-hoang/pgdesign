@@ -5,7 +5,6 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
 const ConsultationFormSection: React.FC = () => {
-
   const formData = {
     title: "ĐĂNG KÝ TƯ VẤN",
     projectTypes: [
@@ -18,8 +17,8 @@ const ConsultationFormSection: React.FC = () => {
     ],
     minInvestment: 100,
     maxInvestment: 10000,
-    stepInvestment: 100
-  }
+    stepInvestment: 100,
+  };
 
   const MIN_INVESTMENT = formData.minInvestment || 100; // 100 triệu VND
   const MAX_INVESTMENT = formData.maxInvestment || 10000; // 10 tỷ VND (which is 10,000 triệu VND)
@@ -126,7 +125,7 @@ const ConsultationFormSection: React.FC = () => {
   };
 
   const handleSliderChange = (value: number | number[]) => {
-    if (typeof value === 'number') {
+    if (typeof value === "number") {
       setStateFormData((prevData) => ({
         ...prevData,
         investmentLevel: value,
@@ -145,7 +144,8 @@ const ConsultationFormSection: React.FC = () => {
 
   // Calculate tooltip positions based on slider values
   const getTooltipPosition = (value: number) => {
-    const percentage = (value - MIN_INVESTMENT) / (MAX_INVESTMENT - MIN_INVESTMENT);
+    const percentage =
+      (value - MIN_INVESTMENT) / (MAX_INVESTMENT - MIN_INVESTMENT);
     return `${percentage * 100}%`;
   };
 
@@ -161,7 +161,12 @@ const ConsultationFormSection: React.FC = () => {
       stateFormData.projectType === ""
     );
 
-    if (!isPhoneNumberValid || !isEmailValid || !isAddressValid || !isProjectTypeSelected) {
+    if (
+      !isPhoneNumberValid ||
+      !isEmailValid ||
+      !isAddressValid ||
+      !isProjectTypeSelected
+    ) {
       alert("Vui lòng kiểm tra lại thông tin. Có lỗi trong biểu mẫu.");
       return;
     }
@@ -173,19 +178,22 @@ const ConsultationFormSection: React.FC = () => {
 
     try {
       // Send data to backend API
-      const response = await fetch('http://localhost:3002/api/v1/consultation/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataToSend),
-      });
+      const response = await fetch(
+        "https://be.pgdesign.vn/api/v1/consultation/submit",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dataToSend),
+        }
+      );
 
       const result = await response.json();
 
       if (response.ok && result.success) {
         alert(result.message || "Yêu cầu của bạn đã được gửi thành công!");
-        
+
         // Reset form on successful submission
         setStateFormData({
           fullName: "",
@@ -200,10 +208,13 @@ const ConsultationFormSection: React.FC = () => {
         setEmailError(null);
         setAddressError(null);
       } else {
-        alert(result.error?.message || "Có lỗi xảy ra khi gửi yêu cầu. Vui lòng thử lại.");
+        alert(
+          result.error?.message ||
+            "Có lỗi xảy ra khi gửi yêu cầu. Vui lòng thử lại."
+        );
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error("Error submitting form:", error);
       alert("Không thể kết nối tới máy chủ. Vui lòng thử lại sau.");
     }
   };
@@ -278,9 +289,7 @@ const ConsultationFormSection: React.FC = () => {
             required
             className={addressError ? "input-error" : ""}
           />
-          {addressError && (
-            <p className="error-message">{addressError}</p>
-          )}
+          {addressError && <p className="error-message">{addressError}</p>}
         </div>
 
         <div className="cf-form-group cf-project-type-group">
@@ -311,10 +320,10 @@ const ConsultationFormSection: React.FC = () => {
 
         <div className="cf-form-group cf-investment-slider-group">
           <label>Mức đầu tư</label>
-          <div className="cf-slider-display-text" style={{ display: 'none' }}>
+          <div className="cf-slider-display-text" style={{ display: "none" }}>
             {formatCurrencyDisplay(stateFormData.investmentLevel)}
           </div>
-          <div 
+          <div
             ref={sliderRef}
             className="cf-slider-container"
             onMouseEnter={handleSliderMouseEnter}
@@ -337,10 +346,10 @@ const ConsultationFormSection: React.FC = () => {
             {/* Handle tooltip positioned above slider handle */}
             {showTooltips && (
               <div className="cf-slider-tooltips">
-                <div 
+                <div
                   className="cf-handle-tooltip"
                   style={{
-                    left: getTooltipPosition(stateFormData.investmentLevel)
+                    left: getTooltipPosition(stateFormData.investmentLevel),
                   }}
                 >
                   {formatCurrencyDisplay(stateFormData.investmentLevel)}

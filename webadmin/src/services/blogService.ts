@@ -5,7 +5,7 @@ export interface BlogPost {
   title: string;
   content: string;
   author: string;
-  status: 'published' | 'draft' | 'archived';
+  status: "published" | "draft" | "archived";
   publishDate: string;
   views: number;
   featured: boolean;
@@ -26,7 +26,7 @@ export interface BlogResponse {
   error?: string;
 }
 
-const API_BASE_URL = 'http://localhost:3002/api/v1';
+const API_BASE_URL = "https://be.pgdesign.vn/api/v1";
 
 export const getAllBlogPosts = async (): Promise<BlogResponse> => {
   try {
@@ -34,24 +34,28 @@ export const getAllBlogPosts = async (): Promise<BlogResponse> => {
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error('Error fetching blog posts:', error);
+    console.error("Error fetching blog posts:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Failed to fetch blog posts'
+      error:
+        error instanceof Error ? error.message : "Failed to fetch blog posts",
     };
   }
 };
 
-export const getBlogPost = async (id: string): Promise<{ success: boolean; data?: BlogPost; error?: string }> => {
+export const getBlogPost = async (
+  id: string
+): Promise<{ success: boolean; data?: BlogPost; error?: string }> => {
   try {
     const response = await fetch(`${API_BASE_URL}/blogposts/${id}`);
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error('Error fetching blog post:', error);
+    console.error("Error fetching blog post:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Failed to fetch blog post'
+      error:
+        error instanceof Error ? error.message : "Failed to fetch blog post",
     };
   }
 };
@@ -59,55 +63,63 @@ export const getBlogPost = async (id: string): Promise<{ success: boolean; data?
 export const deleteBlogPost = async (id: string): Promise<BlogResponse> => {
   try {
     const response = await fetch(`${API_BASE_URL}/blogposts/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
     });
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error('Error deleting blog post:', error);
+    console.error("Error deleting blog post:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Failed to delete blog post'
+      error:
+        error instanceof Error ? error.message : "Failed to delete blog post",
     };
   }
 };
 
-export const createBlogPost = async (post: Partial<BlogPost>): Promise<BlogResponse> => {
+export const createBlogPost = async (
+  post: Partial<BlogPost>
+): Promise<BlogResponse> => {
   try {
     const response = await fetch(`${API_BASE_URL}/blogposts`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(post),
     });
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error('Error creating blog post:', error);
+    console.error("Error creating blog post:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Failed to create blog post'
+      error:
+        error instanceof Error ? error.message : "Failed to create blog post",
     };
   }
 };
 
-export const updateBlogPost = async (id: string, post: Partial<BlogPost>): Promise<BlogResponse> => {
+export const updateBlogPost = async (
+  id: string,
+  post: Partial<BlogPost>
+): Promise<BlogResponse> => {
   try {
     const response = await fetch(`${API_BASE_URL}/blogposts/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(post),
     });
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error('Error updating blog post:', error);
+    console.error("Error updating blog post:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Failed to update blog post'
+      error:
+        error instanceof Error ? error.message : "Failed to update blog post",
     };
   }
 };

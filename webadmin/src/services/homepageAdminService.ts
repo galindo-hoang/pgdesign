@@ -1,8 +1,9 @@
 // Homepage Admin Service - Communicates with pgdesign-be homepage APIs
-import axios from 'axios';
+import axios from "axios";
 
 // Backend API base URL
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
+const API_BASE_URL =
+  process.env.REACT_APP_API_URL || "https://be.pgdesign.vn/api/v1";
 
 // Enhanced interfaces for homepage admin
 export interface HeroData {
@@ -182,9 +183,11 @@ interface ApiResponse<T> {
 // Error handling
 const handleApiError = (error: any): never => {
   if (error.response) {
-    throw new Error(`API Error: ${error.response.data?.message || error.response.statusText}`);
+    throw new Error(
+      `API Error: ${error.response.data?.message || error.response.statusText}`
+    );
   } else if (error.request) {
-    throw new Error('Network Error: Unable to connect to server');
+    throw new Error("Network Error: Unable to connect to server");
   } else {
     throw new Error(`Error: ${error.message}`);
   }
@@ -201,52 +204,56 @@ const transformImageSlideData = (backendData: any): ImageSlideData => {
     displayOrder: backendData.display_order,
     isActive: backendData.is_active,
     createdAt: new Date(backendData.created_at),
-    updatedAt: new Date(backendData.updated_at)
+    updatedAt: new Date(backendData.updated_at),
   };
 };
 
 const transformWorkflowData = (backendData: any): WorkflowData => {
   return {
     id: backendData.main?.id || 0,
-    title: backendData.main?.title || '',
+    title: backendData.main?.title || "",
     workflows: (backendData.tabs || []).map((tab: any) => ({
-      id: tab.id?.toString() || '',
+      id: tab.id?.toString() || "",
       step: tab.display_order + 1,
-      title: tab.title || '',
-      description: tab.workflow_key || '',
-      icon: tab.icon_url || '',
-      diagram: tab.diagram_url || ''
+      title: tab.title || "",
+      description: tab.workflow_key || "",
+      icon: tab.icon_url || "",
+      diagram: tab.diagram_url || "",
     })),
     isActive: backendData.main?.is_active || false,
     createdAt: new Date(backendData.main?.created_at || Date.now()),
-    updatedAt: new Date(backendData.main?.updated_at || Date.now())
+    updatedAt: new Date(backendData.main?.updated_at || Date.now()),
   };
 };
 
 const transformProjectDiaryData = (backendData: any): ProjectDiaryData => {
   return {
     id: backendData.main?.id || 0,
-    title: backendData.main?.title || '',
-    images: (backendData.images || []).map((img: any) => img.image_url || ''),
+    title: backendData.main?.title || "",
+    images: (backendData.images || []).map((img: any) => img.image_url || ""),
     isActive: backendData.main?.is_active || false,
     createdAt: new Date(backendData.main?.created_at || Date.now()),
-    updatedAt: new Date(backendData.main?.updated_at || Date.now())
+    updatedAt: new Date(backendData.main?.updated_at || Date.now()),
   };
 };
 
-const transformConsultationFormData = (backendData: any): ConsultationFormData => {
+const transformConsultationFormData = (
+  backendData: any
+): ConsultationFormData => {
   return {
     id: backendData.main?.id || 0,
-    title: backendData.main?.title || '',
-    description: backendData.main?.description || '',
-    ctaText: backendData.main?.cta_text || '',
-    projectTypes: (backendData.projectTypes || []).map((type: any) => type.name || ''),
+    title: backendData.main?.title || "",
+    description: backendData.main?.description || "",
+    ctaText: backendData.main?.cta_text || "",
+    projectTypes: (backendData.projectTypes || []).map(
+      (type: any) => type.name || ""
+    ),
     minInvestment: backendData.main?.min_investment || 0,
     maxInvestment: backendData.main?.max_investment || 0,
     stepInvestment: backendData.main?.step_investment || 0,
     isActive: backendData.main?.is_active || false,
     createdAt: new Date(backendData.main?.created_at || Date.now()),
-    updatedAt: new Date(backendData.main?.updated_at || Date.now())
+    updatedAt: new Date(backendData.main?.updated_at || Date.now()),
   };
 };
 
@@ -254,8 +261,8 @@ const transformSolutionData = (backendData: any): SolutionData => {
   return {
     id: backendData.header?.id || 0,
     header: {
-      mainHeadline: backendData.header?.main_headline || '',
-      subHeadline: backendData.header?.sub_headline || ''
+      mainHeadline: backendData.header?.main_headline || "",
+      subHeadline: backendData.header?.sub_headline || "",
     },
     solutions: (backendData.solutions || []).map((solution: any) => ({
       id: solution.id,
@@ -263,11 +270,11 @@ const transformSolutionData = (backendData: any): SolutionData => {
       category: solution.category,
       title: Array.isArray(solution.title) ? solution.title : [solution.title], // Handle both array and string
       link: solution.link,
-      displayOrder: solution.display_order
+      displayOrder: solution.display_order,
     })),
     isActive: backendData.header?.is_active || false,
     createdAt: new Date(backendData.header?.created_at || Date.now()),
-    updatedAt: new Date(backendData.header?.updated_at || Date.now())
+    updatedAt: new Date(backendData.header?.updated_at || Date.now()),
   };
 };
 
@@ -280,10 +287,10 @@ class HomepageAdminService {
     options: RequestInit = {}
   ): Promise<T> {
     const url = `${this.baseURL}${endpoint}`;
-    
+
     const defaultOptions: RequestInit = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         ...options.headers,
       },
       ...options,
@@ -291,11 +298,11 @@ class HomepageAdminService {
 
     try {
       const response = await fetch(url, defaultOptions);
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const result = await response.json();
       return result;
     } catch (error) {
@@ -307,36 +314,43 @@ class HomepageAdminService {
   // File upload methods
   async uploadFile(file: File, section: string): Promise<UploadResponse> {
     const formData = new FormData();
-    formData.append('image', file);  // Backend expects 'image' field name
-    formData.append('folder', section);  // Backend expects 'folder' instead of 'section'
+    formData.append("image", file); // Backend expects 'image' field name
+    formData.append("folder", section); // Backend expects 'folder' instead of 'section'
 
     try {
-      const response = await fetch(`${this.baseURL}/upload/image`, {  // Use correct endpoint
-        method: 'POST',
+      const response = await fetch(`${this.baseURL}/upload/image`, {
+        // Use correct endpoint
+        method: "POST",
         body: formData,
       });
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(`Upload failed: ${response.status} - ${errorData.message || response.statusText}`);
+        throw new Error(
+          `Upload failed: ${response.status} - ${
+            errorData.message || response.statusText
+          }`
+        );
       }
 
       const result = await response.json();
-      
+
       // Transform backend response to match our interface
       return {
         success: result.success,
-        data: result.data ? {
-          url: result.data.url,
-          filename: result.data.filename,
-          originalName: result.data.filename,
-          size: result.data.size,
-          mimeType: result.data.mimetype
-        } : undefined,
-        error: result.success ? undefined : result.message
+        data: result.data
+          ? {
+              url: result.data.url,
+              filename: result.data.filename,
+              originalName: result.data.filename,
+              size: result.data.size,
+              mimeType: result.data.mimetype,
+            }
+          : undefined,
+        error: result.success ? undefined : result.message,
       };
     } catch (error) {
-      console.error('File upload error:', error);
+      console.error("File upload error:", error);
       throw error;
     }
   }
@@ -344,39 +358,44 @@ class HomepageAdminService {
   // Multiple file upload
   async uploadFiles(files: File[], section: string): Promise<UploadResponse[]> {
     const formData = new FormData();
-    files.forEach(file => formData.append('images', file));  // Backend expects 'images' field name
-    formData.append('folder', section);
+    files.forEach((file) => formData.append("images", file)); // Backend expects 'images' field name
+    formData.append("folder", section);
 
     try {
-      const response = await fetch(`${this.baseURL}/upload/images`, {  // Use correct endpoint
-        method: 'POST',
+      const response = await fetch(`${this.baseURL}/upload/images`, {
+        // Use correct endpoint
+        method: "POST",
         body: formData,
       });
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(`Upload failed: ${response.status} - ${errorData.message || response.statusText}`);
+        throw new Error(
+          `Upload failed: ${response.status} - ${
+            errorData.message || response.statusText
+          }`
+        );
       }
 
       const result = await response.json();
-      
+
       // Transform backend response to match our interface
       if (result.success && result.data && result.data.urls) {
         return result.data.urls.map((url: string, index: number) => ({
           success: true,
           data: {
             url: url,
-            filename: result.data.files?.[index]?.filename || 'unknown',
-            originalName: result.data.files?.[index]?.filename || 'unknown',
+            filename: result.data.files?.[index]?.filename || "unknown",
+            originalName: result.data.files?.[index]?.filename || "unknown",
             size: result.data.files?.[index]?.size || 0,
-            mimeType: result.data.files?.[index]?.mimetype || 'unknown'
-          }
+            mimeType: result.data.files?.[index]?.mimetype || "unknown",
+          },
         }));
       } else {
-        throw new Error('Invalid response format');
+        throw new Error("Invalid response format");
       }
     } catch (error) {
-      console.error('Multiple files upload error:', error);
+      console.error("Multiple files upload error:", error);
       throw error;
     }
   }
@@ -384,128 +403,149 @@ class HomepageAdminService {
   // Delete file
   async deleteFile(fileUrl: string): Promise<boolean> {
     try {
-      const response = await fetch(`${this.baseURL}/upload/file`, {  // Use correct endpoint
-        method: 'DELETE',
+      const response = await fetch(`${this.baseURL}/upload/file`, {
+        // Use correct endpoint
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ url: fileUrl }),  // Backend expects { url: string }
+        body: JSON.stringify({ url: fileUrl }), // Backend expects { url: string }
       });
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(`Delete failed: ${response.status} - ${errorData.message || response.statusText}`);
+        throw new Error(
+          `Delete failed: ${response.status} - ${
+            errorData.message || response.statusText
+          }`
+        );
       }
 
       const result = await response.json();
       return result.success;
     } catch (error) {
-      console.error('File delete error:', error);
+      console.error("File delete error:", error);
       return false;
     }
   }
 
   // Get all homepage data
   async getAllHomepageData(): Promise<HomepageData> {
-    const response = await this.apiCall<any>('/homepage');
-    
+    const response = await this.apiCall<any>("/homepage");
+
     // Transform all sections from backend format to frontend format
     const transformedData = {
       ...response,
-      imageSlider: Array.isArray(response.imageSlider) 
+      imageSlider: Array.isArray(response.imageSlider)
         ? response.imageSlider.map(transformImageSlideData)
         : [],
-      workflow: response.workflow ? transformWorkflowData(response.workflow) : {
-        id: 0,
-        title: '',
-        workflows: [],
-        isActive: false,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      projectDiary: response.projectDiary ? transformProjectDiaryData(response.projectDiary) : {
-        id: 0,
-        title: '',
-        images: [],
-        isActive: false,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      consultationForm: response.consultationForm ? transformConsultationFormData(response.consultationForm) : {
-        id: 0,
-        title: '',
-        description: '',
-        ctaText: '',
-        projectTypes: [],
-        minInvestment: 0,
-        maxInvestment: 0,
-        stepInvestment: 0,
-        isActive: false,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      solution: response.solution ? transformSolutionData(response.solution) : {
-        id: 0,
-        header: {
-          mainHeadline: '',
-          subHeadline: ''
-        },
-        solutions: [],
-        isActive: false,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
+      workflow: response.workflow
+        ? transformWorkflowData(response.workflow)
+        : {
+            id: 0,
+            title: "",
+            workflows: [],
+            isActive: false,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+      projectDiary: response.projectDiary
+        ? transformProjectDiaryData(response.projectDiary)
+        : {
+            id: 0,
+            title: "",
+            images: [],
+            isActive: false,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+      consultationForm: response.consultationForm
+        ? transformConsultationFormData(response.consultationForm)
+        : {
+            id: 0,
+            title: "",
+            description: "",
+            ctaText: "",
+            projectTypes: [],
+            minInvestment: 0,
+            maxInvestment: 0,
+            stepInvestment: 0,
+            isActive: false,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+      solution: response.solution
+        ? transformSolutionData(response.solution)
+        : {
+            id: 0,
+            header: {
+              mainHeadline: "",
+              subHeadline: "",
+            },
+            solutions: [],
+            isActive: false,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
     };
-    
+
     return transformedData;
   }
 
   // Hero Section
   async getHeroData(): Promise<HeroData> {
-    return this.apiCall<HeroData>('/homepage/hero');
+    return this.apiCall<HeroData>("/homepage/hero");
   }
 
   async updateHeroData(id: number, data: Partial<HeroData>): Promise<HeroData> {
     return this.apiCall<HeroData>(`/homepage/hero/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(data),
     });
   }
 
   // About Section
   async getAboutData(): Promise<AboutData> {
-    return this.apiCall<AboutData>('/homepage/about');
+    return this.apiCall<AboutData>("/homepage/about");
   }
 
-  async updateAboutData(id: number, data: Partial<AboutData>): Promise<AboutData> {
+  async updateAboutData(
+    id: number,
+    data: Partial<AboutData>
+  ): Promise<AboutData> {
     return this.apiCall<AboutData>(`/homepage/about/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(data),
     });
   }
 
   // Image Slider
   async getImageSliderData(): Promise<ImageSlideData[]> {
-    return this.apiCall<ImageSlideData[]>('/homepage/image-slider');
+    return this.apiCall<ImageSlideData[]>("/homepage/image-slider");
   }
 
-  async createImageSlide(data: Partial<ImageSlideData>): Promise<ImageSlideData> {
-    return this.apiCall<ImageSlideData>('/homepage/image-slider', {
-      method: 'POST',
+  async createImageSlide(
+    data: Partial<ImageSlideData>
+  ): Promise<ImageSlideData> {
+    return this.apiCall<ImageSlideData>("/homepage/image-slider", {
+      method: "POST",
       body: JSON.stringify(data),
     });
   }
 
-  async updateImageSlide(id: number, data: Partial<ImageSlideData>): Promise<ImageSlideData> {
+  async updateImageSlide(
+    id: number,
+    data: Partial<ImageSlideData>
+  ): Promise<ImageSlideData> {
     return this.apiCall<ImageSlideData>(`/homepage/image-slider/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(data),
     });
   }
 
   async deleteImageSlide(id: number): Promise<boolean> {
     try {
-      await this.apiCall(`/homepage/image-slider/${id}`, { method: 'DELETE' });
+      await this.apiCall(`/homepage/image-slider/${id}`, { method: "DELETE" });
       return true;
     } catch (error) {
       return false;
@@ -514,111 +554,147 @@ class HomepageAdminService {
 
   // Stats Section
   async getStatsData(): Promise<StatsData> {
-    return this.apiCall<StatsData>('/homepage/stats');
+    return this.apiCall<StatsData>("/homepage/stats");
   }
 
-  async updateStatsData(id: number, data: Partial<StatsData>): Promise<StatsData> {
+  async updateStatsData(
+    id: number,
+    data: Partial<StatsData>
+  ): Promise<StatsData> {
     return this.apiCall<StatsData>(`/homepage/stats/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(data),
     });
   }
 
-  async updateStatsItem(id: number, data: Partial<StatItemData>): Promise<StatItemData> {
+  async updateStatsItem(
+    id: number,
+    data: Partial<StatItemData>
+  ): Promise<StatItemData> {
     return this.apiCall<StatItemData>(`/homepage/stats/item/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(data),
     });
   }
 
   // Solution Section
   async getSolutionData(): Promise<SolutionData> {
-    return this.apiCall<SolutionData>('/homepage/solution');
+    return this.apiCall<SolutionData>("/homepage/solution");
   }
 
-  async updateSolutionData(id: number, data: Partial<SolutionData>): Promise<SolutionData> {
+  async updateSolutionData(
+    id: number,
+    data: Partial<SolutionData>
+  ): Promise<SolutionData> {
     return this.apiCall<SolutionData>(`/homepage/solution/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(data),
     });
   }
 
-  async updateSolutionItem(id: number, data: Partial<SolutionItemData>): Promise<SolutionItemData> {
+  async updateSolutionItem(
+    id: number,
+    data: Partial<SolutionItemData>
+  ): Promise<SolutionItemData> {
     return this.apiCall<SolutionItemData>(`/homepage/solution/item/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(data),
     });
   }
 
   // Workflow Section
   async getWorkflowData(): Promise<WorkflowData> {
-    return this.apiCall<WorkflowData>('/homepage/workflow');
+    return this.apiCall<WorkflowData>("/homepage/workflow");
   }
 
-  async updateWorkflowData(id: number, data: Partial<WorkflowData>): Promise<WorkflowData> {
+  async updateWorkflowData(
+    id: number,
+    data: Partial<WorkflowData>
+  ): Promise<WorkflowData> {
     return this.apiCall<WorkflowData>(`/homepage/workflow/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(data),
     });
   }
 
   // Project Diary Section
   async getProjectDiaryData(): Promise<ProjectDiaryData> {
-    return this.apiCall<ProjectDiaryData>('/homepage/project-diary');
+    return this.apiCall<ProjectDiaryData>("/homepage/project-diary");
   }
 
-  async updateProjectDiaryData(id: number, data: Partial<ProjectDiaryData>): Promise<ProjectDiaryData> {
+  async updateProjectDiaryData(
+    id: number,
+    data: Partial<ProjectDiaryData>
+  ): Promise<ProjectDiaryData> {
     return this.apiCall<ProjectDiaryData>(`/homepage/project-diary/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(data),
     });
   }
 
   // Testimonials Section
   async getTestimonialData(): Promise<TestimonialData> {
-    return this.apiCall<TestimonialData>('/homepage/testimonials');
+    return this.apiCall<TestimonialData>("/homepage/testimonials");
   }
 
-  async updateTestimonialData(id: number, data: Partial<TestimonialData>): Promise<TestimonialData> {
+  async updateTestimonialData(
+    id: number,
+    data: Partial<TestimonialData>
+  ): Promise<TestimonialData> {
     return this.apiCall<TestimonialData>(`/homepage/testimonials/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(data),
     });
   }
 
-  async updateTestimonialItem(id: number, data: Partial<TestimonialItemData>): Promise<TestimonialItemData> {
-    return this.apiCall<TestimonialItemData>(`/homepage/testimonials/item/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(data),
-    });
+  async updateTestimonialItem(
+    id: number,
+    data: Partial<TestimonialItemData>
+  ): Promise<TestimonialItemData> {
+    return this.apiCall<TestimonialItemData>(
+      `/homepage/testimonials/item/${id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(data),
+      }
+    );
   }
 
   // Consultation Form Section
   async getConsultationFormData(): Promise<ConsultationFormData> {
-    return this.apiCall<ConsultationFormData>('/homepage/consultation-form');
+    return this.apiCall<ConsultationFormData>("/homepage/consultation-form");
   }
 
-  async updateConsultationFormData(id: number, data: Partial<ConsultationFormData>): Promise<ConsultationFormData> {
-    return this.apiCall<ConsultationFormData>(`/homepage/consultation-form/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(data),
-    });
+  async updateConsultationFormData(
+    id: number,
+    data: Partial<ConsultationFormData>
+  ): Promise<ConsultationFormData> {
+    return this.apiCall<ConsultationFormData>(
+      `/homepage/consultation-form/${id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(data),
+      }
+    );
   }
 
   // Bulk operations
-  async bulkUploadImages(files: File[], section: string): Promise<UploadResponse[]> {
+  async bulkUploadImages(
+    files: File[],
+    section: string
+  ): Promise<UploadResponse[]> {
     return this.uploadFiles(files, section);
   }
 
   async bulkDeleteFiles(fileUrls: string[]): Promise<boolean[]> {
-    const deletePromises = fileUrls.map(url => this.deleteFile(url));
+    const deletePromises = fileUrls.map((url) => this.deleteFile(url));
     return Promise.all(deletePromises);
   }
 
   // Health check
   async healthCheck(): Promise<boolean> {
     try {
-      await this.apiCall('/health');
+      await this.apiCall("/health");
       return true;
     } catch (error) {
       return false;
@@ -627,4 +703,4 @@ class HomepageAdminService {
 }
 
 const homepageAdminService = new HomepageAdminService();
-export default homepageAdminService; 
+export default homepageAdminService;

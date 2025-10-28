@@ -1,5 +1,6 @@
 // Project Detail Admin Service
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1';
+const API_BASE_URL =
+  process.env.REACT_APP_API_URL || "https://be.pgdesign.vn/api/v1";
 
 export interface ProjectDetailFormData {
   id?: number;
@@ -38,48 +39,52 @@ export interface ApiResponse<T> {
 
 // Convert ISO datetime string to YYYY-MM-DD format for HTML date inputs
 const formatDateForInput = (isoDateString: string): string => {
-  if (!isoDateString) return '';
+  if (!isoDateString) return "";
   try {
     const date = new Date(isoDateString);
-    return date.toISOString().split('T')[0]; // Gets YYYY-MM-DD
+    return date.toISOString().split("T")[0]; // Gets YYYY-MM-DD
   } catch (error) {
-    console.error('Error formatting date:', error);
-    return '';
+    console.error("Error formatting date:", error);
+    return "";
   }
 };
 
 // Get project by ID
-export const getProjectById = async (projectId: string): Promise<ProjectDetailFormData> => {
+export const getProjectById = async (
+  projectId: string
+): Promise<ProjectDetailFormData> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/projectdetail/project/${projectId}`);
-    
+    const response = await fetch(
+      `${API_BASE_URL}/projectdetail/project/${projectId}`
+    );
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data: ApiResponse<ProjectDetailFormData> = await response.json();
-    
+
     if (!data.success || !data.data) {
-      throw new Error(data.message || 'Failed to fetch project data');
+      throw new Error(data.message || "Failed to fetch project data");
     }
 
     // Convert date fields to proper format for HTML date inputs
     const projectData = {
       ...data.data,
       constructionDate: formatDateForInput(data.data.constructionDate),
-      completionDate: formatDateForInput(data.data.completionDate)
+      completionDate: formatDateForInput(data.data.completionDate),
     };
 
     return projectData;
   } catch (error) {
-    console.error('Error fetching project:', error);
+    console.error("Error fetching project:", error);
     throw error;
   }
 };
 
 // Create new project with automatic image upload
 export const createProject = async (
-  projectData: Omit<ProjectDetailFormData, 'id'>,
+  projectData: Omit<ProjectDetailFormData, "id">,
   thumbnailFile?: File | null,
   imageFiles?: File[]
 ): Promise<ProjectDetailFormData> => {
@@ -89,19 +94,19 @@ export const createProject = async (
     if (hasFiles) {
       // Use FormData for multipart upload
       const formData = new FormData();
-      formData.append('projectData', JSON.stringify(projectData));
-      
+      formData.append("projectData", JSON.stringify(projectData));
+
       if (thumbnailFile) {
-        formData.append('thumbnail', thumbnailFile);
+        formData.append("thumbnail", thumbnailFile);
       }
-      
+
       if (imageFiles && imageFiles.length > 0) {
-        imageFiles.forEach(file => formData.append('images', file));
+        imageFiles.forEach((file) => formData.append("images", file));
       }
 
       const response = await fetch(`${API_BASE_URL}/projectdetail`, {
-        method: 'POST',
-        body: formData
+        method: "POST",
+        body: formData,
         // No Content-Type header - browser sets it with boundary
       });
 
@@ -110,18 +115,18 @@ export const createProject = async (
       }
 
       const data: ApiResponse<ProjectDetailFormData> = await response.json();
-      
+
       if (!data.success || !data.data) {
-        throw new Error(data.message || 'Failed to create project');
+        throw new Error(data.message || "Failed to create project");
       }
 
       return data.data;
     } else {
       // Use JSON for simple request
       const response = await fetch(`${API_BASE_URL}/projectdetail`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(projectData),
       });
@@ -131,22 +136,22 @@ export const createProject = async (
       }
 
       const data: ApiResponse<ProjectDetailFormData> = await response.json();
-      
+
       if (!data.success || !data.data) {
-        throw new Error(data.message || 'Failed to create project');
+        throw new Error(data.message || "Failed to create project");
       }
 
       return data.data;
     }
   } catch (error) {
-    console.error('Error creating project:', error);
+    console.error("Error creating project:", error);
     throw error;
   }
 };
 
 // Update existing project with automatic image upload
 export const updateProject = async (
-  projectId: string, 
+  projectId: string,
   projectData: ProjectDetailFormData,
   thumbnailFile?: File | null,
   imageFiles?: File[]
@@ -154,9 +159,9 @@ export const updateProject = async (
   try {
     // First get the project to find its numeric ID
     const existingProject = await getProjectById(projectId);
-    
+
     if (!existingProject.id) {
-      throw new Error('Could not find project numeric ID');
+      throw new Error("Could not find project numeric ID");
     }
 
     const hasFiles = thumbnailFile || (imageFiles && imageFiles.length > 0);
@@ -164,56 +169,62 @@ export const updateProject = async (
     if (hasFiles) {
       // Use FormData for multipart upload
       const formData = new FormData();
-      formData.append('projectData', JSON.stringify(projectData));
-      
+      formData.append("projectData", JSON.stringify(projectData));
+
       if (thumbnailFile) {
-        formData.append('thumbnail', thumbnailFile);
-      }
-      
-      if (imageFiles && imageFiles.length > 0) {
-        imageFiles.forEach(file => formData.append('images', file));
+        formData.append("thumbnail", thumbnailFile);
       }
 
-      const response = await fetch(`${API_BASE_URL}/projectdetail/${existingProject.id}`, {
-        method: 'PUT',
-        body: formData
-      });
+      if (imageFiles && imageFiles.length > 0) {
+        imageFiles.forEach((file) => formData.append("images", file));
+      }
+
+      const response = await fetch(
+        `${API_BASE_URL}/projectdetail/${existingProject.id}`,
+        {
+          method: "PUT",
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data: ApiResponse<ProjectDetailFormData> = await response.json();
-      
+
       if (!data.success || !data.data) {
-        throw new Error(data.message || 'Failed to update project');
+        throw new Error(data.message || "Failed to update project");
       }
 
       return data.data;
     } else {
       // Use JSON for simple request
-      const response = await fetch(`${API_BASE_URL}/projectdetail/${existingProject.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(projectData),
-      });
+      const response = await fetch(
+        `${API_BASE_URL}/projectdetail/${existingProject.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(projectData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data: ApiResponse<ProjectDetailFormData> = await response.json();
-      
+
       if (!data.success || !data.data) {
-        throw new Error(data.message || 'Failed to update project');
+        throw new Error(data.message || "Failed to update project");
       }
 
       return data.data;
     }
   } catch (error) {
-    console.error('Error updating project:', error);
+    console.error("Error updating project:", error);
     throw error;
   }
 };
@@ -223,55 +234,64 @@ export const deleteProject = async (projectId: string): Promise<void> => {
   try {
     // First get the project to find its numeric ID
     const existingProject = await getProjectById(projectId);
-    
+
     if (!existingProject.id) {
-      throw new Error('Could not find project numeric ID');
+      throw new Error("Could not find project numeric ID");
     }
 
     // Use numeric ID for DELETE request
-    const response = await fetch(`${API_BASE_URL}/projectdetail/${existingProject.id}`, {
-      method: 'DELETE',
-    });
+    const response = await fetch(
+      `${API_BASE_URL}/projectdetail/${existingProject.id}`,
+      {
+        method: "DELETE",
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data: ApiResponse<null> = await response.json();
-    
+
     if (!data.success) {
-      throw new Error(data.message || 'Failed to delete project');
+      throw new Error(data.message || "Failed to delete project");
     }
   } catch (error) {
-    console.error('Error deleting project:', error);
+    console.error("Error deleting project:", error);
     throw error;
   }
 };
 
 // Get project categories for dropdown
-export const getProjectCategories = async (): Promise<Array<{id: number, categoryId: string, title: string}>> => {
+export const getProjectCategories = async (): Promise<
+  Array<{ id: number; categoryId: string; title: string }>
+> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/projectpage/project-categories`);
-    
+    const response = await fetch(
+      `${API_BASE_URL}/projectpage/project-categories`
+    );
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const data: ApiResponse<{categories: Array<{id: number, categoryId: string, title: string}>}> = await response.json();
-    
+    const data: ApiResponse<{
+      categories: Array<{ id: number; categoryId: string; title: string }>;
+    }> = await response.json();
+
     if (!data.success || !data.data) {
-      throw new Error(data.message || 'Failed to fetch categories');
+      throw new Error(data.message || "Failed to fetch categories");
     }
 
     return data.data.categories;
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    console.error("Error fetching categories:", error);
     // Return default categories
     return [
-      { id: 1, categoryId: 'appartment', title: 'APARTMENT' },
-      { id: 2, categoryId: 'house-normal', title: 'HOUSE NORMAL' },
-      { id: 3, categoryId: 'village', title: 'VILLA' },
-      { id: 4, categoryId: 'house-business', title: 'COMMERCIAL' }
+      { id: 1, categoryId: "appartment", title: "APARTMENT" },
+      { id: 2, categoryId: "house-normal", title: "HOUSE NORMAL" },
+      { id: 3, categoryId: "village", title: "VILLA" },
+      { id: 4, categoryId: "house-business", title: "COMMERCIAL" },
     ];
   }
 };
