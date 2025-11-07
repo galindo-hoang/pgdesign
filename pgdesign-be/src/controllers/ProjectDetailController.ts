@@ -136,6 +136,16 @@ export class ProjectDetailController {
     const projectData: CreateProjectDetailRequest = req.body.projectData 
       ? JSON.parse(req.body.projectData)
       : req.body;
+      
+    // Auto-generate projectId if not provided
+    if (!projectData.projectId || projectData.projectId.trim() === "") {
+      if (!projectData.category || projectData.category.trim() === "") {
+        throw createError('Category is required to auto-generate projectId', 400);
+      }
+      
+      // Generate project code based on category
+      projectData.projectId = await ProjectDetailModel.generateNextProjectCode(projectData.category);
+    }
 
     // Check if request has files
     const files = req.files as { [fieldname: string]: Express.Multer.File[] } | undefined;

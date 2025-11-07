@@ -29,6 +29,10 @@ const allowedOrigins = [
   'http://localhost:3001',
   'http://localhost:3002', // Backend self-reference
   'http://localhost:3003', // WebAdmin
+  'https://pgdesign.vn', // Production domain
+  'http://pgdesign.vn', // Production domain (non-SSL)
+  'https://webadmin.pgdesign.vn', // Production domain
+  'http://webadmin.pgdesign.vn', // Production domain (non-SSL)
   process.env.CORS_ORIGIN
 ].filter((origin): origin is string => typeof origin === 'string');
 

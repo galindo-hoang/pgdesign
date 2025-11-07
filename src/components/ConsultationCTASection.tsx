@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./ConsultationCTASection.css";
 
 interface ConsultationCTASectionProps {
@@ -23,13 +24,17 @@ const ConsultationCTASection: React.FC<ConsultationCTASectionProps> = ({
   imageUrl = "/src/assets/images/diary-image-1.png",
   onConsultationClick
 }) => {
-  const handleClick = () => {
+  const navigate = useNavigate();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Call custom handler if provided
     if (onConsultationClick) {
+      e.preventDefault();
       onConsultationClick();
-    } else {
-      // Default behavior
-      console.log("Consultation requested");
+      // Navigate using React Router after handler
+      navigate("/contact");
     }
+    // If no custom handler, Link will handle navigation naturally
   };
 
   return (
@@ -50,9 +55,13 @@ const ConsultationCTASection: React.FC<ConsultationCTASectionProps> = ({
               </div>
             ))}
           </div>
-          <button className="cta-button" onClick={handleClick}>
+          <Link 
+            to="/contact" 
+            className="cta-button" 
+            onClick={handleClick}
+          >
             {buttonText}
-          </button>
+          </Link>
         </div>
         <div className="cta-image">
           <img 
